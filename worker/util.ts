@@ -66,6 +66,11 @@ export const sendCaps = (env: Env) => ({
   people: Math.max(0, numOr(env.SEND_CAP_PEOPLE, 100)),
   total: Math.max(1, numOr(env.SEND_CAP, 160)),
 });
+// Painel de administração: soma n na métrica do dia (tabela stats). Contagem nunca derruba o pedido.
+export const tally = (db: D1Database, metric: string, n = 1) =>
+  db.prepare('INSERT INTO stats (day, metric, n) VALUES (?, ?, ?) ON CONFLICT(day, metric) DO UPDATE SET n = n + excluded.n')
+    .bind(new Date().toISOString().slice(0, 10), metric, n).run().then(() => undefined, () => undefined);
+
 export const sendsKey = () => `send:all:${new Date().toISOString().slice(0, 10)}`;
 
 // Contador com janela: soma `by` e devolve o total dentro da janela atual.

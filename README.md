@@ -4,7 +4,7 @@ Source code of [Shalom Mail](https://shalomail.com), an end-to-end encrypted ema
 check what it does. It is source-available for audit, **not open source**: you can read it, build it and report
 problems, but not reuse it. See [LICENSE](LICENSE).
 
-This snapshot is commit `6b8f8b9aaf916f3cb79e8e1e301bcf5932f4c2cd` of the private repository.
+This snapshot is commit `e07bab0551129a2bb04b9135a46becdd31745adc` of the private repository.
 
 ## Check that this is what runs at shalomail.com
 

@@ -6,7 +6,7 @@
 import { cancelSubscription } from './billing';
 import { boxOf } from './box';
 import type { Env } from './env';
-import { canonicalOf, now } from './util';
+import { canonicalOf, now, tally } from './util';
 
 // Dono de endereço aposentado que não é ninguém: addressTaken() trata como ocupado para todo mundo.
 export const NO_OWNER = '!gone';
@@ -34,5 +34,6 @@ export async function deleteAccount(env: Env, userId: string): Promise<{ address
     env.DB.prepare('DELETE FROM invites WHERE owner_id = ?').bind(userId),
     env.DB.prepare(`DELETE FROM users WHERE id IN (${marks})`).bind(...ids),
   ]);
+  await tally(env.DB, 'deleted');
   return { address: user.address, agents: agents.length };
 }

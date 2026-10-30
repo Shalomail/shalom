@@ -9,7 +9,7 @@ import { isSealedSender } from '../shared/sender';
 import { boxOf } from './box';
 import type { AppEnv } from './env';
 import { loadKeys } from './keys';
-import { bump, clientIp, fail, normalizeAddress, peek } from './util';
+import { bump, clientIp, fail, normalizeAddress, peek, tally } from './util';
 
 // Entrega anônima não tem como provar quem mandou: o tamanho e o volume diário por caixa são o freio
 // contra encher a caixa de alguém com lixo.
@@ -69,5 +69,6 @@ open.post('/deliver', async c => {
     await c.env.BLOBS.delete(`m/${user.id}/${id}`);
     return fail(c, 413, 'full', `A caixa de ${to} está cheia.`);
   }
+  await tally(c.env.DB, 'delivered');
   return c.json({ ok: true });
 });

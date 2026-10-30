@@ -8,7 +8,7 @@ import { boxOf, FOLDERS, type MigrationRow } from './box';
 import type { AppEnv } from './env';
 import { planOf } from './plans';
 import { fromB64, toB64 } from '../shared/seal';
-import { bump, clientIp, fail, normalizeAddress, now, peek, sameBytes, sha256 } from './util';
+import { bump, clientIp, fail, normalizeAddress, now, peek, sameBytes, sendCaps, sendsKey, sha256 } from './util';
 
 export const admin = new Hono<AppEnv>();
 
@@ -86,6 +86,40 @@ admin.post('/delete', async c => {
     if (!(e instanceof CancelFailed)) throw e;
     return fail(c, 502, 'stripe_error', `O Stripe não cancelou a assinatura (${e.message}); nada foi apagado.`);
   }
+});
+
+// Números do painel (scripts/painel.mjs): só contagens, de contas e de eventos por dia. Nada de endereço,
+// nome ou conteúdo sai daqui.
+admin.post('/stats', async c => {
+  const db = c.env.DB;
+  const t = now();
+  const DAY = 24 * 3600 * 1000;
+  const since = t - 90 * DAY;
+  const one = (sql: string, ...args: unknown[]) => db.prepare(sql).bind(...args).first<number>('n').then(n => n ?? 0);
+  const [people, agents, suspended, recovery, totp, pin, active1, active7, active30, signups, agentDays, events, plans, langs, sentToday] = await Promise.all([
+    one('SELECT COUNT(*) AS n FROM users WHERE owner_id IS NULL'),
+    one('SELECT COUNT(*) AS n FROM users WHERE owner_id IS NOT NULL'),
+    one('SELECT COUNT(*) AS n FROM users WHERE suspended_at IS NOT NULL'),
+    one('SELECT COUNT(*) AS n FROM users WHERE owner_id IS NULL AND recovery_verified = 1'),
+    one('SELECT COUNT(*) AS n FROM users WHERE owner_id IS NULL AND totp_on = 1'),
+    one('SELECT COUNT(*) AS n FROM users WHERE owner_id IS NULL AND pin_hash IS NOT NULL'),
+    one('SELECT COUNT(DISTINCT user_id) AS n FROM sessions WHERE last_seen > ?', t - DAY),
+    one('SELECT COUNT(DISTINCT user_id) AS n FROM sessions WHERE last_seen > ?', t - 7 * DAY),
+    one('SELECT COUNT(DISTINCT user_id) AS n FROM sessions WHERE last_seen > ?', t - 30 * DAY),
+    db.prepare("SELECT date(created_at / 1000, 'unixepoch') AS day, COUNT(*) AS n FROM users WHERE owner_id IS NULL AND created_at > ? GROUP BY day").bind(since).all<{ day: string; n: number }>(),
+    db.prepare("SELECT date(created_at / 1000, 'unixepoch') AS day, COUNT(*) AS n FROM users WHERE owner_id IS NOT NULL AND created_at > ? GROUP BY day").bind(since).all<{ day: string; n: number }>(),
+    db.prepare('SELECT day, metric, n FROM stats WHERE day >= ? ORDER BY day').bind(new Date(since).toISOString().slice(0, 10)).all<{ day: string; metric: string; n: number }>(),
+    db.prepare('SELECT plan, status, COUNT(*) AS n FROM billing GROUP BY plan, status').all<{ plan: string; status: string | null; n: number }>(),
+    db.prepare('SELECT lang, COUNT(*) AS n FROM users WHERE owner_id IS NULL GROUP BY lang ORDER BY n DESC').all<{ lang: string; n: number }>(),
+    peek(db, sendsKey()),
+  ]);
+  return c.json({
+    at: t,
+    accounts: { people, agents, suspended, recovery, totp, pin, active: { day: active1, week: active7, month: active30 } },
+    signups: signups.results, agentsCreated: agentDays.results, events: events.results,
+    plans: plans.results, langs: langs.results,
+    sending: { today: sentToday, caps: sendCaps(c.env) },
+  });
 });
 
 // ---- Migração para outra conta Cloudflare (scripts/migrate.mjs; passo a passo em docs/migracao.md) ----

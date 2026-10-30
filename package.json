@@ -14,7 +14,8 @@
     "smoke:account": "node scripts/run-ts.mjs scripts/smoke-account.ts",
     "seed": "wrangler d1 execute shalom --local --command \"DELETE FROM counters\" && node scripts/run-ts.mjs scripts/seed.ts",
     "deploy": "node scripts/deploy-prod.mjs",
-    "admin": "node scripts/admin.mjs"
+    "admin": "node scripts/admin.mjs",
+    "painel": "node scripts/painel.mjs"
   },
   "engines": {
     "node": ">=20"

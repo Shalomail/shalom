@@ -8,7 +8,7 @@ import { newApiKey } from './apikeys';
 import { boxOf } from './box';
 import type { AppEnv } from './env';
 import { agentCount, CREATES_PER_DAY, planOf } from './plans';
-import { bump, canonicalOf, fail, isReserved, normalizeAddress, now, randomToken, sha256 } from './util';
+import { bump, canonicalOf, fail, isReserved, normalizeAddress, now, randomToken, sha256, tally } from './util';
 import { fromB64, seal, toB64 } from '../shared/seal';
 
 const DAY = 24 * 3600 * 1000;
@@ -102,6 +102,7 @@ agents.post('/', async c => {
     throw e;
   }
   if (!created) return fail(c, 402, 'agent_limit', `Seu plano permite ${plan.limit} caixas de agente. Apague uma ou mude de plano.`);
+  await tally(c.env.DB, 'agent_new');
   await boxOf(c.env, id).ensureAlarm(id);
   const key = await newApiKey(c.env, id, 'agent', name);
   return c.json({ agent: { id, address: full, name, createdAt: t }, key });

@@ -2,7 +2,7 @@
 // nao-responda@ pelo Email Service. Com o envio desligado (dev), o link vai para o log.
 import type { Env } from './env';
 import { NOTIFY, notifyTexts, type NotifyTexts } from './notify-texts';
-import { bump, now, randomToken, sendCaps, sendsKey, sha256 } from './util';
+import { bump, now, randomToken, sendCaps, sendsKey, sha256, tally } from './util';
 
 export type TokenKind = 'verify' | 'reset';
 export const TOKEN_MS: Record<TokenKind, number> = { verify: 24 * 3600 * 1000, reset: 3600 * 1000 };
@@ -128,6 +128,7 @@ async function send(env: Env, to: string, subject: string, text: string, html: s
   }
   if ((await bump(env.DB, sendsKey(), 24 * 3600 * 1000)) > sendCaps(env).total) throw new Error('teto geral de envio do dia atingido');
   await env.EMAIL.send({ from: { email: `nao-responda@${env.MAIL_DOMAIN}`, name: 'Shalom Mail' }, to, subject, text, html } as unknown as EmailMessageBuilder);
+  await tally(env.DB, 'sent_system');
 }
 
 const NOTIFY_LANG = (lang: string) => (NOTIFY[lang] ? lang : 'en');

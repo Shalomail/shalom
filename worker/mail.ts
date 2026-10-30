@@ -11,7 +11,7 @@ import type { AppEnv, Env } from './env';
 import { b64ToBig, bigToB64, modLen, signBlinded } from '../shared/blind';
 import { signCert } from '../shared/sender';
 import { loadKeys } from './keys';
-import { bump, fail, isEmail, now, peek, sendCaps, sendsKey } from './util';
+import { bump, fail, isEmail, now, peek, sendCaps, sendsKey, tally } from './util';
 
 const MAX_RAW = 15 * 1024 * 1024;
 const MAX_SEND_BODY = 12 * 1024 * 1024;
@@ -82,7 +82,8 @@ export async function receiveEmail(message: ForwardableEmailMessage, env: Env) {
   // Fotos grandes ficam menores (images.ts) antes de trancar.
   const stored = await shrinkImages(email, raw);
   const sealedRaw = await seal(pub, await pack(stored), 'raw');
-  if (!(await store(env, user.id, folder, sealedRaw, head))) message.setReject('Caixa de entrada cheia');
+  if (!(await store(env, user.id, folder, sealedRaw, head))) return message.setReject('Caixa de entrada cheia');
+  await tally(env.DB, folder === 'spam' ? 'received_spam' : 'received');
 }
 
 export const mail = new Hono<AppEnv>();
@@ -346,6 +347,7 @@ mail.post('/send', async c => {
     if (c.env.EMAIL_SENDING === 'on') {
       try {
         await c.env.EMAIL.send(outgoing as EmailMessageBuilder);
+        await tally(c.env.DB, 'sent_out', all.length);
       } catch (e) {
         console.error('envio falhou', (e as { code?: string }).code, String(e));
         return fail(c, 502, 'send_failed', 'O envio para fora falhou. Tente de novo em instantes.');

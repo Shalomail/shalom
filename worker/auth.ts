@@ -18,7 +18,7 @@ import { pickLocale } from '../shared/locale';
 import { LOCALES } from '../shared/locales.gen';
 import { keyAuth } from './apikeys';
 import type { AppEnv, Env, User } from './env';
-import { bump, canonicalOf, clear, clientIp, fail, hex, hmac, isReserved, lockEnvelope, normalizeAddress, now, peek, randomToken, sameBytes, sha256, suspended, unlockEnvelope } from './util';
+import { bump, canonicalOf, clear, clientIp, fail, hex, hmac, isReserved, lockEnvelope, normalizeAddress, now, peek, randomToken, sameBytes, sha256, suspended, tally, unlockEnvelope } from './util';
 
 const DAY = 24 * 3600 * 1000;
 const SESSION_MS = 30 * DAY;
@@ -281,6 +281,7 @@ auth.post('/signup', async c => {
   }
   await bump(c.env.DB, ipKey, DAY);
   await bump(c.env.DB, hourKey, 3600 * 1000);
+  await tally(c.env.DB, 'signup');
   await boxOf(c.env, id).ensureAlarm(id);
   c.executionCtx.waitUntil(leaveWelcome(c.env, { id, address: full, name, publicKey: body.publicKey }, lang).catch(e => console.error('boas-vindas falhou', String(e))));
   await startSession(c, id);
