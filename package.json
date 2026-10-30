@@ -1,0 +1,57 @@
+{
+  "name": "shalom",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:worker": "wrangler dev --port 8790 --ip 127.0.0.1",
+    "dev:web": "vite --config web/vite.config.ts",
+    "build": "vite build --config web/vite.config.ts",
+    "db:migrate": "wrangler d1 migrations apply shalom --local",
+    "typecheck": "tsc --noEmit -p worker && tsc --noEmit -p web",
+    "smoke": "node scripts/run-ts.mjs scripts/smoke.ts",
+    "smoke:account": "node scripts/run-ts.mjs scripts/smoke-account.ts",
+    "seed": "wrangler d1 execute shalom --local --command \"DELETE FROM counters\" && node scripts/run-ts.mjs scripts/seed.ts",
+    "deploy": "node scripts/deploy-prod.mjs",
+    "admin": "node scripts/admin.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@jsquash/jpeg": "^1.6.0",
+    "@jsquash/png": "^3.1.1",
+    "@jsquash/resize": "^2.1.1",
+    "@jsquash/webp": "^1.5.0",
+    "@noble/curves": "^2.4.0",
+    "@zxcvbn-ts/core": "^4.2.0",
+    "@zxcvbn-ts/language-common": "^4.1.3",
+    "@zxcvbn-ts/language-pt-br": "^4.1.1",
+    "dompurify": "^3.4.17",
+    "hash-wasm": "^4.12.0",
+    "hono": "^4.13.14",
+    "postal-mime": "^4.2.0",
+    "qrcode-generator": "^1.5.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261030.1",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "esbuild": "^0.28.2",
+    "simple-icons": "^16.36.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "wrangler": "^4.156.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261023.1": true
+  }
+}

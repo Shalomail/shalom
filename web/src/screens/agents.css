@@ -1,0 +1,140 @@
+/* Agentes de IA: página de uma coluna, mais estreita que as Configurações. Seções separadas por espaço,
+   cada uma com título curto. O uso do plano fica numa faixa no topo; as caixas, as chaves e os planos
+   são linhas com superfície própria. Cor só para estado: verde = ativa, âmbar = pausada ou cheia. */
+
+.ag-page { max-width: 760px; }
+.ag .st-top { margin-bottom: 8px; }
+.ag-lead { max-width: 60ch; font-size: 15px; line-height: 23px; color: var(--text-2); text-wrap: pretty; }
+
+/* Faixa do plano: nome, quanto está em uso, o medidor e a ação. */
+.ag-usage {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) auto; align-items: center; gap: 24px;
+  margin-top: 28px; padding: 18px 20px; border-radius: 16px; background: var(--st-card); box-shadow: var(--st-card-ring);
+}
+.ag-usage-plan { font-size: 15px; line-height: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.ag-usage-count { margin-top: 2px; font-size: 13px; line-height: 19px; color: var(--text-3); }
+.ag-meter { height: 6px; border-radius: 999px; background: var(--fill-2); overflow: hidden; }
+.ag-meter span { display: block; height: 100%; border-radius: inherit; background: var(--text-2); transition: width 300ms var(--ease-out); }
+.ag-usage.is-full .ag-meter span { background: var(--warn); }
+.ag-meter-none { display: block; }
+
+.ag-note { margin-top: 10px; font-size: 13px; line-height: 19px; color: var(--text-3); }
+.st-done.ag-note, .st-error.ag-note { display: flex; align-items: center; gap: 6px; }
+.st-done.ag-note { color: var(--safe); }
+.st-error.ag-note { color: var(--warn); }
+
+/* Seções */
+.ag-sec { margin-top: 48px; }
+.ag-sec h2 { font-size: 17px; line-height: 24px; font-weight: 600; letter-spacing: -0.015em; }
+.ag-sec-desc { margin-top: 4px; max-width: 60ch; font-size: 13.5px; line-height: 20px; color: var(--text-3); }
+
+/* Comece pelo terminal: número, o que fazer e o comando, em linhas, sem cartão em volta. */
+.ag-steps { display: grid; gap: 18px; margin: 16px 0 0; padding: 0; list-style: none; }
+.ag-steps li { display: grid; grid-template-columns: 26px minmax(0, 1fr); column-gap: 14px; }
+.ag-step-num {
+  width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--text); background: var(--fill-2);
+}
+.ag-step-main { min-width: 0; padding-top: 2px; }
+.ag-step-main p { font-size: 14px; line-height: 21px; color: var(--text); }
+.ag-cmd {
+  display: flex; align-items: center; gap: 10px; max-width: 520px; height: 42px; margin-top: 8px; padding: 0 6px 0 14px; border-radius: 11px;
+  background: var(--field); box-shadow: inset 0 0 0 1px var(--field-line);
+}
+.ag-cmd-prompt { flex: none; font: 500 13.5px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--text-3); user-select: none; }
+.ag-cmd code { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; font: 500 13.5px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--text); scrollbar-width: none; }
+.ag-cmd-copy { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; color: var(--text-3); transition: background-color 120ms, color 120ms; }
+.ag-cmd-copy:hover { background: var(--fill-2); color: var(--text); }
+.ag-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; margin-inline-start: 40px; font-size: 13.5px; line-height: 20px; font-weight: 500; color: var(--text-2); transition: color 120ms; }
+.ag-link:hover { color: var(--text); }
+[dir='rtl'] .ag-link svg { transform: scaleX(-1); }
+
+/* Caixas e chaves: uma linha por item, com superfície leve, separadas por espaço. */
+.ag-boxes, .ag-keys { display: grid; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+.ag-boxes li, .ag-keys li {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; column-gap: 14px;
+  min-height: 64px; padding: 10px 10px 10px 14px; border-radius: 14px; background: var(--st-card); box-shadow: var(--st-card-ring);
+}
+.ag-keys li { grid-template-columns: auto minmax(0, 1fr) auto; min-height: 58px; }
+.ag-box-tile { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; color: var(--text-2); background: var(--fill-2); }
+.ag-box-text { display: grid; min-width: 0; }
+.ag-box-text strong { font-size: 14px; line-height: 20px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ag-box-text span { font-size: 12.5px; line-height: 18px; color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ag-state {
+  display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px 0 8px; border-radius: 999px;
+  font-size: 12px; font-weight: 600; color: var(--safe); background: var(--safe-soft);
+}
+.ag-state::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.ag-state.is-paused { color: var(--warn); background: var(--warn-soft); }
+.ag-confirm { display: flex; gap: 6px; }
+.ag-key-dot { width: 8px; height: 8px; margin-inline: 4px; border-radius: 50%; background: var(--safe); }
+.ag-key-dot.is-idle { background: var(--fill-3); }
+.ag-keys-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; margin-top: 14px; }
+.ag-keys-foot .ag-note { margin: 0; }
+
+.ag-fresh { display: grid; gap: 4px; margin-top: 12px; padding: 16px 18px; border-radius: 14px; background: var(--st-card); box-shadow: var(--st-card-ring), inset 0 0 0 1px var(--safe-soft); }
+.ag-fresh-title { font-size: 14px; line-height: 20px; font-weight: 600; }
+.ag-fresh-note { font-size: 13px; line-height: 19px; color: var(--text-2); }
+.ag-fresh-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.ag-fresh-row .st-input { flex: 1 1 280px; }
+.ag-fresh-row .st-btn { height: 44px; }
+.ag-key { font: 500 13px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+/* Planos: uma lista de escolha, cada plano numa linha. O atual leva o visto e fica marcado. */
+.ag-plans { display: grid; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+.ag-plans li {
+  display: grid; grid-template-columns: 22px minmax(0, 1fr) auto minmax(104px, auto); align-items: center; column-gap: 16px;
+  min-height: 64px; padding: 10px 12px 10px 16px; border-radius: 14px; background: var(--st-card); box-shadow: var(--st-card-ring);
+}
+.ag-plans li.is-current { box-shadow: var(--st-card-ring), inset 0 0 0 1.5px var(--text-3); }
+.ag-plan-mark { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px var(--fill-3); }
+.is-current .ag-plan-mark { background: var(--text); color: var(--bg); box-shadow: none; }
+.ag-plan-text { display: grid; min-width: 0; }
+.ag-plan-text strong { font-size: 14.5px; line-height: 21px; font-weight: 600; }
+.ag-plan-text span { font-size: 13px; line-height: 19px; color: var(--text-3); }
+.ag-plan-price { font-size: 14.5px; line-height: 21px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ag-plan-action { display: flex; justify-content: flex-end; }
+.ag-plan-tag { font-size: 13px; font-weight: 500; color: var(--text-2); }
+
+/* Conectar o terminal: um cartão no meio da tela, com o código grande para comparar. */
+.ag-connect-wrap { display: grid; place-items: center; padding-top: 8vh; }
+.ag-connect {
+  width: min(460px, 100%); display: grid; justify-items: center; text-align: center; padding: 32px 28px 28px; border-radius: 20px;
+  background: var(--st-card); box-shadow: var(--st-card-ring); animation: fade-up 300ms var(--ease-out) both;
+}
+.ag-connect-mark { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; color: var(--text); background: var(--fill-2); transition: background-color 240ms, color 240ms; }
+.ag-connect-mark.is-done { color: var(--bg); background: var(--safe); }
+.ag-connect h1 { margin-top: 18px; font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: -0.025em; }
+.ag-connect-text { margin-top: 8px; max-width: 38ch; font-size: 14px; line-height: 21px; color: var(--text-2); text-wrap: pretty; }
+.ag-code {
+  margin-top: 22px; padding: 12px 20px; border-radius: 12px; background: var(--field); box-shadow: inset 0 0 0 1px var(--field-line);
+  font: 600 28px/1.1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; color: var(--text);
+}
+.ag-connect-hint { margin-top: 8px; font-size: 12.5px; line-height: 18px; color: var(--text-3); }
+.ag-connect-meta { display: grid; gap: 8px; width: 100%; margin: 22px 0 0; text-align: start; }
+.ag-connect-meta > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; font-size: 13px; line-height: 19px; }
+.ag-connect-meta dt { color: var(--text-3); }
+.ag-connect-meta dd { margin: 0; color: var(--text); overflow-wrap: anywhere; }
+.ag-connect-warn { display: flex; align-items: flex-start; gap: 8px; width: 100%; margin-top: 18px; padding: 10px 12px; border-radius: 10px; background: var(--warn-soft); font-size: 12.5px; line-height: 18px; color: var(--text); text-align: start; }
+.ag-connect-warn svg { flex: none; margin-top: 1px; color: var(--warn); }
+.ag-connect-actions { display: flex; gap: 8px; width: 100%; margin-top: 20px; }
+.ag-connect-actions .btn { flex: 1; height: 44px; }
+.ag-connect-form { display: grid; gap: 12px; width: 100%; margin-top: 4px; }
+.ag-code-input { height: 52px; text-align: center; font: 600 22px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; }
+.ag-connect-form .btn { height: 44px; }
+.ag-connect-form .ag-note { display: block; margin: 0; text-align: center; text-wrap: pretty; }
+.ag-connect-form .ag-note svg { display: inline-block; vertical-align: -2px; margin-inline-end: 6px; }
+.ag-connect-next { margin-top: 18px; }
+
+@media (max-width: 640px) {
+  .ag-usage { grid-template-columns: minmax(0, 1fr) auto; gap: 14px 16px; }
+  .ag-meter { grid-column: 1 / -1; grid-row: 2; }
+  .ag-boxes li { grid-template-columns: auto minmax(0, 1fr) auto; row-gap: 8px; }
+  .ag-boxes li .ag-state { grid-column: 2; justify-self: start; }
+  .ag-boxes li > .st-btn, .ag-boxes li > .ag-confirm { grid-column: 3; grid-row: 1 / span 2; }
+  .ag-plans li { grid-template-columns: 22px minmax(0, 1fr) auto; row-gap: 6px; }
+  .ag-plan-price { grid-column: 2; grid-row: 2; font-size: 13.5px; }
+  .ag-plan-action { grid-column: 3; grid-row: 1 / span 2; }
+  .ag-link { margin-inline-start: 0; }
+  .ag-connect { padding: 26px 20px 22px; }
+}

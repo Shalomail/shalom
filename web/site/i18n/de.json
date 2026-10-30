@@ -1,0 +1,525 @@
+{
+  "meta": {
+    "tag": "de",
+    "name": "Deutsch",
+    "dir": "ltr",
+    "title": "Shalom Mail: verschlüsselte E-Mail, wirklich privat",
+    "description": "Deine E-Mails sind mit einem Schlüssel verschlossen, den es nur auf deinem Gerät gibt. Kostenlos, ohne Telefonnummer und ohne Ausweis."
+  },
+  "nav": {
+    "home": "Shalom Mail, Startseite",
+    "account": "Konto",
+    "signin": "Anmelden",
+    "signup": "Konto erstellen"
+  },
+  "hero": {
+    "title": "E-Mail, die wirklich privat bleibt.",
+    "lede": "Deine E-Mails sind mit einem Schlüssel verschlossen, den es nur auf deinem Gerät gibt."
+  },
+  "claim": {
+    "placeholder": "name",
+    "label": "Deine Wunschadresse",
+    "submit": "Mit dieser Adresse erstellen",
+    "free": "Kostenlos. Ohne Telefonnummer, ohne Ausweis.",
+    "minute": "Dauert nur eine Minute.",
+    "checking": "Wird geprüft...",
+    "ok": "Die Adresse ist frei.",
+    "taken": "Diese Adresse ist schon vergeben.",
+    "reserved": "Diese Adresse ist reserviert.",
+    "invalid": "3 bis 32 Buchstaben oder Ziffern, am Anfang und am Ende ein Buchstabe oder eine Ziffer."
+  },
+  "shot": {
+    "alt": "Der Posteingang von Shalom Mail mit einer Ende-zu-Ende-verschlüsselten Unterhaltung"
+  },
+  "points": {
+    "label": "Das gehört zum Konto",
+    "key": {
+      "title": "Der Schlüssel bleibt bei dir",
+      "text": "Er entsteht auf deinem Gerät und geht nie an den Server. Ohne ihn kann niemand deine gespeicherten E-Mails öffnen."
+    },
+    "ads": {
+      "title": "Keine Werbung, kein Tracking",
+      "text": "Bilder, die melden, wann du eine E-Mail geöffnet hast, werden blockiert. Gefälschte Absender werden bernsteinfarben markiert."
+    },
+    "free": {
+      "title": "Kostenlos, mit 1 GB",
+      "text": "Eine @shalomail.com-Adresse, die mit jeder E-Mail-Adresse funktioniert. Zwischen Shalom-Konten Ende-zu-Ende verschlüsselt."
+    }
+  },
+  "others": {
+    "title": "Funktioniert mit jeder E-⁠Mail.",
+    "text": "Schreib an alle, die Gmail, Outlook oder etwas anderes nutzen. Bei ihnen kommt eine ganz normale E-Mail an; zwischen Shalom-Konten ist alles Ende-zu-Ende verschlüsselt."
+  },
+  "seen": {
+    "title": "Verschlüsselung auf Militärniveau.",
+    "lead": "AES-256, dieselbe Verschlüsselung, mit der Regierungen streng geheime Informationen schützen. Jede E-Mail wird damit verschlossen, bevor sie gespeichert wird, und nur dein Schlüssel öffnet sie.",
+    "label": "Dieselbe Nachricht: so, wie du sie liest, und so, wie der Server sie speichert",
+    "you": "Du liest",
+    "server": "Der Server speichert",
+    "text": "Lena, ich habe den Vertrag geprüft. Es fehlt nur noch deine Unterschrift auf Seite 4."
+  },
+  "end": {
+    "title": "Such dir deine Adresse aus."
+  },
+  "foot": {
+    "note": "E-Mails von anderen Diensten kommen unverschlüsselt an, wie jede E-Mail, und werden beim Eingang verschlüsselt. E-Mails an andere Dienste werden als normale E-Mail verschickt. Ende-zu-Ende-Verschlüsselung gilt zwischen Shalom-Konten.",
+    "links": "Links",
+    "terms": "Nutzungsbedingungen",
+    "privacy": "Datenschutz",
+    "agents": "KI-Agenten",
+    "developers": "Entwickler",
+    "encryption": "Verschlüsselung",
+    "faq": "Häufige Fragen",
+    "about": "Shalom Mail (shalomail.com) ist ein verschlüsselter E-Mail-Dienst, der im Browser läuft. Gespeicherte E-Mails sind mit einem Schlüssel verschlossen, den es nur auf deinem Gerät gibt, und zwischen Shalom-Konten ist alles Ende-zu-Ende verschlüsselt."
+  },
+  "legal": {
+    "updated": "Zuletzt aktualisiert: 30. Oktober 2026",
+    "translationNote": "Dies ist eine Übersetzung. Bei Abweichungen von der portugiesischen Fassung ist die portugiesische Fassung maßgeblich.",
+    "operator": "Shalom Mail wird von {c} mit Sitz in Governador Celso Ramos, SC, Brasilien, betrieben.",
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "intro": "Diese Bedingungen gelten für alle, die ein Konto bei Shalom Mail erstellen. Sie sind absichtlich kurz: was wir anbieten, was wir von dir erwarten und was passiert, wenn etwas schiefgeht.",
+      "sections": [
+        {
+          "h": "1. Der Dienst",
+          "p": [
+            "Shalom Mail ist ein verschlüsselter E-Mail-Dienst mit einer Adresse @shalomail.com. Das Konto ist kostenlos und hat 1 GB Speicherplatz.",
+            "Wir können Funktionen und Limits im Laufe der Zeit ändern. Wenn eine Änderung etwas betrifft, das du nutzt, sagen wir dir vorher in der App Bescheid.",
+            "Mit der CLI kann dein Konto E-Mail-Postfächer für KI-Agenten erstellen: 2 ohne Kosten und mehr mit den Tarifen Agents 5 (bis zu 5 Postfächer, 4,99 US$ im Monat), Agents 12 (bis zu 12 Postfächer, 9,99 US$ im Monat) und Unlimited (unbegrenzt viele Postfächer, bis zu 250 neue pro Tag, 49,90 US$ im Monat). Das Abo ist monatlich, verlängert sich automatisch und lässt sich jederzeit im Zahlungsportal kündigen; es läuft bis zum Ende des bezahlten Zeitraums. Du kannst innerhalb von 7 Tagen nach Abschluss widerrufen und bekommst dein Geld zurück. Die Zahlung wird von Stripe abgewickelt. Du haftest für das, was deine Agenten senden, als hättest du es selbst gesendet."
+          ]
+        },
+        {
+          "h": "2. Dein Konto",
+          "p": [
+            "Um ein Konto zu erstellen, musst du mindestens 13 Jahre alt sein oder das in deinem Land vorgeschriebene Mindestalter haben. Wenn du unter 18 bist, nutze es mit Begleitung eines Elternteils oder einer erziehungsberechtigten Person.",
+            "Adressen, die sich nur durch Punkte, Bindestriche oder Unterstriche unterscheiden, gelten als dieselbe Adresse. So kann niemand eine Adresse registrieren, die der eines anderen zum Verwechseln ähnlich sieht.",
+            "Du bist für dein Passwort, deine PIN und deine Wiederherstellungscodes verantwortlich, ebenso für alles, was mit deinem Konto geschieht."
+          ]
+        },
+        {
+          "h": "3. Dein Passwort ist der Schlüssel",
+          "p": [
+            "Deine gespeicherten E-Mails lassen sich nur mit einem Schlüssel öffnen, der durch dein Passwort verschlossen ist. Wir haben keine Kopie dieses Schlüssels.",
+            "Wenn du dein Passwort vergisst, können wir deine gespeicherten E-Mails deshalb nicht wiederherstellen. Das ist kein Fehler des Dienstes, sondern genau das, was garantiert, dass nur du sie lesen kannst. Bewahre dein Passwort gut auf und, falls du die Bestätigung in zwei Schritten aktivierst, auch deine Wiederherstellungscodes."
+          ]
+        },
+        {
+          "h": "4. Was nicht erlaubt ist",
+          "p": [
+            "Nutze Shalom Mail nicht, um:",
+            {
+              "ul": [
+                "Spam oder Massennachrichten zu verschicken, um die niemand gebeten hat;",
+                "zu betrügen, Phishing zu betreiben oder dich als eine andere Person oder Firma auszugeben;",
+                "Viren oder andere Schadsoftware zu verbreiten;",
+                "jemanden zu belästigen, zu bedrohen oder ihm nachzustellen;",
+                "Darstellungen von sexuellem Kindesmissbrauch zu teilen;",
+                "gegen Gesetze oder die Rechte anderer zu verstoßen;",
+                "Limits zu umgehen, in Konten einzudringen oder den Dienst anzugreifen."
+              ]
+            },
+            "Es gibt Versandlimits, etwa die Zahl der Empfänger pro Tag, um die Menschen zu schützen, die den Dienst nutzen, und den Ruf unserer Adressen."
+          ]
+        },
+        {
+          "h": "5. Sperrung",
+          "p": [
+            "Wir können Konten einschränken oder sperren, die gegen diese Bedingungen verstoßen. Missbrauch wie Spam und Betrug zeigt sich am Versandvolumen und an Meldungen, ohne dass wir den Inhalt lesen müssen, der verschlüsselt bleibt.",
+            "Wenn möglich, warnen wir dich vorher. Wenn du glaubst, dass es ein Irrtum war, schreib an contato@shalomail.com."
+          ]
+        },
+        {
+          "h": "6. Was du schreibst, gehört dir",
+          "p": [
+            "Wir beanspruchen keinerlei Rechte an dem, was du schreibst oder empfängst. Da es verschlüsselt ist, können wir es nicht einmal sehen."
+          ]
+        },
+        {
+          "h": "7. Keine Garantie für fehlerfreien Betrieb",
+          "p": [
+            "Wir tun unser Bestes, damit der Dienst erreichbar und sicher bleibt, aber er wird so bereitgestellt, wie er ist, ohne Garantie, dass er ohne Unterbrechungen oder Fehler funktioniert. Bewahre eine Kopie von allem auf, was dir wichtig ist.",
+            "Soweit gesetzlich zulässig, haften wir nicht für indirekte Schäden und nicht für den Verlust von E-Mails durch ein vergessenes Passwort oder durch einen Zugriff mit deinen Anmeldedaten."
+          ]
+        },
+        {
+          "h": "8. Konto schließen",
+          "p": [
+            "Du kannst dein Konto jederzeit löschen, unten in den Einstellungen, oder es per E-Mail an contato@shalomail.com beantragen. Wird ein Konto gelöscht, werden die gespeicherten E-Mails, die Agenten-Postfächer und die Kontodaten entfernt und der Tarif gekündigt. Die Adresse bleibt reserviert und wird von niemandem mehr verwendet."
+          ]
+        },
+        {
+          "h": "9. Änderungen dieser Bedingungen",
+          "p": [
+            "Wenn sich diese Bedingungen wesentlich ändern, informieren wir dich in der App, bevor die Änderung wirksam wird. Wenn du den Dienst danach weiter nutzt, akzeptierst du die neue Fassung."
+          ]
+        },
+        {
+          "h": "10. Anwendbares Recht und Kontakt",
+          "p": [
+            "Für diese Bedingungen gilt brasilianisches Recht. Bist du Verbraucher, behältst du alle Rechte, die dir das Recht an deinem Wohnort garantiert.",
+            "Fragen: contato@shalomail.com."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "intro": "Shalom Mail wurde so gebaut, dass es so wenig wie möglich über dich weiß. Hier steht ohne Umschweife, was der Dienst speichert, was er nicht sehen kann und was du verlangen kannst.",
+      "sections": [
+        {
+          "h": "1. Wer für deine Daten verantwortlich ist",
+          "p": [
+            "Shalom Mail ist Verantwortlicher für die in diesem Dienst verarbeiteten Daten im Sinne des brasilianischen Datenschutzgesetzes (LGPD, Gesetz Nr. 13.709/2018) und, für Personen in der Europäischen Union, der Datenschutz-Grundverordnung (DSGVO).",
+            "Für Fragen zum Datenschutz: privacidade@shalomail.com."
+          ]
+        },
+        {
+          "h": "2. Was verschlüsselt ist und niemand außer dir lesen kann",
+          "p": [
+            {
+              "ul": [
+                "Deine gespeicherten E-Mails: Text, Betreff, Absender, Anhänge und zu welcher Unterhaltung jede gehört. All das ist mit deinem Schlüssel verschlossen.",
+                "Der Schlüssel, der deine E-Mails öffnet, liegt in einem Umschlag, der mit deinem Passwort verschlossen ist und nur auf deinem Gerät geöffnet wird. Der Server bewahrt den Umschlag verschlossen auf, mit einem zweiten, eigenen Schloss, und hat keine Möglichkeit, ihn zu öffnen.",
+                "Dein Passwort erreicht nie den Server. Dein Gerät leitet daraus einen Nachweis ab, und wir speichern nur einen Code, der aus diesem Nachweis erzeugt wird."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "3. Was der Server wissen muss, um zu funktionieren",
+          "p": [
+            {
+              "ul": [
+                "Konto: deine Adresse, der Name, den du gewählt hast, und, falls du eines hinzufügst, dein Profilbild. Das Bild ist für alle sichtbar, die deine Adresse kennen, wie bei anderen E-Mail-Diensten.",
+                "Sicherheit: deine PIN und deine Wiederherstellungscodes, so gespeichert, dass sie sich nicht zurücklesen lassen; das Geheimnis der Bestätigung in zwei Schritten, verschlossen; und die Inaktivitätszeit, die du für die automatische Abmeldung gewählt hast.",
+                "Jede Nachricht: für welches Konto sie ist, wann sie ankam, wie viel Platz sie belegt, in welchem Ordner sie liegt und ob sie gelesen, angeheftet oder als Favorit markiert wurde.",
+                "Verbundene Geräte: wann jede Sitzung begann, wann sie zuletzt genutzt wurde und welcher Browsertyp, damit du sie sehen und abmelden kannst.",
+                "IP-Adresse: wird sofort genutzt, um Missbrauch wie Passwortraten und Massenregistrierungen zu bremsen, und nur in Zählern gespeichert, die nach höchstens 1 Stunde verfallen.",
+                "API-Schlüssel und Agenten-Postfächer: jeder Schlüssel so gespeichert, dass er nicht zurückgelesen werden kann, wann er zuletzt genutzt wurde und welche Agenten-Postfächer zu deinem Konto gehören.",
+                "Bezahlter Tarif: deine Kunden- und Abo-Kennungen bei Stripe, der Tarif und bis wann er gilt. Kartendaten bleiben bei Stripe und laufen nie über unsere Server."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "4. E-Mails von und an Dienste außerhalb von Shalom",
+          "p": [
+            "E-Mails von einem anderen Dienst kommen unverschlüsselt an, wie jede E-Mail im Internet. Im Moment der Ankunft prüft der Server, ob es sich um Spam oder Betrug handelt, und verschließt die Nachricht mit deinem Schlüssel. Die unverschlüsselte Fassung wird nicht gespeichert.",
+            "E-Mails, die du an einen anderen Dienst sendest, werden als normale E-Mail verschickt und laufen unverschlüsselt über den Versanddienst bis zum Ziel.",
+            "Ende-zu-Ende-Verschlüsselung ohne jeden unverschlüsselten Schritt gilt zwischen Shalom-Konten. In diesem Fall sieht der Server nicht einmal den Namen des Absenders."
+          ]
+        },
+        {
+          "h": "5. Cookies und Speicher im Browser",
+          "p": [
+            "Wir nutzen nur das Nötigste: das Sitzungscookie, das dich angemeldet hält; das Cookie für bekannte Geräte, das die Bot-Prüfung dort überspringt, wo du dich schon angemeldet hast; und Einstellungen in deinem Browser wie Design, Sprache und geöffnete Konten. Auch dein Schlüssel kann verschlossen im Browser gespeichert werden, wenn du dir das Gerät merken lässt.",
+            "Wir verwenden keine Cookies für Werbung, Analyse oder Tracking."
+          ]
+        },
+        {
+          "h": "6. Mit wem wir Daten teilen",
+          "p": [
+            "Die Infrastruktur läuft bei Cloudflare: Server, Datenbank, Speicher, Empfang und Versand von E-Mails und die Bot-Prüfung (Turnstile). Cloudflare verarbeitet die Daten in unserem Auftrag; gespeicherte E-Mails kommen dort bereits verschlüsselt an.",
+            "Wenn du einen bezahlten Tarif abschließt, übernimmt Stripe die Abrechnung und erhält deine Shalom-Adresse und Zahlungsdaten, um das Abo abzuwickeln, gemäß der eigenen Datenschutzerklärung.",
+            "Die Server von Cloudflare stehen in vielen Ländern, daher können deine Daten außerhalb Brasiliens verarbeitet werden, mit den Garantien, die die LGPD vorsieht.",
+            "Wir verkaufen keine Daten, zeigen keine Werbung und nutzen deine E-Mails nicht, um irgendetwas zu trainieren.",
+            "Wir geben Daten nur auf gültige gerichtliche Anordnung an Behörden heraus. Was wir haben, steht in Abschnitt 3: Der Inhalt gespeicherter E-Mails bleibt verschlüsselt, und wir haben den Schlüssel nicht."
+          ]
+        },
+        {
+          "h": "7. Wie lange wir Daten speichern",
+          "p": [
+            {
+              "ul": [
+                "Konto und Nachrichten: solange das Konto besteht. Papierkorb und Spam leeren sich nach 30 Tagen von selbst.",
+                "Sitzungen: bis zu 30 Tage ohne Nutzung, oder kürzer, wenn du eine kürzere automatische Abmeldung wählst.",
+                "Zähler mit IP-Adressen: bis zu 1 Stunde.",
+                "Tarif: solange das Konto besteht. Stripe bewahrt Zahlungsdaten so lange auf, wie das Gesetz es verlangt.",
+                "Wird ein Konto gelöscht, werden seine Daten entfernt. Nur die Adresse bleibt gespeichert, damit niemand sie neu registriert und erhält, was für dich bestimmt war. Sicherungskopien der Infrastruktur können einige Tage brauchen, bis sie ablaufen."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "8. Deine Rechte",
+          "p": [
+            "Du kannst eine Bestätigung verlangen, dass wir deine Daten verarbeiten, sowie Auskunft, Berichtigung, Übertragbarkeit, Löschung und Informationen darüber, mit wem wir sie teilen. Außerdem kannst du eine erteilte Einwilligung widerrufen.",
+            "Namen, Bild und Sicherheitseinstellungen änderst du direkt in der App. Für alles andere schreib an privacidade@shalomail.com. Du kannst dich auch bei der brasilianischen Datenschutzbehörde (ANPD) oder bei der Aufsichtsbehörde deines Landes beschweren."
+          ]
+        },
+        {
+          "h": "9. Sicherheit",
+          "p": [
+            "Neben der Verschlüsselung nutzen wir ein zweites, serverseitiges Schloss für den Schlüsselumschlag, Limits für Anmeldeversuche, eine Bot-Prüfung, optionale PIN und Bestätigung in zwei Schritten sowie Cookies, die nur auf dieser Website und über eine sichere Verbindung funktionieren.",
+            "Kein System ist unfehlbar. Wenn ein Vorfall dich betreffen könnte, informieren wir dich und melden ihn der ANPD, wie es das Gesetz verlangt."
+          ]
+        },
+        {
+          "h": "10. Kinder",
+          "p": [
+            "Shalom Mail ist nicht für Kinder unter 13 Jahren gedacht. Wenn du von einem Konto weißt, das einem Kind gehört, schreib an privacidade@shalomail.com."
+          ]
+        },
+        {
+          "h": "11. Änderungen dieser Erklärung",
+          "p": [
+            "Wenn sich diese Erklärung wesentlich ändert, informieren wir dich in der App, bevor die Änderung wirksam wird."
+          ]
+        }
+      ]
+    }
+  },
+  "ai": {
+    "title": "Gib deinen KI-Agenten ein Postfach",
+    "text": "Erstelle im Terminal @shalomail.com-Adressen für deine Agenten. Sie empfangen, lesen und beantworten echte E-Mails, mit derselben Ende-zu-Ende-Verschlüsselung, und der Schlüssel bleibt auf dem Rechner des Agenten.",
+    "free": "2 Agenten-Postfächer kostenlos",
+    "five": "Bis zu 5",
+    "fivePrice": "für 4,99 US$ im Monat",
+    "twelve": "Bis zu 12",
+    "twelvePrice": "für 9,99 US$ im Monat",
+    "docs": "So funktioniert es",
+    "termLabel": "Ein Agenten-Postfach im Terminal erstellen",
+    "example": "deinname-bot",
+    "exSubject": "Angebotsanfrage",
+    "unlimited": "Unbegrenzt",
+    "unlimitedPrice": "für 49,90 US$ im Monat, bis zu 250 neue Postfächer pro Tag"
+  },
+  "docs": {
+    "title": "E-Mail für KI-Agenten",
+    "description": "Gib deinen KI-Agenten ein echtes, Ende-zu-Ende verschlüsseltes @shalomail.com-Postfach. Im Terminal erstellen, in JSON lesen und antworten. 2 gratis.",
+    "h1": "Gib deinen KI-Agenten ein Postfach",
+    "lead": "Mit der shalom-CLI bekommt jeder Agent seine eigene @shalomail.com-Adresse. Er empfängt, liest und sendet echte E-Mails, von Shalom oder von überall, und jeder Befehl spricht JSON. Der private Schlüssel des Postfachs entsteht auf dem Rechner des Agenten und verlässt ihn nie.",
+    "cta": "Kostenloses Konto erstellen",
+    "settings": "Schon ein Konto? Öffne deine Agenten",
+    "startTitle": "In drei Befehlen starten",
+    "s1": "Installiere die CLI. Sie braucht Node.js 20 oder neuer.",
+    "s2": "Verbinde das Terminal mit deinem Konto. Der Befehl öffnet eine Shalom-Seite, und du bestätigst mit einem Klick.",
+    "s3": "Erstelle das Postfach für deinen Agenten. Sein privater Schlüssel wird auf diesem Rechner erzeugt und gespeichert.",
+    "example": "deinname-bot",
+    "readTitle": "Lesen, antworten und senden",
+    "readText": "Jeder Befehl versteht --json, damit dein Agent die Ausgabe ohne Raten liest. IDs lassen sich auf ihre ersten 8 Zeichen kürzen.",
+    "exReply": "Erhalten, danke.",
+    "exSubject": "Wochenbericht",
+    "watchTitle": "Auf jede neue E-Mail reagieren",
+    "watchText": "watch wartet auf neue E-Mails und startet dein Programm einmal pro Nachricht, mit der Nachricht als JSON auf der Standardeingabe.",
+    "watchFields": "Das JSON enthält id, from, to, cc, subject, date, text, html, messageId, verifiedSender und die Liste der Anhänge. Die Umgebung bekommt außerdem SHALOM_MESSAGE_ID, SHALOM_FROM und SHALOM_SUBJECT.",
+    "serverTitle": "Auf einem Server betreiben",
+    "serverText": "Exportiere das Postfach als eine einzige Variable und nutze es auf jedem Server, Container oder CI. Bewahre sie als Geheimnis auf: Sie enthält den privaten Schlüssel.",
+    "securityTitle": "Sicherheit",
+    "security1": "Der private Schlüssel jedes Postfachs bleibt auf dem Rechner des Agenten. Der Server speichert die E-Mails versiegelt und kann sie nicht lesen.",
+    "security2": "Der Schlüssel deines Kontos erstellt und löscht nur Agenten-Postfächer. Der Schlüssel jedes Postfachs liest und sendet nur über dieses. Du kannst jeden jederzeit erneuern oder löschen.",
+    "security3": "Zwischen Shalom-Adressen reist die E-Mail Ende-zu-Ende versiegelt, und der Absender wird geprüft. Zu anderen Anbietern geht sie als normale E-Mail.",
+    "plansTitle": "Tarife",
+    "planFree": "Kostenlos",
+    "planFreeText": "2 Agenten-Postfächer",
+    "plan5Text": "bis zu 5 Postfächer, 4,99 US$ im Monat",
+    "plan12Text": "bis zu 12 Postfächer, 9,99 US$ im Monat",
+    "plansNote": "Abonniere auf der Seite KI-Agenten oder mit shalom upgrade. An externe Adressen sendet jedes Postfach in der ersten Woche an bis zu 20 Empfänger pro Tag, danach an bis zu 100.",
+    "refTitle": "Alle Befehle",
+    "refNote": "Mit shalom --help siehst du alle Optionen. Alle Befehle verstehen --json, und --as <Adresse> wählt das Postfach.",
+    "cmd": {
+      "login": "Verbindet dieses Terminal über den Browser mit deinem Konto.",
+      "list": "Listet deine Agenten-Postfächer und deinen Tarif auf.",
+      "create": "Erstellt <name>@shalomail.com, mit dem privaten Schlüssel auf diesem Rechner.",
+      "delete": "Löscht das Postfach und alle E-Mails darin. Das Postfach muss auf diesem Rechner gespeichert sein; die Adresse bleibt für dich reserviert.",
+      "rotate": "Stellt einen neuen API-Schlüssel für das Postfach aus. Der alte gilt nicht mehr.",
+      "export": "Gibt SHALOM_AGENT_TOKEN aus, um das Postfach woanders zu betreiben.",
+      "plan": "Zeigt deinen Tarif und wie viele Postfächer du nutzt.",
+      "upgrade": "Öffnet die Tarifseite in der App.",
+      "inbox": "Listet die Nachrichten eines Ordners. --unread zeigt nur ungelesene.",
+      "read": "Öffnet eine Nachricht. --save-attachments speichert die Dateien.",
+      "send": "Sendet eine Nachricht, mit dem Text als Option, aus einer Datei oder der Standardeingabe, samt Anhängen.",
+      "reply": "Antwortet in derselben Unterhaltung. --all antwortet allen.",
+      "move": "Verschiebt in Posteingang, Archiv, Spam oder Papierkorb.",
+      "mark": "Markiert als gelesen oder ungelesen, mit oder ohne Stern.",
+      "watch": "Wartet auf neue E-Mails. --exec startet für jede Nachricht einen Befehl."
+    },
+    "planUnlimitedText": "unbegrenzt viele Postfächer, bis zu 250 neue pro Tag, 49,90 US$ im Monat"
+  },
+  "enc": {
+    "title": "So funktioniert die Verschlüsselung",
+    "description": "Wie Shalom Mail deine E-Mails schützt: Schlüssel auf deinem Gerät, Argon2id für das Passwort, AES-256-GCM für jede Nachricht und wo der Schutz endet.",
+    "lead": "Shalom Mail ist ein E-Mail-Dienst unter shalomail.com. Deine gespeicherten E-Mails sind mit einem Schlüssel verschlossen, den es nur auf deinem Gerät gibt, und zwischen Shalom-Konten ist alles Ende-zu-Ende verschlüsselt. Hier steht, wie das funktioniert, in einfachen Worten, und wo der Schutz endet.",
+    "s": {
+      "key": {
+        "h": "Dein Schlüssel entsteht auf deinem Gerät",
+        "p": [
+          "Wenn du ein Konto erstellst, erzeugt dein Browser deinen privaten Schlüssel: 256 zufällige Bits, für X25519. Er erreicht den Server nie in einer Form, die jemand lesen kann.",
+          "Der Server bewahrt ihn nur in einem Umschlag auf, der mit deinem Passwort verschlossen ist, und der Umschlag wird beim Anmelden auf deinem Gerät geöffnet. Zusätzlich legt der Server ein zweites, eigenes Schloss um diesen Umschlag, mit einem Geheimnis, das außerhalb der Datenbank liegt."
+        ]
+      },
+      "password": {
+        "h": "Dein Passwort bleibt auf deinem Gerät",
+        "p": [
+          "Dein Gerät schickt das Passwort durch Argon2id, mit 128 MB Speicher und 3 Durchläufen, und leitet aus dem Ergebnis zwei Schlüssel ab. Der eine beweist dem Server, dass du das Passwort kennst. Der andere öffnet den Umschlag mit deinem Schlüssel. Das Passwort selbst wird nie gesendet.",
+          "Der Server speichert nur einen Code, der aus diesem Nachweis entsteht, mit einem Geheimnis, das nicht in der Datenbank liegt. Die App prüft außerdem die Argon2id-Einstellungen, die der Server schickt, und lehnt schwache ab, damit ein manipulierter Server dein Passwort nicht leichter erratbar machen kann."
+        ]
+      },
+      "stored": {
+        "h": "Jede gespeicherte E-Mail ist versiegelt",
+        "p": [
+          "Jede E-Mail wird in zwei versiegelten Teilen gespeichert: einem kleinen Kopf mit Absender, Empfängern, Betreff, Datum, einer kurzen Vorschau und der Unterhaltung, zu der sie gehört, und der vollständigen Nachricht mit ihren Anhängen.",
+          "Beide Teile werden mit X25519, HKDF-SHA256 und AES-256-GCM für deinen öffentlichen Schlüssel versiegelt. Nur dein privater Schlüssel öffnet sie, der Server bewahrt also Daten auf, die er nicht lesen kann."
+        ]
+      },
+      "outside": {
+        "h": "E-Mails mit anderen Anbietern",
+        "p": [
+          "E-Mails von Gmail, Outlook oder jedem anderen Anbieter kommen unverschlüsselt an, wie jede E-Mail im Internet. In diesem Moment prüft der Server sie auf Spam und Betrug und versiegelt sie mit deinem Schlüssel. Die unverschlüsselte Fassung wird nicht gespeichert.",
+          "E-Mails, die du an andere Anbieter schickst, gehen als normale E-Mail hinaus. Der Server leitet sie unverschlüsselt weiter, und der Anbieter des Empfängers kann sie lesen. Hier schützt Shalom die Kopie in deinem Postfach, nicht den Weg."
+        ]
+      },
+      "between": {
+        "h": "Zwischen Shalom-Konten: Ende-zu-Ende",
+        "p": [
+          "Wenn du an eine andere Shalom-Adresse schreibst, versiegelt dein Gerät die Nachricht für den öffentlichen Schlüssel des Empfängers, bevor sie losgeht. Lesen lässt sie sich nur auf dem Gerät des Empfängers, nie unterwegs und nie auf dem Server.",
+          "Die Nachricht wird außerdem mit deinem eigenen Schlüssel authentifiziert, der Server kann also keine Nachricht in deinem Namen fälschen.",
+          "Auch der Absender ist versiegelt, nach dem Vorbild von Signals Sealed Sender. Der Server gibt jedem Konto ein kurzes Zertifikat, signiert mit Ed25519. Dein Gerät legt es in das Siegel, der Empfänger prüft es, und der Server speichert und stellt die Nachricht zu, ohne zu wissen, wer sie geschickt hat.",
+          "Um Missbrauch zu begrenzen, ohne zu erfahren, wer was geschickt hat, verbraucht jede Zustellung ein Ticket, das der Server blind signiert hat, mit RSA-Blindsignaturen. Der Server prüft das Ticket, kann es aber nicht mit dem Konto verbinden, das es angefordert hat."
+        ]
+      },
+      "contacts": {
+        "h": "Den Schlüssel eines Kontakts prüfen",
+        "p": [
+          "Die App merkt sich den Schlüssel jedes Shalom-Kontakts, wenn sie ihn zum ersten Mal sieht. Falls der Server jemals einen anderen Schlüssel für dieselbe Adresse liefert, stoppt das Senden, und die App zeigt beide Fingerabdrücke mit je 30 Ziffern, damit du sie mit deinem Kontakt vergleichen kannst. Auch das shalom-CLI hält an, wenn sich der Schlüssel eines Kontakts ändert, bis du es bestätigst."
+        ]
+      },
+      "agents": {
+        "h": "Postfächer für KI-Agenten",
+        "p": [
+          "Jedes Agenten-Postfach hat ein eigenes Schlüsselpaar, erzeugt auf dem Rechner, auf dem du das shalom-CLI oder das Node-SDK nutzt. Der private Schlüssel bleibt in ~/.config/shalom oder im SHALOM_AGENT_TOKEN, den du exportierst. Bewahre dieses Token deshalb als Geheimnis auf.",
+          "Der Schlüssel deines Kontos kann Agenten-Postfächer erstellen und löschen, aber keines davon öffnen. Der Schlüssel jedes Postfachs liest und sendet nur über dieses Postfach."
+        ]
+      },
+      "server": {
+        "h": "Was der Server weiß",
+        "p": [
+          "Um zu funktionieren, muss der Server einiges wissen. Nichts davon ist der Inhalt deiner gespeicherten E-Mails:",
+          {
+            "ul": [
+              "Deine Adresse, der Name, den du gewählt hast, und, falls du eines hinzufügst, dein Profilbild.",
+              "Deine Wiederherstellungs-E-Mail, verschlossen aufbewahrt und nur geöffnet, um dir einen Link zu schicken.",
+              "Zu jeder Nachricht: für welches Postfach sie ist, wann sie ankam, wie groß sie ist, in welchem Ordner sie liegt und ob sie gelesen, angeheftet oder markiert wurde.",
+              "An wen du bei anderen Anbietern schreibst, denn diese E-Mails gehen als normale E-Mail hinaus.",
+              "Deine verbundenen Sitzungen: wann jede begonnen hat, wann sie zuletzt genutzt wurde und welcher Browsertyp."
+            ]
+          },
+          "Die vollständige Liste, mit der Speicherdauer für jeden Punkt, steht in der Datenschutzerklärung."
+        ]
+      },
+      "limits": {
+        "h": "Wo der Schutz endet",
+        "p": [
+          {
+            "ul": [
+              "E-Mails mit anderen Anbietern sind nicht Ende-zu-Ende verschlüsselt. Sie reisen als normale E-Mail, und der Server sieht sie in dem Moment, in dem sie durchlaufen.",
+              "Wenn du dein Passwort vergisst, lassen sich deine gespeicherten E-Mails nicht wiederherstellen, denn nur dein Passwort öffnet deinen Schlüssel und Shalom hat keine Kopie davon. Mit deiner Wiederherstellungs-E-Mail kannst du ein neues Passwort festlegen und deine Adresse behalten, aber das Postfach beginnt leer.",
+              "Die App läuft in deinem Browser und wird von shalomail.com geladen. Wie bei jeder E-Mail, die im Web funktioniert, verlässt du dich darauf, dass die Seite den hier beschriebenen Code ausliefert.",
+              "Verschlüsselung kann kein Gerät schützen, das bereits kompromittiert ist. Wenn du dir ein Gerät merken lässt, bleibt dein Schlüssel in diesem Browser. Schütze es also wie dein Passwort.",
+              "Der versiegelte Absender hält den Absender aus dem heraus, was der Server speichert. Wie jede Website sieht der Server trotzdem die Verbindung hinter jeder Anfrage und nutzt sie nur gegen Missbrauch, wie die Datenschutzerklärung erklärt."
+            ]
+          }
+        ]
+      }
+    },
+    "moreTitle": "Mehr Details",
+    "moreDev": "Das genaue Verschlüsselungsformat, für Entwickler (auf Englisch)"
+  },
+  "faq": {
+    "title": "Häufige Fragen",
+    "description": "Antworten zu Shalom Mail: Preis, was du zur Anmeldung brauchst, wer deine E-Mails lesen kann, vergessenes Passwort und E-Mail für KI-Agenten.",
+    "lead": "Kurze, direkte Antworten zu Shalom Mail, dem verschlüsselten E-Mail-Dienst unter shalomail.com.",
+    "devLink": "Referenz für Node-SDK und HTTP-API (auf Englisch)",
+    "g": {
+      "account": "Das Konto",
+      "privacy": "Datenschutz und Verschlüsselung",
+      "agents": "E-Mail für KI-Agenten"
+    },
+    "q": {
+      "what": {
+        "q": "Was ist Shalom Mail?",
+        "a": "Shalom Mail ist ein verschlüsselter E-Mail-Dienst, der im Browser läuft, unter shalomail.com. Das Konto ist kostenlos, mit 1 GB und einer @shalomail.com-Adresse. Gespeicherte E-Mails sind mit einem Schlüssel verschlossen, den es nur auf deinem Gerät gibt, E-Mails zwischen Shalom-Konten sind Ende-zu-Ende verschlüsselt, und KI-Agenten können eigene Postfächer bekommen."
+      },
+      "free": {
+        "q": "Ist Shalom Mail kostenlos?",
+        "a": "Ja. Das E-Mail-Konto ist kostenlos, mit 1 GB Speicher und einer @shalomail.com-Adresse, und es gibt keine Werbung. Kostenpflichtige Pläne gibt es nur für alle, die mehr als 2 Postfächer für KI-Agenten brauchen."
+      },
+      "signup": {
+        "q": "Brauche ich eine Telefonnummer oder einen Ausweis für die Anmeldung?",
+        "a": "Nein. Du wählst eine Adresse und ein Passwort, und Shalom fragt weder nach einer Telefonnummer noch nach einem Ausweis. Bevor dein erstes Postfach aufgeht, fragt es nach einer Wiederherstellungs-E-Mail bei einem anderen Anbieter: Darüber kommst du wieder in dein Konto, wenn du dein Passwort vergisst. Der Server bewahrt sie verschlossen auf und nutzt sie nur, um dir einen Link zu schicken."
+      },
+      "others": {
+        "q": "Kann ich Leuten bei Gmail oder Outlook schreiben?",
+        "a": "Ja. Eine Shalom-Adresse sendet an jeden Anbieter und empfängt von jedem, etwa Gmail, Outlook, iCloud oder Yahoo, und die Leute dort bekommen deine Nachrichten als normale E-Mail. Zwischen Shalom-Konten ist es Ende-zu-Ende verschlüsselt."
+      },
+      "app": {
+        "q": "Gibt es eine App zum Installieren?",
+        "a": "Nein. Shalom Mail läuft im Browser, auf Computer und Handy, es gibt also nichts zu installieren. Postfächer für KI-Agenten nutzt du mit dem shalom-CLI oder dem Node-SDK."
+      },
+      "languages": {
+        "q": "In welchen Sprachen gibt es Shalom Mail?",
+        "a": "In {count} Sprachen: {langs}."
+      },
+      "who": {
+        "q": "Wer betreibt Shalom Mail?",
+        "a": "{c}, ein in Brasilien eingetragenes Unternehmen mit Sitz in Governador Celso Ramos, SC. Der Datenschutz folgt dem brasilianischen LGPD und, für Personen in der Europäischen Union, der DSGVO. Kontakt: contato@shalomail.com."
+      },
+      "delete": {
+        "q": "Kann ich mein Konto löschen?",
+        "a": "Ja. Schreib an contato@shalomail.com, und das Konto wird gelöscht, mit seinen gespeicherten E-Mails und Kontodaten. Sicherungskopien der Infrastruktur können einige Tage brauchen, bis sie ablaufen."
+      },
+      "read": {
+        "q": "Kann Shalom meine E-Mails lesen?",
+        "a": "Deine gespeicherten E-Mails nicht. Jede Nachricht ist mit einem Schlüssel versiegelt, den es nur auf deinem Gerät gibt, und der Server bewahrt sie auf, ohne sie öffnen zu können. E-Mails von anderen Anbietern kann der Server in dem Moment lesen, in dem sie ankommen, bevor sie versiegelt werden, und E-Mails, die du an andere Anbieter schickst, gehen als normale E-Mail hinaus."
+      },
+      "e2e": {
+        "q": "Ist Shalom Mail Ende-zu-Ende verschlüsselt?",
+        "a": "Zwischen Shalom-Konten ja. Die Nachricht wird auf dem Gerät des Absenders versiegelt und öffnet sich nur auf dem des Empfängers, und selbst der Absender bleibt dem Server verborgen. Mit anderen Anbietern geht das nicht, weil normale E-Mails unverschlüsselt reisen. Deshalb versiegelt Shalom diese Nachrichten in dem Moment, in dem sie ankommen."
+      },
+      "forgot": {
+        "q": "Was passiert, wenn ich mein Passwort vergesse?",
+        "a": "Deine gespeicherten E-Mails lassen sich nicht wiederherstellen, denn nur dein Passwort öffnet deinen Schlüssel und Shalom hat keine Kopie davon. Mit deiner Wiederherstellungs-E-Mail kannst du ein neues Passwort festlegen und deine Adresse behalten, aber das Postfach beginnt leer."
+      },
+      "cipher": {
+        "q": "Welche Verschlüsselung nutzt Shalom Mail?",
+        "a": "X25519-Schlüssel mit HKDF-SHA256 und AES-256-GCM für jede gespeicherte Nachricht, Argon2id für das Passwort auf deinem Gerät, Ed25519-Zertifikate für den versiegelten Absender und RSA-Blindsignaturen für die anonyme Zustellung zwischen Shalom-Konten."
+      },
+      "pgp": {
+        "q": "Nutzt es PGP?",
+        "a": "Nein. Shalom hat ein eigenes Format auf Basis von X25519, HKDF-SHA256 und AES-256-GCM und nutzt keine PGP-Schlüssel. E-Mails an andere Anbieter gehen als normale E-Mail hinaus."
+      },
+      "ads": {
+        "q": "Gibt es Werbung oder Tracking?",
+        "a": "Nein. Es gibt keine Werbung und keine Werbe-, Analyse- oder Tracking-Cookies, und deine E-Mails werden nicht zum Training von irgendetwas genutzt. Bilder, die melden, wann du eine E-Mail geöffnet hast, werden blockiert, und gefälschte Absender werden bernsteinfarben markiert."
+      },
+      "law": {
+        "q": "Gibt Shalom Daten an Behörden heraus?",
+        "a": "Nur auf gültige gerichtliche Anordnung. Was der Server hat, steht in der Datenschutzerklärung. Der Inhalt gespeicherter E-Mails bleibt verschlüsselt, und Shalom hat den Schlüssel nicht."
+      },
+      "agentHow": {
+        "q": "Wie gebe ich einem KI-Agenten eine eigene E-Mail-Adresse?",
+        "a": "Installiere das shalom-CLI mit npm install -g shalomail, verbinde es mit shalom login mit deinem Konto, bestätigt im Browser, und führe shalom agents create mit einem Namen aus. Der Agent bekommt name@shalomail.com und kann echte E-Mails lesen, beantworten und senden, mit Ausgabe in JSON."
+      },
+      "agentPrice": {
+        "q": "Was kosten Postfächer für KI-Agenten?",
+        "a": "2 sind bei jedem Konto kostenlos. Agents 5 kostet 4,99 US$ im Monat für bis zu 5, Agents 12 kostet 9,99 US$ im Monat für bis zu 12, und Unlimited kostet 49,90 US$ im Monat, ohne Begrenzung der Postfächer und mit bis zu 250 neuen Postfächern pro Tag. Die Pläne laufen monatlich, werden über Stripe abgerechnet und sind jederzeit kündbar."
+      },
+      "agentRead": {
+        "q": "Kann Shalom die E-Mails meiner Agenten lesen?",
+        "a": "Ihre gespeicherten E-Mails nicht. Jedes Agenten-Postfach hat einen eigenen privaten Schlüssel, erzeugt auf dem Rechner, auf dem du das CLI oder das SDK nutzt, und der Server bewahrt seine E-Mails versiegelt auf. Der Schlüssel deines Kontos kann Agenten-Postfächer erstellen und löschen, aber nicht öffnen."
+      },
+      "agentCode": {
+        "q": "Gibt es eine API oder ein SDK?",
+        "a": "Ja. Das Paket shalomail auf npm ist zugleich das CLI und ein Node-SDK, mit den Klassen Agent und Account, und es gibt eine HTTP-API. Die Verschlüsselung passiert immer auf deiner Seite."
+      },
+      "agentWatch": {
+        "q": "Kann ein Agent selbst auf neue E-Mails reagieren?",
+        "a": "Ja. shalom watch --exec startet dein Programm einmal für jede neue Nachricht, mit der Nachricht als JSON auf der Standardeingabe, und agent.watch() macht dasselbe im SDK. Webhooks gibt es noch nicht."
+      },
+      "agentOutside": {
+        "q": "Können Agenten Leuten außerhalb von Shalom schreiben?",
+        "a": "Ja, als normale E-Mail. An externe Adressen sendet jedes Agenten-Postfach in der ersten Woche an bis zu 20 Empfänger pro Tag und danach an bis zu 100 pro Tag. Zwischen Shalom-Adressen ist es Ende-zu-Ende verschlüsselt, und der Absender wird geprüft."
+      }
+    }
+  }
+}

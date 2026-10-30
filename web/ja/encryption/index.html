@@ -1,0 +1,106 @@
+<!doctype html>
+<!-- Gerado por scripts/site.mjs a partir de web/site. Edite lá, não aqui. -->
+<html lang="ja" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="referrer" content="no-referrer" />
+    <title>暗号化のしくみ · Shalom Mail</title>
+    <meta name="description" content="Shalom Mail がメールを守るしくみ：端末で作られる鍵、パスワードの Argon2id、保存メールごとの AES-256-GCM、そして保護が及ばない範囲。" />
+    <meta name="robots" content="max-image-preview:large" />
+    <link rel="canonical" href="https://shalomail.com/ja/encryption/" />
+    <link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/" />
+    <link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/" />
+    <link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/" />
+    <link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/" />
+    <link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/" />
+    <link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/" />
+    <link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/" />
+    <link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/" />
+    <link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/" />
+    <link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/" />
+    <link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/" />
+    <link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/" />
+    <link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/" />
+    <link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/" />
+    <link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/" />
+    <link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/" />
+    <meta property="og:title" content="暗号化のしくみ · Shalom Mail" />
+    <meta property="og:description" content="Shalom Mail がメールを守るしくみ：端末で作られる鍵、パスワードの Argon2id、保存メールごとの AES-256-GCM、そして保護が及ばない範囲。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shalomail.com/ja/encryption/" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:site_name" content="Shalom Mail" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=2" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="暗号化のしくみ · Shalom Mail" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="暗号化のしくみ · Shalom Mail" />
+    <meta name="twitter:description" content="Shalom Mail がメールを守るしくみ：端末で作られる鍵、パスワードの Argon2id、保存メールごとの AES-256-GCM、そして保護が及ばない範囲。" />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=2" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
+    <link rel="stylesheet" href="/lp/lp.css" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://shalomail.com/#org","name":"Shalom Mail","url":"https://shalomail.com/","logo":{"@type":"ImageObject","url":"https://shalomail.com/icon-512.png","width":512,"height":512},"legalName":"X TECH A.I FUND HOLDING E PARTICIPACOES LTDA","email":"contato@shalomail.com","address":{"@type":"PostalAddress","addressLocality":"Governador Celso Ramos","addressRegion":"SC","addressCountry":"BR"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer support","email":"contato@shalomail.com"},{"@type":"ContactPoint","contactType":"privacy","email":"privacidade@shalomail.com"}]},{"@type":"TechArticle","@id":"https://shalomail.com/ja/encryption/#article","url":"https://shalomail.com/ja/encryption/","mainEntityOfPage":"https://shalomail.com/ja/encryption/","headline":"暗号化のしくみ","description":"Shalom Mail がメールを守るしくみ：端末で作られる鍵、パスワードの Argon2id、保存メールごとの AES-256-GCM、そして保護が及ばない範囲。","inLanguage":"ja","image":"https://shalomail.com/og.png","isPartOf":{"@id":"https://shalomail.com/#website"},"about":{"@id":"https://shalomail.com/#app"},"author":{"@id":"https://shalomail.com/#org"},"publisher":{"@id":"https://shalomail.com/#org"}}]}</script>
+  </head>
+  <body class="legal-page">
+    <header class="top wrap">
+      <a class="brand" href="/ja/" aria-label="Shalom Mail ホーム">
+        <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
+        <span>Shalom</span>
+      </a>
+      <nav class="top-links" aria-label="アカウント">
+        <a href="/entrar">ログイン</a>
+        <a href="/criar-conta">アカウント作成</a>
+      </nav>
+    </header>
+
+    <main class="doc wrap">
+      <h1>暗号化のしくみ</h1>
+      <p class="doc-lead">Shalom Mail は shalomail.com のメールサービスです。保存されたメールはあなたの端末にしかない鍵でロックされ、Shalom アカウント同士のメールはエンドツーエンドで暗号化されます。そのしくみと、保護が及ばない範囲を、わかりやすく説明します。</p>
+
+      <section class="doc-sec" aria-labelledby="key"><h2 id="key">鍵はあなたの端末で作られます</h2><p>アカウントを作ると、ブラウザがあなたの秘密鍵を生成します。X25519 用の 256 ビットの乱数です。この鍵が、誰かに読める形でサーバーに届くことはありません。</p><p>サーバーは、あなたのパスワードでロックされた封筒の中でしか鍵を保管せず、封筒はログインのときにあなたの端末で開きます。さらにサーバーはこの封筒に独自の 2 つ目のロックをかけ、その秘密はデータベースの外に保管しています。</p></section>
+      <section class="doc-sec" aria-labelledby="password"><h2 id="password">パスワードは端末の外に出ません</h2><p>端末はパスワードを Argon2id（メモリ 128 MB、3 回）で処理し、その結果から 2 つの鍵を導きます。1 つはパスワードを知っていることをサーバーに証明する鍵、もう 1 つはあなたの鍵が入った封筒を開ける鍵です。パスワードそのものは送信されません。</p><p>サーバーが保存するのは、その証明からデータベースにない秘密を使って作ったコードだけです。アプリはサーバーから届く Argon2id の設定も確認し、弱い設定は拒否します。そのため、改ざんされたサーバーがパスワードを推測しやすくすることはできません。</p></section>
+      <section class="doc-sec" aria-labelledby="stored"><h2 id="stored">保存されたメールはすべて封印されます</h2><p>各メールは 2 つの封印されたパーツで保存されます。送信者、宛先、件名、日付、短いプレビュー、所属する会話を含む小さなヘッダーと、添付ファイルを含むメッセージ全体です。</p><p>どちらのパーツも、X25519、HKDF-SHA256、AES-256-GCM であなたの公開鍵に向けて封印されます。開けられるのはあなたの秘密鍵だけなので、サーバーは自分では読めないデータを保管していることになります。</p></section>
+      <section class="doc-sec" aria-labelledby="outside"><h2 id="outside">ほかのメールサービスとのやり取り</h2><p>Gmail、Outlook など、ほかのサービスから届くメールは、インターネット上のすべてのメールと同じく暗号化されずに届きます。その時点でサーバーがスパムや詐欺でないかを確認し、あなたの鍵で封印します。暗号化されていない状態のものは保存されません。</p><p>ほかのサービスへ送るメールは、通常のメールとして送信されます。サーバーは暗号化しないまま転送し、受信者のサービスはその内容を読めます。この場合、Shalom が守るのはあなたのメールボックスに保存されたコピーで、途中の経路ではありません。</p></section>
+      <section class="doc-sec" aria-labelledby="between"><h2 id="between">Shalom アカウント同士はエンドツーエンド</h2><p>ほかの Shalom アドレスにメールを書くと、あなたの端末は送信前に、受信者の公開鍵に向けてメッセージを封印します。読めるのは受信者の端末だけで、途中の経路でもサーバー上でも読めません。</p><p>メッセージはあなた自身の鍵でも認証されるため、サーバーがあなたになりすましてメッセージを作ることはできません。</p><p>送信者も封印されます。Signal の sealed sender と同じ考え方です。サーバーは各アカウントに Ed25519 で署名した短い証明書を発行します。あなたの端末はそれを封印の中に入れ、受信者が確認し、サーバーは送信者を知らないままメッセージを保管して届けます。</p><p>誰が何を送ったかを知らずに乱用を抑えるため、配信のたびに、サーバーが中身を見ずに署名したチケットを 1 枚使います（RSA ブラインド署名）。サーバーはチケットを確認しますが、それを申し込んだアカウントと結びつけることはできません。</p></section>
+      <section class="doc-sec" aria-labelledby="contacts"><h2 id="contacts">連絡先の鍵を確かめる</h2><p>アプリは、Shalom の連絡先の鍵を初めて見たときに記憶します。もしサーバーが同じアドレスに別の鍵を渡してきたら、送信は止まり、アプリは 2 つのフィンガープリント（各 30 桁）を表示します。連絡先と照らし合わせて確認できます。shalom CLI も、連絡先の鍵が変わったときは、あなたが確認するまで止まります。</p></section>
+      <section class="doc-sec" aria-labelledby="agents"><h2 id="agents">AI エージェント用のメールボックス</h2><p>エージェント用のメールボックスには、それぞれ専用の鍵ペアがあり、shalom CLI や Node SDK を動かすマシン上で作られます。秘密鍵は <code dir="ltr">~/.config/shalom</code> か、エクスポートした <code dir="ltr">SHALOM_AGENT_TOKEN</code> の中にあるので、このトークンは秘密として保管してください。</p><p>アカウントのキーでできるのは、エージェント用メールボックスの作成と削除だけで、どれも開くことはできません。各メールボックスのキーは、そのメールボックスでの閲覧と送信しかできません。</p></section>
+      <section class="doc-sec" aria-labelledby="server"><h2 id="server">サーバーが知っていること</h2><p>動作のために、サーバーはいくつかのことを知る必要があります。そのどれも、保存されたメールの内容ではありません。</p><ul><li>あなたのアドレス、選んだ名前、追加した場合はプロフィール写真。</li><li>復旧用メール。ロックして保管し、リンクを送るときにだけ開きます。</li><li>各メッセージについて：どのメールボックス宛てか、いつ届いたか、サイズ、フォルダ、既読・ピン留め・スターの有無。</li><li>ほかのサービスで誰にメールを送っているか。こうしたメールは通常のメールとして送信されるためです。</li><li>接続中のセッション：それぞれの開始時刻、最後に使われた時刻、ブラウザの種類。</li></ul><p>各項目の保存期間を含む完全な一覧は、プライバシーポリシーにあります。</p></section>
+      <section class="doc-sec" aria-labelledby="limits"><h2 id="limits">保護が及ばない範囲</h2><ul><li>ほかのメールサービスとのメールはエンドツーエンドではありません。通常のメールとして届き、サーバーは通過する瞬間にその内容を見ます。</li><li>パスワードを忘れると、保存されたメールは復元できません。あなたの鍵を開けられるのはパスワードだけで、Shalom はそのコピーを持っていないからです。復旧用メールを使えば新しいパスワードを設定してアドレスを残せますが、メールボックスは空の状態から始まります。</li><li>アプリはブラウザで動き、shalomail.com から読み込まれます。ウェブで使うすべてのメールと同じく、サイトがここで説明しているとおりのコードを配信していることを前提にしています。</li><li>暗号化は、すでに乗っ取られた端末を守ることはできません。端末を記憶する設定にすると、鍵はそのブラウザに残るので、パスワードと同じように端末を守ってください。</li><li>封印された送信者は、サーバーが保存する情報に送信者を残しません。ただしほかのウェブサイトと同じく、サーバーは各リクエストの接続元を見ており、プライバシーポリシーにあるとおり、それを乱用対策にだけ使います。</li></ul></section>
+
+      <section class="doc-sec" aria-labelledby="more">
+        <h2 id="more">さらに詳しく</h2>
+        <p><a href="/developers/#crypto">暗号化の正確なフォーマット（開発者向け、英語）</a></p>
+        <p><a href="/ja/privacy/">プライバシーポリシー</a></p>
+        <p><a href="/ja/faq/">よくある質問</a></p>
+      </section>
+      <p class="doc-actions"><a class="doc-cta" href="/criar-conta">無料でアカウントを作成</a></p>
+    </main>
+
+    <footer class="foot wrap">
+      <p>Shalom Mail（shalomail.com）は、ブラウザで使える暗号化メールサービスです。保存されたメールはあなたの端末にしかない鍵でロックされ、Shalom アカウント同士のメールはエンドツーエンドで暗号化されます。</p>
+      <div class="foot-row">
+        <span>© 2026 Shalom Mail</span>
+        <nav aria-label="リンク">
+          <a href="/ja/">Shalom Mail</a>
+          <a href="/ja/agents/">AI エージェント</a>
+          <a href="/developers/">開発者</a>
+          <a href="/ja/encryption/">暗号化</a>
+          <a href="/ja/faq/">よくある質問</a>
+          <a href="/ja/terms/">利用規約</a>
+          <a href="/ja/privacy/">プライバシー</a>
+          <details class="lang">
+            <summary><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 12h17M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>日本語</summary>
+            <ul><li><a href="/criptografia/" hreflang="pt-BR" lang="pt-BR" data-lang="pt">Português</a></li><li><a href="/en/encryption/" hreflang="en" lang="en" data-lang="en">English</a></li><li><a href="/es/encryption/" hreflang="es" lang="es" data-lang="es">Español</a></li><li><a href="/fr/encryption/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li><li><a href="/de/encryption/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li><li><a href="/it/encryption/" hreflang="it" lang="it" data-lang="it">Italiano</a></li><li><a href="/ru/encryption/" hreflang="ru" lang="ru" data-lang="ru">Русский</a></li><li><a href="/uk/encryption/" hreflang="uk" lang="uk" data-lang="uk">Українська</a></li><li><a href="/tr/encryption/" hreflang="tr" lang="tr" data-lang="tr">Türkçe</a></li><li><a href="/he/encryption/" hreflang="he" lang="he" data-lang="he">עברית</a></li><li><a href="/ar/encryption/" hreflang="ar" lang="ar" data-lang="ar">العربية</a></li><li><a href="/hi/encryption/" hreflang="hi" lang="hi" data-lang="hi">हिन्दी</a></li><li><a href="/zh/encryption/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh">简体中文</a></li><li><a href="/ja/encryption/" hreflang="ja" lang="ja" data-lang="ja" aria-current="true">日本語</a></li><li><a href="/ko/encryption/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li></ul>
+          </details>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module" src="/lp/lang.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+/* Lista em linha: uma conversa por linha, a lista ocupa tudo à direita da lateral e a conversa abre no
+   mesmo lugar, com a volta para a lista. Só na tela larga; no celular fica a lista de uma coluna.
+   Fios e preenchimentos bem leves, para o claro não ficar cinza. */
+
+:root,
+[data-theme='dark'] {
+  --line-sep: rgba(255, 255, 255, 0.06);
+  --line-hover: rgba(255, 255, 255, 0.035);
+  --line-checked: rgba(255, 255, 255, 0.07);
+  --check-line: rgba(255, 255, 255, 0.32);
+}
+[data-theme='light'] {
+  --line-sep: rgba(0, 0, 0, 0.06);
+  --line-hover: rgba(0, 0, 0, 0.025);
+  --line-checked: rgba(0, 0, 0, 0.045);
+  --check-line: rgba(0, 0, 0, 0.3);
+}
+
+/* Cabeçalho da lista na tela larga: o botão do formato fica na ponta da linha do título. */
+@media (min-width: 901px) {
+  .list-head { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'title toggle' 'search search'; }
+  .list-head .list-title { grid-area: title; }
+  .list-head .search { grid-area: search; }
+  .layout-toggle { grid-area: toggle; align-self: center; margin-block: -4px; margin-inline: 0 -4px; }
+}
+
+/* Lista e conversa dividem a mesma área. A lista só fica invisível enquanto a conversa está aberta,
+   então a rolagem continua onde estava na volta. */
+.app.is-line { grid-template-columns: 232px minmax(0, 1fr); }
+@media (max-width: 1180px) { .app.is-line { grid-template-columns: 212px minmax(0, 1fr); } }
+.app.is-line .list, .app.is-line .read { grid-column: 2; grid-row: 1; }
+.app.is-line:not(.has-reader) .read { display: none; }
+.app.is-line.has-reader .list { visibility: hidden; }
+.app.is-line.has-reader .read { animation: fade-in 160ms var(--ease-out); }
+.app.is-line:not(.has-reader) .list { animation: fade-in 140ms var(--ease-out); }
+.app.is-line .reader-back { display: flex !important; }
+
+/* Cabeçalho em linha: título, busca e formato numa linha (com espaço para a foto da conta) e a barra
+   da seleção embaixo, alinhada com as caixas das linhas. */
+.app.is-line .list-scroll { padding: 0 0 16px; }
+.app.is-line .list-head {
+  margin: 0; padding-block: 14px 0; padding-inline: 18px 72px; column-gap: 16px; row-gap: 10px;
+  grid-template-columns: 150px minmax(240px, 560px) minmax(0, 1fr) auto;
+  grid-template-areas: 'title search . toggle' 'tools tools tools tools';
+  box-shadow: 0 1px 0 var(--line-sep);
+}
+.app.is-line .list-title { padding: 0; align-self: center; min-width: 0; }
+.app.is-line .list-title h1 { white-space: nowrap; }
+.app.is-line .layout-toggle { margin: 0; }
+
+.list-tools { grid-area: tools; display: flex; align-items: center; gap: 2px; height: 44px; margin-block: 0; margin-inline: -18px -72px; padding-block: 0; padding-inline: 8px 16px; }
+.tools-count { margin-block: 0; margin-inline: 4px 10px; font-size: 13px; font-weight: 500; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tools-count.is-quiet { font-weight: 400; color: var(--text-3); }
+.tools-actions { display: flex; align-items: center; gap: 2px; animation: fade-in 120ms var(--ease-out); }
+.tools-actions .icon-btn { color: var(--text-2); }
+.tools-actions .icon-btn:hover { color: var(--text); }
+.tools-confirm {
+  height: 32px; margin: 0 2px; padding: 0 12px; border-radius: 999px; white-space: nowrap;
+  font-size: 13px; font-weight: 500; color: var(--warn); background: var(--warn-soft);
+  animation: fade-in 120ms var(--ease-out);
+}
+.tools-confirm:hover { box-shadow: inset 0 0 0 1px var(--warn); }
+
+/* Caixa de seleção: 16 px, cantos de 5 px; marcada fica preta no claro e branca no escuro. */
+.check {
+  position: relative; z-index: 1; display: grid; place-items: center; flex: none; width: 36px; height: 44px;
+}
+.check-box {
+  display: grid; place-items: center; width: 16px; height: 16px; border-radius: 5px;
+  box-shadow: inset 0 0 0 1.5px var(--check-line);
+  transition: background-color 120ms var(--ease-out), box-shadow 120ms var(--ease-out), transform 120ms var(--ease-out);
+}
+.check:hover .check-box { box-shadow: inset 0 0 0 1.5px var(--text-2); }
+.check:active .check-box { transform: scale(0.9); }
+.check[aria-checked='true'] .check-box, .check[aria-checked='mixed'] .check-box { background: var(--accent); box-shadow: none; }
+.check-box svg { width: 16px; height: 16px; fill: none; stroke: var(--accent-on); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.check:focus-visible { outline: none; }
+.check:focus-visible .check-box { outline: 2px solid var(--text); outline-offset: 2px; }
+.check:disabled { opacity: 0.4; }
+.check:disabled .check-box { box-shadow: inset 0 0 0 1.5px var(--check-line); }
+
+/* Linha: caixa, estrela, quem, assunto e prévia numa linha só, e a hora na ponta. */
+.app.is-line .rows { gap: 0; }
+.lrow {
+  position: relative; min-height: 0; overflow: hidden; display: flex; align-items: center; padding-block: 0; padding-inline: 8px 16px;
+  box-shadow: inset 0 -1px 0 var(--line-sep); -webkit-user-select: none; user-select: none;
+  transition: background-color 120ms var(--ease-out);
+  scroll-margin-top: 112px;
+}
+.lrow:hover { background: var(--line-hover); }
+.lrow.is-checked { background: var(--line-checked); }
+
+.lrow-star { position: relative; z-index: 1; display: grid; place-items: center; flex: none; width: 30px; height: 44px; color: var(--check-line); }
+.lrow-star svg { transition: color 120ms var(--ease-out), transform 120ms var(--ease-out); }
+.lrow-star:hover { color: var(--text-2); }
+.lrow-star:active svg { transform: scale(0.86); }
+.lrow-star[aria-pressed='true'] { color: var(--text); }
+.lrow-star[aria-pressed='true'] svg { fill: currentColor; }
+.lrow-star:focus-visible { outline: none; }
+.lrow-star:focus-visible svg { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 4px; }
+
+.lrow-open { flex: 1; min-width: 0; display: flex; align-items: center; gap: 16px; height: 44px; padding-inline-start: 6px; text-align: start; }
+/* A linha inteira abre a conversa; a caixa e a estrela ficam por cima. */
+.lrow-open::after { content: ''; position: absolute; inset: 0; }
+.lrow-open:focus-visible { outline: none; }
+.lrow-open:focus-visible::after { outline: 2px solid var(--text); outline-offset: -2px; }
+
+.lrow-who { flex: none; width: clamp(140px, 15vw, 210px); min-width: 0; display: flex; align-items: center; gap: 6px; color: var(--text-2); }
+.lrow-name { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lrow-count { flex: none; font-size: 12px; color: var(--text-3); font-variant-numeric: tabular-nums; }
+.lrow-text { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-3); }
+.lrow-subject { color: var(--text-2); }
+.lrow-sep { color: var(--text-3); }
+.lrow-text svg { display: inline; vertical-align: -2px; margin-inline-end: 4px; }
+.lrow-end { flex: none; display: flex; align-items: center; justify-content: flex-end; gap: 8px; min-width: 64px; }
+.lrow-end time { font-size: 12px; color: var(--text-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lrow-pin { color: var(--text-2); }
+
+.lrow.is-unread .lrow-name, .lrow.is-unread .lrow-subject { color: var(--text); font-weight: 600; }
+.lrow.is-unread .lrow-count { color: var(--text-2); }
+.lrow.is-unread time { color: var(--text); font-weight: 600; }
+
+/* Carregando, erro e "Carregar mais" no formato em linha. */
+.app.is-line .rows-skeleton { gap: 0; padding: 0; }
+.app.is-line .row-skel {
+  display: flex; align-items: center; height: 44px; padding-inline-start: 96px; border-radius: 0; background: none;
+  box-shadow: inset 0 -1px 0 var(--line-sep);
+}
+.app.is-line .row-skel::before { content: ''; width: min(52%, 560px); height: 10px; border-radius: 5px; background: var(--fill-1); }
+.app.is-line .list-error { margin: 12px 16px; }
+.app.is-line .load-more { display: flex; width: fit-content; margin: 16px auto 0; padding: 0 22px; }

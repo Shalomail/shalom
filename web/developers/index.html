@@ -1,0 +1,201 @@
+<!doctype html>
+<!-- Gerado por scripts/site.mjs a partir de web/site. Edite lá, não aqui. -->
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Developers: Node SDK and HTTP API · Shalom Mail</title>
+    <meta name="description" content="Give software its own end-to-end encrypted email address with the shalom CLI, the Node SDK or the HTTP API. Encryption happens on your side." />
+    <meta name="robots" content="max-image-preview:large" />
+    <link rel="canonical" href="https://shalomail.com/developers/" />
+    <link rel="alternate" hreflang="en" href="https://shalomail.com/developers/" />
+    <link rel="alternate" hreflang="x-default" href="https://shalomail.com/developers/" />
+    <meta property="og:title" content="Developers: Node SDK and HTTP API · Shalom Mail" />
+    <meta property="og:description" content="Give software its own end-to-end encrypted email address with the shalom CLI, the Node SDK or the HTTP API. Encryption happens on your side." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shalomail.com/developers/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Shalom Mail" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=2" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Developers: Node SDK and HTTP API · Shalom Mail" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Developers: Node SDK and HTTP API · Shalom Mail" />
+    <meta name="twitter:description" content="Give software its own end-to-end encrypted email address with the shalom CLI, the Node SDK or the HTTP API. Encryption happens on your side." />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=2" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
+    <link rel="stylesheet" href="/lp/lp.css" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://shalomail.com/#org","name":"Shalom Mail","url":"https://shalomail.com/","logo":{"@type":"ImageObject","url":"https://shalomail.com/icon-512.png","width":512,"height":512},"legalName":"X TECH A.I FUND HOLDING E PARTICIPACOES LTDA","email":"contato@shalomail.com","address":{"@type":"PostalAddress","addressLocality":"Governador Celso Ramos","addressRegion":"SC","addressCountry":"BR"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer support","email":"contato@shalomail.com"},{"@type":"ContactPoint","contactType":"privacy","email":"privacidade@shalomail.com"}]},{"@type":"TechArticle","@id":"https://shalomail.com/developers/#article","url":"https://shalomail.com/developers/","mainEntityOfPage":"https://shalomail.com/developers/","headline":"Build on Shalom Mail: Node SDK and HTTP API","description":"Give software its own end-to-end encrypted email address with the shalom CLI, the Node SDK or the HTTP API. Encryption happens on your side.","inLanguage":"en","image":"https://shalomail.com/og.png","isPartOf":{"@id":"https://shalomail.com/#website"},"about":{"@id":"https://shalomail.com/#cli"},"author":{"@id":"https://shalomail.com/#org"},"publisher":{"@id":"https://shalomail.com/#org"}}]}</script>
+  </head>
+  <body class="legal-page">
+    <header class="top wrap">
+      <a class="brand" href="/en/" aria-label="Shalom Mail, home">
+        <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
+        <span>Shalom</span>
+      </a>
+      <nav class="top-links" aria-label="Account">
+        <a href="/entrar">Sign in</a>
+        <a href="/criar-conta">Create account</a>
+      </nav>
+    </header>
+
+    <main class="doc wrap dev">
+      <h1>Build on Shalom Mail</h1>
+      <p class="doc-lead">Give software its own end-to-end encrypted email address. Use the CLI from a terminal, the Node SDK from your code, or the HTTP API from anything else. Encryption always happens on your side: the server stores and relays sealed data it cannot read.</p>
+      <p class="doc-actions"><a class="doc-cta" href="/criar-conta">Create a free account</a><a class="doc-quiet" href="https://www.npmjs.com/package/shalomail" rel="noopener">shalomail on npm</a></p>
+
+      <nav class="dev-toc" aria-label="On this page">
+        <a href="#sdk">Node SDK</a><a href="#auth">Authentication</a><a href="#api">HTTP API</a><a href="#crypto">Encryption format</a><a href="#limits">Errors and limits</a>
+      </nav>
+
+      <section class="doc-sec" aria-labelledby="ways">
+        <h2 id="ways">Three ways in</h2>
+        <dl class="doc-ref">
+          <div><dt>CLI</dt><dd><code>npm install -g shalomail</code>, then <code>shalom login</code> and <code>shalom agents create yourname-bot</code>. Every command speaks JSON. <a href="/en/agents/">Commands</a></dd></div>
+          <div><dt>Node SDK</dt><dd><code>import { Agent, Account } from 'shalomail'</code>. Reads, seals and sends on your machine. Node.js 20 or newer.</dd></div>
+          <div><dt>HTTP API</dt><dd>JSON over HTTPS at <code>https://shalomail.com/api</code>. Message heads and bodies travel sealed, so you seal and open them yourself (format below).</dd></div>
+        </dl>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="sdk">
+        <h2 id="sdk">Node SDK</h2>
+        <p>The package that installs the CLI is also the library. An agent mailbox opens from its token (<code>shalom agents export &lt;address&gt;</code>) or from the file the CLI saved.</p>
+        <pre dir="ltr"><code>import { Agent } from 'shalomail';
+
+const agent = Agent.fromToken(process.env.SHALOM_AGENT_TOKEN);
+
+for (const m of await agent.inbox({ unread: true })) {
+  const msg = await agent.read(m.id);
+  await agent.reply(m.id, { text: `Got it: ${msg.subject}` });
+}
+
+for await (const msg of agent.watch()) {
+  console.log(msg.from?.address, msg.subject, msg.text);
+}</code></pre>
+        <p>Create and delete agent mailboxes with your account key (from <code>shalom login</code>, or <code>SHALOM_API_KEY</code>). The mailbox private key is created in your process and comes back inside the token: store it as a secret.</p>
+        <pre dir="ltr"><code>import { Account, Agent } from 'shalomail';
+
+const account = new Account(process.env.SHALOM_API_KEY);
+const { address, token } = await account.createAgent('billing-bot', {
+  displayName: 'Billing',
+});
+
+const bot = Agent.fromToken(token);
+await bot.send({
+  to: 'ana@example.com',
+  subject: 'Invoice 1042',
+  text: 'Attached.',
+  attachments: [{ filename: 'invoice.pdf', content: pdfBytes }],
+});</code></pre>
+        <dl class="doc-ref">
+          <div><dt dir="ltr"><code>agent.inbox(opts)</code></dt><dd>Summaries of a folder: <code>folder</code>, <code>limit</code> (up to 100), <code>unread</code>.</dd></div>
+          <div><dt dir="ltr"><code>agent.read(id)</code></dt><dd>The full message: text, html, attachments with their bytes, Message-ID and thread headers, and <code>verifiedSender</code> for mail from other Shalom accounts. Marks it read unless <code>{ markRead: false }</code>.</dd></div>
+          <div><dt dir="ltr"><code>agent.send(msg)</code></dt><dd>To Shalom addresses it is sealed end to end and delivered with a sealed sender; to anyone else it goes as regular email. A copy is sealed into Sent.</dd></div>
+          <div><dt dir="ltr"><code>agent.reply(id, msg)</code></dt><dd>Same thread, with <code>Re:</code>, In-Reply-To and References. <code>all: true</code> replies to everyone.</dd></div>
+          <div><dt dir="ltr"><code>agent.move(ids, folder)</code></dt><dd>inbox, archive, spam or trash.</dd></div>
+          <div><dt dir="ltr"><code>agent.mark(ids, change)</code></dt><dd><code>{ read, starred }</code>.</dd></div>
+          <div><dt dir="ltr"><code>agent.watch(opts)</code></dt><dd>Async iterator of new inbox messages, polling every 15 seconds by default. Stop it with an <code>AbortSignal</code>.</dd></div>
+          <div><dt dir="ltr"><code>account.createAgent(name)</code></dt><dd>Creates <code>name@shalomail.com</code> and returns <code>{ id, address, token }</code>.</dd></div>
+          <div><dt dir="ltr"><code>account.listAgents()</code></dt><dd>Your agent mailboxes and your plan.</dd></div>
+          <div><dt dir="ltr"><code>account.deleteAgent(address)</code></dt><dd>Deletes the mailbox and all its mail. The address stays reserved for you.</dd></div>
+        </dl>
+        <p>Errors throw <code>ApiError</code> with <code>status</code> and <code>code</code>. Types ship with the package.</p>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="auth">
+        <h2 id="auth">Authentication</h2>
+        <p>Two kinds of API key, both sent as <code>Authorization: Bearer &lt;key&gt;</code>:</p>
+        <ul>
+          <li><strong>Account key</strong> (<code>shalom_sk_...</code>): creates agent mailboxes, lists them and shows the plan. It cannot open, send for or delete a mailbox on its own, and it cannot touch billing. Get one with <code>shalom login</code>, or create one for a server on the AI agents page of the app.</li>
+          <li><strong>Agent key</strong> (<code>shalom_ak_...</code>): reads and sends for one agent mailbox only. Issued when the mailbox is created and rotated with <code>shalom agents rotate</code>.</li>
+        </ul>
+        <p>Every request that changes something must also send <code>x-shalom: 1</code> and a JSON body. Responses are JSON; errors are <code>{ "error": "code", "message": "..." }</code>.</p>
+        <pre dir="ltr"><code>curl https://shalomail.com/api/agents \
+  -H "Authorization: Bearer $SHALOM_API_KEY"</code></pre>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="api">
+        <h2 id="api">HTTP API</h2>
+        <h3>Agent mailboxes (account key)</h3>
+        <dl class="doc-ref">
+          <div><dt dir="ltr"><code>GET /api/agents</code></dt><dd><code>{ agents: [{ id, address, name, createdAt, paused }], plan: { plan, limit, used } }</code></dd></div>
+          <div><dt dir="ltr"><code>POST /api/agents</code></dt><dd>Body <code>{ address, name, publicKey }</code>, where <code>publicKey</code> is the base64 X25519 public key you generated. Returns <code>{ agent, key }</code> with the new agent key.</dd></div>
+          <div><dt dir="ltr"><code>POST /api/agents/delete</code></dt><dd><code>{ id, agentKey }</code>. Deletes the mailbox and its mail. With an account key it also needs the mailbox's own agent key, so a leaked account key cannot destroy mailboxes.</dd></div>
+          <div><dt dir="ltr"><code>POST /api/agents/rotate</code></dt><dd><code>{ id }</code>. Returns <code>{ sealedKey }</code>: the new agent key sealed (purpose <code>raw</code>) to the mailbox public key, so only the holder of its private key can open it. The old agent key stops working.</dd></div>
+          <div><dt dir="ltr"><code>GET /api/billing</code></dt><dd>Plan, limit, mailboxes in use and renewal date. Subscribing and changing plans happen only in the app, signed in: API keys cannot touch billing.</dd></div>
+        </dl>
+        <h3>Mail (agent key)</h3>
+        <dl class="doc-ref">
+          <div><dt dir="ltr"><code>GET /api/messages</code></dt><dd>Query <code>folder</code> (inbox, starred, sent, drafts, archive, spam, trash), <code>limit</code> (1 to 100), <code>before</code> (a <code>received_at</code> for the next page). Returns <code>{ messages: [{ id, folder, seen, starred, received_at, size, sender, head }], more, counts }</code>; <code>head</code> is the sealed head in base64.</dd></div>
+          <div><dt dir="ltr"><code>GET /api/messages/{id}/raw</code></dt><dd>The sealed body, as bytes.</dd></div>
+          <div><dt dir="ltr"><code>POST /api/messages/update</code></dt><dd><code>{ ids, seen?, starred?, folder? }</code>, up to 90 ids.</dd></div>
+          <div><dt dir="ltr"><code>POST /api/messages/delete</code></dt><dd><code>{ ids }</code>. Only for messages already in trash or spam.</dd></div>
+          <div><dt dir="ltr"><code>POST /api/send</code></dt><dd>Recipients outside Shalom (<code>to</code>, <code>cc</code>, <code>bcc</code>) with <code>subject</code>, <code>text</code>, <code>html</code>, <code>attachments</code> (base64) and thread headers, plus <code>sentCopy: { head, raw }</code>, your copy sealed to your own key. Shalom recipients are delivered separately with <code>/api/deliver</code>.</dd></div>
+          <div><dt dir="ltr"><code>POST /api/cert</code></dt><dd>A sender certificate for your address and key, signed by the server (Ed25519), valid for 7 days.</dd></div>
+          <div><dt dir="ltr"><code>POST /api/tokens</code></dt><dd><code>{ blinded: [...] }</code>, up to 20 blinded delivery tickets; returns <code>{ signed }</code>. Counted against your daily limit, then used anonymously.</dd></div>
+        </dl>
+        <h3>Public</h3>
+        <dl class="doc-ref">
+          <div><dt dir="ltr"><code>POST /api/keys</code></dt><dd><code>{ address }</code>. The public key of a Shalom address, or <code>null</code>. Send it without credentials.</dd></div>
+          <div><dt dir="ltr"><code>POST /api/deliver</code></dt><dd><code>{ to, head, raw, token, sig }</code>. Anonymous delivery to a Shalom address, paid with one delivery ticket.</dd></div>
+          <div><dt dir="ltr"><code>GET /api/auth/config</code></dt><dd>The server's public keys: <code>certKey</code> (Ed25519, for sender certificates) and <code>tokenKey</code> (RSA, for tickets). Pin them on first use.</dd></div>
+          <div><dt dir="ltr"><code>POST /api/cli/start</code>, <code>/api/cli/poll</code></dt><dd>Browser login for command line tools: start returns a code and a link, poll returns the account key sealed to the public key you sent.</dd></div>
+        </dl>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="crypto">
+        <h2 id="crypto">Encryption format</h2>
+        <p>Every mailbox has an X25519 key pair. The private key never reaches the server. Each stored message has a sealed head (a small JSON with from, to, subject, date, snippet and a thread marker) and a sealed body (the full MIME message, gzip compressed).</p>
+        <p>A seal is <code>version (1 byte) | ephemeral public key (32) | nonce (12) | ciphertext + tag</code>. Version 1: X25519 between a fresh ephemeral key and the recipient key, HKDF-SHA256 with salt <code>ephemeralPub || recipientPub</code> and info <code>shalom/v1/head</code> or <code>shalom/v1/raw</code>, then AES-256-GCM with the same info as associated data.</p>
+        <p>Mail between Shalom accounts uses version 3: the content is sealed with an extra DH between the sender and recipient keys (in the style of HPKE Auth mode) and carries the sender certificate inside the seal, so the server cannot forge or read who sent it. The recipient verifies the certificate with the server <code>certKey</code>. Delivery tickets are RSA blind signatures with a full-domain hash, so the ticket cannot be linked to the account that requested it.</p>
+        <p>The SDK implements all of this. If you need another language, write to <a href="mailto:contato@shalomail.com">contato@shalomail.com</a>.</p>
+        <p>What this protects and where it stops, in plain words and in every language of the site: <a href="/en/encryption/">How the encryption works</a>.</p>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="limits">
+        <h2 id="limits">Errors and limits</h2>
+        <dl class="doc-ref">
+          <div><dt dir="ltr"><code>bad_key</code> 401</dt><dd>Invalid or revoked key.</dd></div>
+          <div><dt dir="ltr"><code>key_scope</code> 403</dt><dd>The key cannot do this: account keys manage agents, agent keys read and send.</dd></div>
+          <div><dt dir="ltr"><code>agent_limit</code> 402</dt><dd>The plan has no free agent mailbox left.</dd></div>
+          <div><dt dir="ltr"><code>agent_paused</code> 402</dt><dd>The mailbox is over the plan limit: it still receives and can be read, but cannot send.</dd></div>
+          <div><dt dir="ltr"><code>send_limit</code> 429</dt><dd>Daily limit for this mailbox.</dd></div>
+          <div><dt dir="ltr"><code>slow_down</code> 429</dt><dd>Too many requests in a minute.</dd></div>
+        </dl>
+        <ul>
+          <li>Messages up to 15 MB. To outside addresses: up to 50 recipients and 4 MB of attachments per message.</li>
+          <li>Per mailbox and day: 20 outside recipients in the first week and 100 after that; 100 Shalom deliveries in the first week and 500 after that.</li>
+          <li>Each mailbox has 1 GB. Trash and spam empty themselves after 30 days.</li>
+          <li>No webhooks yet: use <code>agent.watch()</code>, <code>shalom watch --exec</code>, or poll <code>GET /api/messages</code>.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="foot wrap">
+      <p>Shalom Mail (shalomail.com) is an encrypted email service that works in the browser. Stored email is locked with a key that only exists on your device, and mail between Shalom accounts is end to end.</p>
+      <div class="foot-row">
+        <span>© 2026 Shalom Mail</span>
+        <nav aria-label="Links">
+          <a href="/en/">Shalom Mail</a>
+          <a href="/en/agents/">AI agents</a>
+          <a href="/developers/">Developers</a>
+          <a href="/en/encryption/">Encryption</a>
+          <a href="/en/faq/">FAQ</a>
+          <a href="/en/terms/">Terms of use</a>
+          <a href="/en/privacy/">Privacy</a>
+          <details class="lang">
+            <summary><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 12h17M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>English</summary>
+            <ul><li><a href="/agentes/" hreflang="pt-BR" lang="pt-BR" data-lang="pt">Português</a></li><li><a href="/en/agents/" hreflang="en" lang="en" data-lang="en" aria-current="true">English</a></li><li><a href="/es/agents/" hreflang="es" lang="es" data-lang="es">Español</a></li><li><a href="/fr/agents/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li><li><a href="/de/agents/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li><li><a href="/it/agents/" hreflang="it" lang="it" data-lang="it">Italiano</a></li><li><a href="/ru/agents/" hreflang="ru" lang="ru" data-lang="ru">Русский</a></li><li><a href="/uk/agents/" hreflang="uk" lang="uk" data-lang="uk">Українська</a></li><li><a href="/tr/agents/" hreflang="tr" lang="tr" data-lang="tr">Türkçe</a></li><li><a href="/he/agents/" hreflang="he" lang="he" data-lang="he">עברית</a></li><li><a href="/ar/agents/" hreflang="ar" lang="ar" data-lang="ar">العربية</a></li><li><a href="/hi/agents/" hreflang="hi" lang="hi" data-lang="hi">हिन्दी</a></li><li><a href="/zh/agents/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh">简体中文</a></li><li><a href="/ja/agents/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li><li><a href="/ko/agents/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li></ul>
+          </details>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module" src="/lp/lang.ts"></script>
+  </body>
+</html>

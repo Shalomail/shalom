@@ -1,0 +1,106 @@
+<!doctype html>
+<!-- Gerado por scripts/site.mjs a partir de web/site. Edite lá, não aqui. -->
+<html lang="pt-BR" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Como funciona a criptografia · Shalom Mail</title>
+    <meta name="description" content="Como o Shalom Mail protege seus e-mails: chave criada no seu aparelho, Argon2id na senha, AES-256-GCM em cada mensagem guardada e onde a proteção termina." />
+    <meta name="robots" content="max-image-preview:large" />
+    <link rel="canonical" href="https://shalomail.com/criptografia/" />
+    <link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/" />
+    <link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/" />
+    <link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/" />
+    <link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/" />
+    <link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/" />
+    <link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/" />
+    <link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/" />
+    <link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/" />
+    <link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/" />
+    <link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/" />
+    <link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/" />
+    <link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/" />
+    <link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/" />
+    <link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/" />
+    <link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/" />
+    <link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/" />
+    <meta property="og:title" content="Como funciona a criptografia · Shalom Mail" />
+    <meta property="og:description" content="Como o Shalom Mail protege seus e-mails: chave criada no seu aparelho, Argon2id na senha, AES-256-GCM em cada mensagem guardada e onde a proteção termina." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shalomail.com/criptografia/" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Shalom Mail" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=2" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Como funciona a criptografia · Shalom Mail" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Como funciona a criptografia · Shalom Mail" />
+    <meta name="twitter:description" content="Como o Shalom Mail protege seus e-mails: chave criada no seu aparelho, Argon2id na senha, AES-256-GCM em cada mensagem guardada e onde a proteção termina." />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=2" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
+    <link rel="stylesheet" href="/lp/lp.css" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://shalomail.com/#org","name":"Shalom Mail","url":"https://shalomail.com/","logo":{"@type":"ImageObject","url":"https://shalomail.com/icon-512.png","width":512,"height":512},"legalName":"X TECH A.I FUND HOLDING E PARTICIPACOES LTDA","email":"contato@shalomail.com","address":{"@type":"PostalAddress","addressLocality":"Governador Celso Ramos","addressRegion":"SC","addressCountry":"BR"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer support","email":"contato@shalomail.com"},{"@type":"ContactPoint","contactType":"privacy","email":"privacidade@shalomail.com"}]},{"@type":"TechArticle","@id":"https://shalomail.com/criptografia/#article","url":"https://shalomail.com/criptografia/","mainEntityOfPage":"https://shalomail.com/criptografia/","headline":"Como funciona a criptografia","description":"Como o Shalom Mail protege seus e-mails: chave criada no seu aparelho, Argon2id na senha, AES-256-GCM em cada mensagem guardada e onde a proteção termina.","inLanguage":"pt-BR","image":"https://shalomail.com/og.png","isPartOf":{"@id":"https://shalomail.com/#website"},"about":{"@id":"https://shalomail.com/#app"},"author":{"@id":"https://shalomail.com/#org"},"publisher":{"@id":"https://shalomail.com/#org"}}]}</script>
+  </head>
+  <body class="legal-page">
+    <header class="top wrap">
+      <a class="brand" href="/" aria-label="Shalom Mail, início">
+        <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
+        <span>Shalom</span>
+      </a>
+      <nav class="top-links" aria-label="Conta">
+        <a href="/entrar">Entrar</a>
+        <a href="/criar-conta">Criar conta</a>
+      </nav>
+    </header>
+
+    <main class="doc wrap">
+      <h1>Como funciona a criptografia</h1>
+      <p class="doc-lead">O Shalom Mail é um serviço de e-mail em shalomail.com. Seus e-mails guardados ficam trancados com uma chave que só existe no seu aparelho, e entre contas Shalom tudo vai de ponta a ponta. Aqui está como isso funciona, em palavras simples, e onde a proteção termina.</p>
+
+      <section class="doc-sec" aria-labelledby="key"><h2 id="key">A sua chave nasce no seu aparelho</h2><p>Quando você cria a conta, o navegador gera a sua chave privada: 256 bits aleatórios, para X25519. Ela nunca chega ao servidor de um jeito que alguém consiga ler.</p><p>O servidor só guarda essa chave dentro de um envelope trancado pela sua senha, e o envelope é aberto no seu aparelho quando você entra. O servidor ainda põe uma segunda tranca própria nesse envelope, com um segredo que fica fora do banco de dados.</p></section>
+      <section class="doc-sec" aria-labelledby="password"><h2 id="password">A sua senha fica no seu aparelho</h2><p>O seu aparelho passa a senha pelo Argon2id, com 128 MB de memória e 3 passadas, e tira duas chaves do resultado. Uma prova para o servidor que você sabe a senha. A outra abre o envelope com a sua chave. A senha em si nunca é enviada.</p><p>O servidor guarda só um código feito a partir dessa prova, com um segredo que não está no banco de dados. O app também confere os parâmetros do Argon2id que o servidor manda e recusa os fracos, para que um servidor adulterado não consiga deixar a sua senha mais fácil de adivinhar.</p></section>
+      <section class="doc-sec" aria-labelledby="stored"><h2 id="stored">Cada e-mail guardado é lacrado</h2><p>Cada e-mail fica guardado em duas partes lacradas: um cabeçalho pequeno, com remetente, destinatários, assunto, data, uma prévia curta e a conversa a que ele pertence, e a mensagem inteira com os anexos.</p><p>As duas partes são lacradas para a sua chave pública com X25519, HKDF-SHA256 e AES-256-GCM. Só a sua chave privada abre, então o servidor guarda dados que não consegue ler.</p></section>
+      <section class="doc-sec" aria-labelledby="outside"><h2 id="outside">E-mail com outros provedores</h2><p>E-mail do Gmail, do Outlook ou de qualquer outro provedor chega aberto, como todo e-mail na internet. Nesse momento o servidor confere se é spam ou golpe e lacra a mensagem com a sua chave. A versão aberta não é guardada.</p><p>O e-mail que você manda para outros provedores sai como e-mail comum. O servidor repassa a mensagem aberta, e o provedor de quem recebe consegue ler. Nesse caso o Shalom protege a cópia guardada na sua caixa, não o caminho.</p></section>
+      <section class="doc-sec" aria-labelledby="between"><h2 id="between">Entre contas Shalom, de ponta a ponta</h2><p>Quando você escreve para outro endereço Shalom, o seu aparelho lacra a mensagem para a chave pública de quem recebe antes de ela sair. Ela só pode ser lida no aparelho de quem recebe, nunca no caminho nem no servidor.</p><p>A mensagem também é autenticada com a sua própria chave, então o servidor não consegue forjar uma mensagem em seu nome.</p><p>O remetente vai lacrado também, no estilo do sealed sender do Signal. O servidor dá a cada conta um certificado curto assinado com Ed25519. O seu aparelho coloca esse certificado dentro do lacre, quem recebe confere, e o servidor guarda e entrega a mensagem sem saber quem enviou.</p><p>Para conter abuso sem saber quem mandou o quê, cada entrega gasta um ingresso que o servidor assinou às cegas, com assinaturas cegas RSA. O servidor confere o ingresso, mas não tem como ligá-lo à conta que pediu.</p></section>
+      <section class="doc-sec" aria-labelledby="contacts"><h2 id="contacts">Conferir a chave de um contato</h2><p>O app guarda a chave de cada contato Shalom na primeira vez que a vê. Se um dia o servidor entregar outra chave para o mesmo endereço, o envio para e o app mostra as duas impressões digitais, de 30 dígitos cada, para você comparar com o seu contato. O CLI shalom também para quando a chave de um contato muda, até você confirmar.</p></section>
+      <section class="doc-sec" aria-labelledby="agents"><h2 id="agents">Caixas para agentes de IA</h2><p>Cada caixa de agente tem o próprio par de chaves, criado na máquina onde você roda o CLI shalom ou o SDK para Node. A chave privada fica em <code dir="ltr">~/.config/shalom</code> ou no <code dir="ltr">SHALOM_AGENT_TOKEN</code> que você exporta, então guarde esse token como segredo.</p><p>A chave da sua conta cria e apaga caixas de agente, mas não abre nenhuma delas. A chave de cada caixa só lê e envia por aquela caixa.</p></section>
+      <section class="doc-sec" aria-labelledby="server"><h2 id="server">O que o servidor sabe</h2><p>Para funcionar, o servidor precisa saber algumas coisas. Nenhuma delas é o conteúdo dos seus e-mails guardados:</p><ul><li>O seu endereço, o nome que você escolheu e, se você puser, a sua foto de perfil.</li><li>O seu e-mail de recuperação, guardado trancado e aberto só para mandar um link para você.</li><li>De cada mensagem: para qual caixa ela é, quando chegou, quanto espaço ocupa, em que pasta está e se foi lida, fixada ou marcada com estrela.</li><li>Para quem você escreve em outros provedores, já que esse e-mail sai como e-mail comum.</li><li>As suas sessões conectadas: quando cada uma começou, quando foi usada pela última vez e o tipo de navegador.</li></ul><p>A lista completa, com quanto tempo cada coisa fica guardada, está na política de privacidade.</p></section>
+      <section class="doc-sec" aria-labelledby="limits"><h2 id="limits">Onde a proteção termina</h2><ul><li>E-mail com outros provedores não é de ponta a ponta. Ele viaja como e-mail comum, e o servidor vê a mensagem no momento em que ela passa.</li><li>Se você esquecer a senha, os e-mails guardados não têm como ser recuperados, porque só a sua senha abre a sua chave e o Shalom não tem cópia dela. Com o e-mail de recuperação você cria uma senha nova e mantém o endereço, mas a caixa começa vazia.</li><li>O app roda no seu navegador e é carregado de shalomail.com. Como em todo e-mail que funciona na web, você conta com o site entregando o código descrito aqui.</li><li>A criptografia não protege um aparelho que já foi invadido. Se você escolher lembrar um aparelho, a sua chave fica naquele navegador, então proteja o aparelho como protege a sua senha.</li><li>O remetente lacrado deixa quem enviou fora do que o servidor guarda. Como qualquer site, o servidor ainda vê a conexão de cada pedido, e usa isso só contra abuso, como explica a política de privacidade.</li></ul></section>
+
+      <section class="doc-sec" aria-labelledby="more">
+        <h2 id="more">Mais detalhes</h2>
+        <p><a href="/developers/#crypto">O formato exato da criptografia, para desenvolvedores (em inglês)</a></p>
+        <p><a href="/privacidade/">Política de privacidade</a></p>
+        <p><a href="/perguntas-frequentes/">Perguntas frequentes</a></p>
+      </section>
+      <p class="doc-actions"><a class="doc-cta" href="/criar-conta">Criar conta grátis</a></p>
+    </main>
+
+    <footer class="foot wrap">
+      <p>O Shalom Mail (shalomail.com) é um serviço de e-mail criptografado que funciona no navegador. Os e-mails guardados ficam trancados com uma chave que só existe no seu aparelho, e entre contas Shalom tudo vai de ponta a ponta.</p>
+      <div class="foot-row">
+        <span>© 2026 Shalom Mail</span>
+        <nav aria-label="Links">
+          <a href="/">Shalom Mail</a>
+          <a href="/agentes/">Agentes de IA</a>
+          <a href="/developers/">Desenvolvedores</a>
+          <a href="/criptografia/">Criptografia</a>
+          <a href="/perguntas-frequentes/">Perguntas frequentes</a>
+          <a href="/termos/">Termos de uso</a>
+          <a href="/privacidade/">Privacidade</a>
+          <details class="lang">
+            <summary><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 12h17M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>Português</summary>
+            <ul><li><a href="/criptografia/" hreflang="pt-BR" lang="pt-BR" data-lang="pt" aria-current="true">Português</a></li><li><a href="/en/encryption/" hreflang="en" lang="en" data-lang="en">English</a></li><li><a href="/es/encryption/" hreflang="es" lang="es" data-lang="es">Español</a></li><li><a href="/fr/encryption/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li><li><a href="/de/encryption/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li><li><a href="/it/encryption/" hreflang="it" lang="it" data-lang="it">Italiano</a></li><li><a href="/ru/encryption/" hreflang="ru" lang="ru" data-lang="ru">Русский</a></li><li><a href="/uk/encryption/" hreflang="uk" lang="uk" data-lang="uk">Українська</a></li><li><a href="/tr/encryption/" hreflang="tr" lang="tr" data-lang="tr">Türkçe</a></li><li><a href="/he/encryption/" hreflang="he" lang="he" data-lang="he">עברית</a></li><li><a href="/ar/encryption/" hreflang="ar" lang="ar" data-lang="ar">العربية</a></li><li><a href="/hi/encryption/" hreflang="hi" lang="hi" data-lang="hi">हिन्दी</a></li><li><a href="/zh/encryption/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh">简体中文</a></li><li><a href="/ja/encryption/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li><li><a href="/ko/encryption/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li></ul>
+          </details>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module" src="/lp/lang.ts"></script>
+  </body>
+</html>

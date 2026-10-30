@@ -1,0 +1,106 @@
+<!doctype html>
+<!-- Gerado por scripts/site.mjs a partir de web/site. Edite lá, não aqui. -->
+<html lang="zh-Hans" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="referrer" content="no-referrer" />
+    <title>加密是如何工作的 · Shalom Mail</title>
+    <meta name="description" content="Shalom Mail 如何保护你的邮件：在你设备上生成的密钥、用于密码的 Argon2id、用于每封存储邮件的 AES-256-GCM，以及保护的边界。" />
+    <meta name="robots" content="max-image-preview:large" />
+    <link rel="canonical" href="https://shalomail.com/zh/encryption/" />
+    <link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/" />
+    <link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/" />
+    <link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/" />
+    <link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/" />
+    <link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/" />
+    <link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/" />
+    <link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/" />
+    <link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/" />
+    <link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/" />
+    <link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/" />
+    <link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/" />
+    <link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/" />
+    <link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/" />
+    <link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/" />
+    <link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/" />
+    <link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/" />
+    <meta property="og:title" content="加密是如何工作的 · Shalom Mail" />
+    <meta property="og:description" content="Shalom Mail 如何保护你的邮件：在你设备上生成的密钥、用于密码的 Argon2id、用于每封存储邮件的 AES-256-GCM，以及保护的边界。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shalomail.com/zh/encryption/" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="Shalom Mail" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=2" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="加密是如何工作的 · Shalom Mail" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="加密是如何工作的 · Shalom Mail" />
+    <meta name="twitter:description" content="Shalom Mail 如何保护你的邮件：在你设备上生成的密钥、用于密码的 Argon2id、用于每封存储邮件的 AES-256-GCM，以及保护的边界。" />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=2" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
+    <link rel="stylesheet" href="/lp/lp.css" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://shalomail.com/#org","name":"Shalom Mail","url":"https://shalomail.com/","logo":{"@type":"ImageObject","url":"https://shalomail.com/icon-512.png","width":512,"height":512},"legalName":"X TECH A.I FUND HOLDING E PARTICIPACOES LTDA","email":"contato@shalomail.com","address":{"@type":"PostalAddress","addressLocality":"Governador Celso Ramos","addressRegion":"SC","addressCountry":"BR"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer support","email":"contato@shalomail.com"},{"@type":"ContactPoint","contactType":"privacy","email":"privacidade@shalomail.com"}]},{"@type":"TechArticle","@id":"https://shalomail.com/zh/encryption/#article","url":"https://shalomail.com/zh/encryption/","mainEntityOfPage":"https://shalomail.com/zh/encryption/","headline":"加密是如何工作的","description":"Shalom Mail 如何保护你的邮件：在你设备上生成的密钥、用于密码的 Argon2id、用于每封存储邮件的 AES-256-GCM，以及保护的边界。","inLanguage":"zh-Hans","image":"https://shalomail.com/og.png","isPartOf":{"@id":"https://shalomail.com/#website"},"about":{"@id":"https://shalomail.com/#app"},"author":{"@id":"https://shalomail.com/#org"},"publisher":{"@id":"https://shalomail.com/#org"}}]}</script>
+  </head>
+  <body class="legal-page">
+    <header class="top wrap">
+      <a class="brand" href="/zh/" aria-label="Shalom Mail 首页">
+        <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
+        <span>Shalom</span>
+      </a>
+      <nav class="top-links" aria-label="账户">
+        <a href="/entrar">登录</a>
+        <a href="/criar-conta">注册</a>
+      </nav>
+    </header>
+
+    <main class="doc wrap">
+      <h1>加密是如何工作的</h1>
+      <p class="doc-lead">Shalom Mail 是 shalomail.com 上的邮箱服务。你存储的邮件用只存在于你设备上的密钥锁住，Shalom 账户之间的邮件全程端到端加密。下面用简单的话说明它是如何工作的，以及保护到哪里为止。</p>
+
+      <section class="doc-sec" aria-labelledby="key"><h2 id="key">你的密钥在你的设备上生成</h2><p>创建账户时，你的浏览器会生成你的私钥：256 位随机数，用于 X25519。它从不以任何人能读懂的形式到达服务器。</p><p>服务器只把它保存在一个由你的密码锁住的信封里，你登录时信封在你的设备上打开。服务器还会给这个信封加上自己的第二道锁，所用的密钥保存在数据库之外。</p></section>
+      <section class="doc-sec" aria-labelledby="password"><h2 id="password">你的密码留在你的设备上</h2><p>你的设备用 Argon2id 处理密码，使用 128 MB 内存、3 轮计算，并从结果推导出两把密钥。一把向服务器证明你知道密码，另一把打开装有你密钥的信封。密码本身从不发送。</p><p>服务器只存储由这个证明生成的一段代码，并使用一个不在数据库中的密钥。应用还会检查服务器发来的 Argon2id 参数并拒绝过弱的参数，这样被篡改的服务器也无法让你的密码更容易被猜到。</p></section>
+      <section class="doc-sec" aria-labelledby="stored"><h2 id="stored">每封存储的邮件都已密封</h2><p>每封邮件分成两个密封的部分保存：一个小的邮件头，包含发件人、收件人、主题、日期、简短预览和所属对话；以及带附件的完整邮件。</p><p>两个部分都用 X25519、HKDF-SHA256 和 AES-256-GCM 按你的公钥密封。只有你的私钥能打开它们，所以服务器保存的是它无法读取的数据。</p></section>
+      <section class="doc-sec" aria-labelledby="outside"><h2 id="outside">与其他邮箱服务之间的邮件</h2><p>来自 Gmail、Outlook 或其他任何服务的邮件，和互联网上的所有邮件一样，以未加密的形式送达。到达的那一刻，服务器会检查它是否为垃圾邮件或诈骗邮件，并用你的密钥密封。未加密的版本不会被保存。</p><p>你发往其他服务的邮件以普通邮件形式发出。服务器以未加密的形式转发，收件人的邮箱服务可以读取。这种情况下，Shalom 保护的是你邮箱里保存的副本，而不是传输过程。</p></section>
+      <section class="doc-sec" aria-labelledby="between"><h2 id="between">Shalom 账户之间：端到端</h2><p>当你写信给另一个 Shalom 地址时，你的设备会在邮件发出前按收件人的公钥把它密封。它只能在收件人的设备上读取，在传输途中和服务器上都无法读取。</p><p>邮件还会用你自己的密钥进行认证，所以服务器无法以你的名义伪造邮件。</p><p>发件人也被密封，方式类似 Signal 的 sealed sender。服务器为每个账户签发一份用 Ed25519 签名的简短证书。你的设备把它放进封印里，收件人进行验证，服务器则在不知道发件人是谁的情况下保存并投递邮件。</p><p>为了在不知道谁发了什么的情况下限制滥用，每次投递都要消耗一张由服务器盲签的票据，使用 RSA 盲签名。服务器会验证票据，但无法把它和申请票据的账户联系起来。</p></section>
+      <section class="doc-sec" aria-labelledby="contacts"><h2 id="contacts">核对联系人的密钥</h2><p>应用会在第一次看到每个 Shalom 联系人的密钥时把它记住。如果服务器哪天为同一个地址给出了不同的密钥，发送会停止，应用会显示两组指纹，每组 30 位数字，方便你和联系人核对。联系人的密钥变化时，shalom CLI 也会停下，直到你确认。</p></section>
+      <section class="doc-sec" aria-labelledby="agents"><h2 id="agents">面向 AI 智能体的邮箱</h2><p>每个智能体邮箱都有自己的密钥对，在你运行 shalom CLI 或 Node SDK 的机器上生成。私钥保存在 <code dir="ltr">~/.config/shalom</code> 或你导出的 <code dir="ltr">SHALOM_AGENT_TOKEN</code> 中，所以请像保管秘密一样保管这个令牌。</p><p>你的账户密钥可以创建和删除智能体邮箱，但不能打开其中任何一个。每个邮箱的密钥只能通过该邮箱阅读和发送。</p></section>
+      <section class="doc-sec" aria-labelledby="server"><h2 id="server">服务器知道什么</h2><p>为了正常运行，服务器需要知道一些信息。其中没有一项是你存储邮件的内容：</p><ul><li>你的地址、你选择的名字，以及你添加的头像（如有）。</li><li>你的恢复邮箱，锁定保存，只在给你发送链接时打开。</li><li>每封邮件的以下信息：属于哪个邮箱、何时到达、占用多少空间、在哪个文件夹，以及是否已读、置顶或加星标。</li><li>你在其他邮箱服务给谁写信，因为这些邮件以普通邮件形式发出。</li><li>你已连接的会话：每个会话何时开始、最后一次使用的时间和浏览器类型。</li></ul><p>完整清单以及每项的保存时长，请见隐私政策。</p></section>
+      <section class="doc-sec" aria-labelledby="limits"><h2 id="limits">保护到哪里为止</h2><ul><li>与其他邮箱服务之间的邮件不是端到端加密的。它以普通邮件形式传输，服务器在邮件经过时能看到它。</li><li>如果你忘记了密码，存储的邮件无法恢复，因为只有你的密码能打开你的密钥，而 Shalom 没有副本。通过恢复邮箱，你可以设置新密码并保留你的地址，但邮箱会从空开始。</li><li>应用在你的浏览器中运行，并从 shalomail.com 加载。和所有在网页上使用的邮箱一样，你要信任网站提供的就是这里描述的代码。</li><li>加密无法保护已经被入侵的设备。如果你选择记住某台设备，你的密钥会保存在那个浏览器里，所以请像保护密码一样保护它。</li><li>密封发件人让发件人不出现在服务器保存的数据里。但和任何网站一样，服务器仍能看到每个请求背后的连接，并且只把它用于防止滥用，详见隐私政策。</li></ul></section>
+
+      <section class="doc-sec" aria-labelledby="more">
+        <h2 id="more">更多细节</h2>
+        <p><a href="/developers/#crypto">加密的确切格式，面向开发者（英文）</a></p>
+        <p><a href="/zh/privacy/">隐私政策</a></p>
+        <p><a href="/zh/faq/">常见问题</a></p>
+      </section>
+      <p class="doc-actions"><a class="doc-cta" href="/criar-conta">免费创建账户</a></p>
+    </main>
+
+    <footer class="foot wrap">
+      <p>Shalom Mail（shalomail.com）是一个在浏览器中使用的加密邮箱服务。存储的邮件用只存在于你设备上的密钥锁住，Shalom 账户之间的邮件全程端到端加密。</p>
+      <div class="foot-row">
+        <span>© 2026 Shalom Mail</span>
+        <nav aria-label="链接">
+          <a href="/zh/">Shalom Mail</a>
+          <a href="/zh/agents/">AI 智能体</a>
+          <a href="/developers/">开发者</a>
+          <a href="/zh/encryption/">加密</a>
+          <a href="/zh/faq/">常见问题</a>
+          <a href="/zh/terms/">使用条款</a>
+          <a href="/zh/privacy/">隐私</a>
+          <details class="lang">
+            <summary><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 12h17M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>简体中文</summary>
+            <ul><li><a href="/criptografia/" hreflang="pt-BR" lang="pt-BR" data-lang="pt">Português</a></li><li><a href="/en/encryption/" hreflang="en" lang="en" data-lang="en">English</a></li><li><a href="/es/encryption/" hreflang="es" lang="es" data-lang="es">Español</a></li><li><a href="/fr/encryption/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li><li><a href="/de/encryption/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li><li><a href="/it/encryption/" hreflang="it" lang="it" data-lang="it">Italiano</a></li><li><a href="/ru/encryption/" hreflang="ru" lang="ru" data-lang="ru">Русский</a></li><li><a href="/uk/encryption/" hreflang="uk" lang="uk" data-lang="uk">Українська</a></li><li><a href="/tr/encryption/" hreflang="tr" lang="tr" data-lang="tr">Türkçe</a></li><li><a href="/he/encryption/" hreflang="he" lang="he" data-lang="he">עברית</a></li><li><a href="/ar/encryption/" hreflang="ar" lang="ar" data-lang="ar">العربية</a></li><li><a href="/hi/encryption/" hreflang="hi" lang="hi" data-lang="hi">हिन्दी</a></li><li><a href="/zh/encryption/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh" aria-current="true">简体中文</a></li><li><a href="/ja/encryption/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li><li><a href="/ko/encryption/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li></ul>
+          </details>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module" src="/lp/lang.ts"></script>
+  </body>
+</html>

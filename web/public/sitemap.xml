@@ -1,0 +1,1718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Gerado por scripts/site.mjs. Edite lá, não aqui. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://shalomail.com/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/termos/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/privacidade/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/agentes/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/criptografia/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/perguntas-frequentes/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/en/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/en/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/en/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/en/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/en/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/es/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/es/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/es/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/es/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/es/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/fr/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/fr/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/fr/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/fr/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/fr/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/de/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/de/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/de/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/de/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/de/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/de/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/it/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/it/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/it/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/it/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/it/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/it/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ru/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ru/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ru/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ru/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ru/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/uk/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/uk/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/uk/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/uk/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/uk/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/uk/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/tr/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/tr/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/tr/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/tr/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/tr/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/tr/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/he/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/he/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/he/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/he/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/he/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/he/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ar/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ar/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ar/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ar/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ar/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ar/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/hi/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/hi/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/hi/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/hi/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/hi/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/hi/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/zh/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/zh/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/zh/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/zh/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/zh/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/zh/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ja/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ja/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ja/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ja/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ja/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ja/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ko/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ko/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/termos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/terms/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/terms/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/terms/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/terms/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/terms/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/terms/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/terms/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/terms/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ko/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/privacidade/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ko/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/agents/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/agents/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/agents/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/agents/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/agents/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/agents/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/agents/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/agents/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/agents/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ko/encryption/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/ko/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://shalomail.com/perguntas-frequentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shalomail.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://shalomail.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://shalomail.com/it/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/faq/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/faq/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/faq/"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shalomail.com/he/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/faq/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/faq/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/faq/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/faq/"/>
+  </url>
+  <url>
+    <loc>https://shalomail.com/developers/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shalomail.com/developers/"/>
+  </url>
+</urlset>

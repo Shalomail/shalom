@@ -1,0 +1,525 @@
+{
+  "meta": {
+    "tag": "tr",
+    "name": "Türkçe",
+    "dir": "ltr",
+    "title": "Shalom Mail: şifreli ve gerçekten gizli e-posta",
+    "description": "E-postalarınız, yalnızca cihazınızda bulunan bir anahtarla kilitlenir. Ücretsiz; telefon numarası ve kimlik gerekmez."
+  },
+  "nav": {
+    "home": "Shalom Mail, ana sayfa",
+    "account": "Hesap",
+    "signin": "Giriş yap",
+    "signup": "Hesap oluştur"
+  },
+  "hero": {
+    "title": "Gerçekten gizli e-⁠posta.",
+    "lede": "E-postalarınız, yalnızca cihazınızda bulunan bir anahtarla kilitlenir."
+  },
+  "claim": {
+    "placeholder": "name",
+    "label": "İstediğiniz adres",
+    "submit": "Bu adresle oluştur",
+    "free": "Ücretsiz. Telefon numarası ve kimlik gerekmez.",
+    "minute": "Bir dakikanızı alır.",
+    "checking": "Kontrol ediliyor...",
+    "ok": "Bu adres kullanılabilir.",
+    "taken": "Bu adres alınmış.",
+    "reserved": "Bu adres rezerve edilmiş.",
+    "invalid": "3 ila 32 harf veya rakam; harf ya da rakamla başlayıp bitmeli."
+  },
+  "shot": {
+    "alt": "Uçtan uca şifreli bir yazışmanın açık olduğu Shalom Mail gelen kutusu"
+  },
+  "points": {
+    "label": "Hesapla birlikte gelenler",
+    "key": {
+      "title": "Anahtar sizde kalır",
+      "text": "Cihazınızda oluşturulur ve asla sunucuya gitmez. Anahtar olmadan saklanan e-postalarınızı kimse açamaz."
+    },
+    "ads": {
+      "title": "Reklam yok, takip yok",
+      "text": "E-postayı ne zaman açtığınızı bildiren görseller engellenir. Sahte gönderenler kehribar renginde görünür."
+    },
+    "free": {
+      "title": "Ücretsiz, 1 GB ile",
+      "text": "Her e-posta adresiyle yazışabilen bir @shalomail.com adresi. Shalom hesapları arasında uçtan uca şifreli."
+    }
+  },
+  "others": {
+    "title": "Her e-postayla çalışır.",
+    "text": "Gmail, Outlook veya başka bir servis kullananlara yazın. Onlara normal bir e-posta olarak ulaşır; Shalom hesapları arasında ise uçtan uca şifrelidir."
+  },
+  "seen": {
+    "title": "Askeri düzeyde şifreleme.",
+    "lead": "AES-256, hükümetlerin çok gizli bilgileri korumak için kullandığı şifrenin aynısı. Her e-posta saklanmadan önce onunla kilitlenir ve yalnızca sizin anahtarınız açar.",
+    "label": "Aynı mesaj: sizin okuduğunuz hâliyle ve sunucunun sakladığı hâliyle",
+    "you": "Sizin gördüğünüz",
+    "server": "Sunucunun sakladığı",
+    "text": "Elif, sözleşmeyi inceledim. Bir tek 4. sayfadaki imzan eksik."
+  },
+  "end": {
+    "title": "Adresinizi seçin."
+  },
+  "foot": {
+    "note": "Diğer servislerden gelen e-postalar, her e-posta gibi şifresiz ulaşır ve geldiği anda şifrelenir. Diğer servislere giden e-postalar normal e-posta olarak gönderilir. Uçtan uca şifreleme Shalom hesapları arasında geçerlidir.",
+    "links": "Bağlantılar",
+    "terms": "Kullanım koşulları",
+    "privacy": "Gizlilik",
+    "agents": "Yapay zekâ ajanları",
+    "developers": "Geliştiriciler",
+    "encryption": "Şifreleme",
+    "faq": "Sık sorulan sorular",
+    "about": "Shalom Mail (shalomail.com), tarayıcıda çalışan şifreli bir e-posta hizmetidir. Saklanan e-postalar yalnızca cihazınızda bulunan bir anahtarla kilitlenir ve Shalom hesapları arasında her şey uçtan uca şifrelidir."
+  },
+  "legal": {
+    "updated": "Son güncelleme: 30 Ekim 2026",
+    "translationNote": "Bu bir çeviridir. Portekizce sürümle farklılık olması durumunda Portekizce sürüm geçerlidir.",
+    "operator": "Shalom Mail, {c} tarafından işletilmektedir. Merkez: Governador Celso Ramos, SC, Brezilya.",
+    "terms": {
+      "title": "Kullanım koşulları",
+      "intro": "Bu koşullar, Shalom Mail’de hesap oluşturan herkes için geçerlidir. Bilerek kısa tutuldu: neler sunduğumuzu, sizden ne beklediğimizi ve bir sorun çıkarsa ne olacağını anlatır.",
+      "sections": [
+        {
+          "h": "1. Hizmet",
+          "p": [
+            "Shalom Mail, @shalomail.com adresi sunan şifreli bir e-posta hizmetidir. Hesap ücretsizdir ve 1 GB depolama alanıyla gelir.",
+            "Özellikleri ve sınırları zamanla değiştirebiliriz. Bir değişiklik kullandığınız bir şeyi etkilediğinde, önce uygulamada size haber veririz.",
+            "CLI ile hesabınız yapay zekâ ajanları için e-posta kutuları oluşturabilir: 2 tanesi ücretsiz, daha fazlası Agents 5 (en fazla 5 kutu, aylık 4,99 ABD doları), Agents 12 (en fazla 12 kutu, aylık 9,99 ABD doları) ve Unlimited (sınırsız kutu, günde en fazla 250 yeni, aylık 49,90 ABD doları) planlarıyla. Abonelik aylıktır, kendiliğinden yenilenir ve ödeme portalından istediğiniz zaman iptal edilebilir; ödenen dönemin sonuna kadar geçerli kalır. Abonelikten sonraki 7 gün içinde cayabilir ve ücretinizi geri alabilirsiniz. Ödemeyi Stripe işler. Ajanlarınızın gönderdiklerinden, kendiniz göndermişsiniz gibi sorumlusunuz."
+          ]
+        },
+        {
+          "h": "2. Hesabınız",
+          "p": [
+            "Hesap oluşturmak için en az 13 yaşında olmanız ya da ülkenizde gereken asgari yaşı doldurmuş olmanız gerekir. 18 yaşından küçükseniz hesabı bir ebeveynin veya vasinin gözetiminde kullanın.",
+            "Yalnızca nokta, kısa çizgi veya alt çizgiyle farklılaşan adresler aynı adres sayılır; böylece kimse başka birinin adresine benzeyen bir adres alamaz.",
+            "Parolanızın, PIN’inizin ve kurtarma kodlarınızın sorumluluğu size aittir. Hesabınızla yapılan her şeyden de siz sorumlusunuz."
+          ]
+        },
+        {
+          "h": "3. Parolanız anahtardır",
+          "p": [
+            "Saklanan e-postalarınız yalnızca parolanızla kilitlenen bir anahtarla açılır. Bu anahtarın bir kopyası bizde yoktur.",
+            "Bu yüzden parolanızı unutursanız saklanan e-postalarınızı kurtaramayız. Bu, hizmetin bir kusuru değildir: yalnızca sizin okuyabilmenizi garanti eden şey budur. Parolanızı iyi saklayın; iki adımlı doğrulamayı açarsanız kurtarma kodlarınızı da."
+          ]
+        },
+        {
+          "h": "4. İzin verilmeyenler",
+          "p": [
+            "Shalom Mail’i şunlar için kullanmayın:",
+            {
+              "ul": [
+                "spam ya da kimsenin istemediği toplu mesajlar göndermek;",
+                "dolandırıcılık veya kimlik avı (phishing) yapmak ya da başka bir kişi veya şirketin kimliğine bürünmek;",
+                "virüs veya herhangi bir kötü amaçlı yazılım yaymak;",
+                "birini taciz etmek, tehdit etmek ya da ısrarla takip etmek;",
+                "her türlü çocuk cinsel istismarı materyalini paylaşmak;",
+                "yasaları veya başkalarının haklarını çiğnemek;",
+                "sınırları aşmaya çalışmak, hesaplara izinsiz girmek veya hizmete saldırmak."
+              ]
+            },
+            "Hizmeti kullananları ve adreslerimizin itibarını korumak için günlük alıcı sayısı gibi gönderim sınırları vardır."
+          ]
+        },
+        {
+          "h": "5. Askıya alma",
+          "p": [
+            "Bu koşulları ihlal eden hesapları kısıtlayabilir veya askıya alabiliriz. Spam ve dolandırıcılık gibi kötüye kullanımlar, şifreli kalan içeriği okumamıza gerek kalmadan gönderim hacminden ve şikâyetlerden anlaşılır.",
+            "Mümkün olduğunda önceden haber veririz. Bir hata olduğunu düşünüyorsanız contato@shalomail.com adresine yazın."
+          ]
+        },
+        {
+          "h": "6. Yazdıklarınız sizindir",
+          "p": [
+            "Yazdığınız veya aldığınız şeyler üzerinde hiçbir hak iddia etmeyiz. Şifreli oldukları için onları göremeyiz bile."
+          ]
+        },
+        {
+          "h": "7. Kusursuz çalışma garantisi yoktur",
+          "p": [
+            "Hizmetin her zaman erişilebilir ve güvenli olması için elimizden geleni yaparız, ancak hizmet olduğu gibi sunulur; kesintisiz veya hatasız çalışacağı garanti edilmez. Sizin için önemli olan her şeyin bir kopyasını saklayın.",
+            "Yasanın izin verdiği ölçüde, dolaylı kayıplardan ve unutulan bir parola ya da giriş bilgilerinizle yapılan bir erişim nedeniyle kaybolan e-postalardan sorumlu değiliz."
+          ]
+        },
+        {
+          "h": "8. Hesabı kapatma",
+          "p": [
+            "Hesabınızı istediğiniz zaman Ayarlar'ın en altından silebilir ya da contato@shalomail.com adresinden isteyebilirsiniz. Hesap silindiğinde saklanan e-postalar, ajan kutuları ve hesap verileri kaldırılır ve plan iptal edilir. Adres ayrılmış kalır ve bir daha kimse tarafından kullanılmaz."
+          ]
+        },
+        {
+          "h": "9. Bu koşullardaki değişiklikler",
+          "p": [
+            "Bu koşullar önemli bir şekilde değişirse, değişiklik yürürlüğe girmeden önce uygulamada size haber veririz. Sonrasında hizmeti kullanmaya devam etmeniz yeni sürümü kabul ettiğiniz anlamına gelir."
+          ]
+        },
+        {
+          "h": "10. Uygulanacak hukuk ve iletişim",
+          "p": [
+            "Bu koşullar Brezilya yasalarına tabidir. Tüketiciyseniz, yaşadığınız yerin yasalarının size tanıdığı haklar saklıdır.",
+            "Sorularınız için: contato@shalomail.com."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Gizlilik politikası",
+      "intro": "Shalom Mail, sizin hakkınızda olabildiğince az şey bilmek üzere tasarlandı. Hizmetin neleri sakladığını, neleri göremediğini ve neler talep edebileceğinizi burada açıkça anlatıyoruz.",
+      "sections": [
+        {
+          "h": "1. Verilerinizden kim sorumlu",
+          "p": [
+            "Shalom Mail, Brezilya Genel Veri Koruma Kanunu (LGPD, 13.709/2018 sayılı Kanun) ve Avrupa Birliği’ndeki kişiler için Genel Veri Koruma Tüzüğü (GDPR) uyarınca bu hizmette işlenen verilerin veri sorumlusudur.",
+            "Gizlilik konusunda bize ulaşmak için: privacidade@shalomail.com."
+          ]
+        },
+        {
+          "h": "2. Şifrelenen ve sizden başka kimsenin okuyamadığı bilgiler",
+          "p": [
+            {
+              "ul": [
+                "Saklanan e-postalarınız: metin, konu, gönderen, ekler ve her birinin hangi yazışmaya ait olduğu. Hepsi sizin anahtarınızla kilitlenir.",
+                "E-postalarınızı açan anahtar, parolanızla kilitlenmiş ve yalnızca cihazınızda açılan bir zarfın içindedir. Sunucu bu zarfı kendine ait ikinci bir kilitle kapalı olarak saklar ve onu açmanın hiçbir yolu yoktur.",
+                "Parolanız asla sunucuya ulaşmaz. Cihazınız parolanızdan bir kanıt türetir; biz yalnızca bu kanıttan üretilen bir kodu saklarız."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "3. Sunucunun çalışmak için bilmesi gerekenler",
+          "p": [
+            {
+              "ul": [
+                "Hesap: adresiniz, seçtiğiniz ad ve eklerseniz profil fotoğrafınız. Diğer e-posta hizmetlerinde olduğu gibi, fotoğraf adresinizi bilen herkese açıktır.",
+                "Güvenlik: geri okunamayacak biçimde saklanan PIN’iniz ve kurtarma kodlarınız, kilitli olarak saklanan iki adımlı doğrulama sırrınız ve otomatik oturum kapatma için seçtiğiniz hareketsizlik süresi.",
+                "Her mesaj: hangi hesaba ait olduğu, ne zaman geldiği, ne kadar yer kapladığı, hangi klasörde olduğu ve okunup okunmadığı, sabitlenip sabitlenmediği veya yıldızlanıp yıldızlanmadığı.",
+                "Bağlı cihazlar: her oturumun ne zaman başladığı, en son ne zaman kullanıldığı ve tarayıcı türü; böylece onları görebilir ve oturumlarını kapatabilirsiniz.",
+                "IP adresi: parola tahmini ve toplu kayıt gibi kötüye kullanımları durdurmak için anlık olarak kullanılır ve yalnızca en geç 1 saat içinde silinen sayaçlarda tutulur.",
+                "API anahtarları ve ajan kutuları: her anahtar geri okunamayacak şekilde saklanır; son kullanım zamanı ve hangi ajan kutularının hesabınıza ait olduğu.",
+                "Ücretli plan: Stripe'taki müşteri ve abonelik kimlikleriniz, plan ve ne zamana kadar geçerli olduğu. Kart bilgileri Stripe'ta kalır ve sunucularımızdan asla geçmez."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "4. Shalom dışından gelen ve dışarıya giden e-postalar",
+          "p": [
+            "Başka bir hizmetten gelen e-posta, internetteki her e-posta gibi şifresiz ulaşır. Geldiği anda sunucu spam veya dolandırıcılık olup olmadığını kontrol eder ve mesajı sizin anahtarınızla kilitler. Şifresiz hâli saklanmaz.",
+            "Başka bir hizmete gönderdiğiniz e-posta normal bir e-posta olarak çıkar ve gönderim hizmetinden hedefine kadar şifresiz geçer.",
+            "Hiçbir şifresiz aşaması olmayan uçtan uca şifreleme, Shalom hesapları arasında geçerlidir. Bu durumda yazanın adı bile sunucu tarafından görülemez."
+          ]
+        },
+        {
+          "h": "5. Çerezler ve tarayıcıda depolama",
+          "p": [
+            "Yalnızca gerekli olanları kullanırız: oturumunuzu açık tutan oturum çerezi; daha önce giriş yaptığınız yerde bot doğrulamasını gereksiz kılan bilinen cihaz çerezi; ve tarayıcınızda saklanan tema, dil ve açık hesaplar gibi tercihler. Cihazı hatırlamayı seçerseniz anahtarınız da kilitli olarak tarayıcıda saklanabilir.",
+            "Reklam, analiz veya takip çerezi kullanmayız."
+          ]
+        },
+        {
+          "h": "6. Verileri kimlerle paylaşıyoruz",
+          "p": [
+            "Altyapı Cloudflare üzerinde çalışır: sunucular, veritabanı, depolama, e-posta alma ve gönderme ile bot doğrulaması (Turnstile). Cloudflare verileri bizim adımıza işler; saklanan e-postalar ona zaten şifrelenmiş olarak ulaşır.",
+            "Ücretli bir plana abone olursanız tahsilatı Stripe yapar; aboneliği işlemek için Shalom adresinizi ve ödeme bilgilerinizi kendi gizlilik politikasına göre alır.",
+            "Cloudflare’in sunucuları birçok ülkede bulunduğundan verileriniz, LGPD’nin öngördüğü güvencelerle Brezilya dışında işlenebilir.",
+            "Veri satmayız, reklam göstermeyiz ve e-postalarınızı hiçbir şeyi eğitmek için kullanmayız.",
+            "Verileri yetkililere yalnızca geçerli bir mahkeme kararı üzerine veririz. Elimizdeki bilgiler 3. bölümde listelenenlerdir: saklanan e-postaların içeriği şifreli kalır ve anahtar bizde değildir."
+          ]
+        },
+        {
+          "h": "7. Ne kadar süre saklıyoruz",
+          "p": [
+            {
+              "ul": [
+                "Hesap ve mesajlar: hesap var olduğu sürece. Çöp Kutusu ve Spam klasörleri 30 gün sonra kendiliğinden boşalır.",
+                "Oturumlar: kullanılmadan en fazla 30 gün; daha kısa bir hareketsizlik süresi seçerseniz daha az.",
+                "IP adresi içeren sayaçlar: en fazla 1 saat.",
+                "Plan: hesap var olduğu sürece. Stripe ödeme kayıtlarını yasanın gerektirdiği süre boyunca saklar.",
+                "Bir hesap silindiğinde verileri kaldırılır. Yalnızca adres saklanır; böylece kimse onu yeniden kaydedip size gelenleri alamaz. Altyapı yedeklerinin süresinin dolması birkaç gün sürebilir."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "8. Haklarınız",
+          "p": [
+            "Verilerinizi işleyip işlemediğimizin teyidini, verilerinize erişimi, bunların düzeltilmesini, taşınmasını, silinmesini ve kimlerle paylaştığımız hakkında bilgi talep edebilir, verdiğiniz bir onayı geri çekebilirsiniz.",
+            "Adınızı, fotoğrafınızı ve güvenlik ayarlarınızı doğrudan uygulamadan değiştirebilirsiniz. Diğer her şey için privacidade@shalomail.com adresine yazın. Ayrıca Brezilya Ulusal Veri Koruma Kurumu’na (ANPD) veya kendi ülkenizdeki yetkili kuruma şikâyette bulunabilirsiniz."
+          ]
+        },
+        {
+          "h": "9. Güvenlik",
+          "p": [
+            "Şifrelemenin yanı sıra anahtar zarfı için sunucu tarafında ikinci bir kilit, giriş denemesi sınırları, bot doğrulaması, isteğe bağlı PIN ve iki adımlı doğrulama ile yalnızca bu sitede ve güvenli bağlantı üzerinden çalışan çerezler kullanırız.",
+            "Hiçbir sistem kusursuz değildir. Sizi etkileyebilecek bir olay yaşanırsa, yasanın gerektirdiği şekilde size haber verir ve ANPD’yi bilgilendiririz."
+          ]
+        },
+        {
+          "h": "10. Çocuklar",
+          "p": [
+            "Shalom Mail 13 yaşından küçük çocuklar için değildir. Bir çocuğa ait bir hesaptan haberdarsanız privacidade@shalomail.com adresine yazın."
+          ]
+        },
+        {
+          "h": "11. Bu politikadaki değişiklikler",
+          "p": [
+            "Bu politika önemli bir şekilde değişirse, değişiklik yürürlüğe girmeden önce uygulamada size haber veririz."
+          ]
+        }
+      ]
+    }
+  },
+  "ai": {
+    "title": "Yapay zekâ ajanlarınıza bir posta kutusu verin",
+    "text": "Ajanlarınız için terminalden @shalomail.com adresleri oluşturun. Gerçek e-postaları alır, okur ve yanıtlarlar; aynı uçtan uca şifrelemeyle ve anahtar ajanın makinesinde kalarak.",
+    "free": "2 ajan kutusu ücretsiz",
+    "five": "5'e kadar",
+    "fivePrice": "aylık 4,99 ABD doları",
+    "twelve": "12'ye kadar",
+    "twelvePrice": "aylık 9,99 ABD doları",
+    "docs": "Nasıl çalışır",
+    "termLabel": "Terminalde bir ajan kutusu oluşturma",
+    "example": "adiniz-bot",
+    "exSubject": "Fiyat teklifi talebi",
+    "unlimited": "Sınırsız",
+    "unlimitedPrice": "aylık 49,90 ABD doları, günde en fazla 250 yeni kutu"
+  },
+  "docs": {
+    "title": "Yapay zekâ ajanları için e-posta",
+    "description": "Yapay zekâ ajanlarınıza uçtan uca şifreli gerçek bir @shalomail.com kutusu verin. Terminalden oluşturun, JSON ile okuyun ve yanıtlayın. 2 ücretsiz.",
+    "h1": "Yapay zekâ ajanlarınıza bir posta kutusu verin",
+    "lead": "shalom CLI ile her ajanın kendi @shalomail.com adresi olur. Shalom'dan ya da her yerden gerçek e-posta alır, okur ve gönderir; her komut JSON konuşur. Kutunun özel anahtarı ajanın makinesinde oluşur ve oradan hiç çıkmaz.",
+    "cta": "Ücretsiz hesap oluştur",
+    "settings": "Hesabınız var mı? Ajanlarınızı açın",
+    "startTitle": "Üç komutla başlayın",
+    "s1": "CLI'yi kurun. Node.js 20 veya daha yenisi gerekir.",
+    "s2": "Terminali hesabınıza bağlayın. Komut bir Shalom sayfası açar, siz de tek tıkla onaylarsınız.",
+    "s3": "Ajanınızın kutusunu oluşturun. Özel anahtarı bu makinede üretilir ve saklanır.",
+    "example": "adiniz-bot",
+    "readTitle": "Okuma, yanıtlama ve gönderme",
+    "readText": "Her komut --json kabul eder; ajanınız çıktıyı tahmin etmeden okur. Kimlikler ilk 8 karaktere kısaltılabilir.",
+    "exReply": "Aldım, teşekkürler.",
+    "exSubject": "Haftalık rapor",
+    "watchTitle": "Her yeni e-postaya tepki verme",
+    "watchText": "watch yeni e-postaları bekler ve her mesaj için programınızı bir kez çalıştırır; mesaj standart girdiye JSON olarak gelir.",
+    "watchFields": "JSON'da id, from, to, cc, subject, date, text, html, messageId, verifiedSender ve ek listesi bulunur. Ortama ayrıca SHALOM_MESSAGE_ID, SHALOM_FROM ve SHALOM_SUBJECT gelir.",
+    "serverTitle": "Sunucuda çalıştırma",
+    "serverText": "Kutuyu tek bir değişken olarak dışa aktarın ve her sunucu, konteyner ya da CI'da kullanın. Gizli olarak saklayın: özel anahtarı içerir.",
+    "securityTitle": "Güvenlik",
+    "security1": "Her kutunun özel anahtarı ajanın makinesinde kalır. Sunucu e-postaları mühürlü saklar ve okuyamaz.",
+    "security2": "Hesap anahtarınız yalnızca ajan kutuları oluşturur ve siler. Her kutunun anahtarı yalnızca o kutudan okur ve gönderir. Herhangi birini istediğiniz an yenileyebilir veya silebilirsiniz.",
+    "security3": "Shalom adresleri arasında e-posta uçtan uca mühürlü gider ve gönderen doğrulanır. Diğer sağlayıcılara normal e-posta olarak gider.",
+    "plansTitle": "Planlar",
+    "planFree": "Ücretsiz",
+    "planFreeText": "2 ajan kutusu",
+    "plan5Text": "5 kutuya kadar, aylık 4,99 ABD doları",
+    "plan12Text": "12 kutuya kadar, aylık 9,99 ABD doları",
+    "plansNote": "Yapay zekâ ajanları sayfasından veya shalom upgrade ile abone olun. Dış adreslere her kutu ilk hafta günde en fazla 20, sonra günde en fazla 100 alıcıya gönderir.",
+    "refTitle": "Tüm komutlar",
+    "refNote": "Tüm seçenekler için shalom --help çalıştırın. Tüm komutlar --json kabul eder; --as <adres> kutuyu seçer.",
+    "cmd": {
+      "login": "Bu terminali tarayıcı üzerinden hesabınıza bağlar.",
+      "list": "Ajan kutularınızı ve planınızı listeler.",
+      "create": "<name>@shalomail.com oluşturur; özel anahtar bu makinede kalır.",
+      "delete": "Kutuyu ve içindeki tüm e-postaları siler. Kutunun bu makinede kayıtlı olması gerekir; adres sizin için ayrılmış kalır.",
+      "rotate": "Kutu için yeni bir API anahtarı verir. Eskisi çalışmaz olur.",
+      "export": "Kutuyu başka yerde çalıştırmak için SHALOM_AGENT_TOKEN yazdırır.",
+      "plan": "Planınızı ve kaç kutu kullandığınızı gösterir.",
+      "upgrade": "Uygulamada planlar sayfasını açar.",
+      "inbox": "Bir klasördeki mesajları listeler. --unread yalnızca okunmamışları gösterir.",
+      "read": "Bir mesajı açar. --save-attachments dosyaları kaydeder.",
+      "send": "Metin bir parametrede, dosyada ya da standart girdide olacak şekilde, eklerle mesaj gönderir.",
+      "reply": "Aynı konuşmada yanıtlar. --all herkese yanıtlar.",
+      "move": "Gelen kutusu, arşiv, spam veya çöp kutusuna taşır.",
+      "mark": "Okundu ya da okunmadı, yıldızlı ya da değil olarak işaretler.",
+      "watch": "Yeni e-postaları bekler. --exec her mesaj için bir komut çalıştırır."
+    },
+    "planUnlimitedText": "sınırsız kutu, günde en fazla 250 yeni, aylık 49,90 ABD doları"
+  },
+  "enc": {
+    "title": "Şifreleme nasıl çalışır",
+    "description": "Shalom Mail e-postalarınızı nasıl korur: cihazınızda oluşan anahtar, parola için Argon2id, saklanan her mesaj için AES-256-GCM ve korumanın bittiği yer.",
+    "lead": "Shalom Mail, shalomail.com adresindeki bir e-posta hizmetidir. Saklanan e-postalarınız yalnızca cihazınızda bulunan bir anahtarla kilitlenir ve Shalom hesapları arasında her şey uçtan uca şifrelidir. Bunun nasıl çalıştığını ve korumanın nerede bittiğini burada sade bir dille anlatıyoruz.",
+    "s": {
+      "key": {
+        "h": "Anahtarınız cihazınızda oluşturulur",
+        "p": [
+          "Hesap oluşturduğunuzda tarayıcınız özel anahtarınızı üretir: X25519 için 256 rastgele bit. Bu anahtar sunucuya asla okunabilir bir biçimde ulaşmaz.",
+          "Sunucu onu yalnızca parolanızla kilitlenmiş bir zarfın içinde saklar ve zarf, giriş yaptığınızda cihazınızda açılır. Sunucu bu zarfa kendine ait ikinci bir kilit daha ekler; bu kilidin sırrı veritabanının dışında tutulur."
+        ]
+      },
+      "password": {
+        "h": "Parolanız cihazınızda kalır",
+        "p": [
+          "Cihazınız parolanızı 128 MB bellek ve 3 geçişle Argon2id’den geçirir ve sonuçtan iki anahtar türetir. Biri, parolayı bildiğinizi sunucuya kanıtlar. Diğeri, anahtarınızın bulunduğu zarfı açar. Parolanın kendisi asla gönderilmez.",
+          "Sunucu yalnızca bu kanıttan, veritabanında bulunmayan bir sırla üretilmiş bir kodu saklar. Uygulama ayrıca sunucunun gönderdiği Argon2id ayarlarını kontrol eder ve zayıf olanları reddeder; böylece kurcalanmış bir sunucu parolanızı tahmin etmeyi kolaylaştıramaz."
+        ]
+      },
+      "stored": {
+        "h": "Saklanan her e-posta mühürlüdür",
+        "p": [
+          "Her e-posta iki mühürlü parça hâlinde saklanır: gönderen, alıcılar, konu, tarih, kısa bir önizleme ve ait olduğu yazışmayı içeren küçük bir başlık ile ekleriyle birlikte mesajın tamamı.",
+          "İki parça da X25519, HKDF-SHA256 ve AES-256-GCM ile genel anahtarınıza mühürlenir. Onları yalnızca özel anahtarınız açar; yani sunucu okuyamadığı verileri saklar."
+        ]
+      },
+      "outside": {
+        "h": "Diğer sağlayıcılarla e-posta",
+        "p": [
+          "Gmail, Outlook veya başka herhangi bir sağlayıcıdan gelen e-posta, internetteki her e-posta gibi şifresiz ulaşır. O anda sunucu spam ve dolandırıcılık kontrolü yapar ve mesajı anahtarınızla mühürler. Şifresiz hâli saklanmaz.",
+          "Diğer sağlayıcılara gönderdiğiniz e-posta normal e-posta olarak çıkar. Sunucu onu şifresiz iletir ve alıcının sağlayıcısı okuyabilir. Bu durumda Shalom yolu değil, kutunuzda saklanan kopyayı korur."
+        ]
+      },
+      "between": {
+        "h": "Shalom hesapları arasında uçtan uca",
+        "p": [
+          "Başka bir Shalom adresine yazdığınızda cihazınız mesajı, çıkmadan önce alıcının genel anahtarına mühürler. Mesaj yalnızca alıcının cihazında okunabilir; ne yolda ne de sunucuda.",
+          "Mesaj ayrıca kendi anahtarınızla doğrulanır; bu yüzden sunucu sizin adınıza mesaj uyduramaz.",
+          "Gönderen de mühürlenir; Signal’in sealed sender yöntemine benzer şekilde. Sunucu her hesaba Ed25519 ile imzalanmış kısa bir sertifika verir. Cihazınız bunu mührün içine koyar, alıcı kontrol eder ve sunucu mesajı kimin gönderdiğini bilmeden saklar ve teslim eder.",
+          "Kimin neyi gönderdiğini öğrenmeden kötüye kullanımı sınırlamak için her teslimat, sunucunun körlemesine imzaladığı bir bilet harcar (RSA kör imzaları). Sunucu bileti kontrol eder ama onu isteyen hesapla ilişkilendiremez."
+        ]
+      },
+      "contacts": {
+        "h": "Bir kişinin anahtarını doğrulamak",
+        "p": [
+          "Uygulama her Shalom kişisinin anahtarını ilk gördüğünde hatırlar. Sunucu bir gün aynı adres için farklı bir anahtar verirse gönderim durur ve uygulama, kişinizle karşılaştırabilmeniz için her biri 30 haneli iki parmak izini gösterir. shalom CLI de bir kişinin anahtarı değiştiğinde siz onaylayana kadar durur."
+        ]
+      },
+      "agents": {
+        "h": "Yapay zekâ ajanları için kutular",
+        "p": [
+          "Her ajan kutusunun kendi anahtar çifti vardır ve shalom CLI’yi ya da Node SDK’yı çalıştırdığınız makinede oluşturulur. Özel anahtar ~/.config/shalom içinde ya da dışa aktardığınız SHALOM_AGENT_TOKEN içinde kalır; bu yüzden o belirteci bir sır gibi saklayın.",
+          "Hesap anahtarınız ajan kutuları oluşturup silebilir ama hiçbirini açamaz. Her kutunun anahtarı yalnızca o kutudan okur ve gönderir."
+        ]
+      },
+      "server": {
+        "h": "Sunucunun bildikleri",
+        "p": [
+          "Sunucunun çalışmak için bazı şeyleri bilmesi gerekir. Bunların hiçbiri saklanan e-postalarınızın içeriği değildir:",
+          {
+            "ul": [
+              "Adresiniz, seçtiğiniz ad ve eklerseniz profil fotoğrafınız.",
+              "Kurtarma e-postanız; kilitli saklanır ve yalnızca size bağlantı göndermek için açılır.",
+              "Her mesaj için: hangi kutuya ait olduğu, ne zaman geldiği, ne kadar yer kapladığı, hangi klasörde olduğu ve okunup okunmadığı, sabitlenip sabitlenmediği veya yıldızlanıp yıldızlanmadığı.",
+              "Diğer sağlayıcılarda kime yazdığınız, çünkü bu e-postalar normal e-posta olarak çıkar.",
+              "Bağlı oturumlarınız: her birinin ne zaman başladığı, en son ne zaman kullanıldığı ve tarayıcı türü."
+            ]
+          },
+          "Her bilginin ne kadar süre saklandığıyla birlikte tam liste gizlilik politikasındadır."
+        ]
+      },
+      "limits": {
+        "h": "Korumanın bittiği yer",
+        "p": [
+          {
+            "ul": [
+              "Diğer sağlayıcılarla e-posta uçtan uca değildir. Normal e-posta olarak yol alır ve sunucu onu geçtiği anda görür.",
+              "Parolanızı unutursanız saklanan e-postalarınız kurtarılamaz, çünkü anahtarınızı yalnızca parolanız açar ve Shalom’da bir kopyası yoktur. Kurtarma e-postanızla yeni bir parola belirleyip adresinizi koruyabilirsiniz, ama kutu boş başlar.",
+              "Uygulama tarayıcınızda çalışır ve shalomail.com’dan yüklenir. Web’de çalışan her e-postada olduğu gibi, sitenin burada anlatılan kodu sunduğuna güvenirsiniz.",
+              "Şifreleme, zaten ele geçirilmiş bir cihazı koruyamaz. Bir cihazı hatırlamayı seçerseniz anahtarınız o tarayıcıda kalır; bu yüzden onu parolanız gibi koruyun.",
+              "Mühürlü gönderen, göndereni sunucunun sakladıklarının dışında tutar. Her web sitesi gibi sunucu yine de her isteğin arkasındaki bağlantıyı görür ve bunu, gizlilik politikasında anlatıldığı gibi yalnızca kötüye kullanıma karşı kullanır."
+            ]
+          }
+        ]
+      }
+    },
+    "moreTitle": "Daha fazla ayrıntı",
+    "moreDev": "Şifrelemenin tam biçimi, geliştiriciler için (İngilizce)"
+  },
+  "faq": {
+    "title": "Sık sorulan sorular",
+    "description": "Shalom Mail hakkında yanıtlar: fiyat, kayıt için gerekenler, e-postanızı kimin okuyabileceği, unutulan parola ve yapay zekâ ajanları için e-posta.",
+    "lead": "shalomail.com adresindeki şifreli e-posta hizmeti Shalom Mail hakkında kısa ve net yanıtlar.",
+    "devLink": "Node SDK ve HTTP API başvurusu (İngilizce)",
+    "g": {
+      "account": "Hesap",
+      "privacy": "Gizlilik ve şifreleme",
+      "agents": "Yapay zekâ ajanları için e-posta"
+    },
+    "q": {
+      "what": {
+        "q": "Shalom Mail nedir?",
+        "a": "Shalom Mail, shalomail.com adresinde, tarayıcıda çalışan şifreli bir e-posta hizmetidir. Hesap ücretsizdir; 1 GB alan ve bir @shalomail.com adresiyle gelir. Saklanan e-postalar yalnızca cihazınızda bulunan bir anahtarla kilitlenir, Shalom hesapları arasındaki e-postalar uçtan uca şifrelidir ve yapay zekâ ajanlarının kendi kutuları olabilir."
+      },
+      "free": {
+        "q": "Shalom Mail ücretsiz mi?",
+        "a": "Evet. E-posta hesabı ücretsizdir; 1 GB depolama alanı ve bir @shalomail.com adresiyle gelir ve reklam yoktur. Ücretli planlar yalnızca yapay zekâ ajanları için 2’den fazla kutuya ihtiyaç duyanlar içindir."
+      },
+      "signup": {
+        "q": "Kayıt için telefon numarası veya kimlik gerekir mi?",
+        "a": "Hayır. Bir adres ve parola seçersiniz; Shalom telefon numarası da kimlik de istemez. İlk kutunuz açılmadan önce başka bir sağlayıcıda bir kurtarma e-postası ister: parolanızı unutursanız hesaba bununla geri dönersiniz. Sunucu onu kilitli saklar ve yalnızca size bağlantı göndermek için kullanır."
+      },
+      "others": {
+        "q": "Gmail veya Outlook kullananlara yazabilir miyim?",
+        "a": "Evet. Bir Shalom adresi Gmail, Outlook, iCloud veya Yahoo gibi her sağlayıcıyla e-posta gönderip alır ve oradaki kişiler mesajlarınızı normal e-posta olarak alır. Shalom hesapları arasında uçtan uca şifrelidir."
+      },
+      "app": {
+        "q": "Kurulacak bir uygulama var mı?",
+        "a": "Hayır. Shalom Mail bilgisayarda ve telefonda tarayıcıda çalışır, kurulacak bir şey yoktur. Yapay zekâ ajanları için kutular shalom CLI veya Node SDK ile kullanılır."
+      },
+      "languages": {
+        "q": "Shalom Mail hangi dillerde var?",
+        "a": "{count} dilde: {langs}."
+      },
+      "who": {
+        "q": "Shalom Mail’i kim işletiyor?",
+        "a": "{c}; Brezilya’da kayıtlı ve merkezi Governador Celso Ramos, SC’de olan bir şirket. Gizlilik, Brezilya’nın LGPD yasasına ve Avrupa Birliği’ndeki kişiler için GDPR’a uyar. İletişim: contato@shalomail.com."
+      },
+      "delete": {
+        "q": "Hesabımı silebilir miyim?",
+        "a": "Evet. contato@shalomail.com adresine yazın; hesap, saklanan e-postaları ve hesap verileriyle birlikte silinir. Altyapı yedeklerinin süresinin dolması birkaç gün sürebilir."
+      },
+      "read": {
+        "q": "Shalom e-postalarımı okuyabilir mi?",
+        "a": "Saklanan e-postalarınızı okuyamaz. Her mesaj yalnızca cihazınızda bulunan bir anahtarla mühürlenir ve sunucu onu açamadan saklar. Diğer sağlayıcılardan gelen e-postayı sunucu, mühürlenmeden önce geldiği anda okuyabilir; diğer sağlayıcılara gönderdiğiniz e-posta da normal e-posta olarak çıkar."
+      },
+      "e2e": {
+        "q": "Shalom Mail uçtan uca şifreli mi?",
+        "a": "Shalom hesapları arasında evet. Mesaj gönderenin cihazında mühürlenir ve yalnızca alıcının cihazında açılır; gönderen bile sunucudan gizlenir. Diğer sağlayıcılarla bu mümkün değildir, çünkü normal e-posta şifresiz yol alır; bu yüzden Shalom bu mesajları geldikleri anda mühürler."
+      },
+      "forgot": {
+        "q": "Parolamı unutursam ne olur?",
+        "a": "Saklanan e-postalarınız kurtarılamaz, çünkü anahtarınızı yalnızca parolanız açar ve Shalom’da bir kopyası yoktur. Kurtarma e-postanızla yeni bir parola belirleyip adresinizi koruyabilirsiniz, ama kutu boş başlar."
+      },
+      "cipher": {
+        "q": "Shalom Mail hangi şifrelemeyi kullanır?",
+        "a": "Saklanan her mesaj için HKDF-SHA256 ve AES-256-GCM ile X25519 anahtarları, cihazınızdaki parola için Argon2id, mühürlü gönderen için Ed25519 sertifikaları ve Shalom hesapları arasında anonim teslimat için RSA kör imzaları."
+      },
+      "pgp": {
+        "q": "PGP kullanıyor mu?",
+        "a": "Hayır. Shalom’un X25519, HKDF-SHA256 ve AES-256-GCM üzerine kurulu kendi biçimi vardır ve PGP anahtarları kullanmaz. Diğer sağlayıcılara giden e-posta normal e-posta olarak çıkar."
+      },
+      "ads": {
+        "q": "Reklam veya takip var mı?",
+        "a": "Hayır. Reklam da reklam, analiz veya takip çerezleri de yoktur ve e-postalarınız hiçbir şeyi eğitmek için kullanılmaz. E-postayı ne zaman açtığınızı bildiren görseller engellenir ve sahte gönderenler kehribar renginde görünür."
+      },
+      "law": {
+        "q": "Shalom verileri yetkililere verir mi?",
+        "a": "Yalnızca geçerli bir mahkeme kararıyla. Sunucuda ne olduğu gizlilik politikasında listelenmiştir. Saklanan e-postaların içeriği şifreli kalır ve anahtar Shalom’da değildir."
+      },
+      "agentHow": {
+        "q": "Bir yapay zekâ ajanına nasıl kendi e-posta adresini veririm?",
+        "a": "shalom CLI’yi npm install -g shalomail ile kurun, tarayıcıda onaylayarak shalom login ile hesabınıza bağlayın ve bir adla shalom agents create komutunu çalıştırın. Ajan ad@shalomail.com adresini alır ve JSON çıktısıyla gerçek e-postaları okuyabilir, yanıtlayabilir ve gönderebilir."
+      },
+      "agentPrice": {
+        "q": "Yapay zekâ ajanları için kutular ne kadar?",
+        "a": "Her hesapta 2 kutu ücretsizdir. Agents 5 aylık 4,99 ABD doları (5 kutuya kadar), Agents 12 aylık 9,99 ABD doları (12 kutuya kadar), Unlimited ise kutu sınırı olmadan ve günde en fazla 250 yeni kutuyla aylık 49,90 ABD dolarıdır. Planlar aylıktır, Stripe üzerinden faturalanır ve istediğiniz zaman iptal edilebilir."
+      },
+      "agentRead": {
+        "q": "Shalom ajanlarımın e-postalarını okuyabilir mi?",
+        "a": "Saklanan e-postalarını okuyamaz. Her ajan kutusunun, CLI’yi veya SDK’yı çalıştırdığınız makinede oluşturulan kendi özel anahtarı vardır ve sunucu onun e-postalarını mühürlü saklar. Hesap anahtarınız ajan kutuları oluşturup silebilir ama açamaz."
+      },
+      "agentCode": {
+        "q": "API veya SDK var mı?",
+        "a": "Evet. npm’deki shalomail paketi hem CLI hem de Agent ve Account sınıflarıyla bir Node SDK’dır; ayrıca bir HTTP API vardır. Şifreleme her zaman sizin tarafınızda olur."
+      },
+      "agentWatch": {
+        "q": "Bir ajan yeni e-postalara kendi başına tepki verebilir mi?",
+        "a": "Evet. shalom watch --exec, her yeni mesaj için programınızı bir kez çalıştırır ve mesajı standart girdiye JSON olarak verir; SDK’da agent.watch() aynı işi yapar. Henüz webhook yok."
+      },
+      "agentOutside": {
+        "q": "Ajanlar Shalom dışındaki kişilere yazabilir mi?",
+        "a": "Evet, normal e-posta olarak. Dış adreslere her ajan kutusu ilk haftasında günde en fazla 20, sonrasında günde en fazla 100 alıcıya gönderir. Shalom adresleri arasında uçtan uca şifrelidir ve gönderen doğrulanır."
+      }
+    }
+  }
+}

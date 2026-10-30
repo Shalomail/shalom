@@ -1,0 +1,47 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "shalom",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-20",
+  // Logs ligados, mas sem o log automático de cada pedido (ele guardaria URLs e quem procurou quem).
+  "observability": { "enabled": true, "logs": { "invocation_logs": false } },
+
+  // Landing e arquivos saem direto da borda. O Worker roda para a API e para as rotas do app
+  // (entrega o app.html com os cabeçalhos de segurança).
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/", "/api/*", "/entrar", "/criar-conta", "/caixa", "/caixa/*", "/perfil", "/perfil/*", "/confirmar", "/nova-senha", "/agentes-ia", "/conectar"]
+  },
+
+  // Ids zerados enquanto não existe conta na Cloudflare: o dev local guarda os dados por id.
+  "d1_databases": [{ "binding": "DB", "database_name": "shalom", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }],
+  // Corpo das mensagens, já lacrado.
+  "r2_buckets": [{ "binding": "BLOBS", "bucket_name": "shalom-mail" }],
+  "send_email": [{ "name": "EMAIL" }],
+
+  // Uma caixa por conta, com SQLite próprio.
+  "durable_objects": { "bindings": [{ "name": "MAILBOX", "class_name": "Mailbox" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Mailbox"] }],
+
+  // Freios sem gravar no banco: rotas de conta por IP; envio e proxy de imagem por conta.
+  "ratelimits": [
+    { "name": "IP_LIMIT", "namespace_id": "2001", "simple": { "limit": 60, "period": 60 } },
+    { "name": "USER_LIMIT", "namespace_id": "2002", "simple": { "limit": 120, "period": 60 } }
+  ],
+
+  // Madrugada: apaga contadores vencidos e sessões expiradas.
+  "triggers": { "crons": ["17 6 * * *"] },
+
+  // Valores de PRODUÇÃO. O dev sobrescreve pelo .dev.vars.
+  "vars": {
+    "MAIL_DOMAIN": "shalomail.com",
+    "APP_ORIGIN": "https://shalomail.com",
+    "EMAIL_SENDING": "off",
+    // Trocar pela chave do widget criado no painel do Turnstile para shalomail.com.
+    "TURNSTILE_SITEKEY": ""
+  }
+
+  // O ambiente de produção (conta Cloudflare, banco, domínio) não faz parte desta cópia.
+}

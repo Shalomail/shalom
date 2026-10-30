@@ -1,0 +1,525 @@
+{
+  "meta": {
+    "tag": "en",
+    "name": "English",
+    "dir": "ltr",
+    "title": "Shalom Mail: truly private, encrypted email",
+    "description": "Your emails are locked with a key that only exists on your device. Free, no phone number, no ID."
+  },
+  "nav": {
+    "home": "Shalom Mail, home",
+    "account": "Account",
+    "signin": "Sign in",
+    "signup": "Create account"
+  },
+  "hero": {
+    "title": "Truly private email.",
+    "lede": "Your emails are locked with a key that only exists on your device."
+  },
+  "claim": {
+    "placeholder": "name",
+    "label": "The address you want",
+    "submit": "Create with this address",
+    "free": "Free. No phone number, no ID.",
+    "minute": "It takes a minute.",
+    "checking": "Checking...",
+    "ok": "It's available.",
+    "taken": "That address is taken.",
+    "reserved": "That address is reserved.",
+    "invalid": "3 to 32 letters or numbers, starting and ending with a letter or number."
+  },
+  "shot": {
+    "alt": "The Shalom Mail inbox with an end-to-end encrypted conversation"
+  },
+  "points": {
+    "label": "What comes with the account",
+    "key": {
+      "title": "You keep the key",
+      "text": "It's created on your device and never goes to the server. Without it, no one can open your stored emails."
+    },
+    "ads": {
+      "title": "No ads, no tracking",
+      "text": "Images that report when you opened an email are blocked. Fake senders show up in amber."
+    },
+    "free": {
+      "title": "Free, with 1 GB",
+      "text": "A @shalomail.com address that works with any email. Between Shalom accounts, it's end to end."
+    }
+  },
+  "others": {
+    "title": "Works with any email.",
+    "text": "Write to people on Gmail, Outlook or anything else. It reaches them as normal email; between Shalom accounts, it's end to end."
+  },
+  "seen": {
+    "title": "Military-grade encryption.",
+    "lead": "AES-256, the same cipher governments use to protect top secret information. Every email is locked with it before it's stored, and only your key opens it.",
+    "label": "The same message, as you read it and as the server stores it",
+    "you": "You read",
+    "server": "The server stores",
+    "text": "Helena, I've reviewed the contract. It just needs your signature on page 4."
+  },
+  "end": {
+    "title": "Pick your address."
+  },
+  "foot": {
+    "note": "Email from other services arrives unencrypted, like all email, and is encrypted on arrival. Email to other services goes out as regular email. End to end applies between Shalom accounts.",
+    "links": "Links",
+    "terms": "Terms of use",
+    "privacy": "Privacy",
+    "agents": "AI agents",
+    "developers": "Developers",
+    "encryption": "Encryption",
+    "faq": "FAQ",
+    "about": "Shalom Mail (shalomail.com) is an encrypted email service that works in the browser. Stored email is locked with a key that only exists on your device, and mail between Shalom accounts is end to end."
+  },
+  "legal": {
+    "updated": "Last updated: October 30, 2026",
+    "translationNote": "This is a translation. If it differs from the Portuguese version, the Portuguese version prevails.",
+    "operator": "Shalom Mail is operated by {c}, based in Governador Celso Ramos, SC, Brazil.",
+    "terms": {
+      "title": "Terms of use",
+      "intro": "These terms apply to anyone who creates a Shalom Mail account. They're short on purpose: what we offer, what we expect from you and what happens if something goes wrong.",
+      "sections": [
+        {
+          "h": "1. The service",
+          "p": [
+            "Shalom Mail is an encrypted email service with a @shalomail.com address. Accounts are free and come with 1 GB of storage.",
+            "We may change features and limits over time. When a change affects something you use, we'll tell you in the app first.",
+            "With the CLI, your account can create email mailboxes for AI agents: 2 at no cost, and more with the Agents 5 (up to 5 mailboxes, US$ 4.99 a month), Agents 12 (up to 12 mailboxes, US$ 9.99 a month) and Unlimited (unlimited mailboxes, up to 250 new a day, US$ 49.90 a month) plans. The subscription is monthly, renews automatically and can be cancelled whenever you want in the billing portal; it stays active until the end of the paid period. You can withdraw within 7 days of subscribing and get your money back. Payment is processed by Stripe. You are responsible for what your agents send, as if you had sent it."
+          ]
+        },
+        {
+          "h": "2. Your account",
+          "p": [
+            "You must be at least 13 years old, or the minimum age required in your country, to create an account. If you're under 18, use it with the guidance of a parent or guardian.",
+            "Addresses that differ only by dots, hyphens or underscores count as the same address, so no one can register a lookalike of someone else's.",
+            "You're responsible for your password, your PIN and your recovery codes, and for everything done with your account."
+          ]
+        },
+        {
+          "h": "3. Your password is the key",
+          "p": [
+            "Your stored emails only open with a key that is locked by your password. We don't have a copy of that key.",
+            "So if you forget your password, we can't recover your stored emails. That isn't a flaw in the service: it's what guarantees that only you can read them. Keep your password safe and, if you turn on two-step verification, your recovery codes too."
+          ]
+        },
+        {
+          "h": "4. What isn't allowed",
+          "p": [
+            "Don't use Shalom Mail to:",
+            {
+              "ul": [
+                "send spam or bulk messages nobody asked for;",
+                "scam, phish or impersonate another person or company;",
+                "spread viruses or any malicious software;",
+                "harass, threaten or stalk anyone;",
+                "share any child sexual abuse material;",
+                "break the law or violate other people's rights;",
+                "get around limits, break into accounts or attack the service."
+              ]
+            },
+            "There are sending limits, such as the number of recipients per day, to protect the people who use the service and the reputation of our addresses."
+          ]
+        },
+        {
+          "h": "5. Suspension",
+          "p": [
+            "We may limit or suspend accounts that break these terms. Abuse like spam and scams shows up in sending volume and reports, without us having to read the content, which stays encrypted.",
+            "When possible, we'll warn you first. If you think it was a mistake, write to contato@shalomail.com."
+          ]
+        },
+        {
+          "h": "6. What you write is yours",
+          "p": [
+            "We claim no rights over what you write or receive. Since it's encrypted, we can't even see it."
+          ]
+        },
+        {
+          "h": "7. No guarantee of perfect operation",
+          "p": [
+            "We do our best to keep the service running and secure, but it's provided as is, with no guarantee that it will work without interruption or errors. Keep a copy of anything that matters to you.",
+            "To the extent the law allows, we aren't liable for indirect losses, or for lost emails caused by a forgotten password or by access made with your sign-in details."
+          ]
+        },
+        {
+          "h": "8. Closing your account",
+          "p": [
+            "You can delete your account whenever you want, at the bottom of Settings, or ask us at contato@shalomail.com. When an account is deleted, its stored emails, agent mailboxes and account data are removed and the plan is cancelled. The address stays reserved and is never used by anyone again."
+          ]
+        },
+        {
+          "h": "9. Changes to these terms",
+          "p": [
+            "If these terms change in a way that matters, we'll tell you in the app before the change takes effect. Continuing to use the service after that means you accept the new version."
+          ]
+        },
+        {
+          "h": "10. Governing law and contact",
+          "p": [
+            "These terms are governed by the laws of Brazil. If you're a consumer, you keep any rights the law where you live guarantees you.",
+            "Questions: contato@shalomail.com."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "intro": "Shalom Mail was built to know as little about you as possible. Here, plainly, is what the service stores, what it can't see and what you can ask for.",
+      "sections": [
+        {
+          "h": "1. Who looks after your data",
+          "p": [
+            "Shalom Mail is the controller of the data processed in this service under Brazil's General Data Protection Law (Law 13,709/2018) and, for people in the European Union, the General Data Protection Regulation (GDPR).",
+            "To talk about privacy: privacidade@shalomail.com."
+          ]
+        },
+        {
+          "h": "2. What is encrypted and no one but you can read",
+          "p": [
+            {
+              "ul": [
+                "Your stored emails: body, subject, sender, attachments and which conversation each belongs to. All of it is locked with your key.",
+                "The key that opens your emails sits in an envelope locked by your password, opened only on your device. The server keeps the envelope closed, with a second lock of its own, and has no way to open it.",
+                "Your password never reaches the server. Your device derives a proof from it, and we only store a code made from that proof."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "3. What the server needs to know to work",
+          "p": [
+            {
+              "ul": [
+                "Account: your address, the name you chose and, if you add one, your profile photo. The photo is public to anyone who knows your address, as with other email services.",
+                "Security: your PIN and recovery codes stored in a way that can't be read back, your two-step verification secret locked, and the inactivity time you chose for automatic sign-out.",
+                "Each message: which account it's for, when it arrived, how much space it takes, which folder it's in and whether it has been read, pinned or starred.",
+                "Connected devices: when each session started, when it was last used and the type of browser, so you can see them and sign them out.",
+                "IP address: used on the spot to stop abuse, like password guessing and mass sign-ups, and kept only in counters that expire within 1 hour.",
+                "API keys and agent mailboxes: each key stored in a way that cannot be read back, when it was last used, and which agent mailboxes belong to your account.",
+                "Paid plan: your customer and subscription identifiers at Stripe, the plan and when it renews. Card details stay with Stripe and never pass through our servers."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "4. Email to and from outside Shalom",
+          "p": [
+            "Email from another service arrives unencrypted, like all email on the internet. The moment it arrives, the server checks it for spam or scams and locks it with your key. The unencrypted version is not stored.",
+            "Email you send to another service goes out as regular email and passes unencrypted through the sending service to its destination.",
+            "End-to-end encryption, with no unencrypted step at all, applies between Shalom accounts. In that case not even the sender's name is visible to the server."
+          ]
+        },
+        {
+          "h": "5. Cookies and browser storage",
+          "p": [
+            "We only use what's necessary: the session cookie, which keeps you signed in; the known-device cookie, which skips the anti-bot check where you've signed in before; and preferences stored in your browser, such as theme, language and open accounts. Your key can also be stored in the browser, locked, if you choose to remember the device.",
+            "We don't use advertising, analytics or tracking cookies."
+          ]
+        },
+        {
+          "h": "6. Who we share data with",
+          "p": [
+            "The infrastructure runs on Cloudflare: servers, database, storage, receiving and sending email, and the anti-bot check (Turnstile). Cloudflare processes data on our behalf; stored emails reach it already encrypted.",
+            "If you subscribe to a paid plan, billing is done by Stripe, which receives your Shalom address and payment details to process the subscription, under its own privacy policy.",
+            "Cloudflare's servers are in many countries, so your data may be processed outside Brazil, with the safeguards required by Brazilian data protection law.",
+            "We don't sell data, we don't show ads and we don't use your emails to train anything.",
+            "We only hand data to authorities under a valid court order. What we have is what's listed in section 3: the content of stored emails stays encrypted, and we don't have the key."
+          ]
+        },
+        {
+          "h": "7. How long we keep it",
+          "p": [
+            {
+              "ul": [
+                "Account and messages: as long as the account exists. Trash and Spam empty themselves after 30 days.",
+                "Sessions: up to 30 days without use, or less if you choose a shorter inactivity sign-out.",
+                "Counters with IP addresses: up to 1 hour.",
+                "Plan: while the account exists. Stripe keeps payment records for as long as the law requires.",
+                "When an account is deleted, its data is removed. Only the address is kept, so no one can register it again and receive what was meant for you. Infrastructure backups may take a few days to expire."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "8. Your rights",
+          "p": [
+            "You can ask for confirmation that we process your data, access, correction, portability, deletion and information about who we share it with, and you can withdraw any consent you gave.",
+            "You can change your name, photo and security settings in the app itself. For anything else, write to privacidade@shalomail.com. You can also complain to Brazil's National Data Protection Authority (ANPD) or to the authority in your country."
+          ]
+        },
+        {
+          "h": "9. Security",
+          "p": [
+            "Besides encryption, we use a second server-side lock on the key envelope, sign-in attempt limits, an anti-bot check, optional PIN and two-step verification, and cookies that only work on this site and over a secure connection.",
+            "No system is foolproof. If an incident could affect you, we'll tell you and notify the ANPD, as the law requires."
+          ]
+        },
+        {
+          "h": "10. Children",
+          "p": [
+            "Shalom Mail is not for children under 13. If you know of an account belonging to a child, write to privacidade@shalomail.com."
+          ]
+        },
+        {
+          "h": "11. Changes to this policy",
+          "p": [
+            "If this policy changes in a way that matters, we'll tell you in the app before the change takes effect."
+          ]
+        }
+      ]
+    }
+  },
+  "ai": {
+    "title": "Give your AI agents a mailbox",
+    "text": "Create @shalomail.com addresses for your agents from the terminal. They receive, read and answer real email, with the same end-to-end encryption, and the key stays on the agent's machine.",
+    "free": "2 agent mailboxes free",
+    "five": "Up to 5",
+    "fivePrice": "for $4.99 a month",
+    "twelve": "Up to 12",
+    "twelvePrice": "for $9.99 a month",
+    "docs": "How it works",
+    "termLabel": "Creating an agent mailbox in the terminal",
+    "example": "yourname-bot",
+    "exSubject": "Quote request",
+    "unlimited": "Unlimited",
+    "unlimitedPrice": "for $49.90 a month, up to 250 new mailboxes a day"
+  },
+  "docs": {
+    "title": "Email for AI agents",
+    "description": "Give your AI agents a real, end-to-end encrypted @shalomail.com mailbox. Create it from the terminal, read and reply in JSON. 2 free.",
+    "h1": "Give your AI agents a mailbox",
+    "lead": "With the shalom CLI, each agent gets its own @shalomail.com address. It receives, reads and sends real email, from Shalom or from anywhere, and every command speaks JSON. The mailbox's private key is created on the agent's machine and never leaves it.",
+    "cta": "Create a free account",
+    "settings": "Already have an account? Open your agents",
+    "startTitle": "Start in three commands",
+    "s1": "Install the CLI. It needs Node.js 20 or newer.",
+    "s2": "Connect the terminal to your account. The command opens a Shalom page, and you confirm with one click.",
+    "s3": "Create your agent's mailbox. Its private key is generated and stored on this machine.",
+    "example": "yourname-bot",
+    "readTitle": "Read, reply and send",
+    "readText": "Every command accepts --json, so your agent reads the output without guessing. Ids can be shortened to their first 8 characters.",
+    "exReply": "Got it, thanks.",
+    "exSubject": "Weekly report",
+    "watchTitle": "React to every new email",
+    "watchText": "watch waits for new mail and runs your program once per message, with the message as JSON on standard input.",
+    "watchFields": "The JSON has id, from, to, cc, subject, date, text, html, messageId, verifiedSender and the list of attachments. The environment also gets SHALOM_MESSAGE_ID, SHALOM_FROM and SHALOM_SUBJECT.",
+    "serverTitle": "Run it on a server",
+    "serverText": "Export the mailbox as a single variable and use it on any server, container or CI. Store it as a secret: it contains the private key.",
+    "securityTitle": "Security",
+    "security1": "Each mailbox's private key stays on the agent's machine. The server stores the mail sealed and cannot read it.",
+    "security2": "Your account key only creates and deletes agent mailboxes. Each mailbox's key only reads and sends through it. You can rotate or delete any of them at any time.",
+    "security3": "Between Shalom addresses, mail travels sealed end to end and the sender is verified. To other providers it goes as regular email.",
+    "plansTitle": "Plans",
+    "planFree": "Free",
+    "planFreeText": "2 agent mailboxes",
+    "plan5Text": "up to 5 mailboxes, $4.99 a month",
+    "plan12Text": "up to 12 mailboxes, $9.99 a month",
+    "plansNote": "Subscribe on the AI agents page or with shalom upgrade. To outside addresses, each mailbox sends to up to 20 recipients a day in its first week and up to 100 a day after that.",
+    "refTitle": "All commands",
+    "refNote": "Run shalom --help for every option. All commands accept --json, and --as <address> to pick the mailbox.",
+    "cmd": {
+      "login": "Connects this terminal to your account through the browser.",
+      "list": "Lists your agent mailboxes and your plan.",
+      "create": "Creates <name>@shalomail.com, with the private key on this machine.",
+      "delete": "Deletes the mailbox and all its mail. Needs the mailbox saved on this machine; the address stays reserved for you.",
+      "rotate": "Issues a new API key for the mailbox. The old one stops working.",
+      "export": "Prints SHALOM_AGENT_TOKEN, to run the mailbox somewhere else.",
+      "plan": "Shows your plan and how many mailboxes you use.",
+      "upgrade": "Opens the plans page in the app.",
+      "inbox": "Lists the messages in a folder. --unread shows only unread ones.",
+      "read": "Opens a message. --save-attachments saves the files.",
+      "send": "Sends a message, with the text in a flag, a file or standard input, plus attachments.",
+      "reply": "Replies in the same thread. --all replies to everyone.",
+      "move": "Moves to inbox, archive, spam or trash.",
+      "mark": "Marks as read or unread, starred or not.",
+      "watch": "Waits for new mail. --exec runs a command for each message."
+    },
+    "planUnlimitedText": "unlimited mailboxes, up to 250 new a day, $49.90 a month"
+  },
+  "enc": {
+    "title": "How the encryption works",
+    "description": "How Shalom Mail protects your email: a key created on your device, Argon2id for the password, AES-256-GCM for every stored message, and where it stops.",
+    "lead": "Shalom Mail is an email service at shalomail.com. Your stored email is locked with a key that only exists on your device, and mail between Shalom accounts is end to end. Here is how it works, in plain words, and where the protection ends.",
+    "s": {
+      "key": {
+        "h": "Your key is created on your device",
+        "p": [
+          "When you create an account, your browser generates your private key: 256 random bits, for X25519. It never reaches the server in a form anyone can read.",
+          "The server only keeps it inside an envelope locked by your password, and the envelope is opened on your device when you sign in. The server adds a second lock of its own to that envelope, with a secret kept outside the database."
+        ]
+      },
+      "password": {
+        "h": "Your password stays on your device",
+        "p": [
+          "Your device runs Argon2id on your password, with 128 MB of memory and 3 passes, and derives two keys from the result. One proves to the server that you know the password. The other opens the envelope with your key. The password itself is never sent.",
+          "The server stores only a code made from that proof, with a secret that is not in the database. The app also checks the Argon2id settings the server sends and refuses weak ones, so a tampered server cannot make your password cheaper to guess."
+        ]
+      },
+      "stored": {
+        "h": "Every stored email is sealed",
+        "p": [
+          "Each email is kept in two sealed parts: a small head, with the sender, the recipients, the subject, the date, a short preview and the conversation it belongs to, and the full message with its attachments.",
+          "Both parts are sealed to your public key with X25519, HKDF-SHA256 and AES-256-GCM. Only your private key opens them, so the server keeps data it cannot read."
+        ]
+      },
+      "outside": {
+        "h": "Email with other providers",
+        "p": [
+          "Email from Gmail, Outlook or any other provider arrives unencrypted, like all email on the internet. At that moment the server checks it for spam and scams and seals it with your key. The unencrypted version is not stored.",
+          "Email you send to other providers goes out as regular email. The server passes it on unencrypted, and the recipient's provider can read it. Here Shalom protects the copy kept in your mailbox, not the trip."
+        ]
+      },
+      "between": {
+        "h": "Between Shalom accounts, end to end",
+        "p": [
+          "When you write to another Shalom address, your device seals the message to the recipient's public key before it leaves. It can only be read on the recipient's device, never on the way or on the server.",
+          "The message is also authenticated with your own key, so the server cannot forge a message in your name.",
+          "The sender is sealed too, in the style of Signal's sealed sender. The server gives each account a short certificate signed with Ed25519. Your device puts it inside the seal, the recipient checks it, and the server stores and delivers the message without knowing who sent it.",
+          "To limit abuse without learning who sent what, each delivery spends a ticket that the server signed blindly, with RSA blind signatures. The server checks the ticket but cannot link it to the account that asked for it."
+        ]
+      },
+      "contacts": {
+        "h": "Checking a contact's key",
+        "p": [
+          "The app remembers each Shalom contact's key the first time it sees it. If the server ever hands out a different key for the same address, sending stops and the app shows both fingerprints, 30 digits each, so you can compare them with your contact. The shalom CLI also stops when a contact's key changes, until you confirm."
+        ]
+      },
+      "agents": {
+        "h": "Mailboxes for AI agents",
+        "p": [
+          "Each agent mailbox has its own key pair, created on the machine where you run the shalom CLI or the Node SDK. The private key stays in ~/.config/shalom or in the SHALOM_AGENT_TOKEN you export, so keep that token as a secret.",
+          "Your account key can create and delete agent mailboxes but cannot open any of them. Each mailbox's key only reads and sends through that mailbox."
+        ]
+      },
+      "server": {
+        "h": "What the server knows",
+        "p": [
+          "To work, the server needs to know a few things. None of them is the content of your stored email:",
+          {
+            "ul": [
+              "Your address, the name you chose and, if you add one, your profile photo.",
+              "Your recovery email, kept locked and opened only to send you a link.",
+              "For each message: which mailbox it is for, when it arrived, its size, its folder and whether it was read, pinned or starred.",
+              "Who you write to at other providers, since that email goes out as regular email.",
+              "Your connected sessions: when each one started, when it was last used and the type of browser."
+            ]
+          },
+          "The full list, with how long each item is kept, is in the privacy policy."
+        ]
+      },
+      "limits": {
+        "h": "Where the protection ends",
+        "p": [
+          {
+            "ul": [
+              "Email with other providers is not end to end. It travels as regular email, and the server sees it at the moment it passes through.",
+              "If you forget your password, your stored email cannot be recovered, because only your password opens your key and Shalom has no copy of it. With your recovery email you can set a new password and keep your address, but the mailbox starts empty.",
+              "The app runs in your browser and is loaded from shalomail.com. As with any email that works on the web, you rely on the site serving the code described here.",
+              "Encryption cannot protect a device that is already compromised. If you choose to remember a device, your key stays in that browser, so protect it as you would your password.",
+              "The sealed sender keeps the sender out of what the server stores. Like any website, the server still sees the connection behind each request, and uses it only against abuse, as the privacy policy explains."
+            ]
+          }
+        ]
+      }
+    },
+    "moreTitle": "More detail",
+    "moreDev": "The exact encryption format, for developers"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "description": "Answers about Shalom Mail: price, what you need to sign up, who can read your email, a forgotten password, and email for AI agents.",
+    "lead": "Short, direct answers about Shalom Mail, the encrypted email service at shalomail.com.",
+    "devLink": "Node SDK and HTTP API reference",
+    "g": {
+      "account": "The account",
+      "privacy": "Privacy and encryption",
+      "agents": "Email for AI agents"
+    },
+    "q": {
+      "what": {
+        "q": "What is Shalom Mail?",
+        "a": "Shalom Mail is an encrypted email service that works in the web browser, at shalomail.com. The account is free, with 1 GB and a @shalomail.com address. Stored email is locked with a key that only exists on your device, mail between Shalom accounts is end to end, and AI agents can have mailboxes of their own."
+      },
+      "free": {
+        "q": "Is Shalom Mail free?",
+        "a": "Yes. The email account is free, with 1 GB of storage and a @shalomail.com address, and there are no ads. The only paid plans are for people who need more than 2 mailboxes for AI agents."
+      },
+      "signup": {
+        "q": "Do I need a phone number or an ID to sign up?",
+        "a": "No. You choose an address and a password, and Shalom asks for no phone number and no ID. Before your first mailbox opens, it asks for a recovery email at another provider, which is how you get back into the account if you forget your password. The server keeps it locked and uses it only to send you a link."
+      },
+      "others": {
+        "q": "Can I email people on Gmail or Outlook?",
+        "a": "Yes. A Shalom address sends to and receives from any provider, such as Gmail, Outlook, iCloud or Yahoo, and people there get your messages as normal email. Between Shalom accounts, mail is end to end."
+      },
+      "app": {
+        "q": "Is there an app to install?",
+        "a": "No. Shalom Mail works in the web browser, on computers and phones, so there is nothing to install. Mailboxes for AI agents are used with the shalom command line tool or the Node SDK."
+      },
+      "languages": {
+        "q": "Which languages is Shalom Mail available in?",
+        "a": "{count} languages: {langs}."
+      },
+      "who": {
+        "q": "Who runs Shalom Mail?",
+        "a": "{c}, a company registered in Brazil and based in Governador Celso Ramos, SC. Privacy follows Brazil's LGPD and, for people in the European Union, the GDPR. Contact: contato@shalomail.com."
+      },
+      "delete": {
+        "q": "Can I delete my account?",
+        "a": "Yes. Write to contato@shalomail.com and the account is deleted, with its stored email and account data. Infrastructure backups may take a few days to expire."
+      },
+      "read": {
+        "q": "Can Shalom read my email?",
+        "a": "Not your stored email. Every message is sealed with a key that only exists on your device, and the server keeps it without being able to open it. Email from other providers can be read by the server at the moment it arrives, before it is sealed, and email you send to other providers goes out as regular email."
+      },
+      "e2e": {
+        "q": "Is Shalom Mail end-to-end encrypted?",
+        "a": "Between Shalom accounts, yes. The message is sealed on the sender's device and opens only on the recipient's, and even the sender is hidden from the server. With other providers it cannot be, because regular email travels unencrypted, so Shalom seals those messages the moment they arrive."
+      },
+      "forgot": {
+        "q": "What happens if I forget my password?",
+        "a": "Your stored email cannot be recovered, because only your password opens your key and Shalom has no copy of it. With your recovery email you can set a new password and keep your address, but the mailbox starts empty."
+      },
+      "cipher": {
+        "q": "Which encryption does Shalom Mail use?",
+        "a": "X25519 keys with HKDF-SHA256 and AES-256-GCM for every stored message, Argon2id for the password on your device, Ed25519 certificates for the sealed sender and RSA blind signatures for anonymous delivery between Shalom accounts."
+      },
+      "pgp": {
+        "q": "Does it use PGP?",
+        "a": "No. Shalom has its own format, built on X25519, HKDF-SHA256 and AES-256-GCM, and does not use PGP keys. Email to other providers goes out as regular email."
+      },
+      "ads": {
+        "q": "Does it show ads or track me?",
+        "a": "No. There are no ads and no advertising, analytics or tracking cookies, and your email is not used to train anything. Images that report when you opened an email are blocked, and fake senders show up in amber."
+      },
+      "law": {
+        "q": "Does Shalom hand data to the authorities?",
+        "a": "Only under a valid court order. What the server has is listed in the privacy policy. The content of stored email stays encrypted, and Shalom does not have the key."
+      },
+      "agentHow": {
+        "q": "How do I give an AI agent its own email address?",
+        "a": "Install the shalom CLI with npm install -g shalomail, connect it to your account with shalom login, confirming in the browser, and run shalom agents create with a name. The agent gets name@shalomail.com and can read, reply to and send real email, with JSON output."
+      },
+      "agentPrice": {
+        "q": "How much do mailboxes for AI agents cost?",
+        "a": "2 come free with any account. Agents 5 costs US$ 4.99 a month for up to 5, Agents 12 costs US$ 9.99 a month for up to 12, and Unlimited costs US$ 49.90 a month, with no mailbox limit and up to 250 new mailboxes a day. Plans are monthly, billed by Stripe, and can be cancelled at any time."
+      },
+      "agentRead": {
+        "q": "Can Shalom read my agents' email?",
+        "a": "Not their stored email. Each agent mailbox has its own private key, created on the machine where you run the CLI or the SDK, and the server keeps its mail sealed. Your account key can create and delete agent mailboxes but cannot open them."
+      },
+      "agentCode": {
+        "q": "Is there an API or an SDK?",
+        "a": "Yes. The shalomail package on npm is both the CLI and a Node SDK, with the Agent and Account classes, and there is an HTTP API. Encryption always happens on your side."
+      },
+      "agentWatch": {
+        "q": "Can an agent react to new email on its own?",
+        "a": "Yes. shalom watch --exec runs your program once for each new message, with the message as JSON on standard input, and agent.watch() does the same in the SDK. There are no webhooks yet."
+      },
+      "agentOutside": {
+        "q": "Can agents email people outside Shalom?",
+        "a": "Yes, as regular email. To outside addresses, each agent mailbox sends to up to 20 recipients a day in its first week and up to 100 a day after that. Between Shalom addresses, mail is end to end and the sender is verified."
+      }
+    }
+  }
+}

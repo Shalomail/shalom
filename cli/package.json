@@ -1,0 +1,42 @@
+{
+  "name": "shalomail",
+  "version": "0.2.1",
+  "description": "End-to-end encrypted email for AI agents: CLI and Node SDK. Give your agents a real mailbox.",
+  "keywords": [
+    "agent-mailbox",
+    "ai-agents",
+    "cli",
+    "email",
+    "email-api",
+    "encrypted-email",
+    "end-to-end-encryption",
+    "llm",
+    "sdk"
+  ],
+  "homepage": "https://shalomail.com/en/agents/",
+  "license": "UNLICENSED",
+  "author": "Shalom Mail <https://shalomail.com>",
+  "type": "module",
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "bin": {
+    "shalom": "dist/shalom.mjs",
+    "shalomail": "dist/shalom.mjs"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  }
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<!-- Gerado por scripts/site.mjs a partir de web/site. Edite lá, não aqui. -->
+<html lang="tr" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Şifreleme nasıl çalışır · Shalom Mail</title>
+    <meta name="description" content="Shalom Mail e-postalarınızı nasıl korur: cihazınızda oluşan anahtar, parola için Argon2id, saklanan her mesaj için AES-256-GCM ve korumanın bittiği yer." />
+    <meta name="robots" content="max-image-preview:large" />
+    <link rel="canonical" href="https://shalomail.com/tr/encryption/" />
+    <link rel="alternate" hreflang="pt" href="https://shalomail.com/criptografia/" />
+    <link rel="alternate" hreflang="en" href="https://shalomail.com/en/encryption/" />
+    <link rel="alternate" hreflang="es" href="https://shalomail.com/es/encryption/" />
+    <link rel="alternate" hreflang="fr" href="https://shalomail.com/fr/encryption/" />
+    <link rel="alternate" hreflang="de" href="https://shalomail.com/de/encryption/" />
+    <link rel="alternate" hreflang="it" href="https://shalomail.com/it/encryption/" />
+    <link rel="alternate" hreflang="ru" href="https://shalomail.com/ru/encryption/" />
+    <link rel="alternate" hreflang="uk" href="https://shalomail.com/uk/encryption/" />
+    <link rel="alternate" hreflang="tr" href="https://shalomail.com/tr/encryption/" />
+    <link rel="alternate" hreflang="he" href="https://shalomail.com/he/encryption/" />
+    <link rel="alternate" hreflang="ar" href="https://shalomail.com/ar/encryption/" />
+    <link rel="alternate" hreflang="hi" href="https://shalomail.com/hi/encryption/" />
+    <link rel="alternate" hreflang="zh-Hans" href="https://shalomail.com/zh/encryption/" />
+    <link rel="alternate" hreflang="ja" href="https://shalomail.com/ja/encryption/" />
+    <link rel="alternate" hreflang="ko" href="https://shalomail.com/ko/encryption/" />
+    <link rel="alternate" hreflang="x-default" href="https://shalomail.com/en/encryption/" />
+    <meta property="og:title" content="Şifreleme nasıl çalışır · Shalom Mail" />
+    <meta property="og:description" content="Shalom Mail e-postalarınızı nasıl korur: cihazınızda oluşan anahtar, parola için Argon2id, saklanan her mesaj için AES-256-GCM ve korumanın bittiği yer." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shalomail.com/tr/encryption/" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:site_name" content="Shalom Mail" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=2" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Şifreleme nasıl çalışır · Shalom Mail" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Şifreleme nasıl çalışır · Shalom Mail" />
+    <meta name="twitter:description" content="Shalom Mail e-postalarınızı nasıl korur: cihazınızda oluşan anahtar, parola için Argon2id, saklanan her mesaj için AES-256-GCM ve korumanın bittiği yer." />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=2" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
+    <link rel="stylesheet" href="/lp/lp.css" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://shalomail.com/#org","name":"Shalom Mail","url":"https://shalomail.com/","logo":{"@type":"ImageObject","url":"https://shalomail.com/icon-512.png","width":512,"height":512},"legalName":"X TECH A.I FUND HOLDING E PARTICIPACOES LTDA","email":"contato@shalomail.com","address":{"@type":"PostalAddress","addressLocality":"Governador Celso Ramos","addressRegion":"SC","addressCountry":"BR"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer support","email":"contato@shalomail.com"},{"@type":"ContactPoint","contactType":"privacy","email":"privacidade@shalomail.com"}]},{"@type":"TechArticle","@id":"https://shalomail.com/tr/encryption/#article","url":"https://shalomail.com/tr/encryption/","mainEntityOfPage":"https://shalomail.com/tr/encryption/","headline":"Şifreleme nasıl çalışır","description":"Shalom Mail e-postalarınızı nasıl korur: cihazınızda oluşan anahtar, parola için Argon2id, saklanan her mesaj için AES-256-GCM ve korumanın bittiği yer.","inLanguage":"tr","image":"https://shalomail.com/og.png","isPartOf":{"@id":"https://shalomail.com/#website"},"about":{"@id":"https://shalomail.com/#app"},"author":{"@id":"https://shalomail.com/#org"},"publisher":{"@id":"https://shalomail.com/#org"}}]}</script>
+  </head>
+  <body class="legal-page">
+    <header class="top wrap">
+      <a class="brand" href="/tr/" aria-label="Shalom Mail, ana sayfa">
+        <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
+        <span>Shalom</span>
+      </a>
+      <nav class="top-links" aria-label="Hesap">
+        <a href="/entrar">Giriş yap</a>
+        <a href="/criar-conta">Hesap oluştur</a>
+      </nav>
+    </header>
+
+    <main class="doc wrap">
+      <h1>Şifreleme nasıl çalışır</h1>
+      <p class="doc-lead">Shalom Mail, shalomail.com adresindeki bir e-posta hizmetidir. Saklanan e-postalarınız yalnızca cihazınızda bulunan bir anahtarla kilitlenir ve Shalom hesapları arasında her şey uçtan uca şifrelidir. Bunun nasıl çalıştığını ve korumanın nerede bittiğini burada sade bir dille anlatıyoruz.</p>
+
+      <section class="doc-sec" aria-labelledby="key"><h2 id="key">Anahtarınız cihazınızda oluşturulur</h2><p>Hesap oluşturduğunuzda tarayıcınız özel anahtarınızı üretir: X25519 için 256 rastgele bit. Bu anahtar sunucuya asla okunabilir bir biçimde ulaşmaz.</p><p>Sunucu onu yalnızca parolanızla kilitlenmiş bir zarfın içinde saklar ve zarf, giriş yaptığınızda cihazınızda açılır. Sunucu bu zarfa kendine ait ikinci bir kilit daha ekler; bu kilidin sırrı veritabanının dışında tutulur.</p></section>
+      <section class="doc-sec" aria-labelledby="password"><h2 id="password">Parolanız cihazınızda kalır</h2><p>Cihazınız parolanızı 128 MB bellek ve 3 geçişle Argon2id’den geçirir ve sonuçtan iki anahtar türetir. Biri, parolayı bildiğinizi sunucuya kanıtlar. Diğeri, anahtarınızın bulunduğu zarfı açar. Parolanın kendisi asla gönderilmez.</p><p>Sunucu yalnızca bu kanıttan, veritabanında bulunmayan bir sırla üretilmiş bir kodu saklar. Uygulama ayrıca sunucunun gönderdiği Argon2id ayarlarını kontrol eder ve zayıf olanları reddeder; böylece kurcalanmış bir sunucu parolanızı tahmin etmeyi kolaylaştıramaz.</p></section>
+      <section class="doc-sec" aria-labelledby="stored"><h2 id="stored">Saklanan her e-posta mühürlüdür</h2><p>Her e-posta iki mühürlü parça hâlinde saklanır: gönderen, alıcılar, konu, tarih, kısa bir önizleme ve ait olduğu yazışmayı içeren küçük bir başlık ile ekleriyle birlikte mesajın tamamı.</p><p>İki parça da X25519, HKDF-SHA256 ve AES-256-GCM ile genel anahtarınıza mühürlenir. Onları yalnızca özel anahtarınız açar; yani sunucu okuyamadığı verileri saklar.</p></section>
+      <section class="doc-sec" aria-labelledby="outside"><h2 id="outside">Diğer sağlayıcılarla e-posta</h2><p>Gmail, Outlook veya başka herhangi bir sağlayıcıdan gelen e-posta, internetteki her e-posta gibi şifresiz ulaşır. O anda sunucu spam ve dolandırıcılık kontrolü yapar ve mesajı anahtarınızla mühürler. Şifresiz hâli saklanmaz.</p><p>Diğer sağlayıcılara gönderdiğiniz e-posta normal e-posta olarak çıkar. Sunucu onu şifresiz iletir ve alıcının sağlayıcısı okuyabilir. Bu durumda Shalom yolu değil, kutunuzda saklanan kopyayı korur.</p></section>
+      <section class="doc-sec" aria-labelledby="between"><h2 id="between">Shalom hesapları arasında uçtan uca</h2><p>Başka bir Shalom adresine yazdığınızda cihazınız mesajı, çıkmadan önce alıcının genel anahtarına mühürler. Mesaj yalnızca alıcının cihazında okunabilir; ne yolda ne de sunucuda.</p><p>Mesaj ayrıca kendi anahtarınızla doğrulanır; bu yüzden sunucu sizin adınıza mesaj uyduramaz.</p><p>Gönderen de mühürlenir; Signal’in sealed sender yöntemine benzer şekilde. Sunucu her hesaba Ed25519 ile imzalanmış kısa bir sertifika verir. Cihazınız bunu mührün içine koyar, alıcı kontrol eder ve sunucu mesajı kimin gönderdiğini bilmeden saklar ve teslim eder.</p><p>Kimin neyi gönderdiğini öğrenmeden kötüye kullanımı sınırlamak için her teslimat, sunucunun körlemesine imzaladığı bir bilet harcar (RSA kör imzaları). Sunucu bileti kontrol eder ama onu isteyen hesapla ilişkilendiremez.</p></section>
+      <section class="doc-sec" aria-labelledby="contacts"><h2 id="contacts">Bir kişinin anahtarını doğrulamak</h2><p>Uygulama her Shalom kişisinin anahtarını ilk gördüğünde hatırlar. Sunucu bir gün aynı adres için farklı bir anahtar verirse gönderim durur ve uygulama, kişinizle karşılaştırabilmeniz için her biri 30 haneli iki parmak izini gösterir. shalom CLI de bir kişinin anahtarı değiştiğinde siz onaylayana kadar durur.</p></section>
+      <section class="doc-sec" aria-labelledby="agents"><h2 id="agents">Yapay zekâ ajanları için kutular</h2><p>Her ajan kutusunun kendi anahtar çifti vardır ve shalom CLI’yi ya da Node SDK’yı çalıştırdığınız makinede oluşturulur. Özel anahtar <code dir="ltr">~/.config/shalom</code> içinde ya da dışa aktardığınız <code dir="ltr">SHALOM_AGENT_TOKEN</code> içinde kalır; bu yüzden o belirteci bir sır gibi saklayın.</p><p>Hesap anahtarınız ajan kutuları oluşturup silebilir ama hiçbirini açamaz. Her kutunun anahtarı yalnızca o kutudan okur ve gönderir.</p></section>
+      <section class="doc-sec" aria-labelledby="server"><h2 id="server">Sunucunun bildikleri</h2><p>Sunucunun çalışmak için bazı şeyleri bilmesi gerekir. Bunların hiçbiri saklanan e-postalarınızın içeriği değildir:</p><ul><li>Adresiniz, seçtiğiniz ad ve eklerseniz profil fotoğrafınız.</li><li>Kurtarma e-postanız; kilitli saklanır ve yalnızca size bağlantı göndermek için açılır.</li><li>Her mesaj için: hangi kutuya ait olduğu, ne zaman geldiği, ne kadar yer kapladığı, hangi klasörde olduğu ve okunup okunmadığı, sabitlenip sabitlenmediği veya yıldızlanıp yıldızlanmadığı.</li><li>Diğer sağlayıcılarda kime yazdığınız, çünkü bu e-postalar normal e-posta olarak çıkar.</li><li>Bağlı oturumlarınız: her birinin ne zaman başladığı, en son ne zaman kullanıldığı ve tarayıcı türü.</li></ul><p>Her bilginin ne kadar süre saklandığıyla birlikte tam liste gizlilik politikasındadır.</p></section>
+      <section class="doc-sec" aria-labelledby="limits"><h2 id="limits">Korumanın bittiği yer</h2><ul><li>Diğer sağlayıcılarla e-posta uçtan uca değildir. Normal e-posta olarak yol alır ve sunucu onu geçtiği anda görür.</li><li>Parolanızı unutursanız saklanan e-postalarınız kurtarılamaz, çünkü anahtarınızı yalnızca parolanız açar ve Shalom’da bir kopyası yoktur. Kurtarma e-postanızla yeni bir parola belirleyip adresinizi koruyabilirsiniz, ama kutu boş başlar.</li><li>Uygulama tarayıcınızda çalışır ve shalomail.com’dan yüklenir. Web’de çalışan her e-postada olduğu gibi, sitenin burada anlatılan kodu sunduğuna güvenirsiniz.</li><li>Şifreleme, zaten ele geçirilmiş bir cihazı koruyamaz. Bir cihazı hatırlamayı seçerseniz anahtarınız o tarayıcıda kalır; bu yüzden onu parolanız gibi koruyun.</li><li>Mühürlü gönderen, göndereni sunucunun sakladıklarının dışında tutar. Her web sitesi gibi sunucu yine de her isteğin arkasındaki bağlantıyı görür ve bunu, gizlilik politikasında anlatıldığı gibi yalnızca kötüye kullanıma karşı kullanır.</li></ul></section>
+
+      <section class="doc-sec" aria-labelledby="more">
+        <h2 id="more">Daha fazla ayrıntı</h2>
+        <p><a href="/developers/#crypto">Şifrelemenin tam biçimi, geliştiriciler için (İngilizce)</a></p>
+        <p><a href="/tr/privacy/">Gizlilik politikası</a></p>
+        <p><a href="/tr/faq/">Sık sorulan sorular</a></p>
+      </section>
+      <p class="doc-actions"><a class="doc-cta" href="/criar-conta">Ücretsiz hesap oluştur</a></p>
+    </main>
+
+    <footer class="foot wrap">
+      <p>Shalom Mail (shalomail.com), tarayıcıda çalışan şifreli bir e-posta hizmetidir. Saklanan e-postalar yalnızca cihazınızda bulunan bir anahtarla kilitlenir ve Shalom hesapları arasında her şey uçtan uca şifrelidir.</p>
+      <div class="foot-row">
+        <span>© 2026 Shalom Mail</span>
+        <nav aria-label="Bağlantılar">
+          <a href="/tr/">Shalom Mail</a>
+          <a href="/tr/agents/">Yapay zekâ ajanları</a>
+          <a href="/developers/">Geliştiriciler</a>
+          <a href="/tr/encryption/">Şifreleme</a>
+          <a href="/tr/faq/">Sık sorulan sorular</a>
+          <a href="/tr/terms/">Kullanım koşulları</a>
+          <a href="/tr/privacy/">Gizlilik</a>
+          <details class="lang">
+            <summary><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 12h17M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>Türkçe</summary>
+            <ul><li><a href="/criptografia/" hreflang="pt-BR" lang="pt-BR" data-lang="pt">Português</a></li><li><a href="/en/encryption/" hreflang="en" lang="en" data-lang="en">English</a></li><li><a href="/es/encryption/" hreflang="es" lang="es" data-lang="es">Español</a></li><li><a href="/fr/encryption/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li><li><a href="/de/encryption/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li><li><a href="/it/encryption/" hreflang="it" lang="it" data-lang="it">Italiano</a></li><li><a href="/ru/encryption/" hreflang="ru" lang="ru" data-lang="ru">Русский</a></li><li><a href="/uk/encryption/" hreflang="uk" lang="uk" data-lang="uk">Українська</a></li><li><a href="/tr/encryption/" hreflang="tr" lang="tr" data-lang="tr" aria-current="true">Türkçe</a></li><li><a href="/he/encryption/" hreflang="he" lang="he" data-lang="he">עברית</a></li><li><a href="/ar/encryption/" hreflang="ar" lang="ar" data-lang="ar">العربية</a></li><li><a href="/hi/encryption/" hreflang="hi" lang="hi" data-lang="hi">हिन्दी</a></li><li><a href="/zh/encryption/" hreflang="zh-Hans" lang="zh-Hans" data-lang="zh">简体中文</a></li><li><a href="/ja/encryption/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li><li><a href="/ko/encryption/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li></ul>
+          </details>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module" src="/lp/lang.ts"></script>
+  </body>
+</html>

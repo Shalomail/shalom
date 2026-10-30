@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="{{lang}}" dir="{{dir}}" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="referrer" content="no-referrer" />
+    <title>{{docTitle}} · Shalom Mail</title>
+    <meta name="description" content="{{docDescription}}" />
+    <meta name="robots" content="max-image-preview:large" />
+    <link rel="canonical" href="{{canonical}}" />
+    {{{alternates}}}
+    <meta property="og:title" content="{{docTitle}} · Shalom Mail" />
+    <meta property="og:description" content="{{docDescription}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{canonical}}" />
+    <meta property="og:locale" content="{{ogLocale}}" />
+    <meta property="og:site_name" content="Shalom Mail" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=2" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="{{docTitle}} · Shalom Mail" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{docTitle}} · Shalom Mail" />
+    <meta name="twitter:description" content="{{docDescription}}" />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=2" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
+    <link rel="stylesheet" href="/lp/lp.css" />
+    {{{jsonLd}}}
+  </head>
+  <body class="legal-page">
+    <header class="top wrap">
+      <a class="brand" href="{{homeHref}}" aria-label="{{nav.home}}">
+        <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
+        <span>Shalom</span>
+      </a>
+      <nav class="top-links" aria-label="{{nav.account}}">
+        <a href="/entrar">{{nav.signin}}</a>
+        <a href="/criar-conta">{{nav.signup}}</a>
+      </nav>
+    </header>
+
+    <main class="doc wrap">
+      <h1>{{docs.h1}}</h1>
+      <p class="doc-lead">{{docs.lead}}</p>
+      <p class="doc-actions"><a class="doc-cta" href="/criar-conta">{{docs.cta}}</a><a class="doc-quiet" href="/agentes-ia">{{docs.settings}}</a></p>
+
+      <section class="doc-sec" aria-labelledby="doc-start">
+        <h2 id="doc-start">{{docs.startTitle}}</h2>
+        <ol class="doc-steps">
+          <li><p>{{docs.s1}}</p><pre dir="ltr"><code>npm install -g shalomail</code></pre></li>
+          <li><p>{{docs.s2}}</p><pre dir="ltr"><code>shalom login</code></pre></li>
+          <li><p>{{docs.s3}}</p><pre dir="ltr"><code>shalom agents create {{docs.example}}</code></pre></li>
+        </ol>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="doc-read">
+        <h2 id="doc-read">{{docs.readTitle}}</h2>
+        <p>{{docs.readText}}</p>
+        <pre dir="ltr"><code>shalom inbox --json
+shalom read 3f9c2a1b --json
+shalom reply 3f9c2a1b --text "{{docs.exReply}}"
+shalom send --to ana@example.com --subject "{{docs.exSubject}}" \
+  --text-file report.md --attach report.pdf</code></pre>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="doc-watch">
+        <h2 id="doc-watch">{{docs.watchTitle}}</h2>
+        <p>{{docs.watchText}}</p>
+        <pre dir="ltr"><code>shalom watch --exec "python agent.py" --mark-read</code></pre>
+        <p>{{docs.watchFields}}</p>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="doc-server">
+        <h2 id="doc-server">{{docs.serverTitle}}</h2>
+        <p>{{docs.serverText}}</p>
+        <pre dir="ltr"><code>shalom agents export {{docs.example}}@shalomail.com
+SHALOM_AGENT_TOKEN=shalom_agent_... shalom inbox --json</code></pre>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="doc-security">
+        <h2 id="doc-security">{{docs.securityTitle}}</h2>
+        <ul>
+          <li>{{docs.security1}}</li>
+          <li>{{docs.security2}}</li>
+          <li>{{docs.security3}}</li>
+        </ul>
+        <p><a href="{{encHref}}">{{enc.title}}</a></p>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="doc-plans">
+        <h2 id="doc-plans">{{docs.plansTitle}}</h2>
+        <ul class="doc-plans">
+          <li><strong>{{docs.planFree}}</strong><span>{{docs.planFreeText}}</span></li>
+          <li><strong>Agents 5</strong><span>{{docs.plan5Text}}</span></li>
+          <li><strong>Agents 12</strong><span>{{docs.plan12Text}}</span></li>
+          <li><strong>Unlimited</strong><span>{{docs.planUnlimitedText}}</span></li>
+        </ul>
+        <p>{{docs.plansNote}}</p>
+      </section>
+
+      <section class="doc-sec" aria-labelledby="doc-ref">
+        <h2 id="doc-ref">{{docs.refTitle}}</h2>
+        <dl class="doc-ref">
+          {{{cmdList}}}
+        </dl>
+        <p>{{docs.refNote}}</p>
+      </section>
+    </main>
+
+    <footer class="foot wrap">
+      <p>{{footAbout}}</p>
+      <div class="foot-row">
+        <span>© 2026 Shalom Mail</span>
+        <nav aria-label="{{foot.links}}">
+          <a href="{{homeHref}}">Shalom Mail</a>
+          <a href="{{agentsHref}}">{{foot.agents}}</a>
+          <a href="{{devHref}}">{{foot.developers}}</a>
+          <a href="{{encHref}}">{{foot.encryption}}</a>
+          <a href="{{faqHref}}">{{foot.faq}}</a>
+          <a href="{{termsHref}}">{{foot.terms}}</a>
+          <a href="{{privacyHref}}">{{foot.privacy}}</a>
+          <details class="lang">
+            <summary><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 12h17M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>{{meta.name}}</summary>
+            <ul>{{{picker}}}</ul>
+          </details>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module" src="/lp/lang.ts"></script>
+  </body>
+</html>

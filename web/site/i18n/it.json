@@ -1,0 +1,525 @@
+{
+  "meta": {
+    "tag": "it",
+    "name": "Italiano",
+    "dir": "ltr",
+    "title": "Shalom Mail: email crittografata e davvero privata",
+    "description": "Le tue email restano sotto chiave, e quella chiave esiste solo sul tuo dispositivo. Gratis, senza numero di telefono né documento."
+  },
+  "nav": {
+    "home": "Shalom Mail, pagina iniziale",
+    "account": "Account",
+    "signin": "Accedi",
+    "signup": "Crea account"
+  },
+  "hero": {
+    "title": "Email davvero privata.",
+    "lede": "Le tue email restano sotto chiave, e quella chiave esiste solo sul tuo dispositivo."
+  },
+  "claim": {
+    "placeholder": "name",
+    "label": "L’indirizzo che vuoi",
+    "submit": "Crea con questo indirizzo",
+    "free": "Gratis. Senza numero di telefono né documento.",
+    "minute": "Basta un minuto.",
+    "checking": "Verifica in corso...",
+    "ok": "È libero.",
+    "taken": "Questo indirizzo è già preso.",
+    "reserved": "Questo indirizzo è riservato.",
+    "invalid": "Da 3 a 32 lettere o numeri, con una lettera o un numero all’inizio e alla fine."
+  },
+  "shot": {
+    "alt": "La posta in arrivo di Shalom Mail con una conversazione crittografata end-to-end"
+  },
+  "points": {
+    "label": "Cosa include l’account",
+    "key": {
+      "title": "La chiave ce l’hai tu",
+      "text": "Nasce sul tuo dispositivo e non arriva mai al server. Senza la chiave, nessuno può aprire le tue email archiviate."
+    },
+    "ads": {
+      "title": "Niente pubblicità né tracciamento",
+      "text": "Le immagini che segnalano quando hai aperto un’email vengono bloccate. I mittenti falsi compaiono in ambra."
+    },
+    "free": {
+      "title": "Gratis, con 1 GB",
+      "text": "Un indirizzo @shalomail.com che comunica con qualsiasi email. Tra account Shalom, è end-to-end."
+    }
+  },
+  "others": {
+    "title": "Funziona con qualsiasi email.",
+    "text": "Scrivi a chi usa Gmail, Outlook o qualsiasi altro servizio. A loro arriva come una normale email; tra account Shalom, la crittografia è end-to-end."
+  },
+  "seen": {
+    "title": "Crittografia di livello militare.",
+    "lead": "AES-256, la stessa cifratura che i governi usano per proteggere le informazioni top secret. Ogni email viene chiusa con essa prima di essere salvata, e solo la tua chiave la apre.",
+    "label": "Lo stesso messaggio, come lo leggi tu e come lo conserva il server",
+    "you": "Tu leggi",
+    "server": "Il server conserva",
+    "text": "Giulia, ho rivisto il contratto. Manca solo la tua firma a pagina 4."
+  },
+  "end": {
+    "title": "Scegli il tuo indirizzo."
+  },
+  "foot": {
+    "note": "Le email da altri servizi arrivano in chiaro, come tutte le email, e vengono crittografate all’arrivo. Le email verso altri servizi partono come normali email. La crittografia end-to-end vale tra account Shalom.",
+    "links": "Link",
+    "terms": "Termini di utilizzo",
+    "privacy": "Privacy",
+    "agents": "Agenti IA",
+    "developers": "Sviluppatori",
+    "encryption": "Crittografia",
+    "faq": "Domande frequenti",
+    "about": "Shalom Mail (shalomail.com) è un servizio di email crittografata che funziona nel browser. Le email archiviate sono chiuse con una chiave che esiste solo sul tuo dispositivo, e tra account Shalom tutto è end-to-end."
+  },
+  "legal": {
+    "updated": "Ultimo aggiornamento: 30 ottobre 2026",
+    "translationNote": "Questa è una traduzione. In caso di differenze rispetto alla versione portoghese, prevale la versione portoghese.",
+    "operator": "Shalom Mail è gestito da {c}, con sede a Governador Celso Ramos, SC, Brasile.",
+    "terms": {
+      "title": "Termini di utilizzo",
+      "intro": "Questi termini valgono per chiunque crei un account Shalom Mail. Sono brevi di proposito: dicono cosa offriamo, cosa ci aspettiamo da te e cosa succede se qualcosa va storto.",
+      "sections": [
+        {
+          "h": "1. Il servizio",
+          "p": [
+            "Shalom Mail è un servizio di email crittografata con indirizzo @shalomail.com. L’account è gratuito e include 1 GB di spazio.",
+            "Possiamo modificare funzioni e limiti nel tempo. Quando una modifica riguarda qualcosa che usi, ti avvisiamo prima nell’app.",
+            "Con la CLI, il tuo account può creare caselle email per agenti IA: 2 senza costi e altre con i piani Agents 5 (fino a 5 caselle, 4,99 US$ al mese), Agents 12 (fino a 12 caselle, 9,99 US$ al mese) e Unlimited (caselle illimitate, fino a 250 nuove al giorno, 49,90 US$ al mese). L'abbonamento è mensile, si rinnova da solo e puoi annullarlo quando vuoi dal portale di pagamento; resta attivo fino alla fine del periodo pagato. Puoi recedere entro 7 giorni dalla sottoscrizione e ottenere il rimborso. Il pagamento è gestito da Stripe. Rispondi di ciò che i tuoi agenti inviano, come se lo inviassi tu."
+          ]
+        },
+        {
+          "h": "2. Il tuo account",
+          "p": [
+            "Per creare un account devi avere almeno 13 anni, o l’età minima richiesta nel tuo paese. Se hai meno di 18 anni, usalo con la supervisione di un genitore o di un tutore.",
+            "Gli indirizzi che differiscono solo per punti, trattini o trattini bassi contano come lo stesso indirizzo, così nessuno può registrarne uno simile a quello di un’altra persona.",
+            "La tua password, il tuo PIN e i tuoi codici di recupero sono sotto la tua responsabilità, così come tutto ciò che viene fatto con il tuo account."
+          ]
+        },
+        {
+          "h": "3. La password è la chiave",
+          "p": [
+            "Le tue email archiviate si aprono solo con una chiave protetta dalla tua password. Non abbiamo una copia di questa chiave.",
+            "Per questo, se dimentichi la password, non possiamo recuperare le tue email archiviate. Non è un difetto del servizio: è ciò che garantisce che solo tu possa leggerle. Conserva bene la password e, se attivi la verifica in due passaggi, anche i codici di recupero."
+          ]
+        },
+        {
+          "h": "4. Cosa non è consentito",
+          "p": [
+            "Non usare Shalom Mail per:",
+            {
+              "ul": [
+                "inviare spam o messaggi di massa che nessuno ha chiesto;",
+                "truffare, fare phishing o fingerti un’altra persona o azienda;",
+                "diffondere virus o qualsiasi software dannoso;",
+                "molestare, minacciare o perseguitare chiunque;",
+                "condividere qualsiasi materiale di abuso sessuale su minori;",
+                "violare la legge o i diritti di altre persone;",
+                "aggirare i limiti, violare account o attaccare il servizio."
+              ]
+            },
+            "Esistono limiti di invio, come il numero di destinatari al giorno, per proteggere chi usa il servizio e la reputazione dei nostri indirizzi."
+          ]
+        },
+        {
+          "h": "5. Sospensione",
+          "p": [
+            "Possiamo limitare o sospendere gli account che violano questi termini. Abusi come spam e truffe emergono dal volume di invio e dalle segnalazioni, senza bisogno di leggere il contenuto, che resta crittografato.",
+            "Quando possibile, ti avvisiamo prima. Se pensi che sia un errore, scrivi a contato@shalomail.com."
+          ]
+        },
+        {
+          "h": "6. Ciò che scrivi è tuo",
+          "p": [
+            "Non rivendichiamo alcun diritto su ciò che scrivi o ricevi. Essendo crittografato, non possiamo nemmeno vederlo."
+          ]
+        },
+        {
+          "h": "7. Nessuna garanzia di funzionamento perfetto",
+          "p": [
+            "Facciamo il possibile perché il servizio sia sempre attivo e sicuro, ma è offerto così com’è, senza garanzia che funzioni senza interruzioni o errori. Conserva una copia di ciò che per te è importante.",
+            "Nei limiti consentiti dalla legge, non rispondiamo di perdite indirette, né della perdita di email causata da una password dimenticata o da un accesso effettuato con le tue credenziali."
+          ]
+        },
+        {
+          "h": "8. Chiudere l’account",
+          "p": [
+            "Puoi eliminare il tuo account quando vuoi, in fondo alle Impostazioni, oppure chiederlo a contato@shalomail.com. Con l’eliminazione, le email archiviate, le caselle degli agenti e i dati dell’account vengono rimossi e il piano viene annullato. L’indirizzo resta riservato e nessuno lo userà più."
+          ]
+        },
+        {
+          "h": "9. Modifiche a questi termini",
+          "p": [
+            "Se questi termini cambiano in modo rilevante, ti avvisiamo nell’app prima che la modifica entri in vigore. Continuare a usare il servizio dopo la modifica significa accettare la nuova versione."
+          ]
+        },
+        {
+          "h": "10. Legge applicabile e contatti",
+          "p": [
+            "Questi termini sono regolati dalle leggi del Brasile. Se sei un consumatore, conservi i diritti che ti garantisce la legge del luogo in cui vivi.",
+            "Domande: contato@shalomail.com."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Informativa sulla privacy",
+      "intro": "Shalom Mail è stato creato per sapere il meno possibile su di te. Ecco, senza giri di parole, cosa conserva il servizio, cosa non può vedere e cosa puoi chiedere.",
+      "sections": [
+        {
+          "h": "1. Chi si occupa dei tuoi dati",
+          "p": [
+            "Shalom Mail è il titolare del trattamento dei dati di questo servizio, ai sensi della Legge generale sulla protezione dei dati del Brasile (LGPD, Legge n. 13.709/2018) e, per chi si trova nell’Unione europea, del Regolamento generale sulla protezione dei dati (GDPR).",
+            "Per parlare di privacy: privacidade@shalomail.com."
+          ]
+        },
+        {
+          "h": "2. Cosa resta crittografato e nessuno tranne te può leggere",
+          "p": [
+            {
+              "ul": [
+                "Le tue email archiviate: testo, oggetto, mittente, allegati e la conversazione a cui appartiene ciascuna. Tutto è chiuso con la tua chiave.",
+                "La chiave che apre le tue email si trova in una busta chiusa dalla tua password, che si apre solo sul tuo dispositivo. Il server conserva la busta chiusa, con una seconda serratura propria, e non ha modo di aprirla.",
+                "La tua password non arriva mai al server. Il tuo dispositivo ne ricava una prova, e noi conserviamo solo un codice generato da quella prova."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "3. Cosa deve sapere il server per funzionare",
+          "p": [
+            {
+              "ul": [
+                "Account: il tuo indirizzo, il nome che hai scelto e, se la aggiungi, la tua foto profilo. La foto è pubblica per chi conosce il tuo indirizzo, come in altri servizi email.",
+                "Sicurezza: il PIN e i codici di recupero, conservati in un modo che non permette di rileggerli; il segreto della verifica in due passaggi, protetto; e il tempo di inattività che hai scelto per l’uscita automatica.",
+                "Ogni messaggio: a quale account è destinato, quando è arrivato, quanto spazio occupa, in quale cartella si trova e se è stato letto, fissato o aggiunto ai preferiti.",
+                "Dispositivi connessi: quando è iniziata ogni sessione, quando è stata usata l’ultima volta e il tipo di browser, così puoi vederli e disconnetterli.",
+                "Indirizzo IP: usato sul momento per frenare gli abusi, come i tentativi di indovinare la password e le registrazioni di massa, e conservato solo in contatori che scompaiono entro 1 ora.",
+                "Chiavi API e caselle per agenti: ogni chiave conservata in modo che non si possa rileggere, quando è stata usata l'ultima volta e quali caselle per agenti appartengono al tuo account.",
+                "Piano a pagamento: i tuoi identificativi di cliente e di abbonamento in Stripe, il piano e fino a quando vale. I dati della carta restano a Stripe e non passano mai dai nostri server."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "4. Email da e verso servizi esterni a Shalom",
+          "p": [
+            "Le email da un altro servizio arrivano in chiaro, come tutte le email su internet. Appena arrivano, il server controlla se sono spam o truffe e le chiude con la tua chiave. La versione in chiaro non viene conservata.",
+            "Le email che invii a un altro servizio partono come normali email e passano in chiaro attraverso il servizio di invio fino alla destinazione.",
+            "La crittografia end-to-end, senza alcun passaggio in chiaro, vale tra account Shalom. In questo caso il server non vede nemmeno il nome di chi scrive."
+          ]
+        },
+        {
+          "h": "5. Cookie e archiviazione nel browser",
+          "p": [
+            "Usiamo solo il necessario: il cookie di sessione, che ti mantiene connesso; il cookie del dispositivo riconosciuto, che evita la verifica anti-bot dove hai già fatto l’accesso; e le preferenze salvate nel tuo browser, come tema, lingua e account aperti. Anche la tua chiave può essere salvata nel browser, protetta, se scegli di ricordare il dispositivo.",
+            "Non usiamo cookie pubblicitari, di analisi o di tracciamento."
+          ]
+        },
+        {
+          "h": "6. Con chi condividiamo i dati",
+          "p": [
+            "L’infrastruttura funziona su Cloudflare: server, database, archiviazione, ricezione e invio di email e la verifica anti-bot (Turnstile). Cloudflare tratta i dati per nostro conto; le email archiviate vi arrivano già crittografate.",
+            "Se ti abboni a un piano a pagamento, l'addebito è gestito da Stripe, che riceve il tuo indirizzo Shalom e i dati di pagamento per gestire l'abbonamento, secondo la propria informativa privacy.",
+            "I server di Cloudflare si trovano in molti paesi, quindi i tuoi dati possono essere trattati fuori dal Brasile, con le garanzie previste dalla LGPD.",
+            "Non vendiamo dati, non mostriamo pubblicità e non usiamo le tue email per addestrare nulla.",
+            "Consegniamo dati alle autorità solo in presenza di un ordine giudiziario valido. Ciò che abbiamo è quanto indicato al punto 3: il contenuto delle email archiviate resta crittografato e noi non abbiamo la chiave."
+          ]
+        },
+        {
+          "h": "7. Per quanto tempo",
+          "p": [
+            {
+              "ul": [
+                "Account e messaggi: finché l’account esiste. Cestino e Spam si svuotano da soli dopo 30 giorni.",
+                "Sessioni: fino a 30 giorni di inutilizzo, o meno se scegli un’uscita per inattività più breve.",
+                "Contatori con indirizzi IP: fino a 1 ora.",
+                "Piano: finché esiste l'account. Stripe conserva i dati dei pagamenti per il tempo richiesto dalla legge.",
+                "Quando un account viene eliminato, i suoi dati vengono rimossi. Resta solo l’indirizzo, perché nessuno possa registrarlo di nuovo e ricevere ciò che era destinato a te. I backup dell’infrastruttura possono impiegare alcuni giorni per scadere."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "8. I tuoi diritti",
+          "p": [
+            "Puoi chiedere la conferma che trattiamo i tuoi dati, l’accesso, la rettifica, la portabilità, la cancellazione e informazioni su con chi li condividiamo, e puoi revocare un consenso che hai dato.",
+            "Nome, foto e impostazioni di sicurezza li cambi direttamente nell’app. Per tutto il resto, scrivi a privacidade@shalomail.com. Puoi anche presentare un reclamo all’Autorità nazionale per la protezione dei dati del Brasile (ANPD) o all’autorità del tuo paese."
+          ]
+        },
+        {
+          "h": "9. Sicurezza",
+          "p": [
+            "Oltre alla crittografia, usiamo una seconda serratura sul server per la busta della chiave, limiti ai tentativi di accesso, la verifica anti-bot, PIN e verifica in due passaggi facoltativi, e cookie che funzionano solo su questo sito e tramite connessione sicura.",
+            "Nessun sistema è infallibile. Se si verifica un incidente che potrebbe riguardarti, ti avvisiamo e informiamo l’ANPD, come prevede la legge."
+          ]
+        },
+        {
+          "h": "10. Minori",
+          "p": [
+            "Shalom Mail non è destinato ai minori di 13 anni. Se sei a conoscenza di un account che appartiene a un bambino, scrivi a privacidade@shalomail.com."
+          ]
+        },
+        {
+          "h": "11. Modifiche a questa informativa",
+          "p": [
+            "Se questa informativa cambia in modo rilevante, ti avvisiamo nell’app prima che la modifica entri in vigore."
+          ]
+        }
+      ]
+    }
+  },
+  "ai": {
+    "title": "Dai una casella email ai tuoi agenti IA",
+    "text": "Crea indirizzi @shalomail.com per i tuoi agenti dal terminale. Ricevono, leggono e rispondono a email vere, con la stessa crittografia end-to-end, e la chiave resta sulla macchina dell'agente.",
+    "free": "2 caselle per agenti gratis",
+    "five": "Fino a 5",
+    "fivePrice": "a 4,99 US$ al mese",
+    "twelve": "Fino a 12",
+    "twelvePrice": "a 9,99 US$ al mese",
+    "docs": "Come funziona",
+    "termLabel": "Creazione della casella di un agente nel terminale",
+    "example": "tuonome-bot",
+    "exSubject": "Richiesta di preventivo",
+    "unlimited": "Illimitato",
+    "unlimitedPrice": "a 49,90 US$ al mese, fino a 250 nuove caselle al giorno"
+  },
+  "docs": {
+    "title": "Email per agenti IA",
+    "description": "Dai ai tuoi agenti IA una vera casella @shalomail.com, crittografata end-to-end. Creala dal terminale, leggi e rispondi in JSON. 2 gratis.",
+    "h1": "Dai una casella email ai tuoi agenti IA",
+    "lead": "Con la CLI shalom, ogni agente ha il proprio indirizzo @shalomail.com. Riceve, legge e invia email vere, da Shalom o da qualsiasi posto, e ogni comando parla JSON. La chiave privata della casella nasce sulla macchina dell'agente e non ne esce mai.",
+    "cta": "Crea un account gratis",
+    "settings": "Hai già un account? Apri i tuoi agenti",
+    "startTitle": "Inizia con tre comandi",
+    "s1": "Installa la CLI. Serve Node.js 20 o più recente.",
+    "s2": "Collega il terminale al tuo account. Il comando apre una pagina di Shalom e confermi con un clic.",
+    "s3": "Crea la casella del tuo agente. La sua chiave privata viene generata e conservata su questa macchina.",
+    "example": "tuonome-bot",
+    "readTitle": "Leggere, rispondere e inviare",
+    "readText": "Ogni comando accetta --json, così il tuo agente legge l'output senza indovinare. Gli id si possono accorciare ai primi 8 caratteri.",
+    "exReply": "Ricevuto, grazie.",
+    "exSubject": "Report settimanale",
+    "watchTitle": "Reagire a ogni nuova email",
+    "watchText": "watch aspetta le nuove email ed esegue il tuo programma una volta per messaggio, con il messaggio in JSON sullo standard input.",
+    "watchFields": "Il JSON contiene id, from, to, cc, subject, date, text, html, messageId, verifiedSender e l'elenco degli allegati. L'ambiente riceve anche SHALOM_MESSAGE_ID, SHALOM_FROM e SHALOM_SUBJECT.",
+    "serverTitle": "Eseguirlo su un server",
+    "serverText": "Esporta la casella in una sola variabile e usala su qualsiasi server, container o CI. Conservala come segreto: contiene la chiave privata.",
+    "securityTitle": "Sicurezza",
+    "security1": "La chiave privata di ogni casella resta sulla macchina dell'agente. Il server conserva le email sigillate e non può leggerle.",
+    "security2": "La chiave del tuo account crea ed elimina solo caselle per agenti. La chiave di ogni casella legge e invia solo da quella. Puoi rinnovare o eliminare qualsiasi chiave in qualsiasi momento.",
+    "security3": "Tra indirizzi Shalom, l'email viaggia sigillata end-to-end e il mittente viene verificato. Verso altri provider parte come email normale.",
+    "plansTitle": "Piani",
+    "planFree": "Gratis",
+    "planFreeText": "2 caselle per agenti",
+    "plan5Text": "fino a 5 caselle, 4,99 US$ al mese",
+    "plan12Text": "fino a 12 caselle, 9,99 US$ al mese",
+    "plansNote": "Abbonati nella pagina Agenti IA o con shalom upgrade. Verso indirizzi esterni, ogni casella invia a un massimo di 20 destinatari al giorno nella prima settimana e poi fino a 100 al giorno.",
+    "refTitle": "Tutti i comandi",
+    "refNote": "Esegui shalom --help per tutte le opzioni. Tutti i comandi accettano --json, e --as <indirizzo> per scegliere la casella.",
+    "cmd": {
+      "login": "Collega questo terminale al tuo account dal browser.",
+      "list": "Elenca le tue caselle per agenti e il tuo piano.",
+      "create": "Crea <nome>@shalomail.com, con la chiave privata su questa macchina.",
+      "delete": "Elimina la casella e tutte le sue email. Serve la casella salvata su questa macchina; l'indirizzo resta riservato a te.",
+      "rotate": "Emette una nuova chiave API per la casella. La vecchia smette di funzionare.",
+      "export": "Mostra SHALOM_AGENT_TOKEN, per eseguire la casella altrove.",
+      "plan": "Mostra il tuo piano e quante caselle usi.",
+      "upgrade": "Apre la pagina dei piani nell'app.",
+      "inbox": "Elenca i messaggi di una cartella. --unread mostra solo i non letti.",
+      "read": "Apre un messaggio. --save-attachments salva i file.",
+      "send": "Invia un messaggio, con il testo in un parametro, in un file o sullo standard input, e allegati.",
+      "reply": "Risponde nella stessa conversazione. --all risponde a tutti.",
+      "move": "Sposta in arrivo, archivio, spam o cestino.",
+      "mark": "Segna come letto o non letto, con o senza stella.",
+      "watch": "Aspetta nuove email. --exec esegue un comando per ogni messaggio."
+    },
+    "planUnlimitedText": "caselle illimitate, fino a 250 nuove al giorno, 49,90 US$ al mese"
+  },
+  "enc": {
+    "title": "Come funziona la crittografia",
+    "description": "Come Shalom Mail protegge le tue email: chiave creata sul tuo dispositivo, Argon2id per la password, AES-256-GCM per ogni messaggio e i limiti.",
+    "lead": "Shalom Mail è un servizio di email su shalomail.com. Le tue email archiviate sono chiuse con una chiave che esiste solo sul tuo dispositivo, e tra account Shalom tutto è end-to-end. Ecco come funziona, in parole semplici, e dove finisce la protezione.",
+    "s": {
+      "key": {
+        "h": "La tua chiave nasce sul tuo dispositivo",
+        "p": [
+          "Quando crei un account, il browser genera la tua chiave privata: 256 bit casuali, per X25519. Non arriva mai al server in una forma che qualcuno possa leggere.",
+          "Il server la conserva solo dentro una busta chiusa dalla tua password, e la busta si apre sul tuo dispositivo quando accedi. Il server aggiunge a quella busta una seconda serratura propria, con un segreto tenuto fuori dal database."
+        ]
+      },
+      "password": {
+        "h": "La tua password resta sul tuo dispositivo",
+        "p": [
+          "Il tuo dispositivo passa la password in Argon2id, con 128 MB di memoria e 3 passaggi, e dal risultato ricava due chiavi. Una dimostra al server che conosci la password. L’altra apre la busta con la tua chiave. La password in sé non viene mai inviata.",
+          "Il server conserva solo un codice ricavato da quella prova, con un segreto che non sta nel database. L’app controlla anche i parametri di Argon2id che il server invia e rifiuta quelli deboli, così un server manomesso non può rendere la tua password più facile da indovinare."
+        ]
+      },
+      "stored": {
+        "h": "Ogni email archiviata è sigillata",
+        "p": [
+          "Ogni email è conservata in due parti sigillate: una piccola intestazione, con mittente, destinatari, oggetto, data, una breve anteprima e la conversazione a cui appartiene, e il messaggio completo con gli allegati.",
+          "Entrambe le parti sono sigillate per la tua chiave pubblica con X25519, HKDF-SHA256 e AES-256-GCM. Solo la tua chiave privata le apre, quindi il server conserva dati che non può leggere."
+        ]
+      },
+      "outside": {
+        "h": "Email con altri provider",
+        "p": [
+          "Le email da Gmail, Outlook o qualsiasi altro provider arrivano in chiaro, come tutte le email su internet. In quel momento il server controlla se sono spam o truffe e le sigilla con la tua chiave. La versione in chiaro non viene conservata.",
+          "Le email che invii ad altri provider partono come normali email. Il server le inoltra in chiaro, e il provider di chi le riceve può leggerle. In questo caso Shalom protegge la copia conservata nella tua casella, non il percorso."
+        ]
+      },
+      "between": {
+        "h": "Tra account Shalom, end-to-end",
+        "p": [
+          "Quando scrivi a un altro indirizzo Shalom, il tuo dispositivo sigilla il messaggio per la chiave pubblica di chi lo riceve prima che parta. Si può leggere solo sul dispositivo di chi lo riceve, mai lungo il percorso né sul server.",
+          "Il messaggio è anche autenticato con la tua chiave, quindi il server non può falsificare un messaggio a tuo nome.",
+          "Anche il mittente è sigillato, sul modello del sealed sender di Signal. Il server dà a ogni account un breve certificato firmato con Ed25519. Il tuo dispositivo lo mette dentro il sigillo, chi riceve lo verifica, e il server conserva e consegna il messaggio senza sapere chi l’ha inviato.",
+          "Per limitare gli abusi senza sapere chi ha inviato cosa, ogni consegna usa un biglietto che il server ha firmato alla cieca, con firme cieche RSA. Il server verifica il biglietto, ma non può collegarlo all’account che l’ha richiesto."
+        ]
+      },
+      "contacts": {
+        "h": "Verificare la chiave di un contatto",
+        "p": [
+          "L’app ricorda la chiave di ogni contatto Shalom la prima volta che la vede. Se un giorno il server fornisse un’altra chiave per lo stesso indirizzo, l’invio si ferma e l’app mostra le due impronte digitali, di 30 cifre ciascuna, così puoi confrontarle con il tuo contatto. Anche il CLI shalom si ferma quando la chiave di un contatto cambia, finché non confermi."
+        ]
+      },
+      "agents": {
+        "h": "Caselle per agenti IA",
+        "p": [
+          "Ogni casella per agenti ha la propria coppia di chiavi, creata sulla macchina dove usi il CLI shalom o l’SDK per Node. La chiave privata resta in ~/.config/shalom o nel SHALOM_AGENT_TOKEN che esporti, quindi conserva quel token come un segreto.",
+          "La chiave del tuo account può creare ed eliminare caselle per agenti, ma non può aprirne nessuna. La chiave di ogni casella legge e invia solo da quella casella."
+        ]
+      },
+      "server": {
+        "h": "Cosa sa il server",
+        "p": [
+          "Per funzionare, il server deve sapere alcune cose. Nessuna di queste è il contenuto delle tue email archiviate:",
+          {
+            "ul": [
+              "Il tuo indirizzo, il nome che hai scelto e, se la aggiungi, la tua foto profilo.",
+              "La tua email di recupero, conservata chiusa e aperta solo per mandarti un link.",
+              "Per ogni messaggio: a quale casella è destinato, quando è arrivato, quanto spazio occupa, in quale cartella si trova e se è stato letto, fissato o contrassegnato con una stella.",
+              "A chi scrivi presso altri provider, dato che quelle email partono come normali email.",
+              "Le tue sessioni collegate: quando è iniziata ciascuna, quando è stata usata l’ultima volta e il tipo di browser."
+            ]
+          },
+          "L’elenco completo, con quanto tempo si conserva ogni dato, è nell’informativa sulla privacy."
+        ]
+      },
+      "limits": {
+        "h": "Dove finisce la protezione",
+        "p": [
+          {
+            "ul": [
+              "Le email con altri provider non sono end-to-end. Viaggiano come normali email, e il server le vede nel momento in cui passano.",
+              "Se dimentichi la password, le tue email archiviate non si possono recuperare, perché solo la tua password apre la tua chiave e Shalom non ne ha una copia. Con la tua email di recupero puoi creare una nuova password e mantenere il tuo indirizzo, ma la casella riparte vuota.",
+              "L’app funziona nel tuo browser e viene caricata da shalomail.com. Come per ogni email che funziona sul web, ti affidi al fatto che il sito serva il codice descritto qui.",
+              "La crittografia non può proteggere un dispositivo già compromesso. Se scegli di ricordare un dispositivo, la tua chiave resta in quel browser, quindi proteggilo come proteggi la tua password.",
+              "Il mittente sigillato tiene il mittente fuori da ciò che il server conserva. Come ogni sito web, il server vede comunque la connessione dietro ogni richiesta, e la usa solo contro gli abusi, come spiega l’informativa sulla privacy."
+            ]
+          }
+        ]
+      }
+    },
+    "moreTitle": "Per saperne di più",
+    "moreDev": "Il formato esatto della crittografia, per sviluppatori (in inglese)"
+  },
+  "faq": {
+    "title": "Domande frequenti",
+    "description": "Risposte su Shalom Mail: prezzo, cosa serve per iscriversi, chi può leggere le tue email, password dimenticata ed email per agenti IA.",
+    "lead": "Risposte brevi e dirette su Shalom Mail, il servizio di email crittografata di shalomail.com.",
+    "devLink": "Riferimento dell’SDK per Node e dell’API HTTP (in inglese)",
+    "g": {
+      "account": "L’account",
+      "privacy": "Privacy e crittografia",
+      "agents": "Email per agenti IA"
+    },
+    "q": {
+      "what": {
+        "q": "Che cos’è Shalom Mail?",
+        "a": "Shalom Mail è un servizio di email crittografata che funziona nel browser, su shalomail.com. L’account è gratis, con 1 GB e un indirizzo @shalomail.com. Le email archiviate sono chiuse con una chiave che esiste solo sul tuo dispositivo, le email tra account Shalom sono end-to-end, e gli agenti IA possono avere caselle proprie."
+      },
+      "free": {
+        "q": "Shalom Mail è gratis?",
+        "a": "Sì. L’account email è gratis, con 1 GB di spazio e un indirizzo @shalomail.com, e non ha pubblicità. Gli unici piani a pagamento sono per chi ha bisogno di più di 2 caselle per agenti IA."
+      },
+      "signup": {
+        "q": "Serve un numero di telefono o un documento per iscriversi?",
+        "a": "No. Scegli un indirizzo e una password, e Shalom non chiede né telefono né documento. Prima di aprire la tua prima casella, chiede un’email di recupero presso un altro provider, che è il modo per rientrare nell’account se dimentichi la password. Il server la conserva chiusa e la usa solo per mandarti un link."
+      },
+      "others": {
+        "q": "Posso scrivere a chi usa Gmail o Outlook?",
+        "a": "Sì. Un indirizzo Shalom invia e riceve da qualsiasi provider, come Gmail, Outlook, iCloud o Yahoo, e quelle persone ricevono i tuoi messaggi come normali email. Tra account Shalom, è end-to-end."
+      },
+      "app": {
+        "q": "C’è un’app da installare?",
+        "a": "No. Shalom Mail funziona nel browser, su computer e telefono, quindi non c’è niente da installare. Le caselle per agenti IA si usano con il CLI shalom o con l’SDK per Node."
+      },
+      "languages": {
+        "q": "In quali lingue è disponibile Shalom Mail?",
+        "a": "In {count} lingue: {langs}."
+      },
+      "who": {
+        "q": "Chi gestisce Shalom Mail?",
+        "a": "{c}, una società registrata in Brasile con sede a Governador Celso Ramos, SC. La privacy segue la LGPD brasiliana e, per chi si trova nell’Unione europea, il GDPR. Contatto: contato@shalomail.com."
+      },
+      "delete": {
+        "q": "Posso eliminare il mio account?",
+        "a": "Sì. Scrivi a contato@shalomail.com e l’account viene eliminato, con le email archiviate e i dati dell’account. I backup dell’infrastruttura possono impiegare alcuni giorni per scadere."
+      },
+      "read": {
+        "q": "Shalom può leggere le mie email?",
+        "a": "Non le tue email archiviate. Ogni messaggio è sigillato con una chiave che esiste solo sul tuo dispositivo, e il server lo conserva senza poterlo aprire. Le email da altri provider possono essere lette dal server nel momento in cui arrivano, prima di essere sigillate, e le email che invii ad altri provider partono come normali email."
+      },
+      "e2e": {
+        "q": "Shalom Mail è crittografato end-to-end?",
+        "a": "Tra account Shalom, sì. Il messaggio viene sigillato sul dispositivo di chi invia e si apre solo su quello di chi riceve, e perfino il mittente resta nascosto al server. Con altri provider non è possibile, perché le email normali viaggiano in chiaro, quindi Shalom sigilla quei messaggi nel momento in cui arrivano."
+      },
+      "forgot": {
+        "q": "Cosa succede se dimentico la password?",
+        "a": "Le tue email archiviate non si possono recuperare, perché solo la tua password apre la tua chiave e Shalom non ne ha una copia. Con la tua email di recupero puoi creare una nuova password e mantenere il tuo indirizzo, ma la casella riparte vuota."
+      },
+      "cipher": {
+        "q": "Che crittografia usa Shalom Mail?",
+        "a": "Chiavi X25519 con HKDF-SHA256 e AES-256-GCM per ogni messaggio archiviato, Argon2id per la password sul tuo dispositivo, certificati Ed25519 per il mittente sigillato e firme cieche RSA per la consegna anonima tra account Shalom."
+      },
+      "pgp": {
+        "q": "Usa PGP?",
+        "a": "No. Shalom ha un formato proprio, basato su X25519, HKDF-SHA256 e AES-256-GCM, e non usa chiavi PGP. Le email verso altri provider partono come normali email."
+      },
+      "ads": {
+        "q": "Mostra pubblicità o mi traccia?",
+        "a": "No. Non ci sono pubblicità né cookie pubblicitari, di analisi o di tracciamento, e le tue email non vengono usate per addestrare niente. Le immagini che segnalano quando hai aperto un’email vengono bloccate, e i mittenti falsi compaiono in ambra."
+      },
+      "law": {
+        "q": "Shalom consegna dati alle autorità?",
+        "a": "Solo con un ordine giudiziario valido. Quello che il server ha è elencato nell’informativa sulla privacy. Il contenuto delle email archiviate resta crittografato, e Shalom non ha la chiave."
+      },
+      "agentHow": {
+        "q": "Come do a un agente IA un indirizzo email tutto suo?",
+        "a": "Installa il CLI shalom con npm install -g shalomail, collegalo al tuo account con shalom login, confermando nel browser, ed esegui shalom agents create con un nome. L’agente riceve nome@shalomail.com e può leggere, rispondere e inviare email vere, con output in JSON."
+      },
+      "agentPrice": {
+        "q": "Quanto costano le caselle per agenti IA?",
+        "a": "2 sono gratis con qualsiasi account. Agents 5 costa 4,99 US$ al mese per fino a 5, Agents 12 costa 9,99 US$ al mese per fino a 12, e Unlimited costa 49,90 US$ al mese, senza limite di caselle e con fino a 250 nuove caselle al giorno. I piani sono mensili, addebitati tramite Stripe, e si possono annullare in qualsiasi momento."
+      },
+      "agentRead": {
+        "q": "Shalom può leggere le email dei miei agenti?",
+        "a": "Non le loro email archiviate. Ogni casella per agenti ha la propria chiave privata, creata sulla macchina dove usi il CLI o l’SDK, e il server ne conserva le email sigillate. La chiave del tuo account può creare ed eliminare caselle per agenti, ma non può aprirle."
+      },
+      "agentCode": {
+        "q": "Esiste un’API o un SDK?",
+        "a": "Sì. Il pacchetto shalomail su npm è insieme il CLI e un SDK per Node, con le classi Agent e Account, e c’è un’API HTTP. La crittografia avviene sempre dalla tua parte."
+      },
+      "agentWatch": {
+        "q": "Un agente può reagire da solo alle nuove email?",
+        "a": "Sì. shalom watch --exec esegue il tuo programma una volta per ogni nuovo messaggio, con il messaggio in JSON sullo standard input, e agent.watch() fa lo stesso nell’SDK. I webhook non ci sono ancora."
+      },
+      "agentOutside": {
+        "q": "Gli agenti possono scrivere a chi è fuori da Shalom?",
+        "a": "Sì, come normali email. Verso indirizzi esterni, ogni casella per agenti invia a fino a 20 destinatari al giorno nella prima settimana e fino a 100 al giorno dopo. Tra indirizzi Shalom, è end-to-end e il mittente viene verificato."
+      }
+    }
+  }
+}

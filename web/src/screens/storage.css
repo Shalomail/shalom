@@ -1,0 +1,266 @@
+/* Espaço: a barra por pasta (Configurações e a tela inteira) e a lista de tudo o que ocupa espaço.
+   Cor só na barra e na legenda, uma por pasta, conferida para daltonismo nos dois temas; o resto
+   segue preto e branco, com verde e âmbar só para estado. */
+
+.sm-inbox { --c: #3987e5; }
+.sm-sent { --c: #e0682f; }
+.sm-archive { --c: #9085e9; }
+.sm-spam { --c: #d55181; }
+.sm-trash { --c: #22a6bf; }
+[data-theme='light'] .sm-inbox { --c: #2a78d6; }
+[data-theme='light'] .sm-sent { --c: #eb6834; }
+[data-theme='light'] .sm-trash { --c: #1a9fb8; }
+
+/* Total e porcentagem */
+.sm-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.sm-total { font-size: 15px; line-height: 22px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.sm-total span { font-weight: 400; color: var(--text-2); }
+.sm-state { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--text-2); font-variant-numeric: tabular-nums; }
+
+/* A barra: segmentos com 2 px de respiro entre si; o livre fecha a barra. */
+.sm-bar { display: flex; gap: 2px; width: 100%; height: 14px; border-radius: 5px; overflow: hidden; }
+.sm-bar.is-large { height: 22px; border-radius: 7px; }
+.sm-seg { flex: 1 1 0; min-width: 4px; background: var(--c); transition: opacity 160ms var(--ease-out); }
+.sm-free { flex: 1 1 0; min-width: 4px; background: var(--fill-2); transition: opacity 160ms var(--ease-out); }
+.sm-bar .is-dim { opacity: 0.32; }
+
+.sm-legend { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 12px 0 0; padding: 0; list-style: none; }
+.sm-legend li { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; line-height: 19px; color: var(--text); transition: opacity 160ms var(--ease-out); }
+.sm-legend li.is-dim { opacity: 0.45; }
+.sm-legend span { color: var(--text-3); font-variant-numeric: tabular-nums; }
+.sm-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.sm-free-dot { background: transparent; box-shadow: inset 0 0 0 1.5px var(--text-3); }
+
+.sm-skeleton { display: grid; gap: 12px; padding: 4px 0; }
+.sm-skeleton i { display: block; border-radius: 6px; background: var(--fill-1); }
+.sm-skeleton i:nth-child(1) { width: 130px; height: 18px; }
+.sm-skeleton i:nth-child(2) { height: 14px; }
+.sm-skeleton i:nth-child(3) { width: 55%; height: 12px; }
+.sm-skeleton.is-large i:nth-child(2) { height: 22px; }
+
+/* Em Configurações */
+.sb { padding: 14px 0 4px; }
+.sb-bar { display: block; width: 100%; padding: 6px 0; margin: -6px 0; border-radius: 8px; cursor: pointer; }
+.sb-bar:disabled { cursor: default; }
+.sb-bar:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.sb-bar:hover:not(:disabled) .sm-bar { box-shadow: 0 0 0 3px var(--fill-1); }
+.sb-note { margin-top: 12px; font-size: 13px; line-height: 19px; color: var(--text-3); max-width: 62ch; }
+.sb-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.sb-actions .st-btn svg { color: var(--text-2); }
+.sb-chev { transform: rotate(-90deg); transition: transform 180ms var(--ease-out); }
+.sb-chev.is-open { transform: rotate(90deg); }
+.sb-list { margin-top: 10px; animation: st-open 220ms var(--ease-out); }
+.sb-list ol { display: grid; margin: 0; padding: 0; list-style: none; }
+.sb-list .st-more { margin-top: 4px; }
+.sb-list .st-more .spinner { width: 12px; height: 12px; margin-inline-end: 8px; vertical-align: -1px; }
+
+/* Uma mensagem na lista: pasta, assunto, quem e quando, tamanho. */
+.sb-item { display: grid; grid-template-columns: 8px minmax(0, 1fr) 16px minmax(64px, auto); align-items: center; column-gap: 12px; min-height: 54px; }
+.sb-item + .sb-item { box-shadow: 0 -1px 0 var(--fill-1); }
+.sb-item.is-link { margin: 0 -12px; padding: 0 12px; border-radius: 10px; cursor: pointer; transition: background-color 120ms var(--ease-out); }
+.sb-item.is-link:hover { background: var(--fill-1); }
+.sb-item.is-link:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }
+.sb-item > .sm-dot { grid-column: 1; }
+.sb-item-text { grid-column: 2; display: grid; min-width: 0; }
+.sb-item-text strong { font-size: 14px; line-height: 20px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sb-item-text strong.is-muted { font-weight: 400; color: var(--text-3); }
+.sb-item-text > span { font-size: 13px; line-height: 18px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sb-clip { grid-column: 3; color: var(--text-3); }
+.sb-col { display: none; }
+.sb-size { grid-column: 4; justify-self: end; font-size: 13px; font-weight: 500; color: var(--text-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Tela inteira. Seletores com duas classes onde encostam em settings.css, que pode carregar depois. */
+.st-top.sp-top { margin-bottom: 28px; }
+.sp-back { margin-inline-start: -10px; color: var(--text); }
+.sp-overview .sm-total { font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: -0.02em; }
+.sp-overview .sm-top { margin-bottom: 14px; }
+.sp-overview .sm-legend { margin-top: 14px; gap: 8px 24px; }
+.sp-overview .sm-legend li { font-size: 14px; }
+.sp-bulk { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.sp-bulk .st-btn svg { color: var(--text-2); }
+
+/* Legenda que filtra: cada pasta é um botão em pílula; a escolhida ganha fundo e um x para tirar. */
+.sp-overview .sm-legend.is-picker { gap: 4px 2px; margin-top: 10px; margin-inline-start: -10px; }
+.sm-legend.is-picker > li:last-child { padding: 0 10px; }
+.sm-pick {
+  display: inline-flex; align-items: center; gap: 7px; height: 32px; padding-block: 0; padding-inline: 10px 12px; border-radius: 999px;
+  font: inherit; color: inherit; transition: background-color 120ms var(--ease-out);
+}
+.sm-pick:hover { background: var(--fill-1); }
+.sm-pick.is-on { background: var(--fill-2); }
+.sm-pick:focus-visible { outline: 2px solid var(--text); outline-offset: 1px; }
+.sm-pick-x { margin-inline-start: 1px; color: var(--text-2); }
+
+.sp-list { margin-top: 32px; }
+/* Cabeçalho preso no topo ao rolar: contagem e filtro, e embaixo os títulos das colunas. */
+/* top negativo: o sticky conta a partir do padding do .st-scroll (44 px), e assim encosta na borda. */
+.sp-head { position: sticky; top: -44px; z-index: 3; margin: 0 -16px; padding: 4px 16px 0; background: var(--st-ring); box-shadow: 0 1px 0 var(--fill-2); }
+.sp-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; min-height: 40px; }
+.sp-count { font-size: 14px; font-weight: 500; color: var(--text-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sp-chip {
+  display: inline-flex; align-items: center; gap: 7px; height: 30px; padding-block: 0; padding-inline: 11px 10px; border-radius: 999px;
+  font-size: 14px; font-weight: 500; color: var(--text); background: var(--fill-2); transition: background-color 120ms;
+}
+.sp-chip:hover { background: var(--fill-3); }
+.sp-chip svg { color: var(--text-2); }
+.sp-phone-check, .st-select.sp-order { display: none; }
+.st-select.sp-order { margin-inline-start: auto; }
+
+.sp-cols { display: none; }
+.sp-col {
+  display: inline-flex; align-items: center; gap: 5px; height: 36px; margin-inline-start: -6px; padding: 0 6px; border-radius: 7px;
+  font-size: 13px; font-weight: 500; color: var(--text-3); white-space: nowrap; transition: color 120ms, background-color 120ms;
+}
+button.sp-col:hover { color: var(--text); background: var(--fill-1); }
+.sp-col.is-on { color: var(--text); }
+.sp-col.is-static { cursor: default; }
+.sp-col:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }
+.sp-arrow { flex: none; }
+p.sp-note { display: flex; margin: 12px 0 4px; }
+
+.sp-check {
+  appearance: none; -webkit-appearance: none; flex: none; display: grid; place-items: center; width: 18px; height: 18px; margin: 0;
+  border-radius: 5px; box-shadow: inset 0 0 0 1.5px var(--text-3); cursor: pointer; transition: background-color 120ms, box-shadow 120ms;
+}
+.sp-check:hover:not(:disabled) { box-shadow: inset 0 0 0 1.5px var(--text-2); }
+.sp-check:checked, .sp-check:indeterminate { background: var(--accent); box-shadow: none; }
+.sp-check:checked::after { content: ''; width: 9px; height: 5px; border: 2px solid var(--accent-on); border-top: 0; border-right: 0; transform: translateY(-1px) rotate(-45deg); }
+.sp-check:indeterminate::after { content: ''; width: 8px; height: 2px; border-radius: 1px; background: var(--accent-on); }
+.sp-check:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.sp-check:disabled { opacity: 0.4; cursor: default; }
+
+.sp-rows { display: grid; gap: 2px; margin: 6px 0 0; padding: 0; list-style: none; transition: opacity 160ms; }
+.sp-rows.is-busy { opacity: 0.5; pointer-events: none; }
+.sp-row {
+  display: grid; grid-template-columns: 18px 8px minmax(0, 1fr) 16px minmax(64px, auto); align-items: center; column-gap: 12px;
+  min-height: 58px; margin: 0 -16px; padding: 6px 16px; border-radius: 12px; cursor: pointer; transition: background-color 120ms var(--ease-out);
+}
+.sp-row:hover { background: var(--fill-1); }
+.sp-row.is-on { background: var(--fill-2); }
+.sp-row > .sp-check-hit { grid-column: 1; display: grid; place-items: center; margin: -14px -10px; padding: 14px 10px; cursor: default; }
+.sp-row:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }
+.sp-row > .sm-dot { grid-column: 2; }
+.sp-row .sb-item-text { grid-column: 3; }
+.sp-row .sb-clip { grid-column: 4; }
+.sp-row .sb-size { grid-column: 5; }
+.sp-row .sb-col { display: none; }
+
+/* Celular: o "Ordenar" vira uma lista de escolha e a caixa de selecionar tudo sobe para a linha da contagem. */
+@container st (max-width: 719px) {
+  .sp-phone-check, .st-select.sp-order { display: inline-flex; }
+}
+
+/* Painel largo: pasta e data em colunas próprias, com títulos que ordenam. */
+@container st (min-width: 720px) {
+  .sp-cols, .sp-row { grid-template-columns: 18px minmax(0, 1fr) 124px 108px 16px 80px; column-gap: 12px; }
+  .sp-cols { display: grid; align-items: center; min-height: 40px; }
+  .sp-cols > .sp-check { grid-column: 1; }
+  .sp-col-name { grid-column: 2; justify-self: start; }
+  .sp-col-folder { grid-column: 3; justify-self: start; }
+  .sp-col-date { grid-column: 4; justify-self: start; }
+  .sp-col-size { grid-column: 5 / 7; justify-self: end; margin-inline: 0 -6px; }
+  .sp-row > .sm-dot, .sp-row .sb-inline { display: none; }
+  .sp-row .sb-item-text { grid-column: 2; }
+  .sp-row .sb-col { display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 13px; color: var(--text-2); white-space: nowrap; }
+  .sp-row .sb-col-folder { grid-column: 3; }
+  .sp-row .sb-col-date { grid-column: 4; font-variant-numeric: tabular-nums; }
+  .sp-row .sb-clip { grid-column: 5; }
+  .sp-row .sb-size { grid-column: 6; }
+}
+
+.sp-skel { display: grid; gap: 2px; margin-top: 8px; }
+.sp-skel i { display: block; height: 58px; border-radius: 12px; background: var(--fill-1); }
+.sp-skel i:nth-child(n + 3) { opacity: 0.7; }
+.sp-skel i:nth-child(n + 5) { opacity: 0.4; }
+.sp-empty { display: grid; justify-items: center; gap: 8px; padding: 56px 16px; color: var(--text-3); text-align: center; }
+.sp-empty p { font-size: 14px; color: var(--text-2); }
+.sp-scan { display: grid; gap: 10px; padding: 28px 0 12px; max-width: 520px; }
+.sp-scan p { font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.sp-scan span { font-size: 13px; line-height: 19px; color: var(--text-3); }
+.sp-progress { height: 6px; border-radius: 3px; background: var(--fill-2); overflow: hidden; }
+.sp-progress i { display: block; height: 100%; border-radius: 3px; background: var(--text); transition: width 200ms var(--ease-out); }
+.sp-sentinel { height: 1px; }
+.sp-loading { display: flex; align-items: center; gap: 10px; padding: 16px 0; font-size: 13px; color: var(--text-3); }
+.sp-loading .spinner { width: 13px; height: 13px; }
+.st-more.sp-more { margin-top: 10px; }
+
+/* Barra da seleção, presa no pé do painel */
+.sp-selbar {
+  flex: none; display: flex; align-items: center; gap: 8px; padding: 12px 56px;
+  box-shadow: 0 -1px 0 var(--fill-2); background: var(--st-ring); animation: sp-rise 200ms var(--ease-out);
+}
+.sp-selbar p { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 10px; font-size: 14px; }
+.sp-selbar strong { font-weight: 600; }
+.sp-selbar span { color: var(--text-2); font-variant-numeric: tabular-nums; }
+.sp-selbar .btn { height: 40px; }
+@keyframes sp-rise { from { opacity: 0; transform: translateY(8px); } }
+
+/* Confirmação: folha do sistema, centrada, preto e branco. Só o aviso é âmbar e só o preenchimento do
+   botão de segurar é vermelho. No celular, a folha sobe do pé da tela. */
+.sp-sheet-scrim {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px;
+  background: rgba(0, 0, 0, 0.62); animation: st-fade 160ms var(--ease-out);
+}
+[data-theme='light'] .sp-sheet-scrim { background: rgba(0, 0, 0, 0.3); }
+.sp-sheet {
+  width: min(380px, 100%); padding: 26px 22px 16px; border-radius: 18px; text-align: center; color: var(--text);
+  background: #000000; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14), 0 30px 80px -20px rgba(0, 0, 0, 0.9);
+  animation: st-pop 180ms var(--ease-out);
+}
+[data-theme='light'] .sp-sheet { background: #ffffff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 30px 80px -28px rgba(0, 0, 0, 0.35); }
+.sp-sheet h3 { margin: 0; font-size: 17px; line-height: 22px; font-weight: 600; letter-spacing: -0.015em; text-wrap: balance; }
+.sp-sheet p { margin: 8px 0 0; font-size: 14px; line-height: 20px; color: var(--text-2); text-wrap: pretty; }
+.sp-sheet .sp-sheet-warn { margin-top: 10px; font-weight: 500; color: var(--warn); }
+.sp-sheet .sp-sheet-line { margin-top: 10px; color: var(--text); font-variant-numeric: tabular-nums; }
+.sp-sheet-progress { margin-top: 18px; }
+.sp-sheet-actions { display: grid; gap: 6px; margin-top: 22px; }
+.sp-sheet-quiet, .sp-sheet-ok {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 46px; border-radius: 12px;
+  font-size: 15px; font-weight: 500; transition: background-color 120ms var(--ease-out);
+}
+.sp-sheet-quiet { color: var(--text); }
+.sp-sheet-quiet:hover:not(:disabled) { background: var(--fill-1); }
+.sp-sheet-quiet .spinner { width: 13px; height: 13px; }
+.sp-sheet-ok { height: 48px; font-weight: 600; color: var(--accent-on); background: var(--accent); }
+/* Foco do botão quieto: um fundo, sem a caixa de contorno em volta da largura inteira. */
+.sp-sheet-quiet:focus-visible { outline: none; background: var(--fill-2); }
+.sp-sheet-ok:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+
+/* Botão de segurar: neutro em repouso; o vermelho enche por dentro, com o texto branco por cima. */
+.hold {
+  --danger: #ff453a;
+  position: relative; overflow: hidden; width: 100%; min-height: 50px; border-radius: 12px; font-size: 15px; font-weight: 600;
+  color: var(--text); background: var(--fill-2);
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none;
+  transition: background-color 120ms var(--ease-out), transform 160ms var(--ease-out);
+}
+[data-theme='light'] .hold { --danger: #d92d20; }
+.hold:hover { background: var(--fill-3); }
+.hold.is-holding { transform: scale(0.99); }
+.hold:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.hold-label { display: flex; align-items: center; justify-content: center; min-height: 50px; padding: 6px 16px; line-height: 19px; text-align: center; text-wrap: balance; }
+.hold-fill {
+  position: absolute; inset: 0; color: #ffffff; background: var(--danger);
+  clip-path: inset(0 100% 0 0); transition: clip-path 280ms var(--ease-out);
+}
+.hold.is-holding .hold-fill { clip-path: inset(0 0% 0 0); transition: clip-path var(--hold, 1200ms) linear; }
+/* Da direita para a esquerda em hebraico e árabe: enche a partir do começo da leitura. */
+[dir='rtl'] .hold-fill { clip-path: inset(0 0 0 100%); }
+
+@media (max-width: 900px) {
+  .st-top.sp-top { margin-bottom: 20px; }
+  .sp-selbar { padding: 10px 16px max(10px, env(safe-area-inset-bottom)); }
+  .sp-head { top: calc(-1 * max(10px, env(safe-area-inset-top))); margin: 0 -20px; padding: 4px 20px 0; }
+  .sp-row { margin: 0 -10px; padding: 6px 10px; }
+}
+@media (max-width: 640px) {
+  .sp-overview .sm-total { font-size: 20px; line-height: 26px; }
+  .sp-bulk .st-btn { flex: 1 1 100%; justify-content: flex-start; height: auto; min-height: 44px; padding-block: 8px; white-space: normal; text-align: start; }
+  .sp-line { gap: 8px 12px; min-height: 52px; padding: 6px 0; }
+  .sp-selbar p { display: grid; gap: 0; line-height: 18px; }
+  .sp-selbar strong, .sp-selbar span { white-space: nowrap; }
+  .sp-selbar span { font-size: 13px; }
+  .sp-long { display: none; }
+  .sp-sheet-scrim { place-items: end center; padding: 8px 8px max(8px, env(safe-area-inset-bottom)); }
+  .sp-sheet { width: 100%; padding: 24px 18px 12px; border-radius: 22px; animation: sp-rise 220ms var(--ease-out); }
+}

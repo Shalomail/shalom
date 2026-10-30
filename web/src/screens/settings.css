@@ -1,0 +1,380 @@
+/* Configurações: linhas agrupadas sob títulos curtos, sem cartão por seção. O nome e a frase de apoio
+   ficam à esquerda; o estado ou o controle, à direita. A linha abre no lugar quando a pessoa mexe e só
+   então ganha superfície. Cor só para estado: verde = ligado, âmbar = atenção. */
+
+.st { --st-ring: #050506; --st-card: rgba(255, 255, 255, 0.035); --st-card-ring: inset 0 0 0 1px rgba(255, 255, 255, 0.08); --st-foot: rgba(255, 255, 255, 0.03); --st-danger: #ff5a4f; }
+[data-theme='light'] .st {
+  --st-ring: #ffffff; --st-card: #ffffff; --st-foot: #f6f6f7; --st-danger: #d92d20;
+  --st-card-ring: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04), 0 14px 36px -20px rgba(0, 0, 0, 0.22);
+}
+
+.st-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 44px 56px 96px; container: st / inline-size; }
+.st-page { max-width: 1000px; }
+
+/* O canto de cima à direita é da foto da conta (fixa); o título fica à esquerda. */
+.st-top { display: flex; align-items: center; gap: 4px; min-height: 40px; margin-bottom: 40px; }
+.st-top h1 { font-size: 28px; line-height: 34px; font-weight: 600; letter-spacing: -0.03em; }
+
+/* A pessoa: foto grande, nome que se edita no lugar, endereço. */
+.st-me { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 22px; padding: 6px 0; }
+.st-photo { position: relative; border-radius: 999px; }
+.st-photo:focus-visible { outline-offset: 4px; }
+.st-avatar { width: 80px; height: 80px; font-size: 26px; letter-spacing: -0.01em; transition: filter 160ms var(--ease-out); }
+.st-photo:hover:not(:disabled) .st-avatar { filter: brightness(0.82); }
+.st-photo-badge {
+  position: absolute; inset-inline-end: -2px; bottom: -2px; width: 28px; height: 28px; border-radius: 999px; display: grid; place-items: center;
+  background: var(--accent); color: var(--accent-on); box-shadow: 0 0 0 3px var(--st-ring);
+}
+.st-photo-badge .spinner { width: 12px; height: 12px; }
+
+.st-me-text { min-width: 0; }
+.st-name-line { display: flex; align-items: center; gap: 2px; min-width: 0; }
+.st-name { display: inline-grid; min-width: 0; max-width: 100%; margin-inline-start: -8px; }
+.st-name::after, .st-name input { grid-area: 1 / 1; padding: 1px 8px; font-size: 22px; line-height: 30px; font-weight: 600; letter-spacing: -0.02em; }
+.st-name::after { content: attr(data-value); visibility: hidden; white-space: pre; overflow: hidden; }
+.st-name input {
+  width: 100%; min-width: 3ch; border: 0; outline: none; border-radius: 9px; background: transparent; color: var(--text); text-overflow: ellipsis;
+  transition: background-color 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
+}
+.st-name input:hover { background: var(--fill-1); }
+.st-name input:focus { background: var(--field); box-shadow: inset 0 0 0 1px var(--field-line); }
+.st-name-edit { flex: none; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; color: var(--text-3); transition: color 120ms, background-color 120ms; }
+.st-name-edit:hover { color: var(--text); background: var(--fill-1); }
+.st-name-line:focus-within .st-name-edit { visibility: hidden; }
+.st-name-state { flex: none; margin-inline-start: 6px; font-size: 13px; }
+.st-name-state.spinner { width: 13px; height: 13px; color: var(--text-3); }
+.st-addr { margin-top: 1px; font-size: 14px; line-height: 20px; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.st-me-links { display: flex; gap: 18px; margin-top: 10px; }
+.st-me-links button { font-size: 13px; line-height: 18px; font-weight: 500; color: var(--text-3); transition: color 120ms; }
+.st-me-links button:hover:not(:disabled) { color: var(--text); }
+.st-me .st-error { margin-top: 8px; }
+
+/* Seções em duas colunas: título e frase à esquerda, linhas à direita. */
+.st-group { display: grid; grid-template-columns: 220px minmax(0, 1fr); column-gap: 64px; align-items: start; }
+.st-group + .st-group { margin-top: 32px; padding-top: 32px; box-shadow: 0 -1px 0 var(--fill-1); }
+.st-group-head { padding-top: 14px; }
+.st-group-head h2 { font-size: 16px; line-height: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.st-group-head p { margin-top: 4px; font-size: 13px; line-height: 19px; color: var(--text-3); }
+.st-group-body { min-width: 0; }
+.st-group-error { margin: 14px 0 0; }
+
+.st-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 24px;
+  margin: 0 -16px; padding: 14px 16px; border-radius: 16px;
+  transition: background-color 200ms var(--ease-out);
+}
+/* Linha aberta: vira um cartão com superfície própria, as etapas numeradas e um rodapé com a nota de
+   segurança e os botões. */
+.st-row.is-open { margin: 10px -20px; padding: 18px 20px 0; background: var(--st-card); box-shadow: var(--st-card-ring); }
+.st-label { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; font-size: 15px; line-height: 22px; font-weight: 500; }
+.st-desc { margin-top: 2px; font-size: 13px; line-height: 19px; color: var(--text-3); }
+.st-side { display: flex; align-items: center; gap: 8px; justify-self: end; }
+
+.st-on {
+  display: inline-flex; align-items: center; gap: 6px; height: 22px; padding-block: 0; padding-inline: 8px 9px; border-radius: 999px;
+  background: var(--safe-soft); color: var(--safe); font-size: 12px; line-height: 1; font-weight: 600;
+}
+.st-on::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.st-done { display: inline-flex; align-items: center; gap: 6px; color: var(--safe); }
+.st-done svg { flex: none; }
+.st-warn { color: var(--warn); }
+.st-error { font-size: 13px; line-height: 19px; color: var(--warn); }
+.st-hint { font-size: 13px; line-height: 19px; color: var(--text-2); max-width: 52ch; }
+
+/* Botões da linha: menores que os do formulário, sem contorno. */
+.st-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px; height: 34px; padding: 0 14px; border-radius: 10px;
+  font-size: 13px; font-weight: 500; color: var(--text); background: var(--fill-2); white-space: nowrap;
+  transition: background-color 120ms var(--ease-out), transform 120ms var(--ease-out), opacity 120ms;
+}
+.st-btn:hover:not(:disabled) { background: var(--fill-3); }
+.st-btn:active:not(:disabled) { transform: scale(0.97); }
+.st-btn:disabled { opacity: 0.6; }
+.st-btn .spinner { width: 13px; height: 13px; }
+.st-btn-icon { padding-inline-start: 11px; }
+.st-btn-icon svg { color: var(--text-2); }
+.st-cancel { height: 40px; padding: 0 12px; border-radius: 12px; font-size: 14px; font-weight: 500; color: var(--text-2); transition: color 120ms, background-color 120ms; }
+.st-cancel:hover { color: var(--text); background: var(--fill-1); }
+
+/* Painel aberto na linha */
+.st-panel { grid-column: 1 / -1; margin: 18px -20px 0; animation: st-open 220ms var(--ease-out); }
+@keyframes st-open { from { opacity: 0; transform: translateY(-4px); } }
+.st-panel-body { display: grid; gap: 24px; padding: 6px 20px 24px; }
+.st-panel-foot {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px;
+  padding: 14px 20px; border-radius: 0 0 16px 16px; background: var(--st-foot);
+}
+.st-panel-note { display: flex; align-items: flex-start; gap: 9px; flex: 1 1 260px; max-width: 58ch; font-size: 13px; line-height: 19px; color: var(--text-2); }
+.st-panel-note svg { flex: none; margin-top: 2px; color: var(--safe); }
+.st-panel-foot .st-actions { margin-inline-start: auto; }
+.st-panel-error { display: flex; align-items: flex-start; gap: 8px; margin-inline-start: 40px; }
+.st-panel-error svg { flex: none; margin-top: 2px; }
+.st-fields { display: grid; gap: 8px; max-width: 360px; }
+.st-input {
+  width: 100%; min-width: 0; height: 44px; padding: 0 14px; border: 0; outline: none; border-radius: 11px;
+  font-size: 15px; color: var(--text); background: var(--field); box-shadow: inset 0 0 0 1px var(--field-line);
+  transition: box-shadow 140ms var(--ease-out);
+}
+.st-input::placeholder { color: var(--text-3); }
+.st-input:focus { box-shadow: inset 0 0 0 1px var(--text-2), 0 0 0 4px var(--fill-2); }
+.st-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.st-panel .btn { height: 40px; padding: 0 18px; }
+.st .btn.st-btn-danger { background: var(--st-danger); color: #fff; box-shadow: none; }
+.st .btn.st-btn-danger:hover:not(:disabled) { background: var(--st-danger); filter: brightness(0.92); }
+.st-btn.is-danger { color: var(--st-danger); }
+
+/* Etapas: número num círculo, título e o que se preenche. Vencida = visto verde; a seguinte, apagada. */
+.st-stage { display: grid; grid-template-columns: 26px minmax(0, 1fr); column-gap: 14px; }
+.st-stage-mark {
+  width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 13px; line-height: 1; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--text); background: var(--fill-2);
+}
+.st-stage.is-done .st-stage-mark { color: var(--safe); background: var(--safe-soft); }
+.st-stage.is-done .st-stage-title { color: var(--text-2); font-weight: 500; }
+.st-stage.is-later { opacity: 0.42; }
+.st-stage-main { min-width: 0; padding-top: 2px; }
+.st-stage-title { font-size: 15px; line-height: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.st-stage-desc { margin-top: 2px; font-size: 13px; line-height: 19px; color: var(--text-2); max-width: 56ch; }
+.st-stage-body { display: grid; gap: 14px; margin-top: 14px; max-width: 380px; }
+.st-stage-body.is-wide { max-width: none; }
+
+/* Campo com o nome em cima; senha com o olho. */
+.st-field { display: grid; gap: 6px; }
+.st-field-label { font-size: 13px; line-height: 18px; font-weight: 500; color: var(--text-2); }
+.st-secret-field { position: relative; display: block; }
+.st-secret-field .st-input { padding-inline-end: 46px; }
+.st-eye {
+  position: absolute; top: 50%; inset-inline-end: 6px; width: 34px; height: 34px; margin-top: -17px; border-radius: 9px;
+  display: grid; place-items: center; color: var(--text-3); transition: color 120ms, background-color 120ms;
+}
+.st-eye:hover { color: var(--text); background: var(--fill-1); }
+
+/* PIN e código do autenticador: seis casas. */
+.st-pin-line { display: grid; gap: 6px; }
+.st-pin { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 46px)); gap: 8px; width: 100%; max-width: 316px; }
+.st-pin input {
+  position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; padding: 0; border: 0; outline: none;
+  opacity: 0; font-size: 16px; caret-color: transparent; cursor: text;
+}
+.st-pin-cell {
+  height: 52px; border-radius: 11px; display: grid; place-items: center; background: var(--field); box-shadow: inset 0 0 0 1px var(--field-line);
+  font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--text); transition: box-shadow 140ms var(--ease-out);
+}
+.st-pin-cell.is-filled.is-masked::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: currentColor; animation: st-dot 160ms var(--ease-out); }
+.st-pin-cell.is-current { box-shadow: inset 0 0 0 1px var(--text-2), 0 0 0 4px var(--fill-2); }
+.st-pin.is-bad .st-pin-cell { box-shadow: inset 0 0 0 1px var(--warn); color: var(--warn); }
+.st-pin.is-ok .st-pin-cell { box-shadow: inset 0 0 0 1px var(--safe); color: var(--safe); }
+@keyframes st-dot { from { transform: scale(0.4); opacity: 0; } }
+
+.st-status { display: flex; align-items: center; gap: 7px; font-size: 13px; line-height: 19px; color: var(--text-3); }
+.st-status.is-ok { color: var(--safe); }
+.st-status.is-bad { color: var(--warn); }
+.st-status svg { flex: none; }
+
+/* Duas etapas já ligada: as duas escolhas, cada uma com o seu botão. */
+.st-choices { display: grid; gap: 18px; }
+.st-choice { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 16px; }
+
+/* Duas etapas: QR e a chave para digitar */
+.st-scan { display: grid; grid-template-columns: 148px minmax(0, 1fr); gap: 22px; align-items: center; }
+.st-qr { width: 148px; aspect-ratio: 1; padding: 10px; border-radius: 14px; background: #fff; }
+.st-qr svg { display: block; width: 100%; height: 100%; }
+[data-theme='light'] .st-qr { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.st-scan-text { display: grid; gap: 10px; min-width: 0; }
+.st-secret { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+.st-secret span { font-size: 15px; line-height: 22px; font-weight: 500; font-variant-numeric: tabular-nums; word-spacing: 0.12em; overflow-wrap: anywhere; }
+
+.st-panel-title { font-size: 15px; line-height: 22px; font-weight: 600; margin-bottom: 2px; }
+.st-codes {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); grid-auto-flow: column; gap: 4px 28px; max-width: 360px; margin: 0; padding: 14px 18px;
+  list-style: none; counter-reset: code; border-radius: 14px; background: var(--field); box-shadow: inset 0 0 0 1px var(--field-line);
+}
+.st-codes li { font-size: 15px; line-height: 26px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.st-codes li::before { counter-increment: code; content: counter(code); display: inline-block; width: 22px; font-size: 12px; color: var(--text-3); }
+.st-check { justify-self: start; display: inline-flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; }
+.st-check input { width: 18px; height: 18px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+
+/* Lista de escolha e alternância */
+.st-select { position: relative; display: inline-flex; align-items: center; }
+.st-select select {
+  appearance: none; -webkit-appearance: none; height: 34px; padding-block: 0; padding-inline: 13px 32px; border: 0; outline: none; border-radius: 10px;
+  font: inherit; font-size: 13px; font-weight: 500; color: var(--text); background: var(--fill-2); cursor: pointer;
+  transition: background-color 120ms var(--ease-out);
+}
+.st-select select:hover { background: var(--fill-3); }
+.st-select select:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.st-select svg { position: absolute; inset-inline-end: 10px; pointer-events: none; color: var(--text-2); }
+
+.st-seg { display: inline-flex; gap: 2px; padding: 3px; border-radius: 11px; background: var(--fill-2); }
+.st-seg button {
+  display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; color: var(--text-2); transition: background-color 140ms, color 140ms, box-shadow 140ms;
+}
+.st-seg button:hover { color: var(--text); }
+.st-seg button[aria-checked='true'] { background: rgba(255, 255, 255, 0.14); color: var(--text); box-shadow: var(--glass-inner); }
+[data-theme='light'] .st-seg button[aria-checked='true'] { background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.08); }
+
+/* Aparelhos */
+.st-devices { align-items: start; }
+.st-device-list { grid-column: 1 / -1; display: grid; gap: 2px; margin-top: 12px; }
+.st-device { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; min-height: 52px; }
+.st-device-icon { width: 22px; display: grid; place-items: center; color: var(--text-2); }
+.st-device-text { display: grid; min-width: 0; }
+.st-device-text strong { font-size: 14px; line-height: 20px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.st-device-text span { font-size: 13px; line-height: 18px; color: var(--text-3); }
+.st-more { grid-column: 1 / -1; justify-self: start; margin-top: 6px; height: 32px; padding: 0 10px; margin-inline-start: -10px; border-radius: 9px; font-size: 13px; font-weight: 500; color: var(--text-2); transition: color 120ms, background-color 120ms; }
+.st-more:hover { color: var(--text); background: var(--fill-1); }
+.st-devices-error { grid-column: 1 / -1; margin-top: 6px; }
+
+/* Espaço: a barra por pasta e a tela inteira ficam em storage.css. */
+
+/* Confirmação (desconectar os outros): fica no body, acima de tudo. */
+.st-modal-scrim {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px;
+  background: rgba(0, 0, 0, 0.55); animation: st-fade 160ms var(--ease-out);
+}
+[data-theme='light'] .st-modal-scrim { background: rgba(0, 0, 0, 0.24); }
+.st-modal {
+  width: min(400px, 100%); padding: 24px; border-radius: 18px; background: #141416;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 24px 64px -16px rgba(0, 0, 0, 0.8);
+  animation: st-pop 180ms var(--ease-out);
+}
+[data-theme='light'] .st-modal { background: #ffffff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 24px 64px -20px rgba(0, 0, 0, 0.25); }
+.st-modal h3 { margin: 0; font-size: 17px; line-height: 24px; font-weight: 600; letter-spacing: -0.015em; }
+.st-modal p { margin-top: 6px; font-size: 14px; line-height: 21px; color: var(--text-2); }
+.st-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 22px; }
+@keyframes st-fade { from { opacity: 0; } }
+@keyframes st-pop { from { opacity: 0; transform: translateY(6px) scale(0.98); } }
+
+/* Painel estreito: o título da seção sobe para cima das linhas. */
+@container st (max-width: 760px) {
+  .st-group { grid-template-columns: minmax(0, 1fr); }
+  .st-group-head { padding-top: 0; margin-bottom: 4px; }
+  .st-group + .st-group { margin-top: 28px; padding-top: 28px; }
+}
+/* Bem estreito: "Desconectar os outros" desce para o fim da lista, sem espremer o título. */
+@container st (max-width: 560px) {
+  .st-devices-all { order: 1; grid-column: 1 / -1; justify-self: start; margin-top: 10px; }
+}
+
+/* Celular e tablet em pé: a tela ocupa tudo, com o voltar para a caixa. */
+@media (max-width: 900px) {
+  .st { --st-ring: #000000; }
+  [data-theme='light'] .st { --st-ring: #ffffff; }
+  .st-scroll { padding: max(10px, env(safe-area-inset-top)) 20px max(48px, env(safe-area-inset-bottom)); }
+  .st-top { margin-block: 0 22px; margin-inline: -10px 0; }
+  /* 16 px nos campos para o iPhone não dar zoom; os botões acompanham de perto. */
+  .st-input, .st-select select { font-size: 16px; }
+  .st-select select { height: 38px; font-weight: 500; }
+  .st-btn { height: 38px; font-size: 15px; }
+  .st-seg button { height: 32px; font-size: 14px; }
+}
+
+@media (max-width: 640px) {
+  .st-me { gap: 16px; padding-top: 10px; }
+  .st-avatar { width: 68px; height: 68px; font-size: 22px; }
+  .st-name::after, .st-name input { font-size: 20px; line-height: 28px; }
+  .st-row { column-gap: 14px; }
+  .st-fields, .st-codes, .st-stage-body { max-width: none; }
+  .st-row.is-open { margin-left: -16px; margin-right: -16px; padding: 16px 16px 0; }
+  .st-panel { margin: 16px -16px 0; }
+  .st-panel-body { padding: 4px 16px 22px; gap: 22px; }
+  .st-panel-foot { padding: 14px 16px; }
+  .st-panel-foot .st-actions { width: 100%; }
+  .st-panel-foot .btn { flex: 1; }
+  .st-stage { column-gap: 12px; }
+  .st-panel-error { margin-inline-start: 38px; }
+  .st-pin { max-width: none; gap: 6px; }
+  .st-pin-cell { height: 50px; }
+  .st-scan { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .st-choice { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .st-choice .st-btn { justify-self: start; }
+  .st-codes { gap: 4px 16px; padding: 12px 14px; }
+  .st-modal-actions .btn { flex: 1; }
+}
+
+/* Dois botões lado a lado à direita da linha (reenviar e trocar o e-mail de recuperação). */
+.st-side-pair { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.st-btn.st-btn-quiet { background: none; color: var(--text-2); }
+.st-btn.st-btn-quiet:hover:not(:disabled) { background: var(--fill-1); color: var(--text); }
+.st-btn:disabled { cursor: default; opacity: 0.7; }
+
+/* Temas: controle segmentado com uma bolinha da cor de cada tema. */
+.st-seg-themes button { display: inline-flex; align-items: center; gap: 7px; }
+.st-swatch { width: 12px; height: 12px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgba(127, 127, 127, 0.35); }
+.st-swatch.is-dark { background: #0a0a0b; }
+.st-swatch.is-light { background: #fff; }
+.st-swatch.is-spectrum { background: conic-gradient(#ff2d55, #ffb800, #34c759, #00c7be, #0a84ff, #bf5af2, #ff2d55); box-shadow: none; }
+
+/* Interruptor (Espectro): verde quando ligado, como os outros estados de "ligado" da tela. */
+.st-switch {
+  position: relative; width: 46px; height: 28px; flex: none; border-radius: 999px; background: var(--fill-3);
+  transition: background-color 180ms var(--ease-out);
+}
+.st-switch span {
+  position: absolute; top: 3px; inset-inline-start: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); transition: transform 220ms var(--ease-out);
+}
+.st-switch[aria-checked='true'] { background: var(--safe); }
+.st-switch[aria-checked='true'] span { transform: translateX(18px); }
+.st-switch:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+[dir='rtl'] .st-switch[aria-checked='true'] span { transform: translateX(-18px); }
+.st-label .st-swatch { margin-inline-end: -2px; }
+
+/* Convites: o link recém-criado numa superfície própria e a lista dos que já existem. */
+.st-invite-new { display: grid; gap: 4px; margin: 4px 0 12px; padding: 16px 18px; border-radius: 16px; background: var(--st-card); box-shadow: var(--st-card-ring); }
+.st-invite-link { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.st-invite-link .st-input { flex: 1 1 280px; font-size: 14px; }
+.st-invite-link .st-btn { height: 44px; }
+.st-invites { display: grid; gap: 2px; margin: 4px 0 0; padding: 0; list-style: none; }
+.st-invites li { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; align-items: center; gap: 12px; min-height: 48px; }
+.st-invite-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--safe); }
+.st-invite-dot.is-used { background: var(--fill-3); }
+.st-invite-text { display: grid; min-width: 0; }
+.st-invite-text strong { font-size: 14px; line-height: 20px; font-weight: 500; }
+.st-invite-text span { font-size: 13px; line-height: 18px; color: var(--text-3); }
+.st-invite-text strong[dir='ltr'] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Agentes de IA: plano em três opções lado a lado, os passos do terminal e as caixas criadas. */
+.st-plan-badge {
+  display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: 999px;
+  background: var(--fill-2); color: var(--text-2); font-size: 12px; line-height: 1; font-weight: 600;
+}
+.st-plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 6px 0 4px; padding: 0; list-style: none; }
+.st-plans li {
+  display: grid; align-content: start; gap: 2px; min-height: 132px; padding: 14px 16px 16px; border-radius: 14px;
+  background: var(--st-card); box-shadow: var(--st-card-ring);
+}
+.st-plans li.is-current { box-shadow: var(--st-card-ring), inset 0 0 0 1.5px var(--text-3); }
+.st-plan-name { font-size: 14px; line-height: 20px; font-weight: 600; }
+.st-plan-boxes { font-size: 13px; line-height: 19px; color: var(--text-2); }
+.st-plan-price { margin-bottom: 10px; font-size: 15px; line-height: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.st-plans .st-btn { align-self: end; justify-self: start; margin-top: auto; }
+.st-plan-tag { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; font-size: 13px; font-weight: 500; color: var(--safe); }
+.st-plans-note { margin: 6px 0 0; }
+
+.st-start { display: grid; gap: 14px; margin: 14px 0 4px; padding: 16px 18px 18px; border-radius: 16px; background: var(--st-card); box-shadow: var(--st-card-ring); }
+.st-start-step { font-size: 14px; line-height: 20px; font-weight: 500; }
+.st-start-docs { justify-self: start; font-size: 13px; line-height: 19px; font-weight: 500; color: var(--text); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--text-3); }
+.st-start-docs:hover { text-decoration-color: currentColor; }
+.st-cmd {
+  display: flex; align-items: center; gap: 8px; max-width: 460px; height: 38px; margin-top: 6px; padding: 0 5px 0 12px; border-radius: 10px;
+  background: var(--field); box-shadow: inset 0 0 0 1px var(--field-line);
+}
+.st-cmd code { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; font: 500 13px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; scrollbar-width: none; }
+.st-cmd-copy { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; color: var(--text-2); transition: background-color 120ms, color 120ms; }
+.st-cmd-copy:hover { background: var(--fill-2); color: var(--text); }
+.st-key { font: 500 13px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.st-agents-title { margin: 18px 0 2px; }
+
+@media (max-width: 640px) {
+  .st-plans { grid-template-columns: minmax(0, 1fr); }
+  .st-plans li { min-height: 0; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 12px; }
+  .st-plans li > p { grid-column: 1; }
+  .st-plan-price { margin-bottom: 0; }
+  .st-plans .st-btn, .st-plan-tag { grid-column: 2; grid-row: 1 / span 3; align-self: center; margin-top: 0; }
+  .st-start { padding: 14px; }
+}
+
+/* Impressão digital da própria chave: seis grupos de cinco números, para ler para um contato. */
+.st-fp { display: block; margin: 2px 0 4px; font-size: 16px; line-height: 24px; font-weight: 600; letter-spacing: 0.05em; word-spacing: 0.3em; font-variant-numeric: tabular-nums; color: var(--text); }
