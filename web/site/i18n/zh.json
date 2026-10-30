@@ -430,6 +430,7 @@
     "description": "关于 Shalom Mail 的解答：价格、注册需要什么、谁能读你的邮件、忘记密码怎么办，以及面向 AI 智能体的邮箱。",
     "lead": "关于 Shalom Mail（shalomail.com 上的加密邮箱服务）的简短、直接的解答。",
     "devLink": "Node SDK 和 HTTP API 参考（英文）",
+    "sourceLink": "在 GitHub 上查看代码",
     "g": {
       "account": "账户",
       "privacy": "隐私与加密",
@@ -483,6 +484,10 @@
       "cipher": {
         "q": "Shalom Mail 使用什么加密？",
         "a": "每封存储的邮件使用 X25519 密钥配合 HKDF-SHA256 和 AES-256-GCM，你设备上的密码使用 Argon2id，密封发件人使用 Ed25519 证书，Shalom 账户之间的匿名投递使用 RSA 盲签名。"
+      },
+      "audit": {
+        "q": "Shalom Mail 的代码是公开的吗？",
+        "a": "代码公开供审计：任何人都可以在 GitHub 上阅读代码、自行构建，并核实它与 shalomail.com 上运行的代码完全相同。它不是开源软件，因为许可证不允许在其他服务中重复使用这些代码。安全问题可以报告至 security@shalomail.com。"
       },
       "pgp": {
         "q": "它使用 PGP 吗？",

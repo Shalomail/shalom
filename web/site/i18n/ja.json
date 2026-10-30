@@ -430,6 +430,7 @@
     "description": "Shalom Mail についての回答：料金、登録に必要なもの、誰がメールを読めるか、パスワードを忘れたとき、AI エージェント用のメール。",
     "lead": "shalomail.com の暗号化メールサービス、Shalom Mail についての短くて率直な回答です。",
     "devLink": "Node SDK と HTTP API のリファレンス（英語）",
+    "sourceLink": "GitHub でコードを見る",
     "g": {
       "account": "アカウント",
       "privacy": "プライバシーと暗号化",
@@ -483,6 +484,10 @@
       "cipher": {
         "q": "Shalom Mail はどんな暗号を使っていますか？",
         "a": "保存されるメッセージごとに X25519 の鍵と HKDF-SHA256、AES-256-GCM、端末上のパスワードに Argon2id、封印された送信者に Ed25519 の証明書、Shalom アカウント間の匿名配信に RSA ブラインド署名を使っています。"
+      },
+      "audit": {
+        "q": "Shalom Mail のコードは公開されていますか？",
+        "a": "監査のために公開しています。誰でも GitHub でコードを読み、ビルドして、shalomail.com で動いているものと同じコードであることを確かめられます。ライセンスで他のサービスへの再利用を認めていないため、オープンソースではありません。セキュリティの問題は security@shalomail.com までご報告ください。"
       },
       "pgp": {
         "q": "PGP は使っていますか？",

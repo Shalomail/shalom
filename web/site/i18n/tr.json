@@ -430,6 +430,7 @@
     "description": "Shalom Mail hakkında yanıtlar: fiyat, kayıt için gerekenler, e-postanızı kimin okuyabileceği, unutulan parola ve yapay zekâ ajanları için e-posta.",
     "lead": "shalomail.com adresindeki şifreli e-posta hizmeti Shalom Mail hakkında kısa ve net yanıtlar.",
     "devLink": "Node SDK ve HTTP API başvurusu (İngilizce)",
+    "sourceLink": "Kodu GitHub'da gör",
     "g": {
       "account": "Hesap",
       "privacy": "Gizlilik ve şifreleme",
@@ -483,6 +484,10 @@
       "cipher": {
         "q": "Shalom Mail hangi şifrelemeyi kullanır?",
         "a": "Saklanan her mesaj için HKDF-SHA256 ve AES-256-GCM ile X25519 anahtarları, cihazınızdaki parola için Argon2id, mühürlü gönderen için Ed25519 sertifikaları ve Shalom hesapları arasında anonim teslimat için RSA kör imzaları."
+      },
+      "audit": {
+        "q": "Shalom Mail'in kodu açık mı?",
+        "a": "Denetime açık: herkes kodu GitHub'da okuyabilir, derleyebilir ve shalomail.com'da çalışan kodla aynı olduğunu doğrulayabilir. Açık kaynak değildir, çünkü lisans kodun başka bir hizmette yeniden kullanılmasına izin vermez. Güvenlik sorunları security@shalomail.com adresine bildirilebilir."
       },
       "pgp": {
         "q": "PGP kullanıyor mu?",

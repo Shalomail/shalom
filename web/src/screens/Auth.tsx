@@ -332,7 +332,7 @@ function SignUpFlow({ config, onSession }: { config: Config; onSession: (s: Sess
   }
 
   return (
-    <form onSubmit={next} className="auth-form is-signup" key="signup">
+    <form onSubmit={next} className="auth-form" key="signup">
       <div className="step" key={step}>
         <h1>{titles[step]}</h1>
         <ArrowField ready={!!canNext} busy={busy} label={tr(step < STEPS - 1 ? 'common.continue' : 'auth.createMine')} icon={step === 0 ? 'user' : step === 1 ? 'at' : 'lock'}>

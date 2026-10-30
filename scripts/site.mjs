@@ -49,7 +49,7 @@ const ENC = ['key', 'password', 'stored', 'outside', 'between', 'contacts', 'age
 // a página que aprofunda a resposta, com link logo abaixo dela. A mesma ordem vai para o FAQPage.
 const FAQ = [
   ['account', ['what', 'free', 'signup', 'others', 'app', 'languages', 'who', 'delete']],
-  ['privacy', ['read:enc', 'e2e:enc', 'forgot', 'cipher:enc', 'pgp', 'ads', 'law:privacy']],
+  ['privacy', ['read:enc', 'e2e:enc', 'forgot', 'cipher:enc', 'audit:source', 'pgp', 'ads', 'law:privacy']],
   ['agents', ['agentHow:agents', 'agentPrice', 'agentRead', 'agentCode:dev', 'agentWatch', 'agentOutside']],
 ];
 // Comandos e nomes técnicos que aparecem no meio das respostas: viram <code>, sempre da esquerda para a direita.
@@ -452,6 +452,8 @@ export function buildSite() {
   const faqTpl = tpl('faq');
   // Página dos desenvolvedores: só em inglês, a língua da documentação técnica.
   const DEV = '/developers/';
+  // Código para auditoria (scripts/publish-source.mjs publica cada versão que vai ao ar).
+  const SOURCE = 'https://github.com/shalomail/shalom';
   const paths = c => (c === 'pt'
     ? { home: '/', terms: '/termos/', privacy: '/privacidade/', agents: '/agentes/', enc: '/criptografia/', faq: '/perguntas-frequentes/' }
     : { home: `/${c}/`, terms: `/${c}/terms/`, privacy: `/${c}/privacy/`, agents: `/${c}/agents/`, enc: `/${c}/encryption/`, faq: `/${c}/faq/` });
@@ -570,7 +572,7 @@ export function buildSite() {
       } else if (page === 'faq') {
         // FAQPage só aqui, e só com as perguntas e respostas que a página mostra, com o mesmo texto.
         const groups = faqItems(d, fill);
-        const links = { enc: [p.enc, d.enc.title], privacy: [p.privacy, d.legal.privacy.title], agents: [p.agents, d.docs.title], dev: [DEV, d.faq.devLink] };
+        const links = { enc: [p.enc, d.enc.title], privacy: [p.privacy, d.legal.privacy.title], agents: [p.agents, d.docs.title], dev: [DEV, d.faq.devLink], source: [SOURCE, d.faq.sourceLink] };
         const jsonLd = ld({ '@context': 'https://schema.org', '@graph': [organization, {
           '@type': 'FAQPage', '@id': `${canonical}#faq`, url: canonical, name: d.faq.title, description: d.faq.description, inLanguage: d.meta.tag,
           isPartOf: { '@id': SITE_ID }, about: { '@id': APP_ID }, publisher: { '@id': ORG_ID },

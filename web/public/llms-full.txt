@@ -199,6 +199,10 @@ Your stored email cannot be recovered, because only your password opens your key
 
 X25519 keys with HKDF-SHA256 and AES-256-GCM for every stored message, Argon2id for the password on your device, Ed25519 certificates for the sealed sender and RSA blind signatures for anonymous delivery between Shalom accounts.
 
+#### Is Shalom Mail's code open?
+
+It is open for audit: anyone can read the code on GitHub, build it and check that it is the same code that runs at shalomail.com. It is not open source, because the license does not allow reusing the code in another service. Security problems can be reported to security@shalomail.com.
+
 #### Does it use PGP?
 
 No. Shalom has its own format, built on X25519, HKDF-SHA256 and AES-256-GCM, and does not use PGP keys. Email to other providers goes out as regular email.

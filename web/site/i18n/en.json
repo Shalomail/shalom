@@ -430,6 +430,7 @@
     "description": "Answers about Shalom Mail: price, what you need to sign up, who can read your email, a forgotten password, and email for AI agents.",
     "lead": "Short, direct answers about Shalom Mail, the encrypted email service at shalomail.com.",
     "devLink": "Node SDK and HTTP API reference",
+    "sourceLink": "See the code on GitHub",
     "g": {
       "account": "The account",
       "privacy": "Privacy and encryption",
@@ -483,6 +484,10 @@
       "cipher": {
         "q": "Which encryption does Shalom Mail use?",
         "a": "X25519 keys with HKDF-SHA256 and AES-256-GCM for every stored message, Argon2id for the password on your device, Ed25519 certificates for the sealed sender and RSA blind signatures for anonymous delivery between Shalom accounts."
+      },
+      "audit": {
+        "q": "Is Shalom Mail's code open?",
+        "a": "It is open for audit: anyone can read the code on GitHub, build it and check that it is the same code that runs at shalomail.com. It is not open source, because the license does not allow reusing the code in another service. Security problems can be reported to security@shalomail.com."
       },
       "pgp": {
         "q": "Does it use PGP?",

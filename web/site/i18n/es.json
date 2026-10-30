@@ -430,6 +430,7 @@
     "description": "Respuestas sobre Shalom Mail: precio, qué necesitas para registrarte, quién puede leer tu correo, contraseña olvidada y correo para agentes de IA.",
     "lead": "Respuestas cortas y directas sobre Shalom Mail, el servicio de correo cifrado de shalomail.com.",
     "devLink": "Referencia del SDK para Node y de la API HTTP (en inglés)",
+    "sourceLink": "Ver el código en GitHub",
     "g": {
       "account": "La cuenta",
       "privacy": "Privacidad y cifrado",
@@ -483,6 +484,10 @@
       "cipher": {
         "q": "¿Qué cifrado usa Shalom Mail?",
         "a": "Claves X25519 con HKDF-SHA256 y AES-256-GCM para cada mensaje guardado, Argon2id para la contraseña en tu dispositivo, certificados Ed25519 para el remitente sellado y firmas ciegas RSA para la entrega anónima entre cuentas Shalom."
+      },
+      "audit": {
+        "q": "¿El código de Shalom Mail es abierto?",
+        "a": "Es abierto para auditoría: cualquier persona puede leer el código en GitHub, compilarlo y comprobar que es el mismo que funciona en shalomail.com. No es open source, porque la licencia no permite reutilizar el código en otro servicio. Los problemas de seguridad se pueden reportar a security@shalomail.com."
       },
       "pgp": {
         "q": "¿Usa PGP?",

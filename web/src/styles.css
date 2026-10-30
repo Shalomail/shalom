@@ -281,8 +281,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* A frase de segurança embaixo do campo leva o cadeado, em branco como o texto forte. */
 .auth-note.is-secure { display: block; text-align: center; }
 .auth-note.is-secure svg { display: inline-block; vertical-align: -2px; margin-inline-end: 5px; color: var(--text); }
-/* Criar conta: campos 24% mais curtos que os da tela de entrar (304 px em vez de 400). */
-.auth-form.is-signup .arrow-field { width: min(304px, 100%); }
+/* Campos de entrar e de criar conta com a mesma largura, 304 px (24% menos que a coluna de 400). */
+.auth-form .arrow-field { width: min(304px, 100%); }
 
 .auth-note { margin-top: 14px; max-width: 34ch; font-size: 13px; line-height: 19px; color: var(--text-3); display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap; }
 .auth-note.is-warn { color: var(--warn); }

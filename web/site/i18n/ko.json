@@ -430,6 +430,7 @@
     "description": "Shalom Mail에 대한 답변: 요금, 가입에 필요한 것, 누가 이메일을 읽을 수 있는지, 비밀번호를 잊었을 때, AI 에이전트용 이메일.",
     "lead": "shalomail.com의 암호화 이메일 서비스 Shalom Mail에 대한 짧고 분명한 답변입니다.",
     "devLink": "Node SDK와 HTTP API 레퍼런스(영어)",
+    "sourceLink": "GitHub에서 코드 보기",
     "g": {
       "account": "계정",
       "privacy": "개인정보와 암호화",
@@ -483,6 +484,10 @@
       "cipher": {
         "q": "Shalom Mail은 어떤 암호화를 쓰나요?",
         "a": "저장되는 모든 메시지에는 X25519 키와 HKDF-SHA256, AES-256-GCM을, 기기에서 처리하는 비밀번호에는 Argon2id를, 봉인된 발신자에는 Ed25519 인증서를, Shalom 계정 간 익명 전달에는 RSA 블라인드 서명을 사용합니다."
+      },
+      "audit": {
+        "q": "Shalom Mail의 코드는 공개되어 있나요?",
+        "a": "감사를 위해 공개되어 있습니다. 누구나 GitHub에서 코드를 읽고, 빌드해서 shalomail.com에서 실행되는 것과 같은 코드인지 확인할 수 있습니다. 라이선스가 다른 서비스에서 코드를 재사용하는 것을 허용하지 않으므로 오픈 소스는 아닙니다. 보안 문제는 security@shalomail.com으로 알려 주세요."
       },
       "pgp": {
         "q": "PGP를 사용하나요?",
