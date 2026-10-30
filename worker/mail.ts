@@ -49,8 +49,9 @@ async function store(env: Env, userId: string, folder: Folder, raw: Uint8Array, 
 // durante o lacre. O que vai para a caixa e o R2 já sai trancado com a chave pública do dono.
 // Endereços da equipe não são contas: o que chega neles vai encaminhado para o e-mail da operação
 // (FORWARD_TO, um destino confirmado no Email Routing da conta Cloudflare). contato@ e privacidade@
-// aparecem no site; abuse@ e postmaster@ são os que todo provedor de e-mail precisa atender.
-const TEAM = new Set(['contato', 'contact', 'privacidade', 'privacy', 'dpo', 'abuse', 'postmaster', 'security']);
+// aparecem no site; abuse@ e postmaster@ são os que todo provedor de e-mail precisa atender; security@ é o
+// do security.txt; shalom@ é o contato das contas do serviço (GitHub e afins).
+const TEAM = new Set(['contato', 'contact', 'privacidade', 'privacy', 'dpo', 'abuse', 'postmaster', 'security', 'shalom']);
 
 export async function receiveEmail(message: ForwardableEmailMessage, env: Env) {
   const to = message.to.toLowerCase();
