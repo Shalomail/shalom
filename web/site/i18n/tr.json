@@ -194,6 +194,7 @@
                 "Güvenlik: geri okunamayacak biçimde saklanan PIN’iniz ve kurtarma kodlarınız, kilitli olarak saklanan iki adımlı doğrulama sırrınız ve otomatik oturum kapatma için seçtiğiniz hareketsizlik süresi.",
                 "Her mesaj: hangi hesaba ait olduğu, ne zaman geldiği, ne kadar yer kapladığı, hangi klasörde olduğu ve okunup okunmadığı, sabitlenip sabitlenmediği veya yıldızlanıp yıldızlanmadığı.",
                 "Bağlı cihazlar: her oturumun ne zaman başladığı, en son ne zaman kullanıldığı ve tarayıcı türü; böylece onları görebilir ve oturumlarını kapatabilirsiniz.",
+                "iPhone bildirimleri: iOS uygulamasında bildirimleri açarsanız, Apple’ın cihaza verdiği tanımlayıcı, o iPhone’un oturumuna bağlı olarak, yeni ileti bildirimini göndermek için.",
                 "IP adresi: parola tahmini ve toplu kayıt gibi kötüye kullanımları durdurmak için anlık olarak kullanılır ve yalnızca en geç 1 saat içinde silinen sayaçlarda tutulur.",
                 "API anahtarları ve ajan kutuları: her anahtar geri okunamayacak şekilde saklanır; son kullanım zamanı ve hangi ajan kutularının hesabınıza ait olduğu.",
                 "Ücretli plan: Stripe'taki müşteri ve abonelik kimlikleriniz, plan ve ne zamana kadar geçerli olduğu. Kart bilgileri Stripe'ta kalır ve sunucularımızdan asla geçmez."
@@ -221,6 +222,7 @@
           "p": [
             "Altyapı Cloudflare üzerinde çalışır: sunucular, veritabanı, depolama, e-posta alma ve gönderme ile bot doğrulaması (Turnstile). Cloudflare verileri bizim adımıza işler; saklanan e-postalar ona zaten şifrelenmiş olarak ulaşır.",
             "Ücretli bir plana abone olursanız tahsilatı Stripe yapar; aboneliği işlemek için Shalom adresinizi ve ödeme bilgilerinizi kendi gizlilik politikasına göre alır.",
+            "iOS uygulamasında bildirimleri açarsanız her bildirim Apple’ın bildirim hizmetinden (APNs) geçer. Apple cihaz tanımlayıcısını, saati ve \"Yeni ileti\" metnini alır; gönderen, konu ya da iletiden herhangi bir şey almaz.",
             "Cloudflare’in sunucuları birçok ülkede bulunduğundan verileriniz, LGPD’nin öngördüğü güvencelerle Brezilya dışında işlenebilir.",
             "Veri satmayız, reklam göstermeyiz ve e-postalarınızı hiçbir şeyi eğitmek için kullanmayız.",
             "Verileri yetkililere yalnızca geçerli bir mahkeme kararı üzerine veririz. Elimizdeki bilgiler 3. bölümde listelenenlerdir: saklanan e-postaların içeriği şifreli kalır ve anahtar bizde değildir."
@@ -233,6 +235,7 @@
               "ul": [
                 "Hesap ve mesajlar: hesap var olduğu sürece. Çöp Kutusu ve Spam klasörleri 30 gün sonra kendiliğinden boşalır.",
                 "Oturumlar: kullanılmadan en fazla 30 gün; daha kısa bir hareketsizlik süresi seçerseniz daha az.",
+                "iPhone bildirim tanımlayıcısı: o iPhone’un oturumu sürdükçe. Hesaptan çıktığınızda, cihazın bağlantısını kestiğinizde ya da bildirimleri kapattığınızda silinir.",
                 "IP adresi içeren sayaçlar: en fazla 1 saat.",
                 "Plan: hesap var olduğu sürece. Stripe ödeme kayıtlarını yasanın gerektirdiği süre boyunca saklar.",
                 "Bir hesap silindiğinde verileri kaldırılır. Yalnızca adres saklanır; böylece kimse onu yeniden kaydedip size gelenleri alamaz. Altyapı yedeklerinin süresinin dolması birkaç gün sürebilir."

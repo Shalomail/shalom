@@ -23,3 +23,8 @@
 /llms-full.txt
   Content-Type: text/plain; charset=utf-8
   X-Robots-Tag: noindex
+
+# Associação com o app de iOS (links do e-mail abrem no app): a Apple lê como JSON.
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600

@@ -1,0 +1,875 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03A1C10CB0CAA4AB583F6F4B /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 449BBBEF2CC1641CD9499F50 /* BigInt */; };
+		043BE0A9E3695C512135DD1E /* Pins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D7386D1D63CB11D81F8B15 /* Pins.swift */; };
+		14F682CE7DF4B37D17AD4F79 /* Compose.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29157205B713872C4F4A73B /* Compose.swift */; };
+		1BF042B2C2012A3BF05ABFCD /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A925DA06DDC2E451B0679A /* Accounts.swift */; };
+		1C183BAD2C7A1B90790342BC /* he.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E91BE877BE76A2EA8992B69 /* he.json */; };
+		1CE7E2B4927DD2ECA3B35EDF /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = FD3ED1A570C0B30DA6D89C52 /* Sodium */; };
+		2292FD79B47163AFCE22A0BB /* MailboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1FA5816CB3F493E8BAE87D /* MailboxView.swift */; };
+		2C86A13786A8AC9F14DE88D1 /* FlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642AE93F38EA7EF9371DCE45 /* FlowTests.swift */; };
+		30681E267D2450FDAA2B0D0F /* Pack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580471378C73C8209F888A2C /* Pack.swift */; };
+		312A88C0B42341DF358B21DD /* AccountViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F560FC2E887A0FF5319014 /* AccountViews.swift */; };
+		3167B2704D944543DD95CA0F /* Fingerprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC06620AB2329F4B14A219D /* Fingerprint.swift */; };
+		390ECE87449B7B0C2ECC6449 /* ar.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CFCE5A8C69CB83E1B0115 /* ar.json */; };
+		3CBB6B760FF1E7C492A935EF /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56169601D2C6401137F2D9A /* SignInView.swift */; };
+		40B1B261A65BE6869DB77936 /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 35E914797CB1B23D55A3AA57 /* en.json */; };
+		47F70688A72EBC47B0D52A0E /* MessageBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3314569C9E49798878F099FE /* MessageBodyView.swift */; };
+		49F4922C40D821CE7EC7C8D8 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A95213448E789BF3B8FBE39 /* AppModel.swift */; };
+		5586C5E369BCBDC9BEAE856C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47EF7033DB3A839E04B1CB89 /* Assets.xcassets */; };
+		57E5085B9F2B38C115FDB4AC /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08322EF4598793BE14681F6A /* UnlockView.swift */; };
+		6541F7ACC73CD874F42B7C57 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCCC23B12CAD129C2CC9883 /* Sender.swift */; };
+		676A2817CEBECF455021A0EC /* uk.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F78815E2FB98504E2E0532E /* uk.json */; };
+		6E2078A2E251EAB376F35BDB /* pt.json in Resources */ = {isa = PBXBuildFile; fileRef = F2F8D3DE199D78BA79A1C0BB /* pt.json */; };
+		6E33E02811C0BE1C4DC5337E /* zh.json in Resources */ = {isa = PBXBuildFile; fileRef = 11399F219B38D2FE7960BC10 /* zh.json */; };
+		7191A32C78C124B83F1858BA /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCA9343043116C2A39C7F0A /* Bytes.swift */; };
+		7458664518C3E6B3BDB5E84A /* Blind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBB5E4A449A5335F48A34D3 /* Blind.swift */; };
+		7BF13CF8B09A6AF86E81AD99 /* tr.json in Resources */ = {isa = PBXBuildFile; fileRef = 6BC8AD1219219C398F1FB0FC /* tr.json */; };
+		7EEEC5FD0E04C03AEC05F4A2 /* MIME.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AB9DBFD4E6FC26F2747FD0 /* MIME.swift */; };
+		7FD36203988A6EB9F7DFD3C3 /* ja.json in Resources */ = {isa = PBXBuildFile; fileRef = FA9287FE95D5D72A1DA9ED84 /* ja.json */; };
+		80DDCEEAB1909F97E80A90AC /* AccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269AFB1FFC02F7917370240 /* AccountAPI.swift */; };
+		835B803BC62D4EA5B82E0047 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CAF5AB7F698676B6440808 /* Components.swift */; };
+		839C24C68758755945E04523 /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = F4D91CD577CD17E922FA8AED /* ko.json */; };
+		91F969D4C9F709C61D8DF5C1 /* ShalomMailApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61300C4F9734DD8A3C15F20E /* ShalomMailApp.swift */; };
+		98A2166445060B0D47047772 /* Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8759F1E17761501280C7593D /* Push.swift */; };
+		9BF296298C7B138A8C48199B /* fr.json in Resources */ = {isa = PBXBuildFile; fileRef = 58E0D275686E07711C4C703E /* fr.json */; };
+		9CBC6D09A80B589658B374EB /* ServerKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7660E801905BDEBA91DDC8F7 /* ServerKeys.swift */; };
+		A10CBA1892B524048362C69F /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32185CAF0492A0EB3BD1D6A /* Vault.swift */; };
+		AC0B4A6C24DAE86F3816D4EB /* Mailbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1373CED0814368C1A5715A /* Mailbox.swift */; };
+		B18BD61A4381E6C410CC8880 /* hi.json in Resources */ = {isa = PBXBuildFile; fileRef = E77E5C4BDE7C23D0C48E9C71 /* hi.json */; };
+		B3C46C6065A6E7923B2A7003 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C092E016F16F074CDA1CFAF /* SettingsView.swift */; };
+		B4DAEF072F82F0CD272B1951 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED2963BE6ABC5614CC3CF2B /* Keys.swift */; };
+		B5AA7F976D005C300561C114 /* Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB57D7E69494461FD2221CE /* Live.swift */; };
+		B8EC03615DF422E6A88F905C /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254868C6EB6B3DB976F6DD47 /* L10n.swift */; };
+		B96C673AE15AAF12F907C619 /* it.json in Resources */ = {isa = PBXBuildFile; fileRef = B8D9728FA107246AB20533E6 /* it.json */; };
+		BF71C575C4F98000662EFD9F /* Seal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3AEDAF2CEE3218B033681A /* Seal.swift */; };
+		CFD2348FEB14CC82DBCF9494 /* vectors.json in Resources */ = {isa = PBXBuildFile; fileRef = AFDC3C6B2BCFECFCD2FCBAE2 /* vectors.json */; };
+		D4B21CF34EC658E9168FFBC0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FC90E57BA4E15E755644B3 /* Theme.swift */; };
+		D68F5BA9181BE41E1D88520E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FA521AC2164679432EB40C /* RootView.swift */; };
+		DA71744C61A18F49E276977F /* ThreadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEBBFD000430A890D969686 /* ThreadView.swift */; };
+		DA80018AE2B40022928B348D /* CryptoVectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295E98C9D68AA3821D08028E /* CryptoVectorTests.swift */; };
+		DE51D2A9786F2881B8203C45 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5202558ABF3E8729AFC4F7CF /* API.swift */; };
+		E893B46F275047BF4F1B7DE3 /* es.json in Resources */ = {isa = PBXBuildFile; fileRef = 19A063A373DE11891FB8D236 /* es.json */; };
+		F26A5BBCAD3C8F1F9853DE1E /* de.json in Resources */ = {isa = PBXBuildFile; fileRef = D1F9081A17862889E039555F /* de.json */; };
+		F389F58E3838D9C3A9A900D6 /* ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 36279A45D2E559E9CD61F8CA /* ru.json */; };
+		F70283B47263EC246EEF9778 /* Head.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8ABF680501170CA07BAA22 /* Head.swift */; };
+		FB20BB18B7B81871BD2D8B86 /* LinkViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9355FA9035DB10B74BEF46 /* LinkViews.swift */; };
+		FD5A049D9233258463BC47A3 /* ComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5073D440C653D83171208CB /* ComposerView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		58887B4AFBEA41EAB33BD437 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 48AA6C96E8271CE9AE8D359E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E3CFEF9F2B4E3F98A1D44776;
+			remoteInfo = ShalomMail;
+		};
+		714E070D89F345C93AE2E1EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 48AA6C96E8271CE9AE8D359E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E3CFEF9F2B4E3F98A1D44776;
+			remoteInfo = ShalomMail;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0349C0E4FBDAE9FC2F68C22C /* ShalomMailTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ShalomMailTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		08322EF4598793BE14681F6A /* UnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
+		0A95213448E789BF3B8FBE39 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		11399F219B38D2FE7960BC10 /* zh.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = zh.json; sourceTree = "<group>"; };
+		15C9D9406A615D4B769B215E /* ShalomMail.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ShalomMail.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		19A063A373DE11891FB8D236 /* es.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = es.json; sourceTree = "<group>"; };
+		1AB57D7E69494461FD2221CE /* Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Live.swift; sourceTree = "<group>"; };
+		254868C6EB6B3DB976F6DD47 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		295E98C9D68AA3821D08028E /* CryptoVectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoVectorTests.swift; sourceTree = "<group>"; };
+		3269AFB1FFC02F7917370240 /* AccountAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAPI.swift; sourceTree = "<group>"; };
+		3314569C9E49798878F099FE /* MessageBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBodyView.swift; sourceTree = "<group>"; };
+		35D7386D1D63CB11D81F8B15 /* Pins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pins.swift; sourceTree = "<group>"; };
+		35E914797CB1B23D55A3AA57 /* en.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = en.json; sourceTree = "<group>"; };
+		36279A45D2E559E9CD61F8CA /* ru.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ru.json; sourceTree = "<group>"; };
+		3C092E016F16F074CDA1CFAF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3DC06620AB2329F4B14A219D /* Fingerprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fingerprint.swift; sourceTree = "<group>"; };
+		3E1FA5816CB3F493E8BAE87D /* MailboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxView.swift; sourceTree = "<group>"; };
+		3FCCC23B12CAD129C2CC9883 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
+		47EF7033DB3A839E04B1CB89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4FBB5E4A449A5335F48A34D3 /* Blind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blind.swift; sourceTree = "<group>"; };
+		4FEBBFD000430A890D969686 /* ThreadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadView.swift; sourceTree = "<group>"; };
+		5202558ABF3E8729AFC4F7CF /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		580471378C73C8209F888A2C /* Pack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pack.swift; sourceTree = "<group>"; };
+		58E0D275686E07711C4C703E /* fr.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fr.json; sourceTree = "<group>"; };
+		61300C4F9734DD8A3C15F20E /* ShalomMailApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShalomMailApp.swift; sourceTree = "<group>"; };
+		642AE93F38EA7EF9371DCE45 /* FlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowTests.swift; sourceTree = "<group>"; };
+		6BC8AD1219219C398F1FB0FC /* tr.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tr.json; sourceTree = "<group>"; };
+		7660E801905BDEBA91DDC8F7 /* ServerKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerKeys.swift; sourceTree = "<group>"; };
+		7D8CFCE5A8C69CB83E1B0115 /* ar.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ar.json; sourceTree = "<group>"; };
+		7E91BE877BE76A2EA8992B69 /* he.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = he.json; sourceTree = "<group>"; };
+		7F78815E2FB98504E2E0532E /* uk.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = uk.json; sourceTree = "<group>"; };
+		8759F1E17761501280C7593D /* Push.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Push.swift; sourceTree = "<group>"; };
+		8E3F793FD82F701CB48A7786 /* ShalomMail.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShalomMail.entitlements; sourceTree = "<group>"; };
+		92A925DA06DDC2E451B0679A /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
+		9ED2963BE6ABC5614CC3CF2B /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		A32185CAF0492A0EB3BD1D6A /* Vault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault.swift; sourceTree = "<group>"; };
+		A3F560FC2E887A0FF5319014 /* AccountViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViews.swift; sourceTree = "<group>"; };
+		AFDC3C6B2BCFECFCD2FCBAE2 /* vectors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vectors.json; sourceTree = "<group>"; };
+		B8D9728FA107246AB20533E6 /* it.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = it.json; sourceTree = "<group>"; };
+		BA1373CED0814368C1A5715A /* Mailbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mailbox.swift; sourceTree = "<group>"; };
+		BC9355FA9035DB10B74BEF46 /* LinkViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViews.swift; sourceTree = "<group>"; };
+		BCCA9343043116C2A39C7F0A /* Bytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bytes.swift; sourceTree = "<group>"; };
+		C29157205B713872C4F4A73B /* Compose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compose.swift; sourceTree = "<group>"; };
+		C4CAF5AB7F698676B6440808 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		CB3AEDAF2CEE3218B033681A /* Seal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seal.swift; sourceTree = "<group>"; };
+		D1F9081A17862889E039555F /* de.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = de.json; sourceTree = "<group>"; };
+		D5073D440C653D83171208CB /* ComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposerView.swift; sourceTree = "<group>"; };
+		D5FC90E57BA4E15E755644B3 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		E1AB9DBFD4E6FC26F2747FD0 /* MIME.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIME.swift; sourceTree = "<group>"; };
+		E2FA521AC2164679432EB40C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		E56169601D2C6401137F2D9A /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		E77E5C4BDE7C23D0C48E9C71 /* hi.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hi.json; sourceTree = "<group>"; };
+		E8805BAC8AD35E29F343C90B /* ShalomMailUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ShalomMailUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2F8D3DE199D78BA79A1C0BB /* pt.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pt.json; sourceTree = "<group>"; };
+		F4D91CD577CD17E922FA8AED /* ko.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ko.json; sourceTree = "<group>"; };
+		FA9287FE95D5D72A1DA9ED84 /* ja.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ja.json; sourceTree = "<group>"; };
+		FF8ABF680501170CA07BAA22 /* Head.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Head.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7BE3A276EDF20AD88EA3C6A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CE7E2B4927DD2ECA3B35EDF /* Sodium in Frameworks */,
+				03A1C10CB0CAA4AB583F6F4B /* BigInt in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0D6C656B77D480C54C4B9BA2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				47EF7033DB3A839E04B1CB89 /* Assets.xcassets */,
+				96E5C6C98A464478CD31F098 /* Strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		19F5AE709E76A87A3C6F09BC /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				AFDC3C6B2BCFECFCD2FCBAE2 /* vectors.json */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		2985F1C01C27EDE9F2F2E000 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15C9D9406A615D4B769B215E /* ShalomMail.app */,
+				0349C0E4FBDAE9FC2F68C22C /* ShalomMailTests.xctest */,
+				E8805BAC8AD35E29F343C90B /* ShalomMailUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3481267D818D425D34B7A9C0 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				4FBB5E4A449A5335F48A34D3 /* Blind.swift */,
+				BCCA9343043116C2A39C7F0A /* Bytes.swift */,
+				3DC06620AB2329F4B14A219D /* Fingerprint.swift */,
+				9ED2963BE6ABC5614CC3CF2B /* Keys.swift */,
+				580471378C73C8209F888A2C /* Pack.swift */,
+				CB3AEDAF2CEE3218B033681A /* Seal.swift */,
+				3FCCC23B12CAD129C2CC9883 /* Sender.swift */,
+			);
+			path = Crypto;
+			sourceTree = "<group>";
+		};
+		4394E28FDAB9639AFBFE4DDD /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A3F560FC2E887A0FF5319014 /* AccountViews.swift */,
+				C4CAF5AB7F698676B6440808 /* Components.swift */,
+				D5073D440C653D83171208CB /* ComposerView.swift */,
+				BC9355FA9035DB10B74BEF46 /* LinkViews.swift */,
+				3E1FA5816CB3F493E8BAE87D /* MailboxView.swift */,
+				3314569C9E49798878F099FE /* MessageBodyView.swift */,
+				E2FA521AC2164679432EB40C /* RootView.swift */,
+				3C092E016F16F074CDA1CFAF /* SettingsView.swift */,
+				E56169601D2C6401137F2D9A /* SignInView.swift */,
+				4FEBBFD000430A890D969686 /* ThreadView.swift */,
+				08322EF4598793BE14681F6A /* UnlockView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		50FEA17B7817F5B686100415 /* ShalomMail */ = {
+			isa = PBXGroup;
+			children = (
+				8E3F793FD82F701CB48A7786 /* ShalomMail.entitlements */,
+				B60F718A1245F1A9AD92C635 /* App */,
+				BC0C127EEA8978302DC508C5 /* Core */,
+				0D6C656B77D480C54C4B9BA2 /* Resources */,
+				4394E28FDAB9639AFBFE4DDD /* UI */,
+			);
+			path = ShalomMail;
+			sourceTree = "<group>";
+		};
+		5263CFA86FBEAEBB29CE847A /* ShalomMailTests */ = {
+			isa = PBXGroup;
+			children = (
+				295E98C9D68AA3821D08028E /* CryptoVectorTests.swift */,
+				19F5AE709E76A87A3C6F09BC /* Fixtures */,
+			);
+			path = ShalomMailTests;
+			sourceTree = "<group>";
+		};
+		7978FA6619020AC22BB04519 /* Net */ = {
+			isa = PBXGroup;
+			children = (
+				5202558ABF3E8729AFC4F7CF /* API.swift */,
+				7660E801905BDEBA91DDC8F7 /* ServerKeys.swift */,
+			);
+			path = Net;
+			sourceTree = "<group>";
+		};
+		8697D0DC2D6282290FF76CDF /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				92A925DA06DDC2E451B0679A /* Accounts.swift */,
+				35D7386D1D63CB11D81F8B15 /* Pins.swift */,
+				A32185CAF0492A0EB3BD1D6A /* Vault.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		96E5C6C98A464478CD31F098 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				7D8CFCE5A8C69CB83E1B0115 /* ar.json */,
+				D1F9081A17862889E039555F /* de.json */,
+				35E914797CB1B23D55A3AA57 /* en.json */,
+				19A063A373DE11891FB8D236 /* es.json */,
+				58E0D275686E07711C4C703E /* fr.json */,
+				7E91BE877BE76A2EA8992B69 /* he.json */,
+				E77E5C4BDE7C23D0C48E9C71 /* hi.json */,
+				B8D9728FA107246AB20533E6 /* it.json */,
+				FA9287FE95D5D72A1DA9ED84 /* ja.json */,
+				F4D91CD577CD17E922FA8AED /* ko.json */,
+				F2F8D3DE199D78BA79A1C0BB /* pt.json */,
+				36279A45D2E559E9CD61F8CA /* ru.json */,
+				6BC8AD1219219C398F1FB0FC /* tr.json */,
+				7F78815E2FB98504E2E0532E /* uk.json */,
+				11399F219B38D2FE7960BC10 /* zh.json */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		A0373E40FC5825D91F70E242 /* Mail */ = {
+			isa = PBXGroup;
+			children = (
+				C29157205B713872C4F4A73B /* Compose.swift */,
+				FF8ABF680501170CA07BAA22 /* Head.swift */,
+				1AB57D7E69494461FD2221CE /* Live.swift */,
+				BA1373CED0814368C1A5715A /* Mailbox.swift */,
+				E1AB9DBFD4E6FC26F2747FD0 /* MIME.swift */,
+			);
+			path = Mail;
+			sourceTree = "<group>";
+		};
+		B60F718A1245F1A9AD92C635 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				61300C4F9734DD8A3C15F20E /* ShalomMailApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		BC0C127EEA8978302DC508C5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				254868C6EB6B3DB976F6DD47 /* L10n.swift */,
+				D5FC90E57BA4E15E755644B3 /* Theme.swift */,
+				3481267D818D425D34B7A9C0 /* Crypto */,
+				A0373E40FC5825D91F70E242 /* Mail */,
+				7978FA6619020AC22BB04519 /* Net */,
+				CAA44EC0D909F55B27B79452 /* Session */,
+				8697D0DC2D6282290FF76CDF /* Store */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		CAA44EC0D909F55B27B79452 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				3269AFB1FFC02F7917370240 /* AccountAPI.swift */,
+				0A95213448E789BF3B8FBE39 /* AppModel.swift */,
+				8759F1E17761501280C7593D /* Push.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		D067707C4FE1A746E29C010A = {
+			isa = PBXGroup;
+			children = (
+				50FEA17B7817F5B686100415 /* ShalomMail */,
+				5263CFA86FBEAEBB29CE847A /* ShalomMailTests */,
+				D5A6A6EC46EE5CDE75F6E5E8 /* ShalomMailUITests */,
+				2985F1C01C27EDE9F2F2E000 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D5A6A6EC46EE5CDE75F6E5E8 /* ShalomMailUITests */ = {
+			isa = PBXGroup;
+			children = (
+				642AE93F38EA7EF9371DCE45 /* FlowTests.swift */,
+			);
+			path = ShalomMailUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		48C850A63217B29B14E479B2 /* ShalomMailUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4AFBD6448A6481CDA2EDBE54 /* Build configuration list for PBXNativeTarget "ShalomMailUITests" */;
+			buildPhases = (
+				E4F30DA57250237C39EE0A05 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F0CE3CB2C96C35BD6EC494D6 /* PBXTargetDependency */,
+			);
+			name = ShalomMailUITests;
+			packageProductDependencies = (
+			);
+			productName = ShalomMailUITests;
+			productReference = E8805BAC8AD35E29F343C90B /* ShalomMailUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		D4884058CBCF73C5C17917BA /* ShalomMailTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B08EBB4212251C6146A18FEF /* Build configuration list for PBXNativeTarget "ShalomMailTests" */;
+			buildPhases = (
+				C0FBDD2F69D031901378591F /* Sources */,
+				57B6A4F22BD809DD18115799 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				24334705D6E0247462E3FAC6 /* PBXTargetDependency */,
+			);
+			name = ShalomMailTests;
+			packageProductDependencies = (
+			);
+			productName = ShalomMailTests;
+			productReference = 0349C0E4FBDAE9FC2F68C22C /* ShalomMailTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E3CFEF9F2B4E3F98A1D44776 /* ShalomMail */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFB63668EFE02C1172615E2E /* Build configuration list for PBXNativeTarget "ShalomMail" */;
+			buildPhases = (
+				AB95D87ADE500A1FA5930162 /* Sources */,
+				931593F3FD81B5A304A67F93 /* Resources */,
+				7BE3A276EDF20AD88EA3C6A5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShalomMail;
+			packageProductDependencies = (
+				FD3ED1A570C0B30DA6D89C52 /* Sodium */,
+				449BBBEF2CC1641CD9499F50 /* BigInt */,
+			);
+			productName = ShalomMail;
+			productReference = 15C9D9406A615D4B769B215E /* ShalomMail.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		48AA6C96E8271CE9AE8D359E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					48C850A63217B29B14E479B2 = {
+						DevelopmentTeam = 2UNWMDD93S;
+						ProvisioningStyle = Automatic;
+						TestTargetID = E3CFEF9F2B4E3F98A1D44776;
+					};
+					D4884058CBCF73C5C17917BA = {
+						DevelopmentTeam = 2UNWMDD93S;
+						ProvisioningStyle = Automatic;
+					};
+					E3CFEF9F2B4E3F98A1D44776 = {
+						DevelopmentTeam = 2UNWMDD93S;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = B2D5ADCF32812ED20F50824F /* Build configuration list for PBXProject "ShalomMail" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = "pt-BR";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				"pt-BR",
+			);
+			mainGroup = D067707C4FE1A746E29C010A;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0F3E58D5D0342D68DF02E49A /* XCRemoteSwiftPackageReference "BigInt" */,
+				3DCE40AEDF858DBBEBAC44D5 /* XCRemoteSwiftPackageReference "swift-sodium" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E3CFEF9F2B4E3F98A1D44776 /* ShalomMail */,
+				D4884058CBCF73C5C17917BA /* ShalomMailTests */,
+				48C850A63217B29B14E479B2 /* ShalomMailUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		57B6A4F22BD809DD18115799 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFD2348FEB14CC82DBCF9494 /* vectors.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		931593F3FD81B5A304A67F93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5586C5E369BCBDC9BEAE856C /* Assets.xcassets in Resources */,
+				390ECE87449B7B0C2ECC6449 /* ar.json in Resources */,
+				F26A5BBCAD3C8F1F9853DE1E /* de.json in Resources */,
+				40B1B261A65BE6869DB77936 /* en.json in Resources */,
+				E893B46F275047BF4F1B7DE3 /* es.json in Resources */,
+				9BF296298C7B138A8C48199B /* fr.json in Resources */,
+				1C183BAD2C7A1B90790342BC /* he.json in Resources */,
+				B18BD61A4381E6C410CC8880 /* hi.json in Resources */,
+				B96C673AE15AAF12F907C619 /* it.json in Resources */,
+				7FD36203988A6EB9F7DFD3C3 /* ja.json in Resources */,
+				839C24C68758755945E04523 /* ko.json in Resources */,
+				6E2078A2E251EAB376F35BDB /* pt.json in Resources */,
+				F389F58E3838D9C3A9A900D6 /* ru.json in Resources */,
+				7BF13CF8B09A6AF86E81AD99 /* tr.json in Resources */,
+				676A2817CEBECF455021A0EC /* uk.json in Resources */,
+				6E33E02811C0BE1C4DC5337E /* zh.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB95D87ADE500A1FA5930162 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE51D2A9786F2881B8203C45 /* API.swift in Sources */,
+				80DDCEEAB1909F97E80A90AC /* AccountAPI.swift in Sources */,
+				312A88C0B42341DF358B21DD /* AccountViews.swift in Sources */,
+				1BF042B2C2012A3BF05ABFCD /* Accounts.swift in Sources */,
+				49F4922C40D821CE7EC7C8D8 /* AppModel.swift in Sources */,
+				7458664518C3E6B3BDB5E84A /* Blind.swift in Sources */,
+				7191A32C78C124B83F1858BA /* Bytes.swift in Sources */,
+				835B803BC62D4EA5B82E0047 /* Components.swift in Sources */,
+				14F682CE7DF4B37D17AD4F79 /* Compose.swift in Sources */,
+				FD5A049D9233258463BC47A3 /* ComposerView.swift in Sources */,
+				3167B2704D944543DD95CA0F /* Fingerprint.swift in Sources */,
+				F70283B47263EC246EEF9778 /* Head.swift in Sources */,
+				B4DAEF072F82F0CD272B1951 /* Keys.swift in Sources */,
+				B8EC03615DF422E6A88F905C /* L10n.swift in Sources */,
+				FB20BB18B7B81871BD2D8B86 /* LinkViews.swift in Sources */,
+				B5AA7F976D005C300561C114 /* Live.swift in Sources */,
+				7EEEC5FD0E04C03AEC05F4A2 /* MIME.swift in Sources */,
+				AC0B4A6C24DAE86F3816D4EB /* Mailbox.swift in Sources */,
+				2292FD79B47163AFCE22A0BB /* MailboxView.swift in Sources */,
+				47F70688A72EBC47B0D52A0E /* MessageBodyView.swift in Sources */,
+				30681E267D2450FDAA2B0D0F /* Pack.swift in Sources */,
+				043BE0A9E3695C512135DD1E /* Pins.swift in Sources */,
+				98A2166445060B0D47047772 /* Push.swift in Sources */,
+				D68F5BA9181BE41E1D88520E /* RootView.swift in Sources */,
+				BF71C575C4F98000662EFD9F /* Seal.swift in Sources */,
+				6541F7ACC73CD874F42B7C57 /* Sender.swift in Sources */,
+				9CBC6D09A80B589658B374EB /* ServerKeys.swift in Sources */,
+				B3C46C6065A6E7923B2A7003 /* SettingsView.swift in Sources */,
+				91F969D4C9F709C61D8DF5C1 /* ShalomMailApp.swift in Sources */,
+				3CBB6B760FF1E7C492A935EF /* SignInView.swift in Sources */,
+				D4B21CF34EC658E9168FFBC0 /* Theme.swift in Sources */,
+				DA71744C61A18F49E276977F /* ThreadView.swift in Sources */,
+				57E5085B9F2B38C115FDB4AC /* UnlockView.swift in Sources */,
+				A10CBA1892B524048362C69F /* Vault.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0FBDD2F69D031901378591F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA80018AE2B40022928B348D /* CryptoVectorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4F30DA57250237C39EE0A05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C86A13786A8AC9F14DE88D1 /* FlowTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		24334705D6E0247462E3FAC6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E3CFEF9F2B4E3F98A1D44776 /* ShalomMail */;
+			targetProxy = 714E070D89F345C93AE2E1EE /* PBXContainerItemProxy */;
+		};
+		F0CE3CB2C96C35BD6EC494D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E3CFEF9F2B4E3F98A1D44776 /* ShalomMail */;
+			targetProxy = 58887B4AFBEA41EAB33BD437 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0238C78C132EF3B185B67805 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ShalomMail/ShalomMail.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Shalom Mail";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "O Face ID abre a chave que destranca os seus e-mails neste iPhone.";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shalomail.app;
+				PRODUCT_NAME = ShalomMail;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		07BAADAAA5970235FD9CAFFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2UNWMDD93S;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Debug;
+		};
+		09B46AE3AF6FFEA1A38F6CF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 2UNWMDD93S;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.10;
+			};
+			name = Release;
+		};
+		3E80D038B745BD5D1CCDA692 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ShalomMail/ShalomMail.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Shalom Mail";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "O Face ID abre a chave que destranca os seus e-mails neste iPhone.";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shalomail.app;
+				PRODUCT_NAME = ShalomMail;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		5BE173DCA80CE5EFA3CAEF09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shalomail.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShalomMail.app/ShalomMail";
+			};
+			name = Debug;
+		};
+		797D912322FD88675216D6A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shalomail.app.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ShalomMail;
+			};
+			name = Release;
+		};
+		8E37F0E83E6E9AB7F8515C97 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shalomail.app.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ShalomMail;
+			};
+			name = Debug;
+		};
+		A8B45C0B32A507C001E3D980 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shalomail.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShalomMail.app/ShalomMail";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4AFBD6448A6481CDA2EDBE54 /* Build configuration list for PBXNativeTarget "ShalomMailUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E37F0E83E6E9AB7F8515C97 /* Debug */,
+				797D912322FD88675216D6A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B08EBB4212251C6146A18FEF /* Build configuration list for PBXNativeTarget "ShalomMailTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5BE173DCA80CE5EFA3CAEF09 /* Debug */,
+				A8B45C0B32A507C001E3D980 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B2D5ADCF32812ED20F50824F /* Build configuration list for PBXProject "ShalomMail" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07BAADAAA5970235FD9CAFFF /* Debug */,
+				09B46AE3AF6FFEA1A38F6CF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FFB63668EFE02C1172615E2E /* Build configuration list for PBXNativeTarget "ShalomMail" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E80D038B745BD5D1CCDA692 /* Debug */,
+				0238C78C132EF3B185B67805 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0F3E58D5D0342D68DF02E49A /* XCRemoteSwiftPackageReference "BigInt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/attaswift/BigInt";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.0;
+			};
+		};
+		3DCE40AEDF858DBBEBAC44D5 /* XCRemoteSwiftPackageReference "swift-sodium" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jedisct1/swift-sodium";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		449BBBEF2CC1641CD9499F50 /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F3E58D5D0342D68DF02E49A /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
+		};
+		FD3ED1A570C0B30DA6D89C52 /* Sodium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3DCE40AEDF858DBBEBAC44D5 /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			productName = Sodium;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 48AA6C96E8271CE9AE8D359E /* Project object */;
+}

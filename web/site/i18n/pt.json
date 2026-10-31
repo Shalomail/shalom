@@ -194,6 +194,7 @@
                 "Segurança: o PIN e os códigos de recuperação guardados de um jeito que não dá para ler de volta, o segredo da verificação em duas etapas trancado, e o tempo que você escolheu para sair por inatividade.",
                 "Cada mensagem: para qual conta ela é, quando chegou, quanto ocupa, em que pasta está e se já foi lida, fixada ou marcada como favorita.",
                 "Aparelhos conectados: quando cada sessão começou, quando foi usada pela última vez e o tipo de navegador, para você ver e desconectar.",
+                "Avisos no iPhone: se você ligar os avisos no app de iOS, o identificador que a Apple dá ao aparelho, ligado à sessão daquele iPhone, para mandar o aviso de mensagem nova.",
                 "Endereço IP: usado na hora para frear abuso, como tentativas de senha e cadastros em massa, e guardado só em contadores que somem em até 1 hora.",
                 "Chaves de API e caixas de agente: cada chave guardada de um jeito que não dá para ler de volta, quando foi usada pela última vez, e quais caixas de agente são da sua conta.",
                 "Plano pago: os identificadores de cliente e de assinatura na Stripe, o plano e até quando ele vale. Os dados do cartão ficam com a Stripe e nunca passam pelos nossos servidores."
@@ -221,6 +222,7 @@
           "p": [
             "A infraestrutura roda na Cloudflare: servidores, banco de dados, armazenamento, recebimento e envio de e-mail e a verificação contra robôs (Turnstile). Ela processa os dados em nosso nome; os e-mails guardados chegam lá já criptografados.",
             "Se você assinar um plano pago, a cobrança é feita pela Stripe, que recebe o seu endereço Shalom e os dados de pagamento para processar a assinatura, conforme a política de privacidade dela.",
+            "Se você ligar os avisos no app de iOS, cada aviso passa pelo serviço de notificações da Apple (APNs). A Apple recebe o identificador do aparelho, o horário e o texto \"Mensagem nova\", sem remetente, assunto nem nada da mensagem.",
             "Os servidores da Cloudflare ficam em vários países, então seus dados podem ser processados fora do Brasil, com as garantias previstas na LGPD.",
             "Não vendemos dados, não mostramos anúncios e não usamos seus e-mails para treinar nada.",
             "Só entregamos dados a autoridades diante de ordem judicial válida. O que temos é o que está no item 3: o conteúdo dos e-mails guardados continua criptografado e nós não temos a chave."
@@ -233,6 +235,7 @@
               "ul": [
                 "Conta e mensagens: enquanto a conta existir. Lixeira e Spam se esvaziam sozinhos depois de 30 dias.",
                 "Sessões: até 30 dias sem uso, ou menos se você escolher sair por inatividade antes.",
+                "Identificador de aviso do iPhone: enquanto a sessão daquele iPhone existir. Some quando você sai da conta, desconecta o aparelho ou desliga os avisos.",
                 "Contadores com endereço IP: até 1 hora.",
                 "Plano: enquanto a conta existir. A Stripe guarda os registros de pagamento pelo prazo que a lei exige.",
                 "Quando a conta é apagada, os dados dela são removidos. Fica guardado só o endereço, para ninguém registrá-lo de novo e receber o que era seu. Cópias de segurança da infraestrutura podem levar alguns dias para expirar."

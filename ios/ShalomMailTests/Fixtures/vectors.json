@@ -1,0 +1,77 @@
+{
+  "recipientSecret": "HyYtNDtCSVBXXmVsc3qBiI+WnaSrsrnAx87V3OPq8fg=",
+  "recipientPub": "5XxpXrLGE8G+VOthU0PoK2qVT4hAmqOtH6c50AQfGiY=",
+  "senderPub": "uZ/g9Mc6Bu3umDIeh1OrPhfUg6hLR7Qm89JG/QISkg4=",
+  "serverPub": "i3MaY92eQHWApUuOlAtvaNByhNNZQaLQPILMbfCmwYQ=",
+  "password": "Paz e silêncio, café às 7h",
+  "salt": "fIOKkZifpq20u8LJ0Nfe5Q==",
+  "kdf": {
+    "alg": "argon2id",
+    "m": 131072,
+    "t": 3,
+    "p": 1
+  },
+  "authKey": "tOV3hJkiIXGY4/pacaeOtLbSd4dTNntdJIIoV1wM7OI=",
+  "envelope": "SH1YPI8scv7io8VAFWjJ4YprWN7Wydx1o5FhBbEn/e5xXd67fXRYpIn1dsOx7PxQDtxz0XHZeKnKO2lk",
+  "text": "T2zDoSwgU2hhbG9tISBNZW5zYWdlbSBkZSB0ZXN0ZSBjb20gYWNlbnR1YcOnw6NvOiDDp8Ojbywgw7wsIOa8ouWtly4=",
+  "seals": [
+    {
+      "purpose": "head",
+      "sealed": "AVe0aND+pPabnOc+1oYX6aBt9jbZIkWOzAsjpCqU7FJ+WVuap8XezQSqQC1iuRCqswPdYvVxq5V47Yx7sLcqltoaE4laPK6dRUSgCG/IYxBVduMmLv6JXQRRze+SkKKvFXiqq4q+8BmlWKGna3KBoo8qSmjD//Zi44/mm2Jj7Xh6"
+    },
+    {
+      "purpose": "raw",
+      "sealed": "AQVB9xcjEvxc6kdGadniTppWKUSFV7wylB3KUZ+7dBA8QRnes0KY379X6NImAgMkn9Je0TAaTU4BIS0S5MKZITIFE0kFNeEgBs3XpGx5BQt3mTEyqmbnr/iAzRSXNryE7CA972qV2HkHeuJiqzYuQdP4lNY6i9DcNfJufenOQ/kc"
+    },
+    {
+      "purpose": "cert",
+      "sealed": "AeJmZPtU0lcSKqorijJn/BEyow0K/glXKywvrpG/v+d+92G3KIji3eRyLuQ/dAL8uMerxL6LP+/U0HCDfNsQNsFjNJXrEzO0S+ZiD7Zb1CRZF1ruzC73rrYuvW5xxVAIIHkci4jDb0EDMFXnqAV8Mw73s0IyvqhZEwbNxzM7yqn9"
+    }
+  ],
+  "authSeal": "AiNVyZHIiWUPb2HLMCP36mdQZ7Hcfxn4n3CWwQbRDykSIClI/phWXci5+dkhth5RJGpQPFJrN8rg9GC1O14Q9ESesKO/UxveAtqXjufq9KkLPnGHCb0BaZzleiN1893Vmny0qYP0kM3tvvTjp0w4kkyYn+u7SKOpU4dqYjmo4f7e",
+  "sealedSender": "AwE8AfhlJbD49A3bqAIkrAH7CJ0GXAGsr/cJW5O29t+7/oN5f1ukDgCOZgvJcOg44sRBM7LkXMrwYupNMRgHV04Xyxm5JQ+POEt+ujPr8c1hR1NtObL2Pyop5TivhT1QNepk4fOwcgiLJ1IbhJkl7M4gHIb3jQcLHiKNQqX1IoZxb4ApvbmfmhAUISWEzpykObjlCuwWUbAL0D8MfITNkH6OFK3wOsiHQa0MtQt9Jz/DOmxCVhwmLLjXNmVkSSMPPhwI2KaLeXEC5fr+KdM10F5ZAFZlpFh20LriR/coP9HX7ClrnseNY0oAVDvM4pxPAg/RaT6L4QwiDtBkHO/LjKAQ8xmLmdLlTZMbhre1wP0LIGgorCiMmoSk2b1XHsEh1rUyQyabahzQjjip7xjP/+u6J6A6UvRio92q4FzaIQJfXm89ByNi1PxN1Mdv4QkFSJUaGQjcUcnQUSRvmb6cCUneooEBS2JVFtjEz7TieroyqYTvOnXtFBULyEIHOFq2vb/yW0hEuQ7XmWtIn5ey+8eMsytywNB9LFFrnXyrmRNTHenpX9PqgTD3j+BcvCcXtoD9Go+N5Gvl1ziaghvq3Q==",
+  "sealedSenderReceivedAt": 1793361600000,
+  "sealedSenderAddress": "ana@shalomail.com",
+  "mime": "RnJvbTogQW5hIDxhbmFAc2hhbG9tYWlsLmNvbT4NClN1YmplY3Q6IFRlc3RlDQoNCkxpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIExpbmhhIGRlIHRleHRvIHF1ZSBjb21wcmltZSBiZW0uIA==",
+  "packed": "AFNIAQAAAG4fiwgAAAAAAAAT7cqxCYAwEAXQPpAd/gQOEES0sbLTBc54kIiXUxPB8R3EvPqNt4rDkAgtJepzoEOF4tF4lc6a+Vl39sVh4VzYGmummAJhYxR+i+J6GF7lvKMwVpYGNdRQQw0/Dx+79DulWQUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+  "bodyHash": "JXpGkzPoD8xmc9eyp6A2uBhz6ZFju4kFC8PqbalDE7Y=",
+  "fingerprint": {
+    "address": "Ana@shalomail.com",
+    "publicKey": "uZ/g9Mc6Bu3umDIeh1OrPhfUg6hLR7Qm89JG/QISkg4=",
+    "value": "89852 88769 28836 66680 50244 75029"
+  },
+  "blind": {
+    "pub": {
+      "n": "7NPIbs5BS_GhSLWOoLyeu5B6BcrYzITOQ-3Ik_MetAGj3nO6H0yINut7jtUxb5ALecRzD6q5H3ffRuKYctUlKHgNob8pZaCx39ItaNGnmDObhd_bx6GWGlZhcfedJ3NBJWPpBGS5EGeaSUdB6VYWkf7ztrWAxy3T7g9zILK4uhz-LeAinBEGUioiiFnQUSCOTk519SOEvIJSUPnFa_e61dOkIFieEIAqaDvqwwE3iaECfZFu92d8GB5-0Ha2HI7UY6671WDnd3ciI4-MX2SZOb4Tn8YV5osjzKSXe3l1fpMFbQdX2anmeeaFRyWTnjAOo1OtuwEujTNhfSXxkce1Xw",
+      "e": "AQAB"
+    },
+    "token": "AAALVOOamYPYc6tigMg0Skmj2U30p76wevdli4tyrLgb98+G",
+    "signature": "uOxrz0q_QCoG-3s9iyRfGQ-rOKaaW7AjK6ca0HNwEpkVEMWDXgjiMBCFz_63V_AjA5gT86uLdTVOy7FYNamRqeG38vayIqJ_lfUWKzix7WkO6aeOxEYAGAsJLllJLu7E_OrCI1bBBl1zhS_DoVpsGOIQiYKiCxavOYzXkTBiE5fBybI68zQK4YdAjWR_2dxFMWXbvt1zlKojd2H_EK8AKTH1BUb8VyRApo73sQwnQGLlodHXd5K7wKqf5iYe1CrjdbkOh12aB2lQ6HBnXeFHDexbZSFRfEwkvX3XgbNnrlLG4TxnhlE9urvF4rkBK4jqNTNxCOsPa3ZqYTAPfiauLQ"
+  },
+  "threads": [
+    {
+      "references": "<a1@shalomail.com> <b2@x.com>",
+      "inReplyTo": "<b2@x.com>",
+      "messageId": "<c3@shalomail.com>",
+      "key": "202sx2itsfo"
+    },
+    {
+      "references": "",
+      "inReplyTo": "<RE-1@Gmail.com>",
+      "messageId": "<z@x>",
+      "key": "1ssal1wizo0"
+    },
+    {
+      "references": "",
+      "inReplyTo": "",
+      "messageId": "<ação-çõ@shalomail.com>",
+      "key": "251kyd7t5wl"
+    },
+    {
+      "references": "sem-colchetes@x.com outra@y",
+      "inReplyTo": "",
+      "messageId": "",
+      "key": "1b8gcj7r6n1"
+    }
+  ]
+}

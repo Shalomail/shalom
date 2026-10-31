@@ -474,6 +474,7 @@ To talk about privacy: privacidade@shalomail.com.
 - Security: your PIN and recovery codes stored in a way that can't be read back, your two-step verification secret locked, and the inactivity time you chose for automatic sign-out.
 - Each message: which account it's for, when it arrived, how much space it takes, which folder it's in and whether it has been read, pinned or starred.
 - Connected devices: when each session started, when it was last used and the type of browser, so you can see them and sign them out.
+- iPhone notifications: if you turn on notifications in the iOS app, the identifier Apple gives the device, tied to that iPhone's session, so we can send the new message notification.
 - IP address: used on the spot to stop abuse, like password guessing and mass sign-ups, and kept only in counters that expire within 1 hour.
 - API keys and agent mailboxes: each key stored in a way that cannot be read back, when it was last used, and which agent mailboxes belong to your account.
 - Paid plan: your customer and subscription identifiers at Stripe, the plan and when it renews. Card details stay with Stripe and never pass through our servers.
@@ -498,6 +499,8 @@ The infrastructure runs on Cloudflare: servers, database, storage, receiving and
 
 If you subscribe to a paid plan, billing is done by Stripe, which receives your Shalom address and payment details to process the subscription, under its own privacy policy.
 
+If you turn on notifications in the iOS app, each one goes through Apple's notification service (APNs). Apple receives the device identifier, the time and the text "New message", with no sender, subject or anything from the message.
+
 Cloudflare's servers are in many countries, so your data may be processed outside Brazil, with the safeguards required by Brazilian data protection law.
 
 We don't sell data, we don't show ads and we don't use your emails to train anything.
@@ -508,6 +511,7 @@ We only hand data to authorities under a valid court order. What we have is what
 
 - Account and messages: as long as the account exists. Trash and Spam empty themselves after 30 days.
 - Sessions: up to 30 days without use, or less if you choose a shorter inactivity sign-out.
+- iPhone notification identifier: for as long as that iPhone's session exists. It is removed when you sign out, disconnect the device or turn notifications off.
 - Counters with IP addresses: up to 1 hour.
 - Plan: while the account exists. Stripe keeps payment records for as long as the law requires.
 - When an account is deleted, its data is removed. Only the address is kept, so no one can register it again and receive what was meant for you. Infrastructure backups may take a few days to expire.

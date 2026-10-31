@@ -11,6 +11,7 @@ import { mail, receiveEmail } from './mail';
 import { open } from './open';
 import { dailyReport } from './report';
 import { avatarOf, profile } from './profile';
+import { push } from './push';
 
 export { Mailbox } from './box';
 
@@ -54,6 +55,7 @@ app.route('/apikeys', apiKeys);
 app.route('/agents', agents);
 app.route('/billing', billing);
 app.route('/cli', cliLogin);
+app.route('/push', push);
 app.route('/', mail);
 
 app.onError((err, c) => {
@@ -61,7 +63,7 @@ app.onError((err, c) => {
   return c.json({ error: 'internal', message: 'Algo deu errado do nosso lado. Tente de novo.' }, 500);
 });
 
-// Limpeza diária: contadores vencidos e sessões expiradas.
+// Limpeza diária: contadores vencidos, sessões expiradas e os avisos de iPhone dessas sessões.
 async function cleanup(env: Env) {
   const t = Date.now();
   await env.DB.batch([
@@ -72,6 +74,7 @@ async function cleanup(env: Env) {
     env.DB.prepare('DELETE FROM email_tokens WHERE created_at <= ?').bind(t - 24 * 3600 * 1000),
     env.DB.prepare('DELETE FROM spent_tokens WHERE week < ?').bind(currentWeek(t) - 1),
     env.DB.prepare('DELETE FROM cli_logins WHERE created_at <= ?').bind(t - 3600 * 1000),
+    env.DB.prepare('DELETE FROM push_tokens WHERE session NOT IN (SELECT token_hash FROM sessions)'),
   ]);
 }
 

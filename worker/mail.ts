@@ -11,6 +11,7 @@ import type { AppEnv, Env } from './env';
 import { b64ToBig, bigToB64, modLen, signBlinded } from '../shared/blind';
 import { signCert } from '../shared/sender';
 import { loadKeys } from './keys';
+import { notifyNewMail } from './push';
 import { bump, fail, isEmail, now, peek, sendCaps, sendsKey, tally } from './util';
 
 const MAX_RAW = 15 * 1024 * 1024;
@@ -53,7 +54,7 @@ async function store(env: Env, userId: string, folder: Folder, raw: Uint8Array, 
 // do security.txt; shalom@ é o contato das contas do serviço (GitHub e afins).
 const TEAM = new Set(['contato', 'contact', 'privacidade', 'privacy', 'dpo', 'abuse', 'postmaster', 'security', 'shalom']);
 
-export async function receiveEmail(message: ForwardableEmailMessage, env: Env) {
+export async function receiveEmail(message: ForwardableEmailMessage, env: Env, ctx?: ExecutionContext) {
   const to = message.to.toLowerCase();
   const [local, domain] = to.split('@');
   if (domain === env.MAIL_DOMAIN && TEAM.has(local.split('+')[0]) && env.FORWARD_TO) {
@@ -84,6 +85,7 @@ export async function receiveEmail(message: ForwardableEmailMessage, env: Env) {
   const sealedRaw = await seal(pub, await pack(stored), 'raw');
   if (!(await store(env, user.id, folder, sealedRaw, head))) return message.setReject('Caixa de entrada cheia');
   await tally(env.DB, folder === 'spam' ? 'received_spam' : 'received');
+  if (folder === 'inbox') ctx?.waitUntil(notifyNewMail(env, user.id).catch(e => console.error('aviso falhou', String(e))));
 }
 
 export const mail = new Hono<AppEnv>();

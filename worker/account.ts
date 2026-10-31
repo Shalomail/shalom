@@ -29,7 +29,7 @@ export async function deleteAccount(env: Env, userId: string): Promise<{ address
   await env.DB.batch([
     ...[user, ...agents].map(u => retire.bind(canonicalOf(u.address), NO_OWNER, t)),
     env.DB.prepare('UPDATE retired SET owner_id = ? WHERE owner_id = ?').bind(NO_OWNER, userId),
-    ...['sessions', 'known_devices', 'email_tokens', 'login_tickets', 'api_keys', 'billing', 'cli_logins'].map(table =>
+    ...['sessions', 'known_devices', 'email_tokens', 'login_tickets', 'api_keys', 'billing', 'cli_logins', 'push_tokens'].map(table =>
       env.DB.prepare(`DELETE FROM ${table} WHERE user_id IN (${marks})`).bind(...ids)),
     env.DB.prepare('DELETE FROM invites WHERE owner_id = ?').bind(userId),
     env.DB.prepare(`DELETE FROM users WHERE id IN (${marks})`).bind(...ids),

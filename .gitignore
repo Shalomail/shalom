@@ -5,3 +5,6 @@ dist
 .tmp
 .DS_Store
 Icon?
+ios/build
+ios/*.xcodeproj/xcuserdata
+ios/*.xcodeproj/project.xcworkspace/xcuserdata

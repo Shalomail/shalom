@@ -194,6 +194,7 @@
                 "Sicherheit: deine PIN und deine Wiederherstellungscodes, so gespeichert, dass sie sich nicht zurücklesen lassen; das Geheimnis der Bestätigung in zwei Schritten, verschlossen; und die Inaktivitätszeit, die du für die automatische Abmeldung gewählt hast.",
                 "Jede Nachricht: für welches Konto sie ist, wann sie ankam, wie viel Platz sie belegt, in welchem Ordner sie liegt und ob sie gelesen, angeheftet oder als Favorit markiert wurde.",
                 "Verbundene Geräte: wann jede Sitzung begann, wann sie zuletzt genutzt wurde und welcher Browsertyp, damit du sie sehen und abmelden kannst.",
+                "Mitteilungen auf dem iPhone: Wenn du Mitteilungen in der iOS-App einschaltest, die Kennung, die Apple dem Gerät gibt, verknüpft mit der Sitzung dieses iPhones, um die Mitteilung über neue Nachrichten zu senden.",
                 "IP-Adresse: wird sofort genutzt, um Missbrauch wie Passwortraten und Massenregistrierungen zu bremsen, und nur in Zählern gespeichert, die nach höchstens 1 Stunde verfallen.",
                 "API-Schlüssel und Agenten-Postfächer: jeder Schlüssel so gespeichert, dass er nicht zurückgelesen werden kann, wann er zuletzt genutzt wurde und welche Agenten-Postfächer zu deinem Konto gehören.",
                 "Bezahlter Tarif: deine Kunden- und Abo-Kennungen bei Stripe, der Tarif und bis wann er gilt. Kartendaten bleiben bei Stripe und laufen nie über unsere Server."
@@ -221,6 +222,7 @@
           "p": [
             "Die Infrastruktur läuft bei Cloudflare: Server, Datenbank, Speicher, Empfang und Versand von E-Mails und die Bot-Prüfung (Turnstile). Cloudflare verarbeitet die Daten in unserem Auftrag; gespeicherte E-Mails kommen dort bereits verschlüsselt an.",
             "Wenn du einen bezahlten Tarif abschließt, übernimmt Stripe die Abrechnung und erhält deine Shalom-Adresse und Zahlungsdaten, um das Abo abzuwickeln, gemäß der eigenen Datenschutzerklärung.",
+            "Wenn du Mitteilungen in der iOS-App einschaltest, läuft jede über den Mitteilungsdienst von Apple (APNs). Apple erhält die Gerätekennung, die Uhrzeit und den Text „Neue Nachricht“, ohne Absender, Betreff oder sonst etwas aus der Nachricht.",
             "Die Server von Cloudflare stehen in vielen Ländern, daher können deine Daten außerhalb Brasiliens verarbeitet werden, mit den Garantien, die die LGPD vorsieht.",
             "Wir verkaufen keine Daten, zeigen keine Werbung und nutzen deine E-Mails nicht, um irgendetwas zu trainieren.",
             "Wir geben Daten nur auf gültige gerichtliche Anordnung an Behörden heraus. Was wir haben, steht in Abschnitt 3: Der Inhalt gespeicherter E-Mails bleibt verschlüsselt, und wir haben den Schlüssel nicht."
@@ -233,6 +235,7 @@
               "ul": [
                 "Konto und Nachrichten: solange das Konto besteht. Papierkorb und Spam leeren sich nach 30 Tagen von selbst.",
                 "Sitzungen: bis zu 30 Tage ohne Nutzung, oder kürzer, wenn du eine kürzere automatische Abmeldung wählst.",
+                "Mitteilungskennung des iPhones: solange die Sitzung dieses iPhones besteht. Sie wird gelöscht, wenn du dich abmeldest, das Gerät trennst oder Mitteilungen ausschaltest.",
                 "Zähler mit IP-Adressen: bis zu 1 Stunde.",
                 "Tarif: solange das Konto besteht. Stripe bewahrt Zahlungsdaten so lange auf, wie das Gesetz es verlangt.",
                 "Wird ein Konto gelöscht, werden seine Daten entfernt. Nur die Adresse bleibt gespeichert, damit niemand sie neu registriert und erhält, was für dich bestimmt war. Sicherungskopien der Infrastruktur können einige Tage brauchen, bis sie ablaufen."

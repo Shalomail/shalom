@@ -39,6 +39,11 @@ export interface Env {
   // "on" durante a janela da migração (docs/migracao.md): a API responde 503, menos a administração. Os
   // e-mails continuam chegando, porque o recebimento não passa pela API.
   MAINTENANCE?: string;
+  // Aviso de mensagem nova no iPhone (worker/push.ts): a chave de APNs do time (.p8), o id dela e o time.
+  APNS_KEY?: string;
+  APNS_KEY_ID?: string;
+  APNS_TEAM?: string;
+  APNS_TEST_HOST?: string;
   // Chave das rotas de administração (/api/admin: suspender, apagar, migrar). Sem ela, as rotas não existem.
   ADMIN_KEY?: string;
   // Plano das caixas de agente (Stripe da X Tech). Sem a chave, a cobrança fica desligada e vale só o

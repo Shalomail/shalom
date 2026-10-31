@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["2UNWMDD93S.com.shalomail.app"],
+        "components": [
+          { "/": "/nova-senha*", "comment": "Senha nova pelo link do e-mail de recuperação" },
+          { "/": "/confirmar*", "comment": "Confirmar o e-mail de recuperação" },
+          { "/": "/conectar*", "comment": "Conectar o terminal (shalom login)" }
+        ]
+      }
+    ]
+  }
+}

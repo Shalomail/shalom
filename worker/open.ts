@@ -9,6 +9,7 @@ import { isSealedSender } from '../shared/sender';
 import { boxOf } from './box';
 import type { AppEnv } from './env';
 import { loadKeys } from './keys';
+import { notifyNewMail } from './push';
 import { bump, clientIp, fail, normalizeAddress, peek, tally } from './util';
 
 // Entrega anônima não tem como provar quem mandou: o tamanho e o volume diário por caixa são o freio
@@ -70,5 +71,6 @@ open.post('/deliver', async c => {
     return fail(c, 413, 'full', `A caixa de ${to} está cheia.`);
   }
   await tally(c.env.DB, 'delivered');
+  c.executionCtx.waitUntil(notifyNewMail(c.env, user.id).catch(e => console.error('aviso falhou', String(e))));
   return c.json({ ok: true });
 });

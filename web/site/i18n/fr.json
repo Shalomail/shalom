@@ -194,6 +194,7 @@
                 "Sécurité : votre code PIN et vos codes de récupération, conservés sous une forme qui ne permet pas de les relire ; le secret de la validation en deux étapes, verrouillé ; et le délai d’inactivité que vous avez choisi pour la déconnexion automatique.",
                 "Chaque message : le compte auquel il est destiné, quand il est arrivé, l’espace qu’il occupe, le dossier où il se trouve et s’il a été lu, épinglé ou mis en favori.",
                 "Appareils connectés : quand chaque session a commencé, quand elle a été utilisée pour la dernière fois et le type de navigateur, pour que vous puissiez les voir et les déconnecter.",
+                "Notifications sur iPhone : si vous activez les notifications dans l’app iOS, l’identifiant qu’Apple attribue à l’appareil, lié à la session de cet iPhone, pour envoyer la notification de nouveau message.",
                 "Adresse IP : utilisée sur le moment pour freiner les abus, comme les tentatives de mot de passe et les inscriptions en masse, et conservée uniquement dans des compteurs qui disparaissent en 1 heure au plus.",
                 "Clés API et boîtes d'agent : chaque clé conservée d'une façon qui ne permet pas de la relire, sa dernière utilisation, et les boîtes d'agent rattachées à votre compte.",
                 "Offre payante : vos identifiants de client et d'abonnement chez Stripe, l'offre et sa date de renouvellement. Les données de carte restent chez Stripe et ne passent jamais par nos serveurs."
@@ -221,6 +222,7 @@
           "p": [
             "L’infrastructure fonctionne sur Cloudflare : serveurs, base de données, stockage, réception et envoi des e-mails, et la vérification anti-robot (Turnstile). Cloudflare traite les données pour notre compte ; les e-mails stockés lui parviennent déjà chiffrés.",
             "Si vous souscrivez une offre payante, la facturation est assurée par Stripe, qui reçoit votre adresse Shalom et vos données de paiement pour traiter l'abonnement, selon sa propre politique de confidentialité.",
+            "Si vous activez les notifications dans l’app iOS, chacune passe par le service de notifications d’Apple (APNs). Apple reçoit l’identifiant de l’appareil, l’heure et le texte « Nouveau message », sans expéditeur, objet ni rien du message.",
             "Les serveurs de Cloudflare se trouvent dans de nombreux pays, vos données peuvent donc être traitées hors du Brésil, avec les garanties prévues par la LGPD.",
             "Nous ne vendons pas de données, nous n’affichons pas de publicité et nous n’utilisons pas vos e-mails pour entraîner quoi que ce soit.",
             "Nous ne remettons des données aux autorités que sur décision de justice valide. Ce dont nous disposons est listé à la section 3 : le contenu des e-mails stockés reste chiffré et nous n’avons pas la clé."
@@ -233,6 +235,7 @@
               "ul": [
                 "Compte et messages : tant que le compte existe. La Corbeille et le dossier Spam se vident automatiquement après 30 jours.",
                 "Sessions : jusqu’à 30 jours sans utilisation, ou moins si vous choisissez une déconnexion pour inactivité plus courte.",
+                "Identifiant de notification de l’iPhone : tant que la session de cet iPhone existe. Il est supprimé quand vous vous déconnectez, déconnectez l’appareil ou désactivez les notifications.",
                 "Compteurs contenant des adresses IP : jusqu’à 1 heure.",
                 "Offre : tant que le compte existe. Stripe conserve les données de paiement pendant la durée exigée par la loi.",
                 "Lorsqu’un compte est supprimé, ses données sont effacées. Seule l’adresse est conservée, pour que personne ne puisse la réenregistrer et recevoir ce qui vous était destiné. Les sauvegardes de l’infrastructure peuvent mettre quelques jours à expirer."
