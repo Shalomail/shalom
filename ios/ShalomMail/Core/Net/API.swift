@@ -48,6 +48,13 @@ final class API {
     }
 
     private func send(_ req: URLRequest) async throws -> (Data, HTTPURLResponse) {
+        #if DEBUG
+        // Só nos testes: rede lenta de mentira (`-shalom-net-delay 0.8`), para pegar o que aparece na tela
+        // enquanto a resposta não chega. Contra o Worker local a resposta chega rápido demais para isso.
+        if let delay = Double(UserDefaults.standard.string(forKey: "shalom-net-delay") ?? ""), delay > 0 {
+            try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+        }
+        #endif
         let data: Data, res: URLResponse
         do { (data, res) = try await session.data(for: req) } catch {
             throw APIError(status: 0, code: "offline", message: t("err.offline"))

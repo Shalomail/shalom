@@ -221,6 +221,9 @@ final class FlowTests: XCTestCase {
             app.buttons["Abrir menu"].tap()
             let trash = app.buttons["Lixeira"]
             XCTAssertTrue(trash.waitForExistence(timeout: 5), "menu das pastas, em cima")
+            for f in ["Entrada", "Favoritos", "Enviados", "Spam"] {
+                XCTAssertEqual(app.buttons.matching(identifier: f).count, 1, "\(f) só na barra de baixo, não no menu")
+            }
             sleep(1)
             shot(app, "16b-menu-\(theme)")
             trash.tap()
@@ -264,6 +267,92 @@ final class FlowTests: XCTestCase {
         let ctx = CGContext(data: &px, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
         ctx?.draw(img, in: CGRect(x: -x, y: y - img.height + 1, width: img.width, height: img.height))
         return (CGFloat(px[0]) + CGFloat(px[1]) + CGFloat(px[2])) / 765
+    }
+
+    // Trocar de pasta mostra a lista guardada na hora: nem o "vazio" da pasta nova, nem o carregando (era o
+    // tropeço que o web já tinha tido). Com a rede lenta de mentira, sem a lista guardada o carregando fica
+    // na tela tempo bastante para o teste ver.
+    func testFolderSwitchHasNoStaleFrame() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-api", "http://127.0.0.1:8790", "-shalom-app-lang", "pt", "-shalom-accounts", "", "-AppleLanguages", "(pt-BR)", "-shalom-theme", "dark", "-shalom-net-delay", "0.8"]
+        app.launch()
+        try signIn(app, "marina")
+        sleep(12) // as outras pastas carregam por trás, uma por vez
+        for (folder, empty) in [("Spam", "Nenhum spam por aqui."), ("Enviados", "Você ainda não enviou nada."), ("Spam", "Nenhum spam por aqui."), ("Entrada", "Tudo em dia.")] {
+            app.buttons[folder].tap()
+            XCTAssertFalse(app.activityIndicators.firstMatch.exists, "\(folder): sem carregando na troca")
+            XCTAssertFalse(app.staticTexts[empty].exists, "\(folder): sem o vazio na troca")
+            XCTAssertTrue(app.collectionViews.cells.firstMatch.exists, "\(folder): a lista já está lá")
+        }
+    }
+
+    // Espaço e Senha abrem como página dentro das Configurações (antes eram folhas por cima, e fechar
+    // arrastando reorganizava os textos de baixo). O Espaço volta pelo gesto da borda; a Senha, só pelo
+    // Cancelar.
+    func testSettingsPages() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-api", "http://127.0.0.1:8790", "-shalom-app-lang", "pt", "-shalom-accounts", "", "-AppleLanguages", "(pt-BR)", "-shalom-theme", "dark"]
+        app.launch()
+        try signIn(app, "marina")
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Conta:")).firstMatch.tap()
+        app.buttons["Configurações"].tap()
+        XCTAssertTrue(app.navigationBars["Configurações"].waitForExistence(timeout: 10))
+
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Senha")).firstMatch.tap()
+        XCTAssertTrue(app.navigationBars.buttons["Cancelar"].waitForExistence(timeout: 10), "Senha abre com Cancelar")
+        XCTAssertFalse(app.navigationBars.buttons["Configurações"].exists, "sem a seta de voltar junto do Cancelar")
+        app.navigationBars.buttons["Cancelar"].tap()
+        XCTAssertTrue(app.navigationBars["Configurações"].waitForExistence(timeout: 10))
+
+        let space = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", " / ")).firstMatch
+        for _ in 0 ..< 4 where !space.isHittable { app.swipeUp(); sleep(1) }
+        sleep(1)
+        space.tap()
+        XCTAssertTrue(app.navigationBars["Espaço"].waitForExistence(timeout: 10))
+        sleep(2)
+        let edge = app.coordinate(withNormalizedOffset: CGVector(dx: 0.01, dy: 0.5))
+        edge.press(forDuration: 0.2, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)), withVelocity: 250, thenHoldForDuration: 0.3)
+        sleep(2)
+        XCTAssertTrue(app.navigationBars["Configurações"].exists, "de volta às Configurações")
+        XCTAssertFalse(app.navigationBars["Espaço"].exists, "o Espaço fechou")
+    }
+
+    // Segurar em cima de uma conversa abre as ações da página dela (aqui, fixar e desafixar). Depois abre um
+    // e-mail e fotografa o corpo no escuro e no claro (no escuro ele não pode ficar num cartão branco).
+    func testThreadMenu() throws {
+        for theme in ["dark", "light"] {
+            let app = XCUIApplication()
+            app.launchArguments = ["-api", "http://127.0.0.1:8790", "-shalom-app-lang", "pt", "-shalom-accounts", "", "-AppleLanguages", "(pt-BR)", "-shalom-theme", theme]
+            app.launch()
+            try signIn(app, "marina")
+            let cell = app.collectionViews.cells.firstMatch
+            XCTAssertTrue(cell.waitForExistence(timeout: 10))
+            if theme == "dark" {
+                cell.press(forDuration: 1.0)
+                XCTAssertTrue(app.buttons["Marcar como spam"].waitForExistence(timeout: 5), "menu com as ações da conversa")
+                sleep(1)
+                shot(app, "20-menu-segurar")
+                app.buttons["Fixar"].tap()
+                XCTAssertTrue(app.staticTexts["Conversa fixada no topo."].waitForExistence(timeout: 5), "fixou pelo menu")
+                sleep(1)
+                app.collectionViews.cells.firstMatch.press(forDuration: 1.0)
+                XCTAssertTrue(app.buttons["Desafixar"].waitForExistence(timeout: 5))
+                app.buttons["Desafixar"].tap()
+                XCTAssertTrue(app.staticTexts["Conversa desafixada."].waitForExistence(timeout: 5), "desafixou pelo menu")
+                sleep(1)
+                // Arrasto até a metade: mostra Apagar (vermelho) e Arquivar, sem apagar.
+                let row = app.collectionViews.cells.element(boundBy: 1)
+                row.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).press(forDuration: 0.1, thenDragTo: row.coordinate(withNormalizedOffset: CGVector(dx: 0.45, dy: 0.5)))
+                XCTAssertTrue(app.buttons["Apagar"].waitForExistence(timeout: 5))
+                shot(app, "20b-arrastar")
+                app.navigationBars.firstMatch.tap()
+                sleep(1)
+            }
+            app.collectionViews.cells.firstMatch.tap()
+            sleep(4)
+            shot(app, "21-corpo-\(theme)")
+            app.terminate()
+        }
     }
 
     func testSettings() throws {

@@ -322,6 +322,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* margin-top: a logo fica na altura do título da lista ao lado. */
 .side-top { display: flex; align-items: center; justify-content: space-between; height: 40px; margin-top: 6px; padding-inline-start: 6px; }
 .compose-btn { width: 100%; justify-content: flex-start; padding: 0 14px; }
+/* Escrever em azul, o mesmo do círculo da Entrada no app do iPhone. */
+.side .compose-btn { background: #0a84ff; color: #fff; box-shadow: none; }
+.side .compose-btn:hover { background: #0077ed; }
+.side .compose-btn:active { background: #006edb; }
+[data-theme='light'] .side .compose-btn { background: #007aff; }
+[data-theme='light'] .side .compose-btn:hover { background: #0069d9; }
 .nav { display: grid; gap: 2px; }
 .nav a {
   display: flex; align-items: center; gap: 12px; height: 38px; padding: 0 12px; border-radius: 12px;
@@ -1011,8 +1017,8 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 @media (prefers-reduced-motion: reduce) { [data-skin='spectrum'] .side::before { animation: none; } }
 [data-skin='spectrum'] .side .logo .mark, [data-skin='spectrum'] .side .logo, [data-skin='spectrum'] .side .logo-mail { color: #fff; }
 [data-skin='spectrum'] .side .logo-mail { opacity: 0.85; }
-[data-skin='spectrum'] .compose-btn { background: #fff; color: #0a0a0a; text-shadow: none; box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.45); }
-[data-skin='spectrum'] .compose-btn:hover { background: #f5f5f7; }
+[data-skin='spectrum'] .side .compose-btn { background: #0a84ff; color: #fff; text-shadow: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 8px 20px -10px rgba(0, 0, 0, 0.45); }
+[data-skin='spectrum'] .side .compose-btn:hover { background: #0077ed; }
 [data-skin='spectrum'] .nav a { color: rgba(255, 255, 255, 0.9); }
 [data-skin='spectrum'] .nav a:hover { background: rgba(255, 255, 255, 0.16); color: #fff; }
 [data-skin='spectrum'] .nav a[aria-current='page'] { background: rgba(255, 255, 255, 0.22); color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 4px 14px -8px rgba(0, 0, 0, 0.4); }

@@ -19,24 +19,26 @@ struct SettingsView: View {
     @State private var nameSaved = false
     @State private var photo: PhotosPickerItem?
     @State private var avatarV = Date().timeIntervalSince1970
-    @State private var sheet: Sheet?
+    // Painéis abertos como página dentro das Configurações, não como folha por cima: fechar uma folha
+    // arrastando alargava a de baixo e os textos dela se reorganizavam na frente da pessoa.
+    @State private var path: [Page] = []
     @State private var note: String?
     @State private var error: String?
     @AppStorage("shalom-theme") private var theme = AppTheme.dark.rawValue
     @ObservedObject private var push = Push.shared
 
-    enum Sheet: Identifiable { case password, recovery, pin, totp, delete, storage, agents, invites; var id: Self { self } }
+    enum Page: Hashable { case password, recovery, pin, totp, delete, storage, agents, invites }
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             Form {
                 if let note { Section { Label(note, systemImage: "checkmark.circle.fill").foregroundStyle(Palette.safe).font(.system(size: 14)) } }
                 if let error { Section { Note(text: error, tone: .warn).frame(maxWidth: .infinity, alignment: .leading) } }
                 profile
                 securitySection
                 Section(t("settings.agents.title")) {
-                    Button { sheet = .agents } label: { row(t("settings.agents.openLabel"), t("settings.agents.openDesc")) }
-                    if inviteOnly { Button { sheet = .invites } label: { row(t("settings.inv.title"), t("settings.inv.desc")) } }
+                    NavigationLink(value: Page.agents) { row(t("settings.agents.openLabel"), t("settings.agents.openDesc")) }
+                    if inviteOnly { NavigationLink(value: Page.invites) { row(t("settings.inv.title"), t("settings.inv.desc")) } }
                 }
                 Section(header: Text(t("settings.looks")), footer: Text(t("settings.looksDesc"))) {
                     Picker(t("settings.appTheme"), selection: $theme) {
@@ -62,10 +64,10 @@ struct SettingsView: View {
                     }
                 }
                 Section(header: Text(t("settings.space")), footer: Text(t("settings.spaceDesc"))) {
-                    Button { sheet = .storage } label: { StorageBarView(summary: summary) }
+                    NavigationLink(value: Page.storage) { StorageBarView(summary: summary) }
                 }
                 Section {
-                    Button(role: .destructive) { sheet = .delete } label: { Text(t("settings.del.open")) }
+                    NavigationLink(value: Page.delete) { Text(t("settings.del.open")).foregroundStyle(.red) }
                 } header: { Text(t("settings.del.title")) } footer: { Text(t("settings.del.rowDesc")) }
             }
             .scrollContentBackground(.hidden)
@@ -74,20 +76,18 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button(t("common.close")) { dismiss() } } }
             .task { await load() }
-            .sheet(item: $sheet) { s in
-                NavigationStack {
-                    switch s {
-                    case .password: PasswordPanel(session: session) { done(t("settings.passwordChanged")) }
-                    case .recovery: RecoveryPanel(session: session, current: recovery) { hint, sent in recovery = RecoveryState(hint: hint, verified: false); done(t(sent ? "settings.recoverySent" : "settings.recoveryNotSent", ["email": hint ?? ""])) }
-                    case .pin: PinPanel(session: session, on: security?.pin ?? false) { on in security?.pin = on; done(t(on ? "settings.pinCreated" : "settings.pinRemoved")) }
-                    case .totp: TotpPanel(session: session, on: security?.totp ?? false) { text in done(text) }
-                    case .delete: DeletePanel(session: session)
-                    case .storage: StorageView(session: session)
-                    case .agents: AgentsView()
-                    case .invites: InvitesView()
-                    }
+            // Os painéis com Cancelar saem só por ele (ou pelo botão de concluir), sem a seta de voltar junto.
+            .navigationDestination(for: Page.self) { p in
+                switch p {
+                case .password: PasswordPanel(session: session) { done(t("settings.passwordChanged")) }.navigationBarBackButtonHidden(true)
+                case .recovery: RecoveryPanel(session: session, current: recovery) { hint, sent in recovery = RecoveryState(hint: hint, verified: false); done(t(sent ? "settings.recoverySent" : "settings.recoveryNotSent", ["email": hint ?? ""])) }.navigationBarBackButtonHidden(true)
+                case .pin: PinPanel(session: session, on: security?.pin ?? false) { on in security?.pin = on; done(t(on ? "settings.pinCreated" : "settings.pinRemoved")) }.navigationBarBackButtonHidden(true)
+                case .totp: TotpPanel(session: session, on: security?.totp ?? false) { text in done(text) }.navigationBarBackButtonHidden(true)
+                case .delete: DeletePanel(session: session).navigationBarBackButtonHidden(true)
+                case .storage: StorageView(session: session)
+                case .agents: AgentsView()
+                case .invites: InvitesView()
                 }
-                .environmentObject(app)
             }
         }
         // A folha já aberta não segue o tema do app sozinha: sem isto ela só mudava ao fechar e abrir de novo.
@@ -95,7 +95,7 @@ struct SettingsView: View {
     }
 
     private func done(_ text: String) {
-        sheet = nil
+        path.removeAll()
         note = text
         Task { await load() }
     }
@@ -138,8 +138,8 @@ struct SettingsView: View {
 
     private var securitySection: some View {
         Section(header: Text(t("settings.security")), footer: Text(t("settings.securityDesc"))) {
-            Button { sheet = .password } label: { row(t("settings.password"), t("settings.passwordDesc")) }
-            Button { sheet = .recovery } label: {
+            NavigationLink(value: Page.password) { row(t("settings.password"), t("settings.passwordDesc")) }
+            NavigationLink(value: Page.recovery) {
                 VStack(alignment: .leading, spacing: 2) {
                     HStack { Text(t("settings.recovery")).foregroundStyle(Palette.text); if recovery?.verified == true { badge(t("settings.confirmedBadge")) } }
                     if let hint = recovery?.hint {
@@ -151,13 +151,13 @@ struct SettingsView: View {
             if recovery?.hint != nil && recovery?.verified == false {
                 Button(t("settings.resend")) { Task { note = (try? await AccountAPI.resendRecovery()) == true ? t("settings.resent", ["email": recovery?.hint ?? ""]) : nil; if note == nil { error = t("settings.resendFail") } } }
             }
-            Button { sheet = .pin } label: {
+            NavigationLink(value: Page.pin) {
                 VStack(alignment: .leading, spacing: 2) {
                     HStack { Text(t("settings.pin")).foregroundStyle(Palette.text); if security?.pin == true { badge(t("settings.pinOn")) } }
                     Text(t("settings.pinDesc")).font(.system(size: 13)).foregroundStyle(Palette.text3)
                 }
             }
-            Button { sheet = .totp } label: {
+            NavigationLink(value: Page.totp) {
                 VStack(alignment: .leading, spacing: 2) {
                     HStack { Text(t("settings.totp")).foregroundStyle(Palette.text); if security?.totp == true { badge(t("settings.totpOn")) } }
                     Text(security?.totp == true ? (security!.recoveryLeft == 0 ? t("settings.codesNone") : tn("settings.codesLeft", security!.recoveryLeft)) : t("settings.totpDesc"))

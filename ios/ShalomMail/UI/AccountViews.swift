@@ -5,7 +5,6 @@ import SwiftUI
 import WebKit
 
 struct StorageView: View {
-    @Environment(\.dismiss) private var dismiss
     let session: Session
     @State private var summary: StorageSummary?
     @State private var rows: [(row: StoredRow, subject: String, who: String)] = []
@@ -39,13 +38,13 @@ struct StorageView: View {
                                 do { try await Mailbox.shared.deleteForever([r.row.id]); rows.removeAll { $0.row.id == r.row.id }; await load() } catch { self.error = error.localizedDescription }
                             }
                         } label: { Label(t("mailbox.deleteForever"), systemImage: "trash.slash") }
+                        .tint(.red)
                     }
                 }
             }
             if let error { Note(text: error, tone: .warn) }
         }
         .navigationTitle(t("settings.space")).navigationBarTitleDisplayMode(.inline)
-        .toolbar { ToolbarItem(placement: .confirmationAction) { Button(t("common.close")) { dismiss() } } }
         .task { await load() }
     }
 
@@ -67,7 +66,6 @@ struct StorageView: View {
 }
 
 struct AgentsView: View {
-    @Environment(\.dismiss) private var dismiss
     @State private var boxes: [AgentBox] = []
     @State private var keys: [ApiKey] = []
     @State private var fresh: String?
@@ -83,7 +81,7 @@ struct AgentsView: View {
                         Text(b.paused ? t("settings.agents.pausedDesc") : b.name).font(.system(size: 12)).foregroundStyle(b.paused ? Palette.warn : Palette.text3)
                     }
                     .swipeActions {
-                        Button(role: .destructive) { Task { do { try await AccountAPI.deleteAgent(b.id); boxes.removeAll { $0.id == b.id } } catch { self.error = t("settings.agents.deleteFail") } } } label: { Label(t("settings.agents.delete"), systemImage: "trash") }
+                        Button(role: .destructive) { Task { do { try await AccountAPI.deleteAgent(b.id); boxes.removeAll { $0.id == b.id } } catch { self.error = t("settings.agents.deleteFail") } } } label: { Label(t("settings.agents.delete"), systemImage: "trash") }.tint(.red)
                     }
                 }
             }
@@ -112,7 +110,6 @@ struct AgentsView: View {
             if let error { Note(text: error, tone: .warn) }
         }
         .navigationTitle(t("settings.agents.title")).navigationBarTitleDisplayMode(.inline)
-        .toolbar { ToolbarItem(placement: .confirmationAction) { Button(t("common.close")) { dismiss() } } }
         .task {
             boxes = (try? await AccountAPI.agents()) ?? []
             keys = (try? await AccountAPI.apiKeys()) ?? []
@@ -121,7 +118,6 @@ struct AgentsView: View {
 }
 
 struct InvitesView: View {
-    @Environment(\.dismiss) private var dismiss
     @State private var invites: [Invite] = []
     @State private var fresh: String?
     @State private var error: String?
@@ -146,13 +142,12 @@ struct InvitesView: View {
                         Spacer()
                         Text(t("settings.inv.createdOn", ["date": fullTime(Date(timeIntervalSince1970: i.createdAt / 1000))])).font(.system(size: 12)).foregroundStyle(Palette.text3)
                     }
-                    .swipeActions { if i.usedAt == nil { Button(role: .destructive) { Task { try? await AccountAPI.revokeInvite(i.id); invites.removeAll { $0.id == i.id } } } label: { Text(t("settings.inv.revoke")) } } }
+                    .swipeActions { if i.usedAt == nil { Button(role: .destructive) { Task { try? await AccountAPI.revokeInvite(i.id); invites.removeAll { $0.id == i.id } } } label: { Text(t("settings.inv.revoke")) }.tint(.red) } }
                 }
             }
             if let error { Note(text: error, tone: .warn) }
         }
         .navigationTitle(t("settings.inv.title")).navigationBarTitleDisplayMode(.inline)
-        .toolbar { ToolbarItem(placement: .confirmationAction) { Button(t("common.close")) { dismiss() } } }
         .task { invites = (try? await AccountAPI.invites()) ?? [] }
     }
 }

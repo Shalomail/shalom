@@ -10,8 +10,9 @@ enum BodyHTML {
             || html.range(of: "url\\(['\"]?https?:", options: [.regularExpression, .caseInsensitive]) != nil
     }
 
-    // Imagens do próprio e-mail (cid:) viram data: para abrir sem rede.
-    static func document(_ email: ParsedEmail, allowRemote: Bool) -> String {
+    // Imagens do próprio e-mail (cid:) viram data: para abrir sem rede. Fundo transparente, como no web; no
+    // escuro o e-mail inteiro é invertido (e as imagens desinvertidas), em vez de um cartão branco.
+    static func document(_ email: ParsedEmail, allowRemote: Bool, dark: Bool) -> String {
         var html = email.html ?? ""
         for a in email.attachments where a.contentId != nil && a.mimeType.hasPrefix("image/") {
             html = html.replacingOccurrences(of: "cid:\(a.contentId!)", with: "data:\(a.mimeType);base64,\(a.data.base64EncodedString())")
@@ -23,10 +24,14 @@ enum BodyHTML {
         <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src \(img); style-src 'unsafe-inline'; font-src data:;">
         <style>
           html { -webkit-text-size-adjust: 100%; }
-          body { margin: 0; padding: 16px; font: 15px/1.5 -apple-system, system-ui, sans-serif; color: #111; background: #fff; overflow-wrap: anywhere; }
+          html, body { background: transparent; }
+          body { margin: 0; padding: 2px 0 8px; font: 15px/1.5 -apple-system, system-ui, sans-serif; color: #1d1e21; overflow-wrap: anywhere; }
+          a { color: inherit; }
           img { max-width: 100%; height: auto; }
           table { max-width: 100% !important; }
           pre { white-space: pre-wrap; }
+          blockquote { margin: 0 0 0 .8ex; border-left: 2px solid #5b5b60; padding-left: 1ex; color: #5b5b60; }
+          \(dark ? "html { filter: invert(1) hue-rotate(180deg); } img, video, picture, svg, canvas, [style*=\"background-image\"], [background] { filter: invert(1) hue-rotate(180deg); }" : "")
         </style></head><body>\(html)</body></html>
         """
     }
@@ -52,18 +57,21 @@ struct HTMLBody: UIViewRepresentable {
         web.navigationDelegate = context.coordinator
         web.scrollView.isScrollEnabled = false
         web.isOpaque = false
-        web.backgroundColor = .white
+        web.backgroundColor = .clear
+        web.scrollView.backgroundColor = .clear
         context.coordinator.observe(web)
         load(web, context: context)
         return web
     }
 
+    // Recarrega quando muda o tema (o documento muda) ou quando a pessoa libera as imagens.
     func updateUIView(_ web: WKWebView, context: Context) {
-        if context.coordinator.loadedRemote != allowRemote { load(web, context: context) }
+        if context.coordinator.loadedRemote != allowRemote || context.coordinator.loadedHTML != html { load(web, context: context) }
     }
 
     private func load(_ web: WKWebView, context: Context) {
         context.coordinator.loadedRemote = allowRemote
+        context.coordinator.loadedHTML = html
         let content = web.configuration.userContentController
         content.removeAllContentRuleLists()
         let go = { _ = web.loadHTMLString(html, baseURL: nil) }
@@ -78,6 +86,7 @@ struct HTMLBody: UIViewRepresentable {
     final class Coordinator: NSObject, WKNavigationDelegate {
         let parent: HTMLBody
         var loadedRemote: Bool?
+        var loadedHTML: String?
         private var sizeWatch: NSKeyValueObservation?
         init(_ parent: HTMLBody) { self.parent = parent }
 

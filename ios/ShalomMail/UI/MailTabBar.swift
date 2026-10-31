@@ -11,8 +11,9 @@ struct MailTabBar: View {
     private static let circle: CGFloat = 62
     // Quanto o círculo passa da borda de cima da barra.
     private static let lift: CGFloat = 20
-    // O círculo fora da Entrada: chapado, um tom acima da barra.
+    // O círculo fora da Entrada: chapado, um tom acima da barra. Na Entrada, azul do sistema.
     private static let idle = Color(light: 0xe8e8eb, dark: 0x2c2c30)
+    private static let blue = Color(light: 0x007aff, dark: 0x0a84ff)
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -45,12 +46,12 @@ struct MailTabBar: View {
             Image(systemName: "tray")
                 .symbolVariant(on ? .fill : .none)
                 .font(.system(size: 22, weight: .semibold))
-                .foregroundStyle(on ? Palette.accentOn : Palette.text)
+                .foregroundStyle(on ? .white : Palette.text)
                 .frame(width: Self.circle, height: Self.circle)
                 .contentShape(Circle())
         }
         .buttonStyle(.plain)
-        .background(on ? Palette.accent : Self.idle, in: Circle())
+        .background(on ? Self.blue : Self.idle, in: Circle())
         .shadow(color: .black.opacity(0.14), radius: 8, y: 3)
         .overlay(alignment: .topTrailing) {
             if unread > 0 {

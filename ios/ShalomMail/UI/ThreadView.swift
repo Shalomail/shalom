@@ -77,6 +77,7 @@ enum Reply {
 }
 
 struct MessageCard: View {
+    @Environment(\.colorScheme) private var scheme
     let item: Item
     let session: Session
     let expanded: Bool
@@ -157,9 +158,8 @@ struct MessageCard: View {
                         Button(t("ios.showImages")) { showImages = true }.font(.system(size: 13, weight: .semibold))
                     }
                 }
-                HTMLBody(html: BodyHTML.document(email, allowRemote: showImages), allowRemote: showImages, linksOn: !isSpam, height: $height)
+                HTMLBody(html: BodyHTML.document(email, allowRemote: showImages, dark: scheme == .dark), allowRemote: showImages, linksOn: !isSpam, height: $height)
                     .frame(height: max(height, 40))
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             } else {
                 PlainBody(text: email.text ?? "", linksOn: !isSpam)
             }

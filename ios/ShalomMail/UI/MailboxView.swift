@@ -15,6 +15,12 @@ final class MailboxModel: ObservableObject {
     private var items: [Item] = []
     private var extra: [Item] = []
     private var loadingMore = false
+    // A última lista de cada pasta nesta sessão, como no web: trocar de pasta mostra a guardada na hora e
+    // atualiza por trás. Sem isso o primeiro quadro da pasta nova saía com o "vazio" dela, depois o
+    // carregando, e só então a lista.
+    private var cache: [Folder: (items: [Item], more: Bool)] = [:]
+    private var prefetchRun = 0
+    private var prefetched = false
 
     init(session: Session) { self.session = session }
 
@@ -31,8 +37,11 @@ final class MailboxModel: ObservableObject {
             guard asked == folder else { return }
             items = m.items; more = m.more; counts = m.counts
             extra = asked == .drafts ? [] : o?.items ?? []
+            cache[asked] = (items, more)
+            if let o { cache[extraFolder] = (o.items, o.more) }
             rebuild()
             error = nil
+            if !prefetched { prefetched = true; prefetchOthers() }
         } catch {
             if !quiet && asked == folder { self.error = (error as? APIError)?.message ?? t("mailbox.loadFail") }
         }
@@ -54,12 +63,35 @@ final class MailboxModel: ObservableObject {
 
     func open(_ f: Folder) {
         guard f != folder else { return }
+        let saved = cache[f]
         folder = f
-        items = []; threads = []; more = false
-        Task { await refresh() }
+        items = saved?.items ?? []
+        extra = f == .drafts ? [] : cache[extraFolder]?.items ?? []
+        more = saved?.more ?? false
+        loading = saved == nil
+        error = nil
+        rebuild()
+        Task { await refresh(quiet: saved != nil) }
     }
 
-    private func rebuild() { threads = Mailbox.threads(items, extra: extra) }
+    // As outras pastas são carregadas por trás depois da primeira lista e de cada novidade da caixa ao vivo.
+    func prefetchOthers() {
+        prefetchRun += 1
+        let run = prefetchRun
+        Task {
+            for f in [Folder.sent, .spam, .starred, .inbox, .drafts, .archive, .trash] {
+                guard run == prefetchRun else { return }
+                guard f != folder, let r = try? await Mailbox.shared.list(f, session: session), run == prefetchRun, f != folder else { continue }
+                cache[f] = (r.items, r.more)
+            }
+        }
+    }
+
+    // O que muda aqui (mover, marcar, mais páginas) também fica guardado para a volta a esta pasta.
+    private func rebuild() {
+        threads = Mailbox.threads(items, extra: extra)
+        if !loading { cache[folder] = (items, more) }
+    }
 
     @Published var query = ""
 
@@ -202,7 +234,7 @@ struct MailboxView: View {
         }
         .animation(.easeOut(duration: 0.2), value: model.toast)
         .onReceive(NotificationCenter.default.publisher(for: .mailboxChanged)) { _ in
-            Task { await model.refresh(quiet: true) }
+            Task { await model.refresh(quiet: true); model.prefetchOthers() }
         }
     }
 
@@ -246,15 +278,17 @@ struct MailboxView: View {
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             if model.folder == .trash {
-                                Button(role: .destructive) { model.deleteForever(thread) } label: { Label(t("mailbox.deleteForever"), systemImage: "trash.slash") }
+                                // Vermelho explícito: o tom geral do app (branco ou preto) também pintava o apagar.
+                                Button(role: .destructive) { model.deleteForever(thread) } label: { Label(t("mailbox.deleteForever"), systemImage: "trash.slash") }.tint(.red)
                             } else {
-                                Button(role: .destructive) { model.move(thread, to: "trash", text: t("mailbox.moved.trash")) } label: { Label(t("mailbox.delete"), systemImage: "trash") }
+                                Button(role: .destructive) { model.move(thread, to: "trash", text: t("mailbox.moved.trash")) } label: { Label(t("mailbox.delete"), systemImage: "trash") }.tint(.red)
                             }
                             if model.folder != .drafts {
                                 let target = model.archiveTarget
                                 Button { model.move(thread, to: target.folder, text: target.text) } label: { Label(target.label, systemImage: target.icon) }.tint(.gray)
                             }
                         }
+                        .contextMenu { threadMenu(thread) }
                         .listRowBackground(Palette.bg)
                         .listRowInsets(EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
                         .onAppear { if thread.key == model.threads.last?.key { Task { await model.loadMore() } } }
@@ -263,16 +297,40 @@ struct MailboxView: View {
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
+            // Cada pasta abre do topo.
+            .id(model.folder)
             .refreshable { await model.refresh(quiet: true) }
         }
     }
 
+    // Segurar em cima de uma conversa: as mesmas ações da página dela.
+    @ViewBuilder private func threadMenu(_ thread: Thread) -> some View {
+        Button { model.setSeen(thread, thread.unread) } label: {
+            Label(t(thread.unread ? "mailbox.markRead" : "mailbox.markUnread"), systemImage: thread.unread ? "envelope.open" : "envelope.badge")
+        }
+        Button { model.toggleStar(thread) } label: { Label(t(thread.starred ? "mailbox.unstar" : "mailbox.star"), systemImage: thread.starred ? "star.slash" : "star") }
+        Button { model.togglePin(thread) } label: { Label(t(thread.pinned ? "mailbox.unpin" : "mailbox.pin"), systemImage: thread.pinned ? "pin.slash" : "pin") }
+        if model.folder != .drafts {
+            let target = model.archiveTarget
+            Button { model.move(thread, to: target.folder, text: target.text) } label: { Label(target.label, systemImage: target.icon) }
+        }
+        if model.folder != .spam && model.folder != .sent && model.folder != .drafts {
+            Button(role: .destructive) { model.move(thread, to: "spam", text: t("mailbox.moved.spam")) } label: { Label(t("reader.markSpam"), systemImage: "xmark.shield") }
+        }
+        if model.folder == .trash {
+            Button(role: .destructive) { model.deleteForever(thread) } label: { Label(t("mailbox.deleteForever"), systemImage: "trash.slash") }
+        } else {
+            Button(role: .destructive) { model.move(thread, to: "trash", text: t("mailbox.moved.trash")) } label: { Label(t("mailbox.delete"), systemImage: "trash") }
+        }
+    }
+
+    // Só as pastas que não estão na barra de baixo.
     private var folderMenu: some View {
         Menu {
-            ForEach(Folder.allCases) { f in
+            ForEach([Folder.drafts, .archive, .trash]) { f in
                 Button { model.open(f) } label: {
                     let n = model.counts[f.rawValue] ?? 0
-                    Label(n > 0 && f != .trash && f != .sent ? "\(f.title)  \(n)" : f.title, systemImage: f.icon)
+                    Label(n > 0 && f != .trash ? "\(f.title)  \(n)" : f.title, systemImage: f.icon)
                 }
             }
         } label: {
