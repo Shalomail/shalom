@@ -90,6 +90,8 @@ struct SettingsView: View {
                 .environmentObject(app)
             }
         }
+        // A folha já aberta não segue o tema do app sozinha: sem isto ela só mudava ao fechar e abrir de novo.
+        .preferredColorScheme((AppTheme(rawValue: theme) ?? .dark).scheme)
     }
 
     private func done(_ text: String) {

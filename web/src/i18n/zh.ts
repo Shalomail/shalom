@@ -304,7 +304,6 @@ const zh: Dict = {
     idDone: "你已核实此身份。",
     lockedHere: '发出前已在这台设备上锁住。',
     lockedThere: '在 {name} 的设备上锁住，只在这里打开。',
-    sentCopy: '你的副本以锁住的形式保存。Shalom 以外的人会以普通邮件收到。',
     spam: '看起来像诈骗或广告。为了安全，链接和图片已停用。',
     external: '来自 Shalom 以外。它像所有邮件一样送达，到达时即被锁住；保存后只有你能打开。',
     spoofTitle: '发件人并非显示的那个人',

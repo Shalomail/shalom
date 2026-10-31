@@ -72,7 +72,10 @@ struct Item: Identifiable, Hashable {
     // Remetente conferido no aparelho (lacrado de ponta a ponta), ou nil.
     let sender: String?
     let h: MessageHead
+    // Fechado de ponta a ponta: veio de outra conta Shalom, ou é a sua cópia de algo que foi só para contas Shalom.
     let sealedEnd: Bool
+    // A sua própria cópia (Enviados), lacrada por você.
+    let own: Bool
     let keyChanged: Bool
     let senderKey: String?
     // O remetente escrito no e-mail não confere com quem enviou de fato.
@@ -144,13 +147,17 @@ final class Mailbox {
             let o = await headFor(r, session)
             // O selo de ponta a ponta vem do remetente conferido no aparelho, nunca do que o remetente escreveu.
             // E-mail de fora dizendo ser @shalomail.com é falso por definição.
-            let sealedEnd = o.sender != nil
+            let verified = o.sender != nil
+            // A sua cópia de Enviados também chega lacrada por você, mas só é de ponta a ponta se foi apenas para
+            // contas Shalom (e2e, gravado no envio). Cópias antigas marcavam e2e sempre: nelas vale a lista Para.
+            let own = verified && o.sender == session.user.address.lowercased()
+            let sealedEnd = verified && (!own || (o.h.e2e && o.h.to.allSatisfy { Outbox.isShalom($0.address) }))
             let from = o.h.from?.address.lowercased() ?? ""
-            let spoofed = sealedEnd ? from != o.sender : (o.h.auth == "fail" || from.hasSuffix("@\(AppModel.domain)"))
+            let spoofed = verified ? from != o.sender : (o.h.auth == "fail" || from.hasSuffix("@\(AppModel.domain)"))
             var h = o.h
-            if sealedEnd { h.from = Person(name: o.h.from?.name ?? "", address: o.sender!) }
+            if verified { h.from = Person(name: o.h.from?.name ?? "", address: o.sender!) }
             items.append(Item(id: r.id, folder: r.folder, seen: r.seen != 0, starred: r.starred != 0, pinned: r.pinned != 0, receivedAt: r.received_at, size: r.size,
-                              sender: o.sender, h: h, sealedEnd: sealedEnd, keyChanged: o.keyChanged, senderKey: o.key, spoofed: spoofed || o.keyChanged))
+                              sender: o.sender, h: h, sealedEnd: sealedEnd, own: own, keyChanged: o.keyChanged, senderKey: o.key, spoofed: spoofed || o.keyChanged))
         }
         lock.withLock { for i in items { seen[i.id] = i } }
         return (items, res.more, res.counts)

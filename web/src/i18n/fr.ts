@@ -304,7 +304,6 @@ const fr: Dict = {
     idDone: "Identité vérifiée par vous.",
     lockedHere: 'Verrouillé sur cet appareil avant de partir.',
     lockedThere: "Verrouillé sur l'appareil de {name} et ouvert seulement ici.",
-    sentCopy: 'Votre copie reste conservée verrouillée. Les personnes hors de Shalom le reçoivent comme un e-mail ordinaire.',
     spam: 'Ressemble à une arnaque ou à de la publicité. Les liens et les images sont désactivés par sécurité.',
     external: "Hors de Shalom. Arrivé comme tout e-mail et verrouillé à l'arrivée ; une fois conservé, vous seul l'ouvrez.",
     spoofTitle: "L'expéditeur n'est pas celui affiché",

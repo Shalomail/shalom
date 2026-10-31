@@ -20,6 +20,8 @@
   --node: 22px; --pad: 20px; position: relative; width: 100%; display: grid; gap: 16px; margin: 28px 0 0; padding: 20px var(--pad); list-style: none; text-align: start;
   border-radius: 16px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--fill-3), 0 1px 2px rgba(0, 0, 0, 0.04), 0 18px 40px -28px rgba(0, 0, 0, 0.35);
 }
+/* No claro, sem cartão: as conferências ficam direto no fundo, sem borda nem sombra. */
+[data-theme='light'] .bc-rail { background: none; box-shadow: none; }
 .bc-rail::before, .bc-rail::after {
   content: ''; position: absolute; inset-inline-start: calc(var(--pad) + var(--node) / 2 - 0.75px); top: calc(20px + var(--node) / 2); bottom: calc(20px + var(--node) / 2);
   width: 1.5px; border-radius: 1px; background: var(--fill-3);

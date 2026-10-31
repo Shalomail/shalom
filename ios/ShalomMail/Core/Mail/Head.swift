@@ -46,12 +46,13 @@ enum Head {
         return f.string(from: d)
     }
 
-    // Só para o que sai deste iPhone (lacrado de ponta a ponta): auth "pass", e2e.
-    static func of(_ email: ParsedEmail, sentAt: Date) -> MessageHead {
+    // Só para o que sai deste iPhone: auth "pass". e2e: a cópia de cada conta Shalom sempre é; a de Enviados
+    // só quando ninguém de fora recebeu.
+    static func of(_ email: ParsedEmail, sentAt: Date, e2e: Bool = true) -> MessageHead {
         let key = threadKey(references: email.references, inReplyTo: email.inReplyTo, messageId: email.messageId)
         return MessageHead(from: email.from, to: Array(email.to.prefix(5)), subject: String(email.subject.trimmingCharacters(in: .whitespaces).prefix(200)),
                            date: iso(sentAt), snippet: snippet(email.text, email.html),
                            attachments: email.attachments.filter { !$0.inline || $0.contentId == nil }.count,
-                           t: key.isEmpty ? nil : key, auth: "pass", e2e: true)
+                           t: key.isEmpty ? nil : key, auth: "pass", e2e: e2e)
     }
 }

@@ -28,7 +28,7 @@ function SealedLine({ item }: { item: Item }) {
       <p className="sec sec-safe">
         <Icon name="shield" size={16} />
         <span>
-          <strong>{t('reader.e2e')}</strong> {item.folder === 'sent' ? t('reader.lockedHere') : t('reader.lockedThere', { name })}
+          <strong>{t('reader.e2e')}</strong> {item.folder === 'sent' || item.own ? t('reader.lockedHere') : t('reader.lockedThere', { name })}
           {id && (id.confirmed
             ? <span className="sec-id is-done"> <Icon name="check" size={13} />{t('reader.idDone')}</span>
             : <> <button type="button" className="sec-id-btn" onClick={() => setOpen(!open)} aria-expanded={open}>{t('reader.idCheck')}</button></>)}
@@ -56,9 +56,8 @@ function SecurityLine({ item }: { item: Item }) {
   // Remetente falso: o aviso fica no próprio endereço do cabeçalho (em âmbar, com explicação no hover).
   if (item.spoofed) return null;
   if (item.sealedEnd) return <SealedLine item={item} />;
-  if (item.folder === 'sent') {
-    return <p className="sec"><Icon name="lock" size={16} />{t('reader.sentCopy')}</p>;
-  }
+  // A sua cópia de algo que foi para fora do Shalom: sem linha nenhuma.
+  if (item.folder === 'sent' || item.own) return null;
   if (item.folder === 'spam') {
     return <p className="sec sec-spam"><Icon name="spam" size={16} />{t('reader.spam')}</p>;
   }
@@ -120,7 +119,7 @@ function MessageCard({ item, expanded, onToggle, secretKey, isLast, onReply }: {
   const prepared = useMemo(() => (email ? prepare(email) : null), [email]);
   // Em mensagem Shalom, o From escrito dentro do e-mail também tem que ser quem enviou de fato.
   const innerFrom = email ? people(email.from)[0]?.address?.toLowerCase() : undefined;
-  const shown = item.sealedEnd && innerFrom && innerFrom !== item.sender ? { ...item, spoofed: true } : item;
+  const shown = item.sender && innerFrom && innerFrom !== item.sender ? { ...item, spoofed: true } : item;
   const doc = useMemo(
     () => (prepared && email ? srcdoc(prepared, { dark: theme === 'dark', rich: !!email.html, noLinks: item.folder === 'spam' || item.spoofed }) : ''),
     // version muda quando as imagens remotas entram no documento
@@ -184,7 +183,7 @@ function MessageCard({ item, expanded, onToggle, secretKey, isLast, onReply }: {
                 <span className="warn-tip" tabIndex={0} onClick={e => e.stopPropagation()}>
                   <span className="is-warn">{h.from?.address}<Icon name="alert" size={14} /></span>
                   <span className="warn-bubble" role="tooltip">
-                    {shown.sealedEnd ? (
+                    {shown.sender ? (
                       <><strong>{t('reader.spoofTitle')}</strong>{t('reader.spoofText', { sender: item.sender ?? '' })}</>
                     ) : (
                       item.keyChanged

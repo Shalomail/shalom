@@ -311,7 +311,6 @@ export const pt = {
     idDone: "Identidade conferida por você.",
     lockedHere: 'Trancado neste aparelho antes de sair.',
     lockedThere: 'Trancado no aparelho de {name} e aberto só aqui.',
-    sentCopy: 'Sua cópia fica guardada trancada. Quem está fora do Shalom recebe como e-mail comum.',
     spam: 'Parece golpe ou propaganda. Os links e as imagens ficam desligados por segurança.',
     external: 'De fora do Shalom. Chegou como todo e-mail e foi trancado na chegada; guardado, só você abre.',
     spoofTitle: 'Quem enviou não é quem aparece',

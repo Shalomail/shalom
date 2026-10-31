@@ -19,8 +19,11 @@ export type Row = {
 
 export type Item = Row & {
   h: MessageHead;
-  // Veio de outra conta Shalom, lacrado no aparelho de quem enviou.
+  // Fechado de ponta a ponta: veio de outra conta Shalom, lacrado no aparelho de quem enviou, ou é a sua
+  // cópia de algo que foi só para contas Shalom.
   sealedEnd: boolean;
+  // A sua própria cópia (Enviados), lacrada por você neste ou em outro aparelho seu.
+  own?: boolean;
   // A chave do remetente mudou desde a fixada neste aparelho: não vale como confirmado.
   keyChanged?: boolean;
   // Chave pública do remetente Shalom (do certificado), para conferir a impressão digital no leitor.
@@ -33,7 +36,8 @@ type Opened = { h: MessageHead; sender: string | null; verified: boolean; keyCha
 
 // Dono das chaves fixadas de contato (as fixações são separadas por conta). O Mailbox informa ao abrir.
 let pinOwner = '';
-export function setPinOwner(userId: string) { pinOwner = userId; }
+let ownAddress = '';
+export function setPinOwner(userId: string, address: string) { pinOwner = userId; ownAddress = address.toLowerCase(); }
 
 // Remetente lacrado só vale como confirmado se a chave do certificado for a fixada para aquele endereço
 // neste aparelho (na primeira mensagem, fixa). O certificado sozinho é palavra do servidor.
@@ -92,15 +96,19 @@ export async function listFolder(folder: Folder, key: Uint8Array, before?: numbe
   const { messages, more, counts } = await api<{ messages: Row[]; more: boolean; counts: Counts }>(`/messages?${q}`);
   const items = await Promise.all(messages.map(async (r): Promise<Item> => {
     const { h, sender, keyChanged, key: senderKey } = await headFor(r, key);
-    // O selo de ponta a ponta vem do remetente conferido no aparelho (ou, em mensagens antigas, da
-    // coluna sender), nunca de algo que o remetente escreveu. E-mail de fora dizendo ser
-    // @shalomail.com é falso por definição: conta Shalom sempre envia trancado.
-    const sealedEnd = !!sender;
+    // O selo de ponta a ponta vem do remetente conferido no aparelho, nunca de algo que o remetente
+    // escreveu. E-mail de fora dizendo ser @shalomail.com é falso por definição: conta Shalom sempre envia
+    // trancado.
+    const verified = !!sender;
+    // A sua cópia de Enviados também chega lacrada por você, mas só é de ponta a ponta se foi apenas para
+    // contas Shalom (e2e, gravado no envio). Cópias antigas marcavam e2e sempre: nelas vale a lista Para.
+    const own = verified && sender === ownAddress;
+    const sealedEnd = verified && (!own || (h.e2e && h.to.every(p => p.address.toLowerCase().endsWith('@shalomail.com'))));
     const from = h.from?.address?.toLowerCase() ?? '';
-    const spoofed = sealedEnd ? from !== sender : h.auth === 'fail' || from.endsWith('@shalomail.com');
+    const spoofed = verified ? from !== sender : h.auth === 'fail' || from.endsWith('@shalomail.com');
     // Em mensagem Shalom, a identidade mostrada é sempre o remetente conferido, com o endereço à vista.
-    const shown = sealedEnd ? { ...h, from: { name: h.from?.name ?? '', address: sender! } } : h;
-    return { ...r, sender, h: shown, sealedEnd, spoofed: spoofed || !!keyChanged, keyChanged, senderKey };
+    const shown = verified ? { ...h, from: { name: h.from?.name ?? '', address: sender! } } : h;
+    return { ...r, sender, h: shown, sealedEnd, own, spoofed: spoofed || !!keyChanged, keyChanged, senderKey };
   }));
   for (const i of items) openedRows.set(i.id, i);
   return { items, more, counts };

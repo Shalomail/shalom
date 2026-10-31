@@ -136,15 +136,13 @@ struct MessageCard: View {
             Note(text: t("reader.spoofTitle"), tone: .warn).frame(maxWidth: .infinity, alignment: .leading)
         } else if item.sealedEnd {
             HStack(spacing: 10) {
-                Label(t("reader.lockedThere", ["name": name]), systemImage: "lock.fill").font(.system(size: 12.5)).foregroundStyle(Palette.safe)
+                Label(item.own || item.folder == "sent" ? t("reader.lockedHere") : t("reader.lockedThere", ["name": name]), systemImage: "lock.fill").font(.system(size: 12.5)).foregroundStyle(Palette.safe)
                 Spacer(minLength: 4)
                 if item.senderKey != nil { Button(t("reader.idCheck")) { identity = true }.font(.system(size: 12.5, weight: .semibold)) }
             }
             .sheet(isPresented: $identity) {
                 if let key = item.senderKey, let address = item.sender { IdentitySheet(name: name, address: address, publicKey: key, userId: session.user.id) }
             }
-        } else if item.folder == "sent" {
-            Label(t("reader.lockedHere"), systemImage: "lock.fill").font(.system(size: 12.5)).foregroundStyle(Palette.text3)
         }
         if isSpam { Note(text: t("reader.spam"), tone: .warn).frame(maxWidth: .infinity, alignment: .leading) }
     }

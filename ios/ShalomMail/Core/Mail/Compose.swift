@@ -173,9 +173,9 @@ actor Outbox {
         return tickets.removeFirst()
     }
 
-    private func sealedCopy(_ mime: Data, to pub: Data, session: Session, cert: SignedCert) throws -> [String: String] {
+    private func sealedCopy(_ mime: Data, to pub: Data, session: Session, cert: SignedCert, e2e: Bool = true) throws -> [String: String] {
         let packed = try Pack.pack(mime)
-        var head = Head.of(MIME.parse(mime), sentAt: Date())
+        var head = Head.of(MIME.parse(mime), sentAt: Date(), e2e: e2e)
         head.b = Pack.bodyHash(packed)
         return [
             "head": try Sender.seal(to: pub, senderSecret: session.secretKey, cert: cert, try JSONEncoder().encode(head), .head).b64,
@@ -207,8 +207,9 @@ actor Outbox {
 
         // Primeiro o que falha mais (fora do Shalom e a cópia de Enviados): se falhar, ninguém recebeu nada.
         let outside = { (l: [Person]) in l.filter { !Self.isShalom($0.address) }.map { ["name": $0.name, "address": $0.address] } }
-        var body: [String: Any] = ["sentCopy": try sealedCopy(forMe, to: try Seal.publicKey(of: session.secretKey), session: session, cert: cert)]
-        if all.contains(where: { !Self.isShalom($0.address) }) {
+        let hasExternal = all.contains { !Self.isShalom($0.address) }
+        var body: [String: Any] = ["sentCopy": try sealedCopy(forMe, to: try Seal.publicKey(of: session.secretKey), session: session, cert: cert, e2e: !hasExternal)]
+        if hasExternal {
             body["to"] = outside(out.to); body["cc"] = outside(out.cc); body["bcc"] = outside(out.bcc)
             body["subject"] = out.subject; body["text"] = text; body["html"] = html; body["messageId"] = messageId
             if let r = out.inReplyTo { body["inReplyTo"] = r }

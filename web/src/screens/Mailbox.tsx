@@ -117,7 +117,7 @@ function CheckBox({ checked, mixed = false, label, onToggle, disabled }: {
 export function Mailbox({ session, onSignOut, onUser }: { session: Session; onSignOut: (why?: string) => void; onUser: (u: Session['user']) => void }) {
   const { user, secretKey } = session;
   // Chaves de contato fixadas são desta conta: o recebimento confere contra elas.
-  setPinOwner(user.id);
+  setPinOwner(user.id, user.address);
   const path = usePath();
   const { folder, id } = parsePath(path);
   const onProfile = path === '/perfil' || path === '/perfil/espaco' || path === '/agentes-ia' || path === '/conectar';

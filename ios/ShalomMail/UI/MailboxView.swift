@@ -161,17 +161,15 @@ struct MailboxView: View {
     var body: some View {
         NavigationStack(path: $path) {
             list
+                .safeAreaInset(edge: .bottom, spacing: 0) { MailTabBar(model: model) { model.composeSeed = ComposeSeed() } }
+                // Em cima, embaixo do título, desde a primeira tela: no iOS 26 a busca iria para baixo, empilhada sob
+                // a barra das pastas.
+                .searchable(text: $model.query, placement: .navigationBarDrawer(displayMode: .automatic), prompt: t("mailbox.searchIn", ["folder": model.folder.title]))
                 .navigationTitle(model.folder.title)
                 .navigationBarTitleDisplayMode(.large)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) { folderMenu }
                     ToolbarItem(placement: .topBarTrailing) { accountMenu }
-                    // Espaço e botão como itens separados: no iOS 26 o botão vira um círculo à direita, não uma barra vazia.
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        Spacer()
-                        Button { model.composeSeed = ComposeSeed() } label: { Image(systemName: "square.and.pencil").font(.system(size: 18, weight: .medium)) }
-                            .accessibilityLabel(t("mailbox.compose"))
-                    }
                 }
                 .navigationDestination(for: String.self) { key in
                     if let thread = model.threads.first(where: { $0.key == key }) {
@@ -198,7 +196,7 @@ struct MailboxView: View {
                 Text(toast).font(.system(size: 14, weight: .medium)).foregroundStyle(Palette.accentOn)
                     .padding(.horizontal, 16).padding(.vertical, 11)
                     .background(Palette.accent, in: Capsule())
-                    .padding(.bottom, 64)
+                    .padding(.bottom, 112)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
@@ -265,7 +263,6 @@ struct MailboxView: View {
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
-            .searchable(text: $model.query, prompt: t("mailbox.searchIn", ["folder": model.folder.title]))
             .refreshable { await model.refresh(quiet: true) }
         }
     }

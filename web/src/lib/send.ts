@@ -78,10 +78,11 @@ async function takeToken() {
   return tokens.shift()!;
 }
 
-async function sealedCopy(mime: Uint8Array, pub: Uint8Array, secretKey: Uint8Array, cert: SignedCert) {
+// e2e: a cópia de cada conta Shalom sempre é; a de Enviados só quando ninguém de fora recebeu.
+async function sealedCopy(mime: Uint8Array, pub: Uint8Array, secretKey: Uint8Array, cert: SignedCert, e2e = true) {
   const packed = await pack(mime);
   // O cabeçalho leva a impressão do corpo: quem abre confere que os dois são da mesma mensagem.
-  const head = { ...headOf(await PostalMime.parse(mime), true, new Date()), b: await bodyHash(packed) };
+  const head = { ...headOf(await PostalMime.parse(mime), e2e, new Date()), b: await bodyHash(packed) };
   return {
     head: toB64(await sealFromSender(pub, secretKey, cert, new TextEncoder().encode(JSON.stringify(head)), 'head')),
     raw: toB64(await sealFromSender(pub, secretKey, cert, packed, 'raw')),
@@ -128,7 +129,7 @@ export async function sendMessage({ user, secretKey }: Session, out: Outgoing) {
         attachments: (out.attachments ?? []).map(a => ({ filename: a.filename, type: a.type, content: toB64(a.content), cid: a.cid })),
       } : {}),
       // A cópia de Enviados vai trancada com a chave calculada aqui, nunca com a que o servidor informa.
-      sentCopy: await sealedCopy(forMe, ownPublicKey(secretKey), secretKey, cert),
+      sentCopy: await sealedCopy(forMe, ownPublicKey(secretKey), secretKey, cert, !hasExternal),
     },
   });
 

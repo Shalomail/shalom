@@ -304,7 +304,6 @@ const it: Dict = {
     idDone: "Identità verificata da te.",
     lockedHere: 'Chiuso su questo dispositivo prima di partire.',
     lockedThere: 'Chiuso sul dispositivo di {name} e aperto solo qui.',
-    sentCopy: "La tua copia resta salvata chiusa. Chi è fuori da Shalom lo riceve come un'email normale.",
     spam: 'Sembra una truffa o pubblicità. I link e le immagini restano disattivati per sicurezza.',
     external: "Da fuori Shalom. È arrivato come ogni email ed è stato chiuso all'arrivo; una volta salvato, lo apri solo tu.",
     spoofTitle: 'Chi ha inviato non è chi appare',

@@ -304,7 +304,6 @@ const de: Dict = {
     idDone: "Identität von dir geprüft.",
     lockedHere: 'Vor dem Versand auf diesem Gerät verschlossen.',
     lockedThere: 'Auf dem Gerät von {name} verschlossen und nur hier geöffnet.',
-    sentCopy: 'Deine Kopie wird verschlossen aufbewahrt. Wer nicht bei Shalom ist, bekommt sie als normale E-Mail.',
     spam: 'Sieht nach Betrug oder Werbung aus. Links und Bilder bleiben aus Sicherheitsgründen deaktiviert.',
     external: 'Von außerhalb von Shalom. Kam wie jede E-Mail an und wurde bei Ankunft verschlossen; gespeichert öffnest nur du sie.',
     spoofTitle: 'Der Absender ist nicht der, der angezeigt wird',

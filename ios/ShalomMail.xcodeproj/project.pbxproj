@@ -56,6 +56,7 @@
 		DA71744C61A18F49E276977F /* ThreadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEBBFD000430A890D969686 /* ThreadView.swift */; };
 		DA80018AE2B40022928B348D /* CryptoVectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295E98C9D68AA3821D08028E /* CryptoVectorTests.swift */; };
 		DE51D2A9786F2881B8203C45 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5202558ABF3E8729AFC4F7CF /* API.swift */; };
+		E5D9EA8E238B684DE9A2AAFF /* MailTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3C56BBF140AFC221F75A9 /* MailTabBar.swift */; };
 		E893B46F275047BF4F1B7DE3 /* es.json in Resources */ = {isa = PBXBuildFile; fileRef = 19A063A373DE11891FB8D236 /* es.json */; };
 		F26A5BBCAD3C8F1F9853DE1E /* de.json in Resources */ = {isa = PBXBuildFile; fileRef = D1F9081A17862889E039555F /* de.json */; };
 		F389F58E3838D9C3A9A900D6 /* ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 36279A45D2E559E9CD61F8CA /* ru.json */; };
@@ -116,6 +117,7 @@
 		8759F1E17761501280C7593D /* Push.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Push.swift; sourceTree = "<group>"; };
 		8E3F793FD82F701CB48A7786 /* ShalomMail.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShalomMail.entitlements; sourceTree = "<group>"; };
 		92A925DA06DDC2E451B0679A /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
+		93D3C56BBF140AFC221F75A9 /* MailTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailTabBar.swift; sourceTree = "<group>"; };
 		9ED2963BE6ABC5614CC3CF2B /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		A32185CAF0492A0EB3BD1D6A /* Vault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault.swift; sourceTree = "<group>"; };
 		A3F560FC2E887A0FF5319014 /* AccountViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViews.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				D5073D440C653D83171208CB /* ComposerView.swift */,
 				BC9355FA9035DB10B74BEF46 /* LinkViews.swift */,
 				3E1FA5816CB3F493E8BAE87D /* MailboxView.swift */,
+				93D3C56BBF140AFC221F75A9 /* MailTabBar.swift */,
 				3314569C9E49798878F099FE /* MessageBodyView.swift */,
 				E2FA521AC2164679432EB40C /* RootView.swift */,
 				3C092E016F16F074CDA1CFAF /* SettingsView.swift */,
@@ -503,6 +506,7 @@
 				FB20BB18B7B81871BD2D8B86 /* LinkViews.swift in Sources */,
 				B5AA7F976D005C300561C114 /* Live.swift in Sources */,
 				7EEEC5FD0E04C03AEC05F4A2 /* MIME.swift in Sources */,
+				E5D9EA8E238B684DE9A2AAFF /* MailTabBar.swift in Sources */,
 				AC0B4A6C24DAE86F3816D4EB /* Mailbox.swift in Sources */,
 				2292FD79B47163AFCE22A0BB /* MailboxView.swift in Sources */,
 				47F70688A72EBC47B0D52A0E /* MessageBodyView.swift in Sources */,

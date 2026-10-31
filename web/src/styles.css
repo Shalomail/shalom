@@ -319,7 +319,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 .side { display: flex; flex-direction: column; gap: 16px; padding: 8px 0 4px; padding-inline: 14px 10px; min-height: 0; min-width: 0; }
-.side-top { display: flex; align-items: center; justify-content: space-between; height: 40px; padding-inline-start: 6px; }
+/* margin-top: a logo fica na altura do título da lista ao lado. */
+.side-top { display: flex; align-items: center; justify-content: space-between; height: 40px; margin-top: 6px; padding-inline-start: 6px; }
 .compose-btn { width: 100%; justify-content: flex-start; padding: 0 14px; }
 .nav { display: grid; gap: 2px; }
 .nav a {
@@ -976,7 +977,8 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 /* Espectro: a barra lateral num arco-íris que escorre devagar e sem emenda (a faixa se repete e anda
    exatamente uma volta), por cima do claro ou do escuro. Cores misturadas em OKLCH para as passagens não
    ficarem barrentas; brilho de vidro na borda, grão fino contra degraus de cor, e uma sombra leve que
-   segura o texto branco nas faixas claras (amarelo, verde). No escuro, o mesmo arco-íris mais fundo. */
+   segura o texto branco nas faixas claras (amarelo, verde). No escuro, o mesmo arco-íris com a mesma força:
+   um véu escuro mais pesado deixava as cores apagadas. */
 :root {
   --spectrum: linear-gradient(180deg, #ff2d55, #ff6b2c, #ffb800, #34c759, #00c7be, #0a84ff, #5e5ce6, #bf5af2, #ff2d55);
   --spectrum-shade: linear-gradient(rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.2));
@@ -985,7 +987,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 @supports (background: linear-gradient(in oklch 180deg, red, blue)) {
   :root { --spectrum: linear-gradient(in oklch 180deg, #ff2d55, #ff6b2c, #ffb800, #34c759, #00c7be, #0a84ff, #5e5ce6, #bf5af2, #ff2d55); }
 }
-[data-theme='dark'][data-skin='spectrum'] { --spectrum-shade: linear-gradient(rgba(6, 6, 10, 0.42), rgba(6, 6, 10, 0.58)); }
+[data-theme='dark'][data-skin='spectrum'] { --spectrum-shade: linear-gradient(rgba(6, 6, 10, 0.08), rgba(6, 6, 10, 0.24)); }
 /* O painel colorido é uma camada atrás do conteúdo (::before) e não ocupa espaço: logo, Escrever e
    pastas ficam exatamente onde estão nos temas sem Espectro. ::after leva o grão e o véu de luz. */
 [data-skin='spectrum'] .side { position: relative; isolation: isolate; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.16); }

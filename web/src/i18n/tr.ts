@@ -304,7 +304,6 @@ const tr: Dict = {
     idDone: "Kimlik sizin tarafınızdan doğrulandı.",
     lockedHere: 'Çıkmadan önce bu cihazda kilitlendi.',
     lockedThere: '{name} kişisinin cihazında kilitlendi ve yalnızca burada açıldı.',
-    sentCopy: 'Kopyanız kilitli olarak saklanır. Shalom dışındakiler bunu normal e-posta olarak alır.',
     spam: 'Dolandırıcılık ya da reklam gibi görünüyor. Bağlantılar ve görseller güvenlik için kapalı.',
     external: 'Shalom dışından. Her e-posta gibi geldi ve gelişte kilitlendi; saklandıktan sonra yalnızca siz açabilirsiniz.',
     spoofTitle: 'Gönderen, göründüğü kişi değil',

@@ -304,7 +304,6 @@ const en: Dict = {
     idDone: "Identity verified by you.",
     lockedHere: 'Locked on this device before it left.',
     lockedThere: "Locked on {name}'s device and opened only here.",
-    sentCopy: "Your copy is stored locked. People outside Shalom receive it as regular email.",
     spam: 'Looks like a scam or advertising. Links and images are turned off for safety.',
     external: 'From outside Shalom. It arrived like any email and was locked on arrival; once stored, only you can open it.',
     spoofTitle: "The sender isn't who it appears to be",

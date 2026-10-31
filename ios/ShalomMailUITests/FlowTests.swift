@@ -97,6 +97,37 @@ final class FlowTests: XCTestCase {
         shot(app, "6-enviada")
     }
 
+    // Para alguém de fora a mensagem não vai fechada de ponta a ponta: nem no aviso de enviada, nem na cópia
+    // de Enviados (antes a cópia aparecia com o selo verde, porque é lacrada por quem enviou), que fica sem
+    // linha de segurança.
+    func testSendOutsideIsNotSealed() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-api", "http://127.0.0.1:8790", "-shalom-app-lang", "pt", "-shalom-accounts", "", "-AppleLanguages", "(pt-BR)", "-shalom-theme", "dark"]
+        app.launch()
+        try signIn(app, "marina")
+        let subject = "Para fora \(Int(Date().timeIntervalSince1970) % 100000)"
+        app.buttons["Escrever"].tap()
+        let to = app.textFields.element(boundBy: 0)
+        XCTAssertTrue(to.waitForExistence(timeout: 10))
+        to.tap(); to.typeText("carla@empresa.com.br,")
+        let subjectField = app.textFields["Assunto"]
+        subjectField.tap(); subjectField.typeText(subject)
+        let body = app.textViews.firstMatch
+        body.tap(); body.typeText("Mensagem comum, para fora do Shalom.")
+        app.buttons["Enviar"].tap()
+        XCTAssertTrue(app.staticTexts["Mensagem enviada."].waitForExistence(timeout: 40), "aviso de enviada, sem o fechada de ponta a ponta")
+
+        app.buttons["Enviados"].tap()
+        let row = app.buttons.containing(NSPredicate(format: "label CONTAINS %@", subject)).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 15), "a mensagem aparece em Enviados")
+        XCTAssertFalse(row.images["Fechado de ponta a ponta."].exists, "sem o cadeado verde na lista")
+        row.tap()
+        XCTAssertTrue(app.staticTexts["Para: carla@empresa.com.br"].waitForExistence(timeout: 15), "a conversa abriu")
+        XCTAssertFalse(app.staticTexts.containing(NSPredicate(format: "label CONTAINS[c] %@", "trancad")).firstMatch.exists, "sem linha de segurança")
+        sleep(1)
+        shot(app, "19-enviada-para-fora")
+    }
+
     func signIn(_ app: XCUIApplication, _ who: String) throws {
         let address = app.textFields.firstMatch
         XCTAssertTrue(address.waitForExistence(timeout: 15))
@@ -167,6 +198,72 @@ final class FlowTests: XCTestCase {
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
         let open = springboard.buttons.matching(NSPredicate(format: "label IN %@", ["Open", "Abrir"])).firstMatch
         if open.waitForExistence(timeout: 3) { open.tap() }
+    }
+
+    // Barra de baixo, no escuro e no claro: Enviados e Spam pela barra, a Lixeira pelo menu de cima e a volta
+    // para a Entrada pelo círculo do meio.
+    func testTabBar() throws {
+        for theme in ["dark", "light"] {
+            let app = XCUIApplication()
+            app.launchArguments = ["-api", "http://127.0.0.1:8790", "-shalom-app-lang", "pt", "-shalom-accounts", "", "-AppleLanguages", "(pt-BR)", "-shalom-theme", theme]
+            app.launch()
+            try signIn(app, "marina")
+            sleep(2)
+            shot(app, "14-barra-\(theme)")
+            app.buttons["Enviados"].tap()
+            XCTAssertTrue(app.navigationBars["Enviados"].waitForExistence(timeout: 10), "Enviados pela barra")
+            sleep(2)
+            shot(app, "15-enviados-\(theme)")
+            app.buttons["Spam"].tap()
+            XCTAssertTrue(app.navigationBars["Spam"].waitForExistence(timeout: 10), "Spam pela barra")
+            sleep(2)
+            shot(app, "16-spam-\(theme)")
+            app.buttons["Abrir menu"].tap()
+            let trash = app.buttons["Lixeira"]
+            XCTAssertTrue(trash.waitForExistence(timeout: 5), "menu das pastas, em cima")
+            sleep(1)
+            shot(app, "16b-menu-\(theme)")
+            trash.tap()
+            XCTAssertTrue(app.navigationBars["Lixeira"].waitForExistence(timeout: 10), "Lixeira pelo menu")
+            sleep(1)
+            shot(app, "17-lixeira-\(theme)")
+            app.buttons["Entrada"].tap()
+            XCTAssertTrue(app.navigationBars["Entrada"].waitForExistence(timeout: 10), "de volta à Entrada pelo círculo")
+            app.terminate()
+        }
+    }
+
+    // Trocar o tema com as Configurações abertas muda a própria folha na hora (antes só ao fechar e abrir).
+    func testThemeSwitch() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-api", "http://127.0.0.1:8790", "-shalom-app-lang", "pt", "-shalom-accounts", "", "-AppleLanguages", "(pt-BR)", "-shalom-theme", "dark"]
+        app.launch()
+        try signIn(app, "marina")
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Conta:")).firstMatch.tap()
+        app.buttons["Configurações"].tap()
+        XCTAssertTrue(app.navigationBars["Configurações"].waitForExistence(timeout: 10))
+        let picker = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Tema do app")).firstMatch
+        for _ in 0 ..< 4 where !picker.isHittable { app.swipeUp(); sleep(1) }
+        XCTAssertLessThan(brightness(app), 0.2, "folha no escuro")
+        picker.tap()
+        app.buttons["Claro"].tap()
+        sleep(1)
+        shot(app, "18-tema-claro")
+        XCTAssertGreaterThan(brightness(app), 0.8, "a folha aberta ficou clara na hora")
+        picker.tap()
+        app.buttons["Escuro"].tap()
+        sleep(1)
+        XCTAssertLessThan(brightness(app), 0.2, "e voltou para o escuro na hora")
+    }
+
+    // Brilho de um ponto do fundo, na borda esquerda e no meio da altura (0 preto, 1 branco).
+    func brightness(_ app: XCUIApplication) -> CGFloat {
+        guard let img = app.screenshot().image.cgImage else { return -1 }
+        let x = Int(Double(img.width) * 0.02), y = img.height / 2
+        var px = [UInt8](repeating: 0, count: 4)
+        let ctx = CGContext(data: &px, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
+        ctx?.draw(img, in: CGRect(x: -x, y: y - img.height + 1, width: img.width, height: img.height))
+        return (CGFloat(px[0]) + CGFloat(px[1]) + CGFloat(px[2])) / 765
     }
 
     func testSettings() throws {
