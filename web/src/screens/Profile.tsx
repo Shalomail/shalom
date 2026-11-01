@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState, type FormEvent, type InputHTMLAttributes, type KeyboardEvent, type ReactNode, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import { api } from '../lib/api';
+import { usePasswordStrength } from '../lib/password';
 import { fingerprint } from '../../../shared/fingerprint';
 import { fromB64 } from '../../../shared/seal';
 import { dayMonth, dayMonthYear, durationLabel, initials, shortDateTime, timeOf } from '../lib/format';
 import { avatarUrl, changePassword, removeAvatar, saveName, uploadAvatarBlob } from '../lib/profile';
 import {
   deleteAccount, disableTotp, enableTotp, getSecurity, idleChoices, newRecoveryCodes, qrSvg, removePin, setIdle as saveIdle, setPin as savePin,
-  startTotp, type Security,
+  startTotp, type Factors, type Security,
 } from '../lib/security';
 import { dropCurrent, type Session, type User } from '../lib/session';
 import { createInvite, inviteLink, listInvites, revokeInvite, type Invite } from '../lib/invites';
@@ -171,7 +172,7 @@ export function Profile({ session, avatarV, onUser, onAvatar, onBack, onIdle }: 
               side={open !== 'password' && <button className="st-btn" onClick={() => toggle('password')}>{tr('common.change')}</button>}
               open={open === 'password'}
             >
-              <PasswordPanel user={user} secretKey={secretKey} onCancel={close}
+              <PasswordPanel user={user} secretKey={secretKey} need={{ pin: !!security?.pin, totp: !!security?.totp }} onCancel={close}
                 onDone={() => { close(); note('password', tr('settings.passwordChanged')); loadDevices(); }} />
             </Row>
 
@@ -202,7 +203,7 @@ export function Profile({ session, avatarV, onUser, onAvatar, onBack, onIdle }: 
               )}
               open={open === 'recovery'}
             >
-              <RecoveryPanel user={user} onCancel={close} onDone={r => { close(); setRecoveryState(r); note('recovery', tr((r as { sent?: boolean }).sent === false ? 'settings.recoveryNotSent' : 'settings.recoverySent', { email: r.hint ?? '' })); }} />
+              <RecoveryPanel user={user} need={{ pin: !!security?.pin && !!recovery?.hint, totp: !!security?.totp && !!recovery?.hint }} onCancel={close} onDone={r => { close(); setRecoveryState(r); note('recovery', tr((r as { sent?: boolean }).sent === false ? 'settings.recoveryNotSent' : 'settings.recoverySent', { email: r.hint ?? '' })); }} />
             </Row>
 
             <Row
@@ -215,7 +216,7 @@ export function Profile({ session, avatarV, onUser, onAvatar, onBack, onIdle }: 
               open={open === 'pin'}
             >
               {security && (
-                <PinPanel user={user} on={security.pin} onCancel={close}
+                <PinPanel user={user} on={security.pin} totpOn={security.totp} onCancel={close}
                   onDone={pin => { close(); setSecurity(s => s && { ...s, pin }); note('pin', tr(pin ? 'settings.pinCreated' : 'settings.pinRemoved')); }} />
               )}
             </Row>
@@ -232,7 +233,7 @@ export function Profile({ session, avatarV, onUser, onAvatar, onBack, onIdle }: 
               open={open === 'totp'}
             >
               {security && (
-                <TotpPanel user={user} on={totpOn} recoveryLeft={security.recoveryLeft} onCancel={close} onCodes={on => { codesOnScreen.current = on; }}
+                <TotpPanel user={user} on={totpOn} pinOn={security.pin} recoveryLeft={security.recoveryLeft} onCancel={close} onCodes={on => { codesOnScreen.current = on; }}
                   onChanged={() => loadSecurity()}
                   onFinished={text => { close(); loadSecurity(); note('totp', text); }} />
               )}
@@ -300,7 +301,7 @@ export function Profile({ session, avatarV, onUser, onAvatar, onBack, onIdle }: 
               side={open !== 'delete' && <button className="st-btn is-danger" onClick={() => toggle('delete')}>{tr('settings.del.open')}</button>}
               open={open === 'delete'}
             >
-              <DeletePanel user={user} onCancel={close} />
+              <DeletePanel user={user} need={{ pin: !!security?.pin, totp: !!security?.totp }} onCancel={close} />
             </Row>
           </Section>
         </div>
@@ -368,7 +369,7 @@ function Field(props: InputHTMLAttributes<HTMLInputElement>) {
 }
 
 // Campo com o nome em cima, e não só no placeholder.
-function Labeled({ label, children }: { label: string; children: ReactNode }) {
+export function Labeled({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="st-field">
       <span className="st-field-label">{label}</span>
@@ -378,7 +379,7 @@ function Labeled({ label, children }: { label: string; children: ReactNode }) {
 }
 
 // Senha com o olho para conferir o que foi digitado.
-function Secret({ value, onChange, autoComplete, autoFocus, placeholder }: {
+export function Secret({ value, onChange, autoComplete, autoFocus, placeholder }: {
   value: string; onChange: (v: string) => void; autoComplete: string; autoFocus?: boolean; placeholder?: string;
 }) {
   const [shown, setShown] = useState(false);
@@ -560,60 +561,68 @@ function Me({ user, avatarV, onUser, onAvatar }: { user: User; avatarV: number; 
   );
 }
 
-function PasswordPanel({ user, secretKey, onDone, onCancel }: { user: User; secretKey: Uint8Array; onDone: () => void; onCancel: () => void }) {
+function PasswordPanel({ user, secretKey, need, onDone, onCancel }: { user: User; secretKey: Uint8Array; need: Need; onDone: () => void; onCancel: () => void }) {
   const [current, setCurrent] = useState('');
+  const [factorPin, setFactorPin] = useState('');
+  const [factorCode, setFactorCode] = useState('');
   const [next, setNext] = useState('');
   const [repeat, setRepeat] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const pw = usePasswordStrength(next, [user.name, user.address]);
 
   async function submit(e: FormEvent) {
     e.preventDefault();
     if (busy) return;
-    if (next.length < 8) { setError(tr('settings.pwMin')); return; }
+    if (!pw?.ok) { setError(pw?.hint ?? tr('settings.pwMin')); return; }
     if (next !== repeat) { setError(tr('settings.pwMismatch')); return; }
     setBusy(true);
     setError('');
-    try { await changePassword(user, secretKey, current, next); onDone(); }
+    try { await changePassword(user, secretKey, current, next, factorAnswers(need, factorPin, factorCode)); onDone(); }
     catch (err) { setError(fail(err, tr('settings.pwFail'))); setBusy(false); }
   }
 
-  const match = next.length >= 8 && repeat === next;
+  const match = !!pw?.ok && repeat === next;
   const mismatch = repeat.length > 0 && repeat.length >= next.length && repeat !== next;
   return (
     <Panel onSubmit={submit} onCancel={onCancel}
       note={tr('settings.pwOthersOut')}
       actions={<>
         <button type="button" className="st-cancel" onClick={onCancel}>{tr('common.cancel')}</button>
-        <button className="btn btn-primary" disabled={!current || !match || busy}><Busy busy={busy} label={tr('settings.pwChange')} busyLabel={tr('settings.pwChanging')} /></button>
+        <button className="btn btn-primary" disabled={!current || !match || !factorsReady(need, factorPin, factorCode) || busy}><Busy busy={busy} label={tr('settings.pwChange')} busyLabel={tr('settings.pwChanging')} /></button>
       </>}>
       <Step mark={1} title={tr('settings.confirmYou')}>
         <Labeled label={tr('settings.pwCurrent')}><Secret value={current} onChange={setCurrent} autoComplete="current-password" autoFocus /></Labeled>
+        <FactorFields need={need} pin={factorPin} setPin={setFactorPin} code={factorCode} setCode={setFactorCode} />
       </Step>
       <Step mark={2} title={tr('settings.pwChooseNew')}>
         <Labeled label={tr('settings.pwNew')}><Secret value={next} onChange={setNext} autoComplete="new-password" /></Labeled>
         <Labeled label={tr('settings.pwRepeat')}><Secret value={repeat} onChange={setRepeat} autoComplete="new-password" /></Labeled>
-        {mismatch ? <Status tone="bad">{tr('settings.pwNoMatch')}</Status>
+        {pw && !pw.ok ? <Status tone="bad">{pw.hint}</Status>
+          : mismatch ? <Status tone="bad">{tr('settings.pwNoMatch')}</Status>
           : match ? <Status tone="ok">{tr('settings.pwMatch')}</Status>
-          : <Status tone="idle">{tr('settings.pwRule')}</Status>}
+          : <Status tone="idle">{pw ? pw.hint : tr('settings.pwRule')}</Status>}
       </Step>
       <PanelError text={error} />
     </Panel>
   );
 }
 
-function RecoveryPanel({ user, onDone, onCancel }: { user: User; onDone: (r: Recovery) => void; onCancel: () => void }) {
+function RecoveryPanel({ user, need, onDone, onCancel }: { user: User; need: Need; onDone: (r: Recovery) => void; onCancel: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [pin, setPin] = useState('');
+  const [code, setCode] = useState('');
+  const ready = !!email.trim() && !!password && factorsReady(need, pin, code);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    if (busy || !email.trim() || !password) return;
+    if (busy || !ready) return;
     setBusy(true);
     setError('');
-    try { onDone(await setRecovery(email.trim(), { user, password })); }
+    try { onDone(await setRecovery(email.trim(), { user, password, factors: factorAnswers(need, pin, code) })); }
     catch (err) { setError(fail(err, tr('settings.recoverySaveFail'))); setBusy(false); }
   }
 
@@ -622,10 +631,11 @@ function RecoveryPanel({ user, onDone, onCancel }: { user: User; onDone: (r: Rec
       note={tr('settings.recoveryNote')}
       actions={<>
         <button type="button" className="st-cancel" onClick={onCancel}>{tr('common.cancel')}</button>
-        <button className="btn btn-primary" disabled={!email.trim() || !password || busy}><Busy busy={busy} label={tr('settings.saveAndSend')} busyLabel={tr('common.saving')} /></button>
+        <button className="btn btn-primary" disabled={!ready || busy}><Busy busy={busy} label={tr('settings.saveAndSend')} busyLabel={tr('common.saving')} /></button>
       </>}>
       <Step mark={1} title={tr('settings.confirmYou')}>
         <Labeled label={tr('settings.accountPassword')}><Secret value={password} onChange={setPassword} autoComplete="current-password" autoFocus /></Labeled>
+        <FactorFields need={need} pin={pin} setPin={setPin} code={code} setCode={setCode} />
       </Step>
       <Step mark={2} title={tr('settings.recoveryWhere')} desc={tr('settings.recoveryWhereDesc')}>
         <Labeled label={tr('settings.recovery')}>
@@ -641,10 +651,38 @@ function RecoveryPanel({ user, onDone, onCancel }: { user: User; onDone: (r: Rec
 const weakPin = (p: string) => /^(\d)\1{5}$/.test(p) || /^(\d\d)\1\1$/.test(p) || /^(\d{3})\1$/.test(p)
   || '01234567890'.includes(p) || '09876543210'.includes(p);
 
+// Segundo fator para desligar ou trocar proteções: o que a conta tiver ligado, como na tela de senha nova.
+// Um campo só aceita o código do autenticador ou um código de recuperação.
+export type Need = { pin: boolean; totp: boolean };
+export const factorsReady = (need: Need, pin: string, code: string) =>
+  (!need.pin || /^\d{6}$/.test(pin)) && (!need.totp || /^\d{6}$/.test(code) || code.replace(/[^a-z0-9]/gi, '').length === 8);
+export function factorAnswers(need: Need, pin: string, code: string): Factors {
+  const isRecovery = need.totp && !/^\d{6}$/.test(code);
+  return { pin: need.pin ? pin : undefined, code: need.totp && !isRecovery ? code : undefined, recovery: isRecovery ? code : undefined };
+}
+export function FactorFields({ need, pin, setPin, code, setCode }: { need: Need; pin: string; setPin: (v: string) => void; code: string; setCode: (v: string) => void }) {
+  return (
+    <>
+      {need.pin && (
+        <Labeled label={tr('auth.pinLabel')}>
+          <Field type="password" value={pin} onChange={e => setPin(e.target.value.replace(/\D/g, '').slice(0, 6))} inputMode="numeric" placeholder={tr('recovery.yourPin')} autoComplete="off" />
+        </Labeled>
+      )}
+      {need.totp && (
+        <Labeled label={tr('auth.codeLabel')}>
+          <Field value={code} onChange={e => setCode(e.target.value.slice(0, 9))} placeholder={tr('recovery.codeOrRecovery')} autoComplete="one-time-code" autoCapitalize="none" spellCheck={false} dir="ltr" />
+        </Labeled>
+      )}
+    </>
+  );
+}
+
 // Apagar a conta: a senha e o endereço digitado. Deu certo, a conta some deste navegador e a tela de
 // entrar abre com o aviso.
-function DeletePanel({ user, onCancel }: { user: User; onCancel: () => void }) {
+function DeletePanel({ user, need, onCancel }: { user: User; need: Need; onCancel: () => void }) {
   const [password, setPassword] = useState('');
+  const [factorPin, setFactorPin] = useState('');
+  const [factorCode, setFactorCode] = useState('');
   const [typed, setTyped] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -656,7 +694,7 @@ function DeletePanel({ user, onCancel }: { user: User; onCancel: () => void }) {
     setBusy(true);
     setError('');
     try {
-      await deleteAccount(user, password, typed);
+      await deleteAccount(user, password, typed, factorAnswers(need, factorPin, factorCode));
       try { sessionStorage.setItem('shalom-notice', tr('settings.del.done')); } catch { /* sem armazenamento */ }
       await dropCurrent();
       location.assign('/entrar');
@@ -668,12 +706,13 @@ function DeletePanel({ user, onCancel }: { user: User; onCancel: () => void }) {
       note={tr('settings.del.note')}
       actions={<>
         <button type="button" className="st-cancel" onClick={onCancel}>{tr('common.cancel')}</button>
-        <button className="btn btn-primary st-btn-danger" disabled={!password || !matches || busy}>
+        <button className="btn btn-primary st-btn-danger" disabled={!password || !matches || !factorsReady(need, factorPin, factorCode) || busy}>
           <Busy busy={busy} label={tr('settings.del.confirm')} busyLabel={tr('settings.del.busy')} />
         </button>
       </>}>
       <Step mark={1} title={tr('settings.confirmYou')}>
         <Labeled label={tr('settings.accountPassword')}><Secret value={password} onChange={setPassword} autoComplete="current-password" autoFocus /></Labeled>
+        <FactorFields need={need} pin={factorPin} setPin={setFactorPin} code={factorCode} setCode={setFactorCode} />
       </Step>
       <Step mark={2} title={tr('settings.del.typeTitle')} desc={tr('settings.del.typeDesc', { address: user.address })}>
         <Labeled label={tr('settings.del.typeLabel')}>
@@ -685,9 +724,13 @@ function DeletePanel({ user, onCancel }: { user: User; onCancel: () => void }) {
   );
 }
 
-function PinPanel({ user, on, onDone, onCancel }: { user: User; on: boolean; onDone: (pin: boolean) => void; onCancel: () => void }) {
+function PinPanel({ user, on, totpOn, onDone, onCancel }: { user: User; on: boolean; totpOn: boolean; onDone: (pin: boolean) => void; onCancel: () => void }) {
   const [password, setPassword] = useState('');
   const [pin, setPin] = useState('');
+  // Para tirar o PIN: o próprio PIN e, com duas etapas ligadas, o código.
+  const need: Need = { pin: on, totp: on && totpOn };
+  const [current, setCurrent] = useState('');
+  const [code, setCode] = useState('');
   const [repeat, setRepeat] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -706,12 +749,12 @@ function PinPanel({ user, on, onDone, onCancel }: { user: User; on: boolean; onD
     setBusy(true);
     setError('');
     try {
-      if (on) await removePin(user, password); else await savePin(user, password, pin);
+      if (on) await removePin(user, password, factorAnswers(need, current, code)); else await savePin(user, password, pin);
       onDone(!on);
     } catch (err) { setError(fail(err, tr(on ? 'settings.pinRemoveFail' : 'settings.pinCreateFail'))); setBusy(false); }
   }
 
-  const ready = on ? !!password : !!password && match;
+  const ready = on ? !!password && factorsReady(need, current, code) : !!password && match;
   return (
     <Panel onSubmit={submit} onCancel={onCancel}
       note={tr(on ? 'settings.pinOffHint' : 'settings.pinNote')}
@@ -723,6 +766,7 @@ function PinPanel({ user, on, onDone, onCancel }: { user: User; on: boolean; onD
       </>}>
       <Step mark={on ? undefined : 1} title={tr('settings.confirmYou')}>
         <Labeled label={tr('settings.accountPassword')}><Secret value={password} onChange={setPassword} autoComplete="current-password" autoFocus /></Labeled>
+        <FactorFields need={need} pin={current} setPin={setCurrent} code={code} setCode={setCode} />
       </Step>
       {!on && (
         <Step mark={2} title={tr('settings.pinChoose')}>
@@ -752,14 +796,18 @@ type TotpStep =
   | { kind: 'codes'; codes: string[]; fresh: boolean };
 
 
-function TotpPanel({ user, on, recoveryLeft, onChanged, onFinished, onCancel, onCodes }: {
-  user: User; on: boolean; recoveryLeft: number; onChanged: () => void; onFinished: (note: string) => void; onCancel: () => void; onCodes: (on: boolean) => void;
+function TotpPanel({ user, on, pinOn, recoveryLeft, onChanged, onFinished, onCancel, onCodes }: {
+  user: User; on: boolean; pinOn: boolean; recoveryLeft: number; onChanged: () => void; onFinished: (note: string) => void; onCancel: () => void; onCodes: (on: boolean) => void;
 }) {
   const [step, setStep] = useState<TotpStep>(on ? { kind: 'manage' } : { kind: 'password', action: 'start' });
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  // Códigos novos e desligar pedem o PIN (se houver) e um código do autenticador ou de recuperação.
+  const need: Need = { pin: pinOn, totp: true };
+  const [factorPin, setFactorPin] = useState('');
+  const [factorCode, setFactorCode] = useState('');
 
   async function confirmPassword(e: FormEvent) {
     e.preventDefault();
@@ -771,14 +819,14 @@ function TotpPanel({ user, on, recoveryLeft, onChanged, onFinished, onCancel, on
         const { secret, uri } = await startTotp(user, password);
         setStep({ kind: 'scan', secret, qr: await qrSvg(uri) });
       } else if (step.action === 'codes') {
-        setStep({ kind: 'codes', codes: (await newRecoveryCodes(user, password)).codes, fresh: false });
+        setStep({ kind: 'codes', codes: (await newRecoveryCodes(user, password, factorAnswers(need, factorPin, factorCode))).codes, fresh: false });
         onChanged();
       } else {
-        await disableTotp(user, password);
+        await disableTotp(user, password, factorAnswers(need, factorPin, factorCode));
         onFinished(tr('settings.totpOff'));
         return;
       }
-      setPassword('');
+      setPassword(''); setFactorPin(''); setFactorCode('');
     } catch (err) { setError(fail(err, tr('settings.continueFail'))); }
     setBusy(false);
   }
@@ -828,10 +876,11 @@ function TotpPanel({ user, on, recoveryLeft, onChanged, onFinished, onCancel, on
       <Panel onSubmit={confirmPassword} onCancel={onCancel} note={start ? tr('settings.totpNote') : undefined}
         actions={<>
           <button type="button" className="st-cancel" onClick={on ? back : onCancel}>{tr(on ? 'common.back' : 'common.cancel')}</button>
-          <button className={`btn btn-primary${step.action === 'off' ? ' st-btn-danger' : ''}`} disabled={!password || busy}><Busy busy={busy} label={label} busyLabel={tr('settings.checkingPassword')} /></button>
+          <button className={`btn btn-primary${step.action === 'off' ? ' st-btn-danger' : ''}`} disabled={!password || (!start && !factorsReady(need, factorPin, factorCode)) || busy}><Busy busy={busy} label={label} busyLabel={tr('settings.checkingPassword')} /></button>
         </>}>
         <Step mark={start ? 1 : undefined} title={tr('settings.confirmYou')} desc={desc}>
           <Labeled label={tr('settings.accountPassword')}><Secret value={password} onChange={setPassword} autoComplete="current-password" autoFocus /></Labeled>
+          {!start && <FactorFields need={need} pin={factorPin} setPin={setFactorPin} code={factorCode} setCode={setFactorCode} />}
         </Step>
         {start && <>
           <Step mark={2} title={tr('settings.scanShort')} later />

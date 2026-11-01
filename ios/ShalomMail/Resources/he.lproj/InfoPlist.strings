@@ -1,0 +1,3 @@
+/* Textos dos pedidos de permissão do sistema. */
+"NSFaceIDUsageDescription" = "Face ID פותח את המפתח שפותח את הדואר שלך באייפון הזה.";
+"NSPhotoLibraryAddUsageDescription" = "כדי לשמור בתמונות את התמונות שבחרת מתוך דוא״ל.";

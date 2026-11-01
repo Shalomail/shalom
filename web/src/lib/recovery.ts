@@ -4,7 +4,7 @@ import { currentSlot, api, setSlot } from './api';
 import { accounts, currentAccount, freeSlot, keepAccount } from './accounts';
 import { rememberKey } from './device';
 import { newAccountKeys } from './keys';
-import { proof } from './security';
+import { proof, type Factors } from './security';
 import type { Session, User } from './session';
 
 export type Recovery = { hint: string | null; verified: boolean };
@@ -13,10 +13,11 @@ export type Recovery = { hint: string | null; verified: boolean };
 // nos dicionários (web/src/i18n).
 
 export const getRecovery = () => api<Recovery>('/profile/recovery');
-// Trocar pede a senha; só o primeiro, logo depois de entrar, vai sem ela.
-export async function setRecovery(email: string, confirm?: { user: User; password: string }) {
+// Trocar pede a senha (e o segundo fator ligado, se já havia um e-mail); só o primeiro, logo depois de
+// entrar, vai sem ela.
+export async function setRecovery(email: string, confirm?: { user: User; password: string; factors?: Factors }) {
   const authKey = confirm ? await proof(confirm.user, confirm.password) : undefined;
-  return api<Recovery & { sent: boolean }>('/profile/recovery', { body: { email, authKey } });
+  return api<Recovery & { sent: boolean }>('/profile/recovery', { body: { email, authKey, ...confirm?.factors } });
 }
 export const resendRecovery = () => api<{ verified: boolean; sent?: boolean }>('/profile/recovery/resend', { body: {} });
 export const confirmRecovery = (token: string) => api<{ ok: true; hint: string | null }>('/auth/recovery/confirm', { body: { token } });

@@ -57,4 +57,4 @@ export type User = { id: string; address: string; name: string; public_key: stri
 
 // session: hash do token da sessão deste pedido. apiKey: o tipo da chave de API, quando o pedido veio
 // por ela (CLI) em vez do cookie.
-export type AppEnv = { Bindings: Env; Variables: { user: User; session: string; apiKey?: 'account' | 'agent'; apiKeyHash?: string } };
+export type AppEnv = { Bindings: Env; Variables: { user: User; session: string; confirmedUntil?: number; apiKey?: 'account' | 'agent'; apiKeyHash?: string } };

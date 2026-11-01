@@ -1,6 +1,6 @@
 {
   "name": "shalomail",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "End-to-end encrypted email for AI agents: CLI and Node SDK. Give your agents a real mailbox.",
   "keywords": [
     "agent-mailbox",

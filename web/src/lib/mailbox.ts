@@ -3,7 +3,7 @@ import { checkPin, confirmPin, pinState } from './pins';
 import { fingerprint } from '../../../shared/fingerprint';
 import PostalMime, { type Email } from 'postal-mime';
 import type { MessageHead } from '../../../shared/head';
-import { fromB64, open, openJson } from '../../../shared/seal';
+import { fromB64, open, openJson, publicKeyOf, toB64 } from '../../../shared/seal';
 import { bodyHash, unpack } from '../../../shared/pack';
 import { isSealedSender, openFromSender } from '../../../shared/sender';
 import { serverKeys } from './server-keys';
@@ -37,6 +37,12 @@ type Opened = { h: MessageHead; sender: string | null; verified: boolean; keyCha
 // Dono das chaves fixadas de contato (as fixações são separadas por conta). O Mailbox informa ao abrir.
 let pinOwner = '';
 let ownAddress = '';
+// Chave pública da conta aberta, calculada uma vez a partir da privada.
+let ownKey: { secret: Uint8Array; pub: string } | null = null;
+const ownKeyOf = (secret: Uint8Array) => {
+  if (ownKey?.secret !== secret) ownKey = { secret, pub: toB64(publicKeyOf(secret)) };
+  return ownKey.pub;
+};
 export function setPinOwner(userId: string, address: string) { pinOwner = userId; ownAddress = address.toLowerCase(); }
 
 // Remetente lacrado só vale como confirmado se a chave do certificado for a fixada para aquele endereço
@@ -73,7 +79,10 @@ async function headFor(row: Row, key: Uint8Array): Promise<Opened> {
       const { cert } = await serverKeys();
       const { payload, sender } = await openFromSender(key, blob, 'head', cert, row.received_at);
       const h = JSON.parse(new TextDecoder().decode(payload)) as MessageHead;
-      const ok = await senderKeyOk(sender.address, sender.publicKey);
+      // A própria conta: a chave tem que ser a deste aparelho (a pública sai da privada aqui). Sem isso, num
+      // aparelho novo, sem nada fixado, o servidor poderia certificar outra chave com o seu endereço e
+      // forjar uma cópia "sua" com o selo de ponta a ponta.
+      const ok = sender.address === ownAddress ? sender.publicKey === ownKeyOf(key) : await senderKeyOk(sender.address, sender.publicKey);
       out = ok ? { h, sender: sender.address, verified: true, key: sender.publicKey } : { h, sender: null, verified: false, keyChanged: true };
     } else {
       // Lacre comum: quem enviou não é confirmado no aparelho. A coluna sender é palavra do servidor e não
@@ -103,7 +112,8 @@ export async function listFolder(folder: Folder, key: Uint8Array, before?: numbe
     // A sua cópia de Enviados também chega lacrada por você, mas só é de ponta a ponta se foi apenas para
     // contas Shalom (e2e, gravado no envio). Cópias antigas marcavam e2e sempre: nelas vale a lista Para.
     const own = verified && sender === ownAddress;
-    const sealedEnd = verified && (!own || (h.e2e && h.to.every(p => p.address.toLowerCase().endsWith('@shalomail.com'))));
+    // De outra conta: só com e2e (a mensagem foi só para contas Shalom; com alguém de fora o texto saiu aberto).
+    const sealedEnd = verified && h.e2e && (!own || h.to.every(p => p.address.toLowerCase().endsWith('@shalomail.com')));
     const from = h.from?.address?.toLowerCase() ?? '';
     const spoofed = verified ? from !== sender : h.auth === 'fail' || from.endsWith('@shalomail.com');
     // Em mensagem Shalom, a identidade mostrada é sempre o remetente conferido, com o endereço à vista.
@@ -128,7 +138,8 @@ export async function readMessage(id: string, key: Uint8Array, item?: Pick<Item,
     const { cert } = await serverKeys();
     const opened = await openFromSender(key, blob, 'raw', cert, item?.received_at ?? Date.now());
     if (item?.sender && opened.sender.address !== item.sender) throw new Error(t('reader.bodySender'));
-    if (item?.sender && !(await senderKeyOk(opened.sender.address, opened.sender.publicKey))) throw new Error(t('reader.senderKey'));
+    const keyOk = opened.sender.address === ownAddress ? opened.sender.publicKey === ownKeyOf(key) : await senderKeyOk(opened.sender.address, opened.sender.publicKey);
+    if (item?.sender && !keyOk) throw new Error(t('reader.senderKey'));
     // Mensagem nova traz no cabeçalho a impressão do corpo: corpo de outra mensagem não passa.
     if (item?.h?.b && (await bodyHash(opened.payload)) !== item.h.b) throw new Error(t('reader.bodySender'));
     raw = opened.payload;

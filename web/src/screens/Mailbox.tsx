@@ -17,6 +17,7 @@ import { Profile } from './Profile';
 import { AgentsPage } from './AgentsPage';
 import { ConnectCli } from './ConnectCli';
 import { Storage } from './Storage';
+import { Reauth } from '../ui/Reauth';
 import { Reader, type ReaderAction } from './Reader';
 import { AccountMenu } from '../ui/AccountMenu';
 import { EmptyFlight } from '../ui/EmptyFlight';
@@ -379,7 +380,10 @@ export function Mailbox({ session, onSignOut, onUser }: { session: Session; onSi
   }, [confirmForever]);
 
   // Rascunho abre de volta na caixa de escrever, com texto, fotos e anexos.
+  // Só o rascunho lacrado com a chave desta conta: um que o servidor (ou quem tem o cookie) tivesse posto ali
+  // não entra na caixa de escrever.
   async function openDraft(item: Item) {
+    if (!item.own) return;
     try {
       const email = await readMessage(item.id, secretKey, item);
       const files: Pending[] = [];
@@ -659,6 +663,7 @@ export function Mailbox({ session, onSignOut, onUser }: { session: Session; onSi
 
   return (
     <div className={`app ${line ? 'is-line' : ''} ${selected && !onProfile ? 'has-reader' : ''} ${drawer ? 'drawer-open' : ''} ${compose ? 'composing' : ''} ${onProfile ? 'on-profile' : ''}`}>
+      <Reauth user={user} />
       <aside className="side">
         <div className="side-top">
           <a className="logo-link" href="/caixa/inbox" aria-label={tr('mailbox.home')}

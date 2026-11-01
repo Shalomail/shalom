@@ -17,14 +17,20 @@ export async function proof(user: User, password: string) {
   return toB64((await passwordKeys(password, fromB64(salt), kdf)).authKey);
 }
 
+// O segundo fator que a conta tiver ligado, para desligar ou trocar proteções (worker/auth.ts secondOk).
+export type Factors = { pin?: string; code?: string; recovery?: string };
+
 export const getSecurity = () => api<Security>('/profile/security');
+// Confirma que é a pessoa (senha e o segundo fator ligado): libera as ações perigosas por 10 minutos.
+export const confirmIdentity = async (user: User, password: string, f: Factors = {}) =>
+  api<{ until: number }>('/profile/confirm', { body: { authKey: await proof(user, password), ...f } });
 export const setIdle = (minutes: number) => api<{ idle: number }>('/profile/idle', { body: { minutes } });
 export const setPin = async (user: User, password: string, pin: string) => api('/profile/pin', { body: { authKey: await proof(user, password), pin } });
-export const removePin = async (user: User, password: string) => api('/profile/pin/delete', { body: { authKey: await proof(user, password) } });
+export const removePin = async (user: User, password: string, f: Factors = {}) => api('/profile/pin/delete', { body: { authKey: await proof(user, password), ...f } });
 export const startTotp = async (user: User, password: string) => api<{ secret: string; uri: string }>('/profile/totp/start', { body: { authKey: await proof(user, password) } });
 export const enableTotp = (code: string) => api<{ codes: string[] }>('/profile/totp/enable', { body: { code } });
-export const disableTotp = async (user: User, password: string) => api('/profile/totp/disable', { body: { authKey: await proof(user, password) } });
-export const newRecoveryCodes = async (user: User, password: string) => api<{ codes: string[] }>('/profile/totp/recovery', { body: { authKey: await proof(user, password) } });
+export const disableTotp = async (user: User, password: string, f: Factors = {}) => api('/profile/totp/disable', { body: { authKey: await proof(user, password), ...f } });
+export const newRecoveryCodes = async (user: User, password: string, f: Factors = {}) => api<{ codes: string[] }>('/profile/totp/recovery', { body: { authKey: await proof(user, password), ...f } });
 
 // QR do otpauth:// desenhado aqui no aparelho; o segredo não passa por nenhum serviço de terceiros.
 export async function qrSvg(text: string): Promise<string> {
@@ -36,5 +42,5 @@ export async function qrSvg(text: string): Promise<string> {
 }
 
 // Apagar a conta de vez: a senha de novo e o endereço digitado (worker/account.ts diz o que sai).
-export const deleteAccount = async (user: User, password: string, confirm: string) =>
-  api('/profile/delete', { body: { authKey: await proof(user, password), confirm } });
+export const deleteAccount = async (user: User, password: string, confirm: string, f: Factors = {}) =>
+  api('/profile/delete', { body: { authKey: await proof(user, password), confirm, ...f } });

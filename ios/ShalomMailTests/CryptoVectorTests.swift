@@ -45,6 +45,15 @@ final class CryptoVectorTests: XCTestCase {
         XCTAssertEqual(try Keys.openEnvelope(again, wrapKey: keys.wrapKey), d(v.recipientSecret))
     }
 
+    // Mensagem pequena feita para descomprimir em gigabytes: abrir para no limite, sem estourar a memória.
+    func testCompressionBombRefused() throws {
+        let small = Data("Subject: oi\r\n\r\nolá\r\n".utf8)
+        XCTAssertEqual(try Gzip.decompress(try Gzip.compress(small)), small)
+        let bomb = try Gzip.compress(Data(count: Gzip.maxUnpacked + 1024 * 1024))
+        XCTAssertLessThan(bomb.count, 200_000)
+        XCTAssertThrowsError(try Gzip.decompress(bomb)) { XCTAssertEqual($0 as? PackError, .tooBig) }
+    }
+
     func testWeakKdfRefused() {
         XCTAssertThrowsError(try Keys.check(Kdf(alg: "argon2id", m: 1024, t: 1, p: 1), salt: d(v.salt)))
     }

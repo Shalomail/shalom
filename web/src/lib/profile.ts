@@ -44,7 +44,8 @@ export async function uploadAvatar(file: File): Promise<number> {
 export const removeAvatar = () => api('/profile/avatar/delete', { body: {} });
 
 // Troca de senha: prova a atual e tranca a MESMA chave privada com a senha nova. Nenhum e-mail muda.
-export async function changePassword(user: User, secretKey: Uint8Array, current: string, next: string) {
+// factors: o segundo fator ligado (PIN, código ou código de recuperação), que a troca também pede.
+export async function changePassword(user: User, secretKey: Uint8Array, current: string, next: string, factors: { pin?: string; code?: string; recovery?: string } = {}) {
   const { salt, kdf } = await api<{ salt: string; kdf: Kdf }>('/auth/salt', { body: { address: user.address } });
   const old = await passwordKeys(current, fromB64(salt), kdf);
   const freshSalt = crypto.getRandomValues(new Uint8Array(16));
@@ -56,6 +57,7 @@ export async function changePassword(user: User, secretKey: Uint8Array, current:
       kdf: KDF,
       authKey: toB64(fresh.authKey),
       envelope: await sealEnvelope(secretKey, fresh.wrapKey),
+      ...factors,
     },
   });
 }

@@ -3,7 +3,7 @@
 // caixa recebe a própria chave de API, que lê e envia só por ela. A criptografia é a mesma das contas
 // de pessoas: o servidor guarda tudo lacrado e não consegue ler.
 import { Hono, type Context } from 'hono';
-import { addressTaken, requireUser } from './auth';
+import { addressTaken, confirmedOk, requireUser } from './auth';
 import { newApiKey } from './apikeys';
 import { boxOf } from './box';
 import type { AppEnv } from './env';
@@ -32,7 +32,12 @@ apiKeys.get('/', async c => {
 
 apiKeys.post('/', async c => {
   const user = c.get('user');
-  const { name } = await c.req.json<{ name?: string }>().catch(() => ({ name: '' }));
+  type Body = { name?: string; authKey?: unknown; pin?: string; code?: string; recovery?: string };
+  const body = await c.req.json<Body>().catch((): Body => ({ name: '' }));
+  const { name } = body;
+  // Chave nova cria e troca caixas de agente: a pessoa confirmada.
+  const denied = await confirmedOk(c, body);
+  if (denied) return denied;
   const count = await c.env.DB.prepare("SELECT COUNT(*) AS n FROM api_keys WHERE user_id = ? AND kind = 'account'").bind(user.id).first<number>('n');
   if ((count ?? 0) >= MAX_ACCOUNT_KEYS) return fail(c, 400, 'too_many_keys', `No máximo ${MAX_ACCOUNT_KEYS} chaves. Revogue uma para criar outra.`);
   const key = await newApiKey(c.env, user.id, 'account', cleanName(name) || 'CLI');
@@ -124,7 +129,8 @@ agents.post('/logout', async c => {
 });
 
 agents.post('/delete', async c => {
-  const { id, agentKey } = await c.req.json<{ id?: string; agentKey?: string }>();
+  const body = await c.req.json<{ id?: string; agentKey?: string; authKey?: unknown; pin?: string; code?: string; recovery?: string }>();
+  const { id, agentKey } = body;
   const agent = await ownAgent(c, id);
   if (!agent) return fail(c, 404, 'not_found', 'Caixa de agente não encontrada.');
   if (c.get('apiKey')) {
@@ -132,6 +138,10 @@ agents.post('/delete', async c => {
       ? await c.env.DB.prepare("SELECT 1 FROM api_keys WHERE key_hash = ? AND user_id = ? AND kind = 'agent'").bind(await sha256(agentKey), agent.id).first()
       : null;
     if (!proof) return fail(c, 403, 'key_scope', 'Para apagar pelo terminal, a chave da própria caixa precisa estar nesta máquina. Ou apague pela página Agentes de IA.');
+  } else {
+    // Pela página: a pessoa confirmada (apagar a caixa leva os e-mails dela junto, de vez).
+    const denied = await confirmedOk(c, body);
+    if (denied) return denied;
   }
   await boxOf(c.env, agent.id).destroy(agent.id);
   await c.env.DB.batch([

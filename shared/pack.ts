@@ -28,12 +28,33 @@ export async function pack(bytes: Uint8Array): Promise<Uint8Array> {
 export const isPacked = (bytes: Uint8Array) => bytes.length > 2 && bytes[0] === 0x1f && bytes[1] === 0x8b;
 const isFramed = (b: Uint8Array) => b.length >= 8 && MAGIC.every((x, i) => b[i] === x);
 
+// O maior e-mail aceito tem 15 MB: abrir nunca passa de 64 MiB. Uma mensagem pequena feita para descomprimir
+// em gigabytes derrubava a aba, o app ou o terminal (e o `shalom watch` voltava a ela a cada reinício).
+export const MAX_UNPACKED = 64 * 1024 * 1024;
+
+async function inflate(bytes: Uint8Array): Promise<Uint8Array> {
+  const reader = new Blob([bytes as Uint8Array<ArrayBuffer>]).stream().pipeThrough(new DecompressionStream('gzip')).getReader();
+  const parts: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.length;
+    if (total > MAX_UNPACKED) { await reader.cancel(); throw new Error('Mensagem grande demais para abrir.'); }
+    parts.push(value);
+  }
+  const out = new Uint8Array(total);
+  let at = 0;
+  for (const p of parts) { out.set(p, at); at += p.length; }
+  return out;
+}
+
 export async function unpack(bytes: Uint8Array): Promise<Uint8Array> {
   if (isFramed(bytes)) {
     const len = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength).getUint32(MAGIC.length);
-    return pipe(bytes.subarray(MAGIC.length + 4, MAGIC.length + 4 + len), new DecompressionStream('gzip'));
+    return inflate(bytes.subarray(MAGIC.length + 4, MAGIC.length + 4 + len));
   }
-  return isPacked(bytes) ? pipe(bytes, new DecompressionStream('gzip')) : bytes;
+  return isPacked(bytes) ? inflate(bytes) : bytes;
 }
 
 // Impressão do corpo (SHA-256 do corpo já empacotado), guardada no cabeçalho lacrado pelo remetente:

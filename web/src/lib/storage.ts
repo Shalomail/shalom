@@ -163,11 +163,12 @@ export async function deleteForeverAnywhere(ids: string[], onProgress?: (done: n
 }
 
 // Esvazia a conta (ou uma pasta): tudo o que tinha chegado até a hora do resumo que a pessoa confirmou (o
-// que chegar depois fica). O servidor apaga em lotes de 500, e cada lote mostra o progresso.
-export async function deleteEverything(before: number, folder: BoxFolder | null, onProgress: (done: number) => void, stopped: () => boolean) {
+// que chegar depois fica). O servidor apaga em lotes de 500, e cada lote mostra o progresso. Fora da Lixeira
+// e do Spam vai a prova da senha (authKey).
+export async function deleteEverything(before: number, folder: BoxFolder | null, onProgress: (done: number) => void, stopped: () => boolean, authKey?: string) {
   let done = 0;
   for (;;) {
-    const body = { before, limit: 500, ...(folder ? { folder } : {}) };
+    const body = { before, limit: 500, ...(folder ? { folder } : {}), ...(authKey ? { authKey } : {}) };
     const r = await retry(() => api<{ deleted: number; freed: number; more: boolean }>('/storage/wipe', { body }));
     done += r.deleted;
     onProgress(done);

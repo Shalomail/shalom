@@ -20,6 +20,9 @@ struct SignInView: View {
     @State private var missing = false
     @State private var signingUp = false
     @State private var forgotSent = false
+    // Verificação contra robôs, quando o servidor pede (3 senhas erradas neste endereço, num aparelho novo).
+    @State private var siteKey: String?
+    @State private var captchaRound = 0
     @FocusState private var focused: Bool
 
     var body: some View {
@@ -32,6 +35,13 @@ struct SignInView: View {
                     .padding(.bottom, 24)
                 field
                 below.padding(.top, 14)
+                // Privacidade e Termos à mão já na primeira tela (diretriz 5.1.1 da Apple).
+                HStack(spacing: 18) {
+                    Link(t("ios.about.privacy"), destination: L10n.shared.site(.privacy))
+                    Link(t("ios.about.terms"), destination: L10n.shared.site(.terms))
+                }
+                .font(.system(size: 12.5)).foregroundStyle(Palette.text3)
+                .padding(.top, 48)
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 24)
@@ -82,6 +92,10 @@ struct SignInView: View {
                     SecureField(t("pw.label"), text: $password).textContentType(.password).focused($focused).submitLabel(.go).onSubmit(submit)
                 }
                 Toggle(t("auth.remember"), isOn: $remember).font(.system(size: 14)).foregroundStyle(Palette.text2).tint(Palette.safe).frame(maxWidth: 304)
+                if let siteKey, !siteKey.isEmpty {
+                    // Resolvida a verificação, entra com a mesma senha.
+                    TurnstileView(siteKey: siteKey) { token in submit(turnstile: token) }.frame(width: 300, height: 70).id(captchaRound)
+                }
             }
         case .pin:
             ArrowField(icon: "shield", ready: pin.count == 6, busy: busy, action: finishSecond) {
@@ -143,19 +157,29 @@ struct SignInView: View {
         }
     }
 
-    private func submit() {
+    private func submit() { submit(turnstile: nil) }
+
+    private func submit(turnstile: String?) {
         guard !password.isEmpty, !busy else { return }
         busy = true; error = nil
         Task {
             defer { busy = false }
             do {
-                if let s = try await app.signIn(address: local, password: password, remember: remember) {
+                if let s = try await app.signIn(address: local, password: password, remember: remember, turnstile: turnstile) {
                     second = s
                     step = s.pin ? .pin : .totp
                     focused = true
                 }
                 password = ""
-            } catch { self.error = error.localizedDescription }
+                siteKey = nil
+            } catch {
+                self.error = error.localizedDescription
+                // O servidor pediu a verificação (ou a anterior não valeu): mostra uma nova, que vale uma vez.
+                if let e = error as? APIError, e.code == "captcha" || e.code == "wrong_captcha" {
+                    if siteKey == nil { siteKey = (try? await AccountAPI.config())?["turnstileSiteKey"] as? String ?? "" }
+                    captchaRound += 1
+                }
+            }
         }
     }
 

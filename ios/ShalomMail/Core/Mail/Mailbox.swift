@@ -111,6 +111,14 @@ final class Mailbox {
 
     func forget() { lock.lock(); heads = [:]; bodies = [:]; seen = [:]; lock.unlock() }
 
+    // Chave do remetente Shalom: a fixada neste aparelho, ou, para a própria conta, a que sai da chave privada
+    // daqui. Sem isso, num aparelho novo, sem nada fixado, o servidor poderia certificar outra chave com o seu
+    // endereço e forjar uma cópia "sua" com o selo de ponta a ponta.
+    private func keyOk(_ address: String, _ publicKey: String, _ session: Session) async -> Bool {
+        if address == session.user.address.lowercased() { return (try? Seal.publicKey(of: session.secretKey))?.b64 == publicKey }
+        return await Pins.shared.check(session.user.id, address, publicKey) == publicKey
+    }
+
     private func headFor(_ row: Row, _ session: Session) async -> Opened {
         if let cached = lock.withLock({ heads[row.id] }) { return cached }
         var out: Opened
@@ -120,8 +128,7 @@ final class Mailbox {
                     let cert = try await ServerKeys.shared.get().cert
                     let r = try Sender.open(session.secretKey, blob, .head, serverPublic: cert, receivedAt: row.received_at)
                     let h = try JSONDecoder().decode(MessageHead.self, from: r.payload)
-                    let pinned = await Pins.shared.check(session.user.id, r.address, r.publicKey)
-                    out = pinned == r.publicKey ? Opened(h: h, sender: r.address, keyChanged: false, key: r.publicKey) : Opened(h: h, sender: nil, keyChanged: true, key: nil)
+                    out = await keyOk(r.address, r.publicKey, session) ? Opened(h: h, sender: r.address, keyChanged: false, key: r.publicKey) : Opened(h: h, sender: nil, keyChanged: true, key: nil)
                 } else {
                     out = Opened(h: try Seal.openJSON(session.secretKey, blob, as: MessageHead.self), sender: nil, keyChanged: false, key: nil)
                 }
@@ -151,7 +158,8 @@ final class Mailbox {
             // A sua cópia de Enviados também chega lacrada por você, mas só é de ponta a ponta se foi apenas para
             // contas Shalom (e2e, gravado no envio). Cópias antigas marcavam e2e sempre: nelas vale a lista Para.
             let own = verified && o.sender == session.user.address.lowercased()
-            let sealedEnd = verified && (!own || (o.h.e2e && o.h.to.allSatisfy { Outbox.isShalom($0.address) }))
+            // De outra conta: só com e2e (com alguém de fora o texto saiu aberto).
+            let sealedEnd = verified && o.h.e2e && (!own || o.h.to.allSatisfy { Outbox.isShalom($0.address) })
             let from = o.h.from?.address.lowercased() ?? ""
             let spoofed = verified ? from != o.sender : (o.h.auth == "fail" || from.hasSuffix("@\(AppModel.domain)"))
             var h = o.h
@@ -201,7 +209,7 @@ final class Mailbox {
             let cert = try await ServerKeys.shared.get().cert
             let opened = try Sender.open(session.secretKey, blob, .raw, serverPublic: cert, receivedAt: item.receivedAt)
             if let s = item.sender, opened.address != s { throw ReadError.bodySender }
-            if item.sender != nil, await Pins.shared.check(session.user.id, opened.address, opened.publicKey) != opened.publicKey { throw ReadError.senderKey }
+            if item.sender != nil, !(await keyOk(opened.address, opened.publicKey, session)) { throw ReadError.senderKey }
             // Mensagem nova traz no cabeçalho a impressão do corpo: corpo de outra mensagem não passa.
             if let b = item.h.b, Pack.bodyHash(opened.payload) != b { throw ReadError.bodySender }
             raw = opened.payload

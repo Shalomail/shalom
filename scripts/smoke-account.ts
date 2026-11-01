@@ -40,7 +40,7 @@ check((await admin('user', { address: 'ninguem' }, 'errada')).status === 404, 'a
 
 // Suspender: sai das sessões, as chaves (da conta e das caixas de agente) param, o login recusa só depois da senha certa.
 const sus = await signup(`susp${tag}`);
-const accountKey = (await sus.c.call<{ key: string }>('POST', '/api/apikeys', { name: 'teste' })).data.key;
+const accountKey = (await sus.c.call<{ key: string }>('POST', '/api/apikeys', { name: 'teste', authKey: sus.authKey })).data.key;
 const agentAddress = `suspbot${tag}`;
 const made = await new Client(accountKey).call<{ key: string }>('POST', '/api/agents', { address: agentAddress, publicKey: toB64(newKeyPair().publicKey) });
 check(made.status === 200, 'caixa de agente criada para a conta que vai ser suspensa');
@@ -58,7 +58,7 @@ check((await new Client(accountKey).call('GET', '/api/agents')).status === 200, 
 
 // Apagar pela própria pessoa.
 const del = await signup(`apaga${tag}`);
-const key2 = (await del.c.call<{ key: string }>('POST', '/api/apikeys', { name: 'teste' })).data.key;
+const key2 = (await del.c.call<{ key: string }>('POST', '/api/apikeys', { name: 'teste', authKey: del.authKey })).data.key;
 const bot = `apagabot${tag}`;
 await new Client(key2).call('POST', '/api/agents', { address: bot, publicKey: toB64(newKeyPair().publicKey) });
 check((await del.c.call('POST', '/api/profile/delete', { authKey: toB64(new Uint8Array(32)), confirm: del.address })).status === 401, 'apagar com senha errada é recusado');

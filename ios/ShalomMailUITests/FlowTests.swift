@@ -188,7 +188,12 @@ final class FlowTests: XCTestCase {
         sleep(1)
         shot(app, "12-conectar")
         approve.tap()
-        XCTAssertTrue(app.staticTexts["Pode voltar para o terminal: ele já recebeu o acesso."].waitForExistence(timeout: 20), "terminal conectado")
+        // Conectar dá ao terminal uma chave da conta: o app pede a senha (vale 10 minutos).
+        let confirmPassword = app.secureTextFields["Senha da conta"]
+        XCTAssertTrue(confirmPassword.waitForExistence(timeout: 15), "pede a senha para conectar")
+        confirmPassword.tap(); confirmPassword.typeText("nova-senha-do-iphone-2026")
+        app.buttons["Confirmar"].tap()
+        XCTAssertTrue(app.staticTexts["Pode voltar para o terminal: ele já recebeu o acesso."].waitForExistence(timeout: 30), "terminal conectado")
         shot(app, "13-conectado")
     }
 
@@ -353,6 +358,74 @@ final class FlowTests: XCTestCase {
             shot(app, "21-corpo-\(theme)")
             app.terminate()
         }
+    }
+
+    // Depois de 3 senhas erradas num aparelho que a conta não conhece, o servidor pede a verificação contra
+    // robôs: a tela de entrar mostra o widget e, resolvido (a chave de teste resolve sozinha), entra. A conta
+    // vem de scripts/ios-captcha-prep.ts (TEST_RUNNER_CAPTCHA_ADDRESS e TEST_RUNNER_CAPTCHA_PASSWORD).
+    func testLoginCaptcha() throws {
+        let env = ProcessInfo.processInfo.environment
+        guard let address = env["CAPTCHA_ADDRESS"], let password = env["CAPTCHA_PASSWORD"] else {
+            throw XCTSkip("sem conta: rodar scripts/ios-captcha-prep.ts antes")
+        }
+        let app = XCUIApplication()
+        app.launchArguments = ["-api", "http://127.0.0.1:8790", "-shalom-app-lang", "pt", "-shalom-accounts", "", "-AppleLanguages", "(pt-BR)", "-shalom-theme", "dark"]
+        app.launch()
+        let field = app.textFields.firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 15))
+        field.tap(); field.typeText("\(address.split(separator: "@")[0])\n")
+        let secret = app.secureTextFields.firstMatch
+        XCTAssertTrue(secret.waitForExistence(timeout: 15))
+        for _ in 0 ..< 3 {
+            secret.tap(); secret.typeText("senha-errada-\n")
+            XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS[c] %@", "senha")).firstMatch.waitForExistence(timeout: 30), "senha errada recusada")
+        }
+        // Com a senha certa o servidor pede a verificação; a chave de teste resolve na hora e o app entra com
+        // ela. Sem o widget na tela de entrar, o app ficava parado no aviso "Confirme que você não é um robô".
+        secret.tap(); secret.typeText("\(password)\n")
+        XCTAssertTrue(app.collectionViews.firstMatch.waitForExistence(timeout: 60), "resolvida a verificação, a caixa abriu")
+        allowNotifications()
+    }
+
+    // Apagar de vez pede a senha (só o cookie não basta); confirmada, a ação segue sozinha.
+    func testDeleteForeverAsksPassword() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-api", "http://127.0.0.1:8790", "-shalom-app-lang", "pt", "-shalom-accounts", "", "-AppleLanguages", "(pt-BR)", "-shalom-theme", "dark"]
+        app.launch()
+        try signIn(app, "marina")
+        app.buttons["Abrir menu"].tap()
+        app.buttons["Lixeira"].tap()
+        XCTAssertTrue(app.navigationBars["Lixeira"].waitForExistence(timeout: 10))
+        let cell = app.collectionViews.cells.firstMatch
+        XCTAssertTrue(cell.waitForExistence(timeout: 10), "há algo na Lixeira")
+        cell.press(forDuration: 1.0)
+        app.buttons["Apagar de vez"].tap()
+        let pw = app.secureTextFields["Senha da conta"]
+        XCTAssertTrue(pw.waitForExistence(timeout: 15), "pede a senha para apagar de vez")
+        sleep(1)
+        shot(app, "23-confirmar")
+        pw.tap(); pw.typeText(try seedPassword())
+        app.buttons["Confirmar"].tap()
+        XCTAssertFalse(pw.waitForExistence(timeout: 2) && pw.exists && app.staticTexts.containing(NSPredicate(format: "label CONTAINS[c] %@", "não confere")).firstMatch.exists, "a senha foi aceita")
+        XCTAssertTrue(app.navigationBars["Lixeira"].waitForExistence(timeout: 15), "voltou para a Lixeira com a mensagem apagada")
+    }
+
+    // Imagens de fora passam pelo proxy do shalomail.com (o servidor de quem enviou não vê o iPhone). O e-mail
+    // de teste vem com uma imagem externa; o assunto chega por TEST_RUNNER_IMAGE_SUBJECT.
+    func testRemoteImagesViaProxy() throws {
+        guard let subject = ProcessInfo.processInfo.environment["IMAGE_SUBJECT"] else { throw XCTSkip("sem e-mail de teste com imagem") }
+        let app = XCUIApplication()
+        app.launchArguments = ["-api", "http://127.0.0.1:8790", "-shalom-app-lang", "pt", "-shalom-accounts", "", "-AppleLanguages", "(pt-BR)", "-shalom-theme", "light"]
+        app.launch()
+        try signIn(app, "marina")
+        let row = app.buttons.containing(NSPredicate(format: "label CONTAINS %@", subject)).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 15), "o e-mail com imagem está na Entrada")
+        row.tap()
+        let show = app.buttons["Mostrar imagens"]
+        XCTAssertTrue(show.waitForExistence(timeout: 15), "imagens de fora começam bloqueadas")
+        show.tap()
+        sleep(5)
+        shot(app, "24-imagem-pelo-proxy")
     }
 
     func testSettings() throws {

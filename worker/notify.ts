@@ -2,7 +2,7 @@
 // nao-responda@ pelo Email Service. Com o envio desligado (dev), o link vai para o log.
 import type { Env } from './env';
 import { NOTIFY, notifyTexts, type NotifyTexts } from './notify-texts';
-import { bump, now, randomToken, sendCaps, sendsKey, sha256, tally } from './util';
+import { bump, now, randomToken, sendCaps, sendsKey, sha256, systemSendsKey, tally } from './util';
 
 export type TokenKind = 'verify' | 'reset';
 export const TOKEN_MS: Record<TokenKind, number> = { verify: 24 * 3600 * 1000, reset: 3600 * 1000 };
@@ -121,12 +121,19 @@ function page(m: Mail) {
 </html>`;
 }
 
-async function send(env: Env, to: string, subject: string, text: string, html: string, link: string) {
+// A parte do sistema é o teto do dia menos a das pessoas. Uma reserva dela fica só para o link de senha
+// nova: confirmações de e-mail de recuperação em massa não deixam ninguém sem conseguir voltar à conta.
+async function send(env: Env, to: string, subject: string, text: string, html: string, link: string, kind: 'confirm' | 'reset') {
   if (env.EMAIL_SENDING !== 'on') {
     console.log(`[envio desligado] ${subject}: ${link}`);
     return;
   }
-  if ((await bump(env.DB, sendsKey(), 24 * 3600 * 1000)) > sendCaps(env).total) throw new Error('teto geral de envio do dia atingido');
+  const caps = sendCaps(env);
+  const share = Math.max(1, caps.total - caps.people);
+  const reserve = Math.min(20, Math.floor(share / 3));
+  const used = await bump(env.DB, systemSendsKey(), 24 * 3600 * 1000);
+  if (used > share || (kind === 'confirm' && used > share - reserve)) throw new Error('teto de envio do sistema atingido hoje');
+  await bump(env.DB, sendsKey(), 24 * 3600 * 1000);
   await env.EMAIL.send({ from: { email: `nao-responda@${env.MAIL_DOMAIN}`, name: 'Shalom Mail' }, to, subject, text, html } as unknown as EmailMessageBuilder);
   await tally(env.DB, 'sent_system');
 }
@@ -165,13 +172,13 @@ const plain = (m: Mail) =>
 export async function sendConfirmRecovery(env: Env, to: string, account: string, token: string, lang: string) {
   const link = `${env.APP_ORIGIN}/confirmar?t=${token}`;
   const mail = confirmMail(env.APP_ORIGIN, lang, account, link);
-  await send(env, to, mail.t.confirm.subject, plain(mail), page(mail), link);
+  await send(env, to, mail.t.confirm.subject, plain(mail), page(mail), link, 'confirm');
 }
 
 export async function sendReset(env: Env, to: string, account: string, token: string, lang: string) {
   const link = `${env.APP_ORIGIN}/nova-senha?t=${token}`;
   const mail = resetMail(env.APP_ORIGIN, lang, account, link);
-  await send(env, to, mail.t.reset.subject, plain(mail), page(mail), link);
+  await send(env, to, mail.t.reset.subject, plain(mail), page(mail), link, 'reset');
 }
 
 // Prévia dos modelos (scripts/email-preview.ts): o HTML de cada um com um link de exemplo.

@@ -25,6 +25,7 @@ struct SettingsView: View {
     @State private var note: String?
     @State private var error: String?
     @AppStorage("shalom-theme") private var theme = AppTheme.dark.rawValue
+    @AppStorage(AppModel.lockKey) private var lockMinutes = 5
     @ObservedObject private var push = Push.shared
 
     enum Page: Hashable { case password, recovery, pin, totp, delete, storage, agents, invites }
@@ -66,6 +67,11 @@ struct SettingsView: View {
                 Section(header: Text(t("settings.space")), footer: Text(t("settings.spaceDesc"))) {
                     NavigationLink(value: Page.storage) { StorageBarView(summary: summary) }
                 }
+                Section(t("ios.about.title")) {
+                    Link(t("ios.about.privacy"), destination: L10n.shared.site(.privacy))
+                    Link(t("ios.about.terms"), destination: L10n.shared.site(.terms))
+                    Link(t("ios.about.help"), destination: L10n.shared.site(.help))
+                }
                 Section {
                     NavigationLink(value: Page.delete) { Text(t("settings.del.open")).foregroundStyle(.red) }
                 } header: { Text(t("settings.del.title")) } footer: { Text(t("settings.del.rowDesc")) }
@@ -79,11 +85,11 @@ struct SettingsView: View {
             // Os painéis com Cancelar saem só por ele (ou pelo botão de concluir), sem a seta de voltar junto.
             .navigationDestination(for: Page.self) { p in
                 switch p {
-                case .password: PasswordPanel(session: session) { done(t("settings.passwordChanged")) }.navigationBarBackButtonHidden(true)
-                case .recovery: RecoveryPanel(session: session, current: recovery) { hint, sent in recovery = RecoveryState(hint: hint, verified: false); done(t(sent ? "settings.recoverySent" : "settings.recoveryNotSent", ["email": hint ?? ""])) }.navigationBarBackButtonHidden(true)
-                case .pin: PinPanel(session: session, on: security?.pin ?? false) { on in security?.pin = on; done(t(on ? "settings.pinCreated" : "settings.pinRemoved")) }.navigationBarBackButtonHidden(true)
-                case .totp: TotpPanel(session: session, on: security?.totp ?? false) { text in done(text) }.navigationBarBackButtonHidden(true)
-                case .delete: DeletePanel(session: session).navigationBarBackButtonHidden(true)
+                case .password: PasswordPanel(session: session, need: FactorNeed(pin: security?.pin == true, totp: security?.totp == true)) { done(t("settings.passwordChanged")) }.navigationBarBackButtonHidden(true)
+                case .recovery: RecoveryPanel(session: session, current: recovery, need: FactorNeed(pin: security?.pin == true, totp: security?.totp == true)) { hint, sent in recovery = RecoveryState(hint: hint, verified: false); done(t(sent ? "settings.recoverySent" : "settings.recoveryNotSent", ["email": hint ?? ""])) }.navigationBarBackButtonHidden(true)
+                case .pin: PinPanel(session: session, on: security?.pin ?? false, totpOn: security?.totp ?? false) { on in security?.pin = on; done(t(on ? "settings.pinCreated" : "settings.pinRemoved")) }.navigationBarBackButtonHidden(true)
+                case .totp: TotpPanel(session: session, on: security?.totp ?? false, pinOn: security?.pin ?? false) { text in done(text) }.navigationBarBackButtonHidden(true)
+                case .delete: DeletePanel(session: session, need: FactorNeed(pin: security?.pin == true, totp: security?.totp == true)).navigationBarBackButtonHidden(true)
                 case .storage: StorageView(session: session)
                 case .agents: AgentsView()
                 case .invites: InvitesView()
@@ -163,6 +169,12 @@ struct SettingsView: View {
                     Text(security?.totp == true ? (security!.recoveryLeft == 0 ? t("settings.codesNone") : tn("settings.codesLeft", security!.recoveryLeft)) : t("settings.totpDesc"))
                         .font(.system(size: 13)).foregroundStyle(security?.totp == true && (security?.recoveryLeft ?? 0) <= 2 ? Palette.warn : Palette.text3)
                 }
+            }
+            VStack(alignment: .leading, spacing: 4) {
+                Picker(t("ios.lock.title"), selection: $lockMinutes) {
+                    ForEach(AppModel.lockChoices, id: \.self) { m in Text(m == 0 ? t("ios.lock.now") : duration(m)).tag(m) }
+                }
+                Text(t("ios.lock.desc")).font(.system(size: 13)).foregroundStyle(Palette.text3)
             }
             if let sec = security {
                 Picker(t("settings.idle"), selection: Binding(get: { sec.idle }, set: { m in
@@ -279,18 +291,27 @@ struct StorageBarView: View {
 struct PasswordPanel: View {
     @Environment(\.dismiss) private var dismiss
     let session: Session
+    let need: FactorNeed
     let done: () -> Void
+    @State private var factorPin = ""
+    @State private var factorCode = ""
     @State private var current = ""
     @State private var next = ""
     @State private var repeatPw = ""
+    @State private var strength: PasswordStrength.Result?
     @State private var busy = false
     @State private var error: String?
 
     var body: some View {
         Form {
-            Section(t("settings.confirmYou")) { SecureField(t("settings.pwCurrent"), text: $current).textContentType(.password) }
+            Section(t("settings.confirmYou")) {
+                SecureField(t("settings.pwCurrent"), text: $current).textContentType(.password)
+                FactorFields(need: need, pin: $factorPin, code: $factorCode)
+            }
             Section(header: Text(t("settings.pwChooseNew")), footer: Text(t("settings.pwRule"))) {
                 SecureField(t("settings.pwNew"), text: $next).textContentType(.newPassword)
+                    .task(id: next) { strength = next.isEmpty ? nil : await PasswordStrength.shared.check(next, inputs: [session.user.name, session.user.address]) }
+                if let strength { Text(t(strength.hint)).font(.system(size: 13)).foregroundStyle(strength.ok ? Palette.text3 : Palette.warn) }
                 SecureField(t("settings.pwRepeat"), text: $repeatPw).textContentType(.newPassword)
                 if !repeatPw.isEmpty { Text(t(repeatPw == next ? "settings.pwMatch" : "settings.pwNoMatch")).font(.system(size: 13)).foregroundStyle(repeatPw == next ? Palette.safe : Palette.warn) }
             }
@@ -301,18 +322,18 @@ struct PasswordPanel: View {
         .toolbar {
             ToolbarItem(placement: .cancellationAction) { Button(t("common.cancel")) { dismiss() } }
             ToolbarItem(placement: .confirmationAction) {
-                Button { submit() } label: { if busy { ProgressView() } else { Text(t("settings.pwChange")) } }.disabled(busy || current.isEmpty || next.isEmpty)
+                Button { submit() } label: { if busy { ProgressView() } else { Text(t("settings.pwChange")) } }.disabled(busy || current.isEmpty || next.isEmpty || !need.ready(factorPin, factorCode))
             }
         }
     }
 
     private func submit() {
-        guard next.count >= 8 else { error = t("settings.pwMin"); return }
+        guard strength?.ok == true else { error = t(strength?.hint ?? "settings.pwMin"); return }
         guard next == repeatPw else { error = t("settings.pwMismatch"); return }
         busy = true; error = nil
         Task {
             defer { busy = false }
-            do { try await AccountAPI.changePassword(session, current: current, next: next); done() } catch { self.error = (error as? APIError)?.message ?? t("settings.pwFail") }
+            do { try await AccountAPI.changePassword(session, current: current, next: next, factors: need.answers(factorPin, factorCode)); done() } catch { self.error = (error as? APIError)?.message ?? t("settings.pwFail") }
         }
     }
 }
@@ -321,9 +342,14 @@ struct RecoveryPanel: View {
     @Environment(\.dismiss) private var dismiss
     let session: Session
     let current: RecoveryState?
+    let need: FactorNeed
     let done: (String?, Bool) -> Void
     @State private var email = ""
     @State private var password = ""
+    @State private var factorPin = ""
+    @State private var factorCode = ""
+    // Trocar um e-mail que já existe pede também o segundo fator ligado.
+    private var asked: FactorNeed { current?.hint != nil ? need : FactorNeed(pin: false, totp: false) }
     @State private var busy = false
     @State private var error: String?
 
@@ -332,7 +358,12 @@ struct RecoveryPanel: View {
             Section(header: Text(t("settings.recoveryWhere")), footer: Text(t("settings.recoveryWhereDesc"))) {
                 TextField(t("recovery.emailPlaceholder"), text: $email).keyboardType(.emailAddress).textInputAutocapitalization(.never).autocorrectionDisabled().textContentType(.emailAddress)
             }
-            if current?.hint != nil { Section(t("settings.confirmYou")) { SecureField(t("settings.accountPassword"), text: $password).textContentType(.password) } }
+            if current?.hint != nil {
+                Section(t("settings.confirmYou")) {
+                    SecureField(t("settings.accountPassword"), text: $password).textContentType(.password)
+                    FactorFields(need: asked, pin: $factorPin, code: $factorCode)
+                }
+            }
             if let error { Section { Note(text: error, tone: .warn).frame(maxWidth: .infinity, alignment: .leading) } }
         }
         .navigationTitle(t("settings.recovery")).navigationBarTitleDisplayMode(.inline)
@@ -340,7 +371,7 @@ struct RecoveryPanel: View {
             ToolbarItem(placement: .cancellationAction) { Button(t("common.cancel")) { dismiss() } }
             ToolbarItem(placement: .confirmationAction) {
                 Button { submit() } label: { if busy { ProgressView() } else { Text(t("settings.saveAndSend")) } }
-                    .disabled(busy || !email.contains("@") || (current?.hint != nil && password.isEmpty))
+                    .disabled(busy || !email.contains("@") || (current?.hint != nil && (password.isEmpty || !asked.ready(factorPin, factorCode))))
             }
         }
     }
@@ -350,7 +381,8 @@ struct RecoveryPanel: View {
         Task {
             defer { busy = false }
             do {
-                let r = try await AccountAPI.setRecovery(email.trimmingCharacters(in: .whitespaces), confirm: current?.hint != nil ? (session.user, password) : nil)
+                let r = try await AccountAPI.setRecovery(email.trimmingCharacters(in: .whitespaces), confirm: current?.hint != nil ? (session.user, password) : nil,
+                                                         factors: asked.answers(factorPin, factorCode))
                 done(r.hint, r.sent)
             } catch { self.error = (error as? APIError)?.message ?? t("settings.recoverySaveFail") }
         }
@@ -361,9 +393,14 @@ struct PinPanel: View {
     @Environment(\.dismiss) private var dismiss
     let session: Session
     let on: Bool
+    let totpOn: Bool
     let done: (Bool) -> Void
     @State private var password = ""
     @State private var pin = ""
+    @State private var factorPin = ""
+    @State private var factorCode = ""
+    // Tirar o PIN pede o próprio PIN e, com duas etapas ligadas, o código.
+    private var need: FactorNeed { FactorNeed(pin: on, totp: on && totpOn) }
     @State private var repeatPin = ""
     @State private var busy = false
     @State private var error: String?
@@ -377,7 +414,10 @@ struct PinPanel: View {
 
     var body: some View {
         Form {
-            Section(t("settings.confirmYou")) { SecureField(t("settings.accountPassword"), text: $password).textContentType(.password) }
+            Section(t("settings.confirmYou")) {
+                SecureField(t("settings.accountPassword"), text: $password).textContentType(.password)
+                FactorFields(need: need, pin: $factorPin, code: $factorCode)
+            }
             if !on {
                 Section(header: Text(t("settings.pinChoose")), footer: Text(t("settings.pinAvoid"))) {
                     SecureField(t("settings.pinNew"), text: $pin).keyboardType(.numberPad).onChange(of: pin) { _, v in pin = String(v.filter(\.isNumber).prefix(6)) }
@@ -395,7 +435,7 @@ struct PinPanel: View {
             ToolbarItem(placement: .cancellationAction) { Button(t("common.cancel")) { dismiss() } }
             ToolbarItem(placement: .confirmationAction) {
                 Button { submit() } label: { if busy { ProgressView() } else { Text(t(on ? "settings.removePin" : "settings.createPin")) } }
-                    .disabled(busy || password.isEmpty || (!on && (pin.count != 6 || pin != repeatPin || weak)))
+                    .disabled(busy || password.isEmpty || !need.ready(factorPin, factorCode) || (!on && (pin.count != 6 || pin != repeatPin || weak)))
             }
         }
     }
@@ -405,7 +445,7 @@ struct PinPanel: View {
         Task {
             defer { busy = false }
             do {
-                if on { try await AccountAPI.removePin(session.user, password) } else { try await AccountAPI.setPin(session.user, password, pin) }
+                if on { try await AccountAPI.removePin(session.user, password, factors: need.answers(factorPin, factorCode)) } else { try await AccountAPI.setPin(session.user, password, pin) }
                 done(!on)
             } catch { self.error = (error as? APIError)?.message ?? t(on ? "settings.pinRemoveFail" : "settings.pinCreateFail") }
         }
@@ -417,8 +457,13 @@ struct TotpPanel: View {
     @Environment(\.dismiss) private var dismiss
     let session: Session
     let on: Bool
+    let pinOn: Bool
     let done: (String) -> Void
     @State private var password = ""
+    @State private var factorPin = ""
+    @State private var factorCode = ""
+    // Códigos novos e desligar pedem o PIN (se houver) e um código do autenticador ou de recuperação.
+    private var need: FactorNeed { FactorNeed(pin: on && pinOn, totp: on) }
     @State private var started: (secret: String, uri: String)?
     @State private var code = ""
     @State private var codes: [String] = []
@@ -453,7 +498,10 @@ struct TotpPanel: View {
                 } else {
                     Section { Text(t("settings.startDesc")).font(.system(size: 13)).foregroundStyle(Palette.text3) }
                 }
-                Section(t("settings.confirmYou")) { SecureField(t("settings.accountPassword"), text: $password).textContentType(.password) }
+                Section(t("settings.confirmYou")) {
+                    SecureField(t("settings.accountPassword"), text: $password).textContentType(.password)
+                    FactorFields(need: need, pin: $factorPin, code: $factorCode)
+                }
             }
             if let error { Section { Note(text: error, tone: .warn).frame(maxWidth: .infinity, alignment: .leading) } }
         }
@@ -476,7 +524,7 @@ struct TotpPanel: View {
     private var ready: Bool {
         if !codes.isEmpty { return keptCodes }
         if started != nil { return code.count == 6 }
-        return !password.isEmpty
+        return !password.isEmpty && need.ready(factorPin, factorCode)
     }
 
     private func next() {
@@ -486,8 +534,8 @@ struct TotpPanel: View {
             defer { busy = false }
             do {
                 if started != nil { codes = try await AccountAPI.enableTotp(code); return }
-                if on && mode == .off { try await AccountAPI.disableTotp(session.user, password); done(t("settings.totpOff")); return }
-                if on { codes = try await AccountAPI.newRecoveryCodes(session.user, password); return }
+                if on && mode == .off { try await AccountAPI.disableTotp(session.user, password, factors: need.answers(factorPin, factorCode)); done(t("settings.totpOff")); return }
+                if on { codes = try await AccountAPI.newRecoveryCodes(session.user, password, factors: need.answers(factorPin, factorCode)); return }
                 started = try await AccountAPI.startTotp(session.user, password)
             } catch { self.error = (error as? APIError)?.message ?? t("settings.continueFail") }
         }
@@ -502,10 +550,47 @@ struct TotpPanel: View {
     }
 }
 
+// Segundo fator para desligar ou trocar proteções: o que a conta tiver ligado, como na tela de senha nova.
+// Um campo só aceita o código do autenticador ou um código de recuperação.
+struct FactorNeed {
+    let pin: Bool
+    let totp: Bool
+
+    func ready(_ pin: String, _ code: String) -> Bool {
+        (!self.pin || pin.count == 6) && (!totp || code.range(of: "^\\d{6}$", options: .regularExpression) != nil || code.filter { $0.isLetter || $0.isNumber }.count == 8)
+    }
+
+    func answers(_ pin: String, _ code: String) -> [String: String] {
+        var out: [String: String] = [:]
+        if self.pin { out["pin"] = pin }
+        if totp { out[code.range(of: "^\\d{6}$", options: .regularExpression) != nil ? "code" : "recovery"] = code }
+        return out
+    }
+}
+
+struct FactorFields: View {
+    let need: FactorNeed
+    @Binding var pin: String
+    @Binding var code: String
+
+    var body: some View {
+        if need.pin {
+            SecureField(t("recovery.yourPin"), text: $pin).keyboardType(.numberPad).onChange(of: pin) { _, v in pin = String(v.filter(\.isNumber).prefix(6)) }
+        }
+        if need.totp {
+            TextField(t("recovery.codeOrRecovery"), text: $code).textContentType(.oneTimeCode).textInputAutocapitalization(.never).autocorrectionDisabled()
+                .onChange(of: code) { _, v in code = String(v.prefix(9)) }
+        }
+    }
+}
+
 struct DeletePanel: View {
     @EnvironmentObject var app: AppModel
     @Environment(\.dismiss) private var dismiss
     let session: Session
+    let need: FactorNeed
+    @State private var factorPin = ""
+    @State private var factorCode = ""
     @State private var password = ""
     @State private var typed = ""
     @State private var busy = false
@@ -514,7 +599,10 @@ struct DeletePanel: View {
     var body: some View {
         Form {
             Section { Text(t("settings.del.rowDesc")).font(.system(size: 14)) }
-            Section(t("settings.confirmYou")) { SecureField(t("settings.accountPassword"), text: $password).textContentType(.password) }
+            Section(t("settings.confirmYou")) {
+                SecureField(t("settings.accountPassword"), text: $password).textContentType(.password)
+                FactorFields(need: need, pin: $factorPin, code: $factorCode)
+            }
             Section(header: Text(t("settings.del.typeTitle")), footer: Text(t("settings.del.typeDesc", ["address": session.user.address]))) {
                 TextField(session.user.address, text: $typed).textInputAutocapitalization(.never).autocorrectionDisabled().keyboardType(.emailAddress)
             }
@@ -522,7 +610,7 @@ struct DeletePanel: View {
             if let error { Section { Note(text: error, tone: .warn).frame(maxWidth: .infinity, alignment: .leading) } }
             Section {
                 Button(role: .destructive) { submit() } label: { HStack { if busy { ProgressView() }; Text(t(busy ? "settings.del.busy" : "settings.del.confirm")) } }
-                    .disabled(busy || password.isEmpty || typed.trimmingCharacters(in: .whitespaces).lowercased() != session.user.address)
+                    .disabled(busy || password.isEmpty || !need.ready(factorPin, factorCode) || typed.trimmingCharacters(in: .whitespaces).lowercased() != session.user.address)
             }
         }
         .navigationTitle(t("settings.del.title")).navigationBarTitleDisplayMode(.inline)
@@ -534,7 +622,7 @@ struct DeletePanel: View {
         Task {
             defer { busy = false }
             do {
-                try await AccountAPI.deleteAccount(session.user, password, confirm: typed)
+                try await AccountAPI.deleteAccount(session.user, password, confirm: typed, factors: need.answers(factorPin, factorCode))
                 app.notice = t("settings.del.done")
                 await app.signOut()
             } catch { self.error = (error as? APIError)?.message ?? t("settings.del.fail") }

@@ -4,7 +4,18 @@ import type { Email } from 'postal-mime';
 import type { Person } from '../../shared/head';
 import type { Summary } from './client';
 
-export const who = (p: Person | null) => (p ? (p.name ? `${p.name} <${p.address}>` : p.address) : '(unknown)');
+// Texto que veio num e-mail (de qualquer remetente) antes de ir para o terminal: sem caracteres de controle nem
+// sequências de escape, que mexem no terminal de quem lê (título, área de transferência, cores), e sem as
+// marcas de direção do Unicode, que viram o texto ao contrário. Numa linha só, as quebras viram espaço.
+const CONTROL = /[\u0000-\u0008\u000b-\u001f\u007f-\u009f\u200e\u200f\u202a-\u202e\u2066-\u2069]/g;
+export const safeLine = (s: string) => s.replace(/[\r\n\t]+/g, ' ').replace(CONTROL, '');
+export const safeText = (s: string) => s.replace(/\r\n?/g, '\n').replace(CONTROL, '');
+// JSON para a tela ou para outro programa: o JSON.stringify já escapa os controles comuns; os C1 e as marcas
+// de direção do Unicode saem escapados também (\u0085, \u202e...), para nada mudar o terminal nem o texto.
+export const safeJson = (v: unknown, space?: number) =>
+  JSON.stringify(v, null, space).replace(/[\u007f-\u009f\u200e\u200f\u202a-\u202e\u2066-\u2069]/g, ch => `\\u${ch.charCodeAt(0).toString(16).padStart(4, '0')}`);
+
+export const who = (p: Person | null) => (p ? safeLine(p.name ? `${p.name} <${p.address}>` : p.address) : '(unknown)');
 export const when = (t: number) => new Date(t).toISOString().replace('T', ' ').slice(0, 16);
 
 export function htmlToText(html: string): string {

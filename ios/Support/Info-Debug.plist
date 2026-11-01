@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Versão de teste (Debug): o Worker local e o esquema próprio. A da loja é Info.plist. -->
+	<!-- Só a rede local (o Worker de teste em 127.0.0.1); a internet continua exigindo HTTPS. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<!-- shalommail://nova-senha?t=... (o mesmo dos links https, para testar sem o domínio). -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.shalomail.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>shalommail</string>
+			</array>
+		</dict>
+	</array>
+	<!-- Abertura preta, como o app (sem o branco piscando antes da primeira tela). -->
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>LaunchBackground</string>
+	</dict>
+</dict>
+</plist>

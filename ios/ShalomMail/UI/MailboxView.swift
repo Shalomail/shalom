@@ -104,8 +104,10 @@ final class MailboxModel: ObservableObject {
     }
 
     // Rascunho abre no editor, com o que a pessoa já tinha escrito.
+    // Só o rascunho lacrado com a chave desta conta (um que o servidor tivesse posto ali não abre).
     func openDraft(_ thread: Thread) {
         let item = thread.latest
+        guard item.own else { return }
         Task {
             guard let e = try? await Mailbox.shared.read(item, session: session) else { return }
             composeSeed = ComposeSeed(to: e.to, cc: e.cc, subject: e.subject, text: e.text ?? "", inReplyTo: e.inReplyTo, references: e.references,

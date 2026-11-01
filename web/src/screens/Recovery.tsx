@@ -2,6 +2,7 @@
 // chegou nele e criar senha nova. Mesmo visual das telas de entrar (claro, paz ao fundo, logo em espectro).
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { ApiError } from '../lib/api';
+import { usePasswordStrength } from '../lib/password';
 import { confirmRecovery, resetInfo, resetPassword, setRecovery, tokenFromUrl } from '../lib/recovery';
 import { t } from '../i18n';
 import { navigate } from '../lib/router';
@@ -133,7 +134,8 @@ export function ResetPassword({ onSession }: { onSession: (s: Session) => void }
     resetInfo(token).then(setInfo).catch(e => setGone(e instanceof Error ? e.message : t('recovery.linkGone')));
   }, [token]);
 
-  const ready = password.length >= 8 && password === repeat
+  const pw = usePasswordStrength(password, [info?.address ?? '']);
+  const ready = !!pw?.ok && password === repeat
     && (!info?.need.pin || /^\d{6}$/.test(pin))
     && (!info?.need.totp || /^\d{6}$/.test(code) || code.replace(/[^a-z0-9]/gi, '').length === 8);
 
@@ -187,7 +189,7 @@ export function ResetPassword({ onSession }: { onSession: (s: Session) => void }
         </div>
         {error
           ? <p className="auth-note is-warn" role="alert">{error}</p>
-          : <p className="auth-note">{t(password && password.length < 8 ? 'pw.min' : repeat && repeat !== password ? 'pw.mismatch' : 'pw.hint')}</p>}
+          : <p className={`auth-note${pw && !pw.ok ? ' is-warn' : ''}`}>{pw && !pw.ok ? pw.hint : repeat && repeat !== password ? t('pw.mismatch') : pw ? pw.hint : t('pw.hint')}</p>}
         <button className="btn btn-primary btn-lg recovery-go" disabled={!ready || busy}>{busy ? <><span className="spinner" />{t('recovery.creatingKey')}</> : t('recovery.create')}</button>
       </form>
     </Shell>

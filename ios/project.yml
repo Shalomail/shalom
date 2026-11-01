@@ -37,10 +37,15 @@ targets:
         CODE_SIGN_ENTITLEMENTS: ShalomMail/ShalomMail.entitlements
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         INFOPLIST_KEY_NSFaceIDUsageDescription: "O Face ID abre a chave que destranca os seus e-mails neste iPhone."
+        INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: "Para salvar na Fototeca as imagens que você escolher de um e-mail."
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_FILE: Support/Info.plist
         TARGETED_DEVICE_FAMILY: "1"
+      # A de teste aceita o Worker local (127.0.0.1) e o esquema shalommail://; a da loja, não.
+      configs:
+        Debug:
+          INFOPLIST_FILE: Support/Info-Debug.plist
   ShalomMailTests:
     type: bundle.unit-test
     platform: iOS

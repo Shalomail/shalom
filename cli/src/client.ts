@@ -96,8 +96,15 @@ export type Summary = {
   attachments: number;
   unread: boolean;
   starred: boolean;
-  // Shalom para Shalom: remetente conferido pelo certificado do servidor e lacre de ponta a ponta.
+  // Shalom para Shalom: remetente conferido pelo certificado do servidor e lacre de ponta a ponta, com a
+  // chave igual à fixada neste computador.
   verifiedSender: boolean;
+  // Fechada de ponta a ponta: remetente conferido e a mensagem foi só para contas Shalom (com alguém de fora,
+  // o texto também saiu aberto).
+  endToEnd: boolean;
+  // A chave do remetente Shalom mudou desde a fixada: não vale como conferido. Confirme com a pessoa por
+  // outro meio e responda com trustNewKey (ou --trust-new-key) para aceitar a chave nova.
+  keyChanged?: boolean;
   // E-mail de fora: resultado do DMARC visto na chegada.
   auth: MessageHead['auth'];
 };
@@ -108,7 +115,8 @@ export class Mailbox {
   private bodyHashes = new Map<string, string>();
   private cert: { signed: SignedCert; until: number } | null = null;
 
-  constructor(public agent: Agent, private pins: { server?: string; onServer: (wire: string) => void }) {}
+  // contactKey: confere (e fixa, na primeira vez) a chave de um remetente Shalom; false se ela mudou.
+  constructor(public agent: Agent, private pins: { server?: string; onServer: (wire: string) => void; contactKey?: (address: string, publicKey: string) => boolean }) {}
 
   private get creds(): Creds { return { api: this.agent.api, key: this.agent.key }; }
 
@@ -124,13 +132,21 @@ export class Mailbox {
     const blob = fromB64(r.head);
     let h: MessageHead;
     let verified = false;
+    let keyChanged = false;
     try {
       if (isSealedSender(blob)) {
         const { payload, sender } = await openFromSender(this.agent.secretKey, blob, 'head', (await this.server()).cert, r.received_at);
         h = JSON.parse(new TextDecoder().decode(payload)) as MessageHead;
         // A identidade de quem enviou vem do certificado, não do que está escrito no e-mail.
         h = { ...h, from: { name: h.from?.name ?? '', address: sender.address } };
-        verified = true;
+        // E a chave tem que ser a conhecida: a própria caixa confere com a chave daqui; os outros, com a fixada
+        // neste computador. Sem isso, quem tomasse a conta de um contato (e ganhasse chave nova certificada)
+        // mandaria ordens ao agente como se fosse ele.
+        const known = sender.address === this.agent.address.toLowerCase()
+          ? sender.publicKey === toB64(publicKeyOf(this.agent.secretKey))
+          : this.pins.contactKey?.(sender.address, sender.publicKey) ?? true;
+        verified = known;
+        keyChanged = !known;
         if (h.b) this.bodyHashes.set(r.id, h.b);
       } else {
         h = await openJson<MessageHead>(this.agent.secretKey, blob);
@@ -141,6 +157,8 @@ export class Mailbox {
     return {
       id: r.id, folder: r.folder, from: h.from, to: h.to, subject: h.subject, date: h.date, receivedAt: r.received_at,
       snippet: h.snippet, attachments: h.attachments, unread: !r.seen, starred: !!r.starred, verifiedSender: verified, auth: h.auth,
+      endToEnd: verified && !!h.e2e && (h.from?.address !== this.agent.address.toLowerCase() || h.to.every(p => p.address.toLowerCase().endsWith(`@${DOMAIN}`))),
+      ...(keyChanged ? { keyChanged: true } : {}),
     };
   }
 
@@ -257,10 +275,11 @@ export class Mailbox {
     return fresh.sort((a, b) => a.receivedAt - b.receivedAt);
   }
 
-  private async sealed(recipientPub: Uint8Array, mime: Uint8Array, cert: SignedCert) {
+  // e2e: só quando todos os destinatários são Shalom (com alguém de fora, o texto também saiu aberto).
+  private async sealed(recipientPub: Uint8Array, mime: Uint8Array, cert: SignedCert, e2e: boolean) {
     const packed = await pack(mime);
     // O cabeçalho leva a impressão do corpo: quem abre confere que os dois são da mesma mensagem.
-    const head = { ...headOf(await PostalMime.parse(mime), true, new Date()), b: await bodyHash(packed) };
+    const head = { ...headOf(await PostalMime.parse(mime), e2e, new Date()), b: await bodyHash(packed) };
     return {
       head: toB64(await sealFromSender(recipientPub, this.agent.secretKey, cert, new TextEncoder().encode(JSON.stringify(head)), 'head')),
       raw: toB64(await sealFromSender(recipientPub, this.agent.secretKey, cert, packed, 'raw')),
@@ -292,12 +311,13 @@ export class Mailbox {
     const cert = await this.myCert();
 
     const internal = [...new Set(all.map(p => p.address.toLowerCase()).filter(isShalom))];
+    const onlyShalom = all.every(p => isShalom(p.address));
     const deliveries: { address: string; head: string; raw: string }[] = [];
     for (const address of internal) {
       const pub = await this.publicKeyOf(address);
       if (!pub) throw new ApiError(404, 'no_such_user', `${address} does not exist.`);
       checkPin(address, pub);
-      deliveries.push({ address, ...(await this.sealed(fromB64(pub), forThem, cert)) });
+      deliveries.push({ address, ...(await this.sealed(fromB64(pub), forThem, cert, onlyShalom)) });
     }
 
     // Antes de gravar em Enviados: o que pode falhar na entrega para contas Shalom (tamanho e ingressos do dia)
@@ -314,7 +334,7 @@ export class Mailbox {
         subject: out.subject, text: out.text, html, inReplyTo: out.inReplyTo, references: out.references, messageId: draft.messageId,
         attachments: (out.attachments ?? []).map(a => ({ filename: a.filename, type: a.type, content: toB64(a.content), cid: a.cid })),
       } : {}),
-      sentCopy: await this.sealed(publicKeyOf(this.agent.secretKey), forMe, cert),
+      sentCopy: await this.sealed(publicKeyOf(this.agent.secretKey), forMe, cert, onlyShalom),
     });
     for (const [i, d] of deliveries.entries()) {
       const t = tickets[i];

@@ -213,6 +213,12 @@ p.sp-note { display: flex; margin: 12px 0 4px; }
 .sp-sheet .sp-sheet-warn { margin-top: 10px; font-weight: 500; color: var(--warn); }
 .sp-sheet .sp-sheet-line { margin-top: 10px; color: var(--text); font-variant-numeric: tabular-nums; }
 .sp-sheet-progress { margin-top: 18px; }
+.sp-sheet-input {
+  width: 100%; height: 44px; margin-top: 16px; padding: 0 14px; border-radius: 12px; font-size: 15px; color: var(--text);
+  background: var(--fill-1); border: 0; box-shadow: inset 0 0 0 1px var(--line);
+}
+.sp-sheet-input:focus-visible { outline: 2px solid var(--text); outline-offset: 1px; }
+.hold:disabled { opacity: 0.45; cursor: not-allowed; }
 .sp-sheet-actions { display: grid; gap: 6px; margin-top: 22px; }
 .sp-sheet-quiet, .sp-sheet-ok {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 46px; border-radius: 12px;

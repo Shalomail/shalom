@@ -1,7 +1,8 @@
 // A mesma API do app web (/api): cookie de sessão por vaga de conta, cabeçalho X-Shalom em todo pedido
 // (o servidor recusa sem ele) e erros traduzidos pelo código, como web/src/i18n/errors.ts.
-// O endereço padrão é shalomail.com; para testar contra o Worker local, abrir com `-api http://127.0.0.1:8790`.
+// O endereço é shalomail.com; na versão de teste (Debug), `-api http://127.0.0.1:8790` aponta para o Worker local.
 import Foundation
+import Security
 
 struct APIError: LocalizedError, Equatable {
     let status: Int
@@ -21,12 +22,21 @@ final class API {
     let base: URL
     var slot = 0
     let session: URLSession
+    let cookies: CookieJar
 
     private init() {
+        #if DEBUG
         base = URL(string: UserDefaults.standard.string(forKey: "api") ?? "https://shalomail.com")!
+        #else
+        // A versão da loja fala só com shalomail.com (o `-api` é só para os testes).
+        base = URL(string: "https://shalomail.com")!
+        #endif
+        cookies = CookieJar(importingFrom: base)
         let cfg = URLSessionConfiguration.default
-        cfg.httpCookieStorage = .shared
-        cfg.httpCookieAcceptPolicy = .always
+        // Os cookies vão à mão, do Keychain (CookieJar), e não pelo armazenamento do sistema.
+        cfg.httpCookieStorage = nil
+        cfg.httpShouldSetCookies = false
+        cfg.httpCookieAcceptPolicy = .never
         cfg.requestCachePolicy = .reloadIgnoringLocalCacheData
         cfg.urlCache = nil
         cfg.timeoutIntervalForRequest = 30
@@ -41,13 +51,16 @@ final class API {
         var req = URLRequest(url: url(path))
         req.httpMethod = method
         req.setValue("1", forHTTPHeaderField: "x-shalom")
-        if !anonymous { req.setValue(String(slot), forHTTPHeaderField: "x-shalom-slot") }
-        req.httpShouldHandleCookies = !anonymous
+        if !anonymous {
+            req.setValue(String(slot), forHTTPHeaderField: "x-shalom-slot")
+            if let cookie = cookies.header { req.setValue(cookie, forHTTPHeaderField: "Cookie") }
+        }
+        req.httpShouldHandleCookies = false
         if let body { req.httpBody = body; req.setValue("application/json", forHTTPHeaderField: "content-type") }
         return req
     }
 
-    private func send(_ req: URLRequest) async throws -> (Data, HTTPURLResponse) {
+    private func send(_ req: URLRequest, again: Bool = false) async throws -> (Data, HTTPURLResponse) {
         #if DEBUG
         // Só nos testes: rede lenta de mentira (`-shalom-net-delay 0.8`), para pegar o que aparece na tela
         // enquanto a resposta não chega. Contra o Worker local a resposta chega rápido demais para isso.
@@ -60,6 +73,7 @@ final class API {
             throw APIError(status: 0, code: "offline", message: t("err.offline"))
         }
         guard let http = res as? HTTPURLResponse else { throw APIError(status: 0, code: "offline", message: t("err.offline")) }
+        if req.value(forHTTPHeaderField: "x-shalom-slot") != nil { cookies.take(http, url: req.url ?? base) }
         guard (200 ..< 300).contains(http.statusCode) else {
             let obj = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
             let code = obj?["error"] as? String ?? "http"
@@ -67,6 +81,8 @@ final class API {
             if (http.statusCode == 401 && code == "no_session") || (http.statusCode == 403 && code == "suspended") {
                 await MainActor.run { NotificationCenter.default.post(name: .signedOut, object: err) }
             }
+            // Ação perigosa sem a pessoa confirmada: pede a senha (Reauth) e manda de novo, uma vez.
+            if http.statusCode == 403 && code == "reauth" && !again, await Reauth.shared.ask() { return try await send(req, again: true) }
             throw err
         }
         return (data, http)
@@ -88,6 +104,66 @@ final class API {
 
     func bytes(_ path: String) async throws -> Data {
         try await send(request(path, method: "GET", body: nil, anonymous: false)).0
+    }
+
+    // POST com corpo em JSON e resposta em bytes, com o tipo (o proxy de imagens).
+    func postBytes(_ path: String, _ body: [String: Any]) async throws -> (data: Data, type: String) {
+        let (out, res) = try await send(request(path, method: "POST", body: try JSONSerialization.data(withJSONObject: body), anonymous: false))
+        return (out, (res.value(forHTTPHeaderField: "content-type") ?? "").components(separatedBy: ";")[0].trimmingCharacters(in: .whitespaces))
+    }
+}
+
+// Cookies de sessão no Keychain, presos a este aparelho: ficam fora do backup e não passam para outro iPhone.
+// No armazenamento do sistema eles iam para Library/Cookies, que entra no backup, e quem pegasse um backup
+// tinha a sessão aberta. O nome do cookie já diz a vaga da conta (shalom_sid, shalom_sid1...).
+final class CookieJar {
+    private static let service = "com.shalomail.app.cookies"
+    private var values: [String: String]
+    private let lock = NSLock()
+
+    init(importingFrom url: URL) {
+        values = Self.load()
+        // Quem já usava o app: os cookies do armazenamento antigo vêm para cá uma vez e saem de lá.
+        let old = HTTPCookieStorage.shared.cookies(for: url) ?? []
+        guard !old.isEmpty else { return }
+        for c in old where (c.expiresDate ?? .distantFuture) > Date() && values[c.name] == nil { values[c.name] = c.value }
+        old.forEach(HTTPCookieStorage.shared.deleteCookie)
+        save()
+    }
+
+    var header: String? {
+        lock.withLock { values.isEmpty ? nil : values.sorted { $0.key < $1.key }.map { "\($0.key)=\($0.value)" }.joined(separator: "; ") }
+    }
+
+    // Set-Cookie da resposta: cookie novo entra, cookie apagado pelo servidor (vazio ou vencido) sai.
+    func take(_ res: HTTPURLResponse, url: URL) {
+        let fields = res.allHeaderFields.reduce(into: [String: String]()) { if let k = $1.key as? String, let v = $1.value as? String { $0[k] = v } }
+        let got = HTTPCookie.cookies(withResponseHeaderFields: fields, for: url)
+        guard !got.isEmpty else { return }
+        lock.withLock {
+            for c in got {
+                if c.value.isEmpty || (c.expiresDate.map { $0 <= Date() } ?? false) { values[c.name] = nil } else { values[c.name] = c.value }
+            }
+        }
+        save()
+    }
+
+    private static func load() -> [String: String] {
+        var out: CFTypeRef?
+        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service, kSecAttrAccount as String: "jar", kSecReturnData as String: true]
+        guard SecItemCopyMatching(query as CFDictionary, &out) == errSecSuccess, let data = out as? Data else { return [:] }
+        return (try? JSONDecoder().decode([String: String].self, from: data)) ?? [:]
+    }
+
+    private func save() {
+        let data = lock.withLock { try? JSONEncoder().encode(values) } ?? Data()
+        let base: [String: Any] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: Self.service, kSecAttrAccount as String: "jar"]
+        SecItemDelete(base as CFDictionary)
+        var add = base
+        add[kSecValueData as String] = data
+        // Depois do primeiro desbloqueio, para o app falar com o servidor também com a tela bloqueada.
+        add[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+        SecItemAdd(add as CFDictionary, nil)
     }
 }
 

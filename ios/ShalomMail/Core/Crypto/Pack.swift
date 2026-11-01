@@ -4,9 +4,10 @@
 // Moldura: 00 'S' 'H' 01 | tamanho do gzip (4 bytes) | gzip | zeros até o degrau.
 // Formatos antigos continuam abrindo: gzip puro (1f 8b) ou a mensagem como veio.
 import CryptoKit
+import Compression
 import Foundation
 
-enum PackError: Error { case corrupt }
+enum PackError: Error { case corrupt, tooBig }
 
 enum Pack {
     private static let magic: [UInt8] = [0x00, 0x53, 0x48, 0x01]
@@ -59,9 +60,40 @@ enum Gzip {
         if flags & 0x02 != 0 { at += 2 }
         guard at < b.count - 8 else { throw PackError.corrupt }
         let body = Data(b[at ..< b.count - 8])
-        let out = try (body as NSData).decompressed(using: .zlib) as Data
+        let out = try inflate(body, limit: maxUnpacked)
         let crc = UInt32(b[b.count - 8]) | UInt32(b[b.count - 7]) << 8 | UInt32(b[b.count - 6]) << 16 | UInt32(b[b.count - 5]) << 24
         guard crc == CRC32.of(out) else { throw PackError.corrupt }
+        return out
+    }
+
+    // O maior e-mail aceito tem 15 MB: abrir nunca passa de 64 MiB. Uma mensagem pequena feita para descomprimir
+    // em gigabytes fazia o iOS fechar o app por falta de memória.
+    static let maxUnpacked = 64 * 1024 * 1024
+
+    // Deflate puro (o mesmo do NSData .zlib), aos pedaços, parando no limite.
+    static func inflate(_ data: Data, limit: Int) throws -> Data {
+        guard !data.isEmpty else { throw PackError.corrupt }
+        let streamPointer = UnsafeMutablePointer<compression_stream>.allocate(capacity: 1)
+        defer { streamPointer.deallocate() }
+        guard compression_stream_init(streamPointer, COMPRESSION_STREAM_DECODE, COMPRESSION_ZLIB) == COMPRESSION_STATUS_OK else { throw PackError.corrupt }
+        defer { compression_stream_destroy(streamPointer) }
+        let size = 64 * 1024
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
+        defer { buffer.deallocate() }
+        var out = Data()
+        try data.withUnsafeBytes { (src: UnsafeRawBufferPointer) in
+            streamPointer.pointee.src_ptr = src.bindMemory(to: UInt8.self).baseAddress!
+            streamPointer.pointee.src_size = src.count
+            while true {
+                streamPointer.pointee.dst_ptr = buffer
+                streamPointer.pointee.dst_size = size
+                let status = compression_stream_process(streamPointer, Int32(COMPRESSION_STREAM_FINALIZE.rawValue))
+                out.append(buffer, count: size - streamPointer.pointee.dst_size)
+                if out.count > limit { throw PackError.tooBig }
+                if status == COMPRESSION_STATUS_END { return }
+                if status == COMPRESSION_STATUS_ERROR { throw PackError.corrupt }
+            }
+        }
         return out
     }
 

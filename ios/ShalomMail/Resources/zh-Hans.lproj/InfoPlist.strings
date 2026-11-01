@@ -1,0 +1,3 @@
+/* Textos dos pedidos de permissão do sistema. */
+"NSFaceIDUsageDescription" = "面容 ID 会打开在这台 iPhone 上解锁你邮件的密钥。";
+"NSPhotoLibraryAddUsageDescription" = "用于将你从邮件中选择的图片存储到“照片”。";

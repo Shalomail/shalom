@@ -191,6 +191,7 @@
             {
               "ul": [
                 "Compte : votre adresse, le nom que vous avez choisi et, si vous en ajoutez une, votre photo de profil. La photo est publique pour toute personne qui connaît votre adresse, comme sur les autres services d’e-mail.",
+                "E-mail de récupération : l’adresse hors de Shalom que vous avez indiquée, conservée verrouillée et ouverte seulement pour vous envoyer le lien de confirmation et celui de nouveau mot de passe. Les écrans n’en montrent qu’une version masquée. Elle est supprimée quand vous la changez ou supprimez le compte.",
                 "Sécurité : votre code PIN et vos codes de récupération, conservés sous une forme qui ne permet pas de les relire ; le secret de la validation en deux étapes, verrouillé ; et le délai d’inactivité que vous avez choisi pour la déconnexion automatique.",
                 "Chaque message : le compte auquel il est destiné, quand il est arrivé, l’espace qu’il occupe, le dossier où il se trouve et s’il a été lu, épinglé ou mis en favori.",
                 "Appareils connectés : quand chaque session a commencé, quand elle a été utilisée pour la dernière fois et le type de navigateur, pour que vous puissiez les voir et les déconnecter.",
@@ -247,6 +248,7 @@
           "h": "8. Vos droits",
           "p": [
             "Vous pouvez demander la confirmation que nous traitons vos données, l’accès, la rectification, la portabilité, l’effacement et des informations sur ceux avec qui nous les partageons, et vous pouvez retirer tout consentement donné.",
+            "Vous pouvez supprimer tout le compte, avec les e-mails conservés, les boîtes d’agent et ses données, à tout moment dans Réglages, Supprimer le compte, sur le site ou dans l’app.",
             "Vous modifiez votre nom, votre photo et vos réglages de sécurité directement dans l’app. Pour le reste, écrivez à privacidade@shalomail.com. Vous pouvez aussi déposer une réclamation auprès de l’Autorité nationale de protection des données du Brésil (ANPD) ou de l’autorité de votre pays."
           ]
         },
@@ -470,7 +472,7 @@
       },
       "delete": {
         "q": "Puis-je supprimer mon compte ?",
-        "a": "Oui. Écrivez à contato@shalomail.com et le compte est supprimé, avec ses e-mails stockés et ses données. Les sauvegardes de l’infrastructure peuvent mettre quelques jours à expirer."
+        "a": "Oui. Dans Réglages, Supprimer le compte, sur le site ou dans l’app : les e-mails conservés, les boîtes d’agent et les données du compte sont supprimés, et l’abonnement payant est annulé. Les sauvegardes de l’infrastructure peuvent mettre quelques jours à expirer."
       },
       "read": {
         "q": "Shalom peut-il lire mes e-mails ?",

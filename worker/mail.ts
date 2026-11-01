@@ -4,7 +4,7 @@ import { headOf } from '../shared/head';
 import { SPAM_THRESHOLD, spamScore } from '../shared/spam';
 import { pack } from '../shared/pack';
 import { fromB64, seal, sealJson, toB64 } from '../shared/seal';
-import { requireUser } from './auth';
+import { confirmedOk, requireUser } from './auth';
 import { shrinkImages } from './images';
 import { boxOf, FOLDERS, MAX_IDS, type Change, type Folder, type Row, type StorageSort } from './box';
 import type { AppEnv, Env } from './env';
@@ -12,7 +12,7 @@ import { b64ToBig, bigToB64, modLen, signBlinded } from '../shared/blind';
 import { signCert } from '../shared/sender';
 import { loadKeys } from './keys';
 import { notifyNewMail } from './push';
-import { bump, fail, isEmail, now, peek, sendCaps, sendsKey, tally } from './util';
+import { bump, fail, isEmail, now, peek, peopleSendsKey, sendCaps, sendsKey, tally } from './util';
 
 const MAX_RAW = 15 * 1024 * 1024;
 const MAX_SEND_BODY = 12 * 1024 * 1024;
@@ -96,7 +96,9 @@ mail.use('*', requireUser);
 mail.get('/live', async c => {
   if (c.req.header('upgrade') !== 'websocket') return fail(c, 400, 'bad_request', 'Use WebSocket.');
   if (c.req.header('origin') !== c.env.APP_ORIGIN) return fail(c, 403, 'csrf', 'Pedido recusado.');
-  const res = await boxOf(c.env, c.get('user').id).fetch(c.req.raw);
+  const req = new Request(c.req.raw);
+  req.headers.set('x-shalom-session', c.get('session'));
+  const res = await boxOf(c.env, c.get('user').id).fetch(req);
   return new Response(null, { status: res.status, webSocket: res.webSocket });
 });
 
@@ -155,11 +157,14 @@ mail.post('/messages/update', async c => {
   return c.json({ counts: await boxOf(c.env, c.get('user').id).update(ids, change) });
 });
 
-// Apagar de vez só vale para o que já está na lixeira ou no spam.
+// Apagar de vez só vale para o que já está na lixeira ou no spam, e pede a pessoa confirmada (confirmedOk).
 mail.post('/messages/delete', async c => {
   const user = c.get('user');
-  const ids = idList((await c.req.json<{ ids: unknown }>()).ids);
+  const body = await c.req.json<{ ids: unknown } & { authKey?: unknown; pin?: string; code?: string; recovery?: string }>();
+  const ids = idList(body.ids);
   if (!ids) return fail(c, 400, 'bad_request', `Selecione de 1 a ${MAX_IDS} mensagens.`);
+  const denied = await confirmedOk(c, body);
+  if (denied) return denied;
   const gone = await boxOf(c.env, user.id).removeFromTrash(ids);
   if (gone.length) await c.env.BLOBS.delete(gone.map(id => blobKey(user.id, id)));
   return c.json({ deleted: gone.length });
@@ -208,9 +213,13 @@ mail.get('/storage', async c => {
 // servidor não vê o conteúdo: só confere que é lacre comum, que encolheu e que a mensagem é desta conta.
 mail.post('/storage/replace', async c => {
   const user = c.get('user');
-  const body = await c.req.json<{ id?: unknown; head?: unknown; raw?: unknown }>();
+  const body = await c.req.json<{ id?: unknown; head?: unknown; raw?: unknown; authKey?: unknown; pin?: string; code?: string; recovery?: string }>();
   const id = typeof body.id === 'string' && /^[\w-]{1,64}$/.test(body.id) ? body.id : null;
   if (!id || !sealedOk(body as Partial<{ head: string; raw: string }>)) return fail(c, 400, 'bad_request', 'Falta a mensagem nova ou ela é grande demais.');
+  // Trocar o corpo apaga o original: o servidor não tem como conferir que o novo é o mesmo e-mail sem os
+  // anexos, então pede a pessoa confirmada.
+  const denied = await confirmedOk(c, body);
+  if (denied) return denied;
   let raw: Uint8Array, head: Uint8Array;
   try { raw = fromB64(body.raw as string); head = fromB64(body.head as string); } catch { return fail(c, 400, 'bad_request', 'Mensagem ilegível.'); }
   // Lacre comum (versão 1): versão, chave efêmera, nonce e tag somam 61 bytes.
@@ -232,23 +241,27 @@ mail.post('/storage/replace', async c => {
 // Apagar tudo (Configurações > Espaço), pedido com o botão segurado: a conta inteira ou uma pasta (folder).
 // É a única saída para apagar de vez fora da Lixeira e do Spam, e exige `before`: a hora do resumo que a
 // pessoa viu (o `at` da lista). O que chegou depois disso fica. Vai em lotes (`limit`) para mostrar o progresso.
+// Pede a pessoa confirmada (confirmedOk): só o cookie (roubado de um computador ou de um backup) apagava tudo.
 mail.post('/storage/wipe', async c => {
   const user = c.get('user');
-  type WipeBody = { before?: unknown; limit?: unknown; folder?: unknown };
+  type WipeBody = { before?: unknown; limit?: unknown; folder?: unknown; authKey?: unknown; pin?: string; code?: string; recovery?: string };
   const body = await c.req.json<WipeBody>().catch(() => ({} as WipeBody));
   const before = Number(body.before);
   if (!Number.isSafeInteger(before) || before <= 0) return fail(c, 400, 'bad_request', 'Falta a hora do resumo confirmado.');
   if (body.folder !== undefined && !FOLDERS.has(body.folder as Folder)) return fail(c, 400, 'bad_folder', 'Pasta desconhecida.');
+  const denied = await confirmedOk(c, body);
+  if (denied) return denied;
   const limit = Math.min(Math.max(Math.floor(Number(body.limit)) || 500, 1), 1000);
   const folder = body.folder as Folder | undefined;
   return c.json(await boxOf(c.env, user.id).wipe(user.id, { before: Math.min(before, Date.now()), limit, folder }));
 });
 
-// Certificado de remetente da conta logada, para o remetente lacrado (shared/sender.ts). Vale 7 dias.
+// Certificado de remetente da conta logada, para o remetente lacrado (shared/sender.ts). Vale 1 dia: depois de
+// uma senha nova pelo link, a chave antiga deixa de valer como remetente conferido em no máximo um dia.
 mail.post('/cert', async c => {
   const user = c.get('user');
   const now = Date.now();
-  return c.json({ cert: signCert({ a: user.address, k: user.public_key, i: now, e: now + 7 * DAY }, loadKeys(c.env).cert) });
+  return c.json({ cert: signCert({ a: user.address, k: user.public_key, i: now, e: now + DAY }, loadKeys(c.env).cert) });
 });
 
 // Ingressos de entrega assinados às cegas. O limite por dia é por conta; a entrega em si é anônima.
@@ -308,13 +321,14 @@ mail.post('/send', async c => {
     const share = Math.max(5, Math.floor(sendCaps(c.env).people / 5));
     const cap = Math.min(now() - (created ?? 0) < 7 * DAY ? EXTERNAL_PER_DAY_NEW : EXTERNAL_PER_DAY, share);
     const day = new Date().toISOString().slice(0, 10);
-    if ((await peek(c.env.DB, sendsKey())) + all.length > sendCaps(c.env).people) {
+    if ((await peek(c.env.DB, peopleSendsKey())) + all.length > sendCaps(c.env).people) {
       console.error('envio para fora: teto geral do dia atingido');
       return fail(c, 429, 'send_limit_all', 'O envio para fora do Shalom chegou no limite de hoje. Para contas Shalom, continua normal.');
     }
     if ((await bump(c.env.DB, `send:${user.id}:${day}`, DAY, all.length)) > cap) {
       return fail(c, 429, 'send_limit', `Você chegou no limite de ${cap} destinatários fora do Shalom por dia.`);
     }
+    await bump(c.env.DB, peopleSendsKey(), DAY, all.length);
     await bump(c.env.DB, sendsKey(), DAY, all.length);
     const headers: Record<string, string> = {};
     if (body.inReplyTo) headers['In-Reply-To'] = oneLine(body.inReplyTo);
@@ -376,7 +390,8 @@ function publicHttpUrl(raw: string, env: Env): URL | null {
   if (url.protocol !== 'https:' && url.protocol !== 'http:') return null;
   if (url.port && url.port !== '80' && url.port !== '443') return null;
   if (url.username || url.password) return null;
-  const host = url.hostname.toLowerCase();
+  // Sem o ponto final (shalomail.com. é o mesmo domínio que shalomail.com).
+  const host = url.hostname.toLowerCase().replace(/\.+$/, '');
   const ipLiteral = /^\d{1,3}(\.\d{1,3}){3}$/.test(host) || host.startsWith('[') || /^\d+$/.test(host) || /^0x/i.test(host);
   if (ipLiteral || host === 'localhost' || !host.includes('.')
     || /\.(local|localhost|internal|lan|home|arpa)$/.test(host)

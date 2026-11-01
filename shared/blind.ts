@@ -106,7 +106,10 @@ export function signBlinded(k: RsaPrivate, blinded: bigint): bigint {
   const m1 = modPow(blinded % k.p, k.dp, k.p);
   const m2 = modPow(blinded % k.q, k.dq, k.q);
   const h = (k.qi * ((m1 - m2 + k.p) % k.p)) % k.p;
-  return m2 + h * k.q;
+  const s = m2 + h * k.q;
+  // Confere antes de devolver: uma falha de conta no CRT entregaria um fator do módulo a quem pediu.
+  if (modPow(s, k.e, k.n) !== blinded) throw new Error('assinatura não confere');
+  return s;
 }
 
 export function privateFromJwk(j: JsonWebKey): RsaPrivate {

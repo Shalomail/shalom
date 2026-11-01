@@ -22,7 +22,13 @@ export class ApiError extends Error {
   }
 }
 
-export async function api<T = unknown>(path: string, init: { method?: string; body?: unknown; anonymous?: boolean } = {}): Promise<T> {
+// Ação perigosa sem a pessoa confirmada: o servidor responde "reauth". Quem cuida da tela (ui/Reauth.tsx)
+// pede a senha e o segundo fator, confirma em /profile/confirm (vale 10 minutos) e o pedido vai de novo,
+// uma vez. Sem ninguém cuidando, ou se a pessoa cancelar, o erro segue para quem pediu.
+let reauth: (() => Promise<boolean>) | null = null;
+export const onReauth = (fn: (() => Promise<boolean>) | null) => { reauth = fn; };
+
+export async function api<T = unknown>(path: string, init: { method?: string; body?: unknown; anonymous?: boolean; again?: boolean } = {}): Promise<T> {
   let res: Response;
   try {
     res = await fetch(`/api${path}`, {
@@ -42,6 +48,7 @@ export async function api<T = unknown>(path: string, init: { method?: string; bo
       try { sessionStorage.setItem('shalom-notice', apiMessage(data.error, data.message)); } catch { /* sem armazenamento */ }
     }
     if ((res.status === 401 && data.error === 'no_session') || (res.status === 403 && data.error === 'suspended')) window.dispatchEvent(new Event('shalom:signed-out'));
+    if (res.status === 403 && data.error === 'reauth' && reauth && !init.again && (await reauth())) return api<T>(path, { ...init, again: true });
     throw new ApiError(res.status, data.error || 'http', apiMessage(data.error, data.message));
   }
   return res.json() as Promise<T>;

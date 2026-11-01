@@ -1,0 +1,3 @@
+/* Textos dos pedidos de permissão do sistema. */
+"NSFaceIDUsageDescription" = "Face ID वह कुंजी खोलता है जो इस iPhone पर आपके ईमेल को अनलॉक करती है।";
+"NSPhotoLibraryAddUsageDescription" = "किसी ईमेल से आपकी चुनी हुई तस्वीरें Photos में सहेजने के लिए।";

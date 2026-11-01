@@ -191,6 +191,7 @@
             {
               "ul": [
                 "Account: il tuo indirizzo, il nome che hai scelto e, se la aggiungi, la tua foto profilo. La foto è pubblica per chi conosce il tuo indirizzo, come in altri servizi email.",
+                "Email di recupero: l’indirizzo fuori da Shalom che hai indicato, conservato chiuso e aperto solo per inviarti il link di conferma e quello per la nuova password. Le schermate ne mostrano solo una versione mascherata. Viene cancellato quando lo cambi o elimini l’account.",
                 "Sicurezza: il PIN e i codici di recupero, conservati in un modo che non permette di rileggerli; il segreto della verifica in due passaggi, protetto; e il tempo di inattività che hai scelto per l’uscita automatica.",
                 "Ogni messaggio: a quale account è destinato, quando è arrivato, quanto spazio occupa, in quale cartella si trova e se è stato letto, fissato o aggiunto ai preferiti.",
                 "Dispositivi connessi: quando è iniziata ogni sessione, quando è stata usata l’ultima volta e il tipo di browser, così puoi vederli e disconnetterli.",
@@ -247,6 +248,7 @@
           "h": "8. I tuoi diritti",
           "p": [
             "Puoi chiedere la conferma che trattiamo i tuoi dati, l’accesso, la rettifica, la portabilità, la cancellazione e informazioni su con chi li condividiamo, e puoi revocare un consenso che hai dato.",
+            "Puoi eliminare l’intero account, con le email conservate, le caselle degli agenti e i suoi dati, quando vuoi in Impostazioni, Elimina account, sul sito o nell’app.",
             "Nome, foto e impostazioni di sicurezza li cambi direttamente nell’app. Per tutto il resto, scrivi a privacidade@shalomail.com. Puoi anche presentare un reclamo all’Autorità nazionale per la protezione dei dati del Brasile (ANPD) o all’autorità del tuo paese."
           ]
         },
@@ -470,7 +472,7 @@
       },
       "delete": {
         "q": "Posso eliminare il mio account?",
-        "a": "Sì. Scrivi a contato@shalomail.com e l’account viene eliminato, con le email archiviate e i dati dell’account. I backup dell’infrastruttura possono impiegare alcuni giorni per scadere."
+        "a": "Sì. In Impostazioni, Elimina account, sul sito o nell’app: le email conservate, le caselle degli agenti e i dati dell’account vengono cancellati e il piano a pagamento viene annullato. I backup dell’infrastruttura possono richiedere alcuni giorni per scadere."
       },
       "read": {
         "q": "Shalom può leggere le mie email?",

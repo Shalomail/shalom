@@ -1,6 +1,7 @@
 // Corpo do e-mail. HTML abre num WKWebView sem JavaScript, sem guardar nada e sem rede: uma regra do WebKit
 // bloqueia todo endereço http(s) e a CSP só aceita imagens embutidas. Imagens de fora (que avisam quem
-// enviou que você abriu) só com o pedido da pessoa. Link abre no Safari. Texto puro vai em texto nativo.
+// enviou que você abriu) só com o pedido da pessoa, e mesmo assim pelo proxy do shalomail.com (/api/img,
+// como no site): quem enviou não vê o IP nem o aparelho. Link abre no Safari. Texto puro vai em texto nativo.
 import SwiftUI
 import WebKit
 
@@ -10,14 +11,46 @@ enum BodyHTML {
             || html.range(of: "url\\(['\"]?https?:", options: [.regularExpression, .caseInsensitive]) != nil
     }
 
+    // Imagens de fora baixadas pelo proxy (no máximo 40, quatro de cada vez) e trocadas por data: no HTML.
+    // A que falhar ou não for imagem fica de fora.
+    static func proxyImages(_ html: String) async -> String {
+        let pattern = "<img[^>]+src=[\"']?(https?://[^\"' >]+)"
+        guard let re = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else { return html }
+        let ns = html as NSString
+        var urls: [String] = []
+        for m in re.matches(in: html, range: NSRange(location: 0, length: ns.length)) where m.numberOfRanges > 1 {
+            let url = ns.substring(with: m.range(at: 1))
+            if !urls.contains(url) { urls.append(url) }
+            if urls.count == 40 { break }
+        }
+        var loaded: [String: String] = [:]
+        await withTaskGroup(of: (String, String?).self) { group in
+            var next = 0
+            func add() {
+                guard next < urls.count else { return }
+                let url = urls[next]; next += 1
+                group.addTask {
+                    guard let r = try? await API.shared.postBytes("/img", ["u": url]), r.type.hasPrefix("image/"), r.type != "image/svg+xml" else { return (url, nil) }
+                    return (url, "data:\(r.type);base64,\(r.data.base64EncodedString())")
+                }
+            }
+            for _ in 0 ..< 4 { add() }
+            for await (url, data) in group { if let data { loaded[url] = data }; add() }
+        }
+        var out = html
+        for (url, data) in loaded { out = out.replacingOccurrences(of: url, with: data) }
+        return out
+    }
+
     // Imagens do próprio e-mail (cid:) viram data: para abrir sem rede. Fundo transparente, como no web; no
     // escuro o e-mail inteiro é invertido (e as imagens desinvertidas), em vez de um cartão branco.
-    static func document(_ email: ParsedEmail, allowRemote: Bool, dark: Bool) -> String {
-        var html = email.html ?? ""
+    // html: o corpo já com as imagens de fora trocadas pelo proxy, quando a pessoa pediu para mostrar.
+    static func document(_ email: ParsedEmail, html given: String? = nil, dark: Bool) -> String {
+        var html = given ?? email.html ?? ""
         for a in email.attachments where a.contentId != nil && a.mimeType.hasPrefix("image/") {
             html = html.replacingOccurrences(of: "cid:\(a.contentId!)", with: "data:\(a.mimeType);base64,\(a.data.base64EncodedString())")
         }
-        let img = allowRemote ? "data: https: http:" : "data:"
+        let img = "data:"
         return """
         <!doctype html><html><head><meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">

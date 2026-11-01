@@ -1,0 +1,3 @@
+/* Textos dos pedidos de permissão do sistema. */
+"NSFaceIDUsageDescription" = "Face ID відкриває ключ, що розблоковує вашу пошту на цьому iPhone.";
+"NSPhotoLibraryAddUsageDescription" = "Щоб зберігати у «Фото» вибрані вами зображення з листа.";

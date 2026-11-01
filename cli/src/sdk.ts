@@ -44,6 +44,7 @@ export class Agent {
     this.box = new Mailbox(toAgent(file, url), {
       server: loadConfig().serverKeys?.[url],
       onServer: wire => { try { const c = loadConfig(); saveConfig({ ...c, serverKeys: { ...c.serverKeys, [url]: wire } }); } catch { /* só leitura */ } },
+      contactKey: (address, publicKey) => this.knownKey(address, publicKey),
     });
   }
 
@@ -60,6 +61,17 @@ export class Agent {
   }
 
   get address() { return this.file.address; }
+
+  // Ao receber: a chave do remetente é a fixada? Na primeira mensagem de alguém, fixa. Se mudou, não troca
+  // aqui (só ao responder com trustNewKey).
+  private knownKey(address: string, publicKey: string): boolean {
+    if (!this.pins[address]) {
+      this.pins[address] = publicKey;
+      try { if (this.persist) { this.file.pins = { ...this.pins }; saveAgent(this.file); } else savePins(this.file.address, this.pins); } catch { /* só leitura */ }
+      return true;
+    }
+    return this.pins[address] === publicKey;
+  }
 
   // Chave de cada contato Shalom fixada na primeira vez; se mudar, o envio para.
   private checkPin(trustNewKey: boolean) {

@@ -4,7 +4,7 @@
 // mandou: o servidor não guarda a chave aberta, e só aquele terminal consegue abrir. O terminal busca
 // (/cli/poll) e a linha some. Pedido vale 10 minutos.
 import { Hono, type Context, type MiddlewareHandler } from 'hono';
-import { requireUser } from './auth';
+import { confirmedOk, requireUser } from './auth';
 import { MAX_ACCOUNT_KEYS } from './agents';
 import { newApiKey } from './apikeys';
 import type { AppEnv } from './env';
@@ -38,6 +38,8 @@ cliLogin.post('/start', async c => {
   let pub: Uint8Array;
   try { pub = fromB64(String(body.publicKey ?? '')); } catch { return fail(c, 400, 'bad_request', 'Chave pública inválida.'); }
   if (pub.length !== 32) return fail(c, 400, 'bad_request', 'Chave pública inválida.');
+  // Chave que não dá para lacrar (zeros, ponto de ordem baixa) seria recusada só na aprovação, com erro 500.
+  try { await seal(pub, new Uint8Array(1), 'raw'); } catch { return fail(c, 400, 'bad_request', 'Chave pública inválida.'); }
   const poll = randomToken(32);
   for (let tries = 0; tries < 3; tries++) {
     const code = newCode();
@@ -86,6 +88,10 @@ cliLogin.post('/approve', requireUser, sessionOnly, async c => {
   const { code } = await c.req.json<{ code?: string }>();
   const row = await pending(c, code);
   if (!row) return fail(c, 404, 'not_found', 'Este pedido venceu ou já foi usado.');
+  // Conectar dá ao terminal uma chave da conta: a pessoa confirmada (por /profile/confirm, porque aqui
+  // "code" já é o código do terminal).
+  const denied = await confirmedOk(c);
+  if (denied) return denied;
   const user = c.get('user');
   // No teto de chaves (o mesmo da página de chaves), sai uma que nunca foi usada ou, sem nenhuma assim,
   // a que está há mais tempo parada.

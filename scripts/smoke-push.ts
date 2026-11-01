@@ -59,7 +59,7 @@ const userId = made.data.user.id as string;
 
 check((await c.call('POST', '/api/push/register', { token: 'xyz', env: 'sandbox' })).status === 400, 'token que não é de aparelho é recusado');
 check((await c.call('POST', '/api/push/register', { token: GOOD, env: 'outro' })).status === 400, 'ambiente desconhecido é recusado');
-const key = (await c.call<{ key: string }>('POST', '/api/apikeys', { name: 'teste' })).data.key;
+const key = (await c.call<{ key: string }>('POST', '/api/apikeys', { name: 'teste', authKey: payload.authKey })).data.key;
 check((await new Client(key).call('POST', '/api/push/register', { token: GOOD, env: 'sandbox' })).status === 403, 'chave de API não registra aparelho');
 check((await c.call('POST', '/api/push/register', { token: GOOD, env: 'sandbox' })).status === 200, 'aparelho registrado (sandbox)');
 check((await c.call('POST', '/api/push/register', { token: GONE, env: 'production' })).status === 200, 'segundo aparelho registrado (produção)');

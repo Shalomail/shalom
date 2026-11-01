@@ -195,6 +195,8 @@ actor Outbox {
         let forMe = MIMEBuilder.build(from: me, out, text: text, html: html, messageId: messageId, date: date, includeBcc: true)
         let cert = try await myCert()
 
+        // Com alguém de fora, o texto também sai aberto: nenhuma cópia vale como fechada de ponta a ponta.
+        let hasExternal = all.contains { !Self.isShalom($0.address) }
         var sealedFor: [(String, [String: String])] = []
         for address in Array(Set(all.map { $0.address.lowercased() }.filter(Self.isShalom))).sorted() {
             guard let pub = try await publicKey(of: address), let pubData = Data(b64: pub) else { throw ComposeError.noSuchUser(address) }
@@ -202,12 +204,11 @@ actor Outbox {
             guard pinned == pub else {
                 throw ComposeError.keyChanged(address: address, before: Fingerprint.of(address: address, publicKey: Data(b64: pinned) ?? Data()), after: Fingerprint.of(address: address, publicKey: pubData), newKey: pub)
             }
-            sealedFor.append((address, try sealedCopy(forThem, to: pubData, session: session, cert: cert)))
+            sealedFor.append((address, try sealedCopy(forThem, to: pubData, session: session, cert: cert, e2e: !hasExternal)))
         }
 
         // Primeiro o que falha mais (fora do Shalom e a cópia de Enviados): se falhar, ninguém recebeu nada.
         let outside = { (l: [Person]) in l.filter { !Self.isShalom($0.address) }.map { ["name": $0.name, "address": $0.address] } }
-        let hasExternal = all.contains { !Self.isShalom($0.address) }
         var body: [String: Any] = ["sentCopy": try sealedCopy(forMe, to: try Seal.publicKey(of: session.secretKey), session: session, cert: cert, e2e: !hasExternal)]
         if hasExternal {
             body["to"] = outside(out.to); body["cc"] = outside(out.cc); body["bcc"] = outside(out.bcc)
@@ -234,7 +235,7 @@ actor Outbox {
     func saveDraft(_ out: Outgoing, replace: String?, session: Session) async throws -> String {
         let me = Person(name: session.user.name, address: session.user.address)
         let mime = MIMEBuilder.build(from: me, out, text: out.text, html: MIMEBuilder.textToHtml(out.text, quoted: nil), messageId: "<\(UUID().uuidString.lowercased())@\(AppModel.domain)>", date: Date(), includeBcc: true)
-        var body: [String: Any] = try sealedCopy(mime, to: try Seal.publicKey(of: session.secretKey), session: session, cert: try await myCert())
+        var body: [String: Any] = try sealedCopy(mime, to: try Seal.publicKey(of: session.secretKey), session: session, cert: try await myCert(), e2e: false)
         if let replace { body["replace"] = replace }
         return (try await API.shared.call("/drafts", body))["id"] as? String ?? ""
     }

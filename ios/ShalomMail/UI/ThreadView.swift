@@ -87,6 +87,7 @@ struct MessageCard: View {
     @State private var email: ParsedEmail?
     @State private var error: String?
     @State private var showImages = false
+    @State private var proxied: String?
     @State private var height: CGFloat = 80
     @State private var identity = false
 
@@ -155,13 +156,16 @@ struct MessageCard: View {
                     HStack(spacing: 10) {
                         Text(t("ios.imagesBlocked")).font(.system(size: 12.5)).foregroundStyle(Palette.text3)
                         Spacer(minLength: 6)
-                        Button(t("ios.showImages")) { showImages = true }.font(.system(size: 13, weight: .semibold))
+                        Button(t("ios.showImages")) {
+                            showImages = true
+                            Task { proxied = await BodyHTML.proxyImages(html) }
+                        }.font(.system(size: 13, weight: .semibold))
                     }
                 }
-                HTMLBody(html: BodyHTML.document(email, allowRemote: showImages, dark: scheme == .dark), allowRemote: showImages, linksOn: !isSpam, height: $height)
+                HTMLBody(html: BodyHTML.document(email, html: proxied, dark: scheme == .dark), allowRemote: false, linksOn: !isSpam && !item.spoofed, height: $height)
                     .frame(height: max(height, 40))
             } else {
-                PlainBody(text: email.text ?? "", linksOn: !isSpam)
+                PlainBody(text: email.text ?? "", linksOn: !isSpam && !item.spoofed)
             }
             if !email.files.isEmpty { AttachmentsView(files: email.files) }
             if item.folder != "drafts" {

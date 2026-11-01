@@ -17,8 +17,8 @@ struct ShalomMailApp: App {
                 .environment(\.locale, l10n.locale)
                 .preferredColorScheme((AppTheme(rawValue: theme) ?? .dark).scheme)
                 .tint(Palette.accent)
-                // No seletor de apps a miniatura mostra só o logo, nunca um e-mail aberto.
-                .overlay { if app.covered { ZStack { Palette.bg.ignoresSafeArea(); Logo(size: 56) } } }
+                // No seletor de apps a miniatura mostra só o logo, nunca um e-mail aberto (UI/Cover.swift).
+                .onChange(of: app.covered) { _, covered in Cover.show(covered) }
                 .onChange(of: scene) { _, phase in
                     switch phase {
                     case .background: app.wentBackground()

@@ -191,6 +191,7 @@
             {
               "ul": [
                 "Cuenta: tu dirección, el nombre que elegiste y, si la añades, tu foto de perfil. La foto es pública para quien conozca tu dirección, como en otros servicios de correo.",
+                "Correo de recuperación: la dirección fuera de Shalom que indicaste, guardada bajo llave y abierta solo para enviarte el enlace de confirmación y el de contraseña nueva. Las pantallas muestran solo una versión enmascarada. Se borra cuando la cambias o eliminas la cuenta.",
                 "Seguridad: tu PIN y tus códigos de recuperación, guardados de forma que no se pueden volver a leer; el secreto de la verificación en dos pasos, bajo llave; y el tiempo de inactividad que elegiste para cerrar la sesión automáticamente.",
                 "Cada mensaje: a qué cuenta va dirigido, cuándo llegó, cuánto espacio ocupa, en qué carpeta está y si ya se leyó, se fijó o se marcó como favorito.",
                 "Dispositivos conectados: cuándo empezó cada sesión, cuándo se usó por última vez y el tipo de navegador, para que puedas verlos y cerrar su sesión.",
@@ -247,6 +248,7 @@
           "h": "8. Tus derechos",
           "p": [
             "Puedes pedir la confirmación de que tratamos tus datos, el acceso, la corrección, la portabilidad, la eliminación e información sobre con quién los compartimos, y puedes retirar cualquier consentimiento que hayas dado.",
+            "La cuenta entera, con los correos guardados, los buzones de agente y sus datos, la eliminas cuando quieras en Ajustes, Eliminar cuenta, en el sitio o en la app.",
             "El nombre, la foto y los ajustes de seguridad los cambias en la propia app. Para todo lo demás, escribe a privacidade@shalomail.com. También puedes presentar una reclamación ante la Autoridad Nacional de Protección de Datos de Brasil (ANPD) o ante la autoridad de tu país."
           ]
         },
@@ -470,7 +472,7 @@
       },
       "delete": {
         "q": "¿Puedo borrar mi cuenta?",
-        "a": "Sí. Escribe a contato@shalomail.com y la cuenta se borra, con sus correos guardados y los datos de la cuenta. Las copias de seguridad de la infraestructura pueden tardar unos días en caducar."
+        "a": "Sí. En Ajustes, Eliminar cuenta, en el sitio o en la app: se borran los correos guardados, los buzones de agente y los datos de la cuenta, y se cancela el plan de pago. Las copias de seguridad de la infraestructura pueden tardar unos días en caducar."
       },
       "read": {
         "q": "¿Shalom puede leer mi correo?",

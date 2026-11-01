@@ -54,10 +54,9 @@ Decisão do Thomaz em 30/10/2026: nativo, não um site dentro de uma moldura.
 - Identificador `com.shalomail.app` ("Shalom Mail") registrado no time X Tech (2UNWMDD93S), com Push Notifications.
 - App "Shalom Mail" criado no App Store Connect (SKU `shalomail-ios`, idioma principal inglês, dá para trocar),
   nome reservado; nada enviado para revisão.
-- Notificações: o time já tem a chave de APNs Z83GAY27W4 ("OutfitMD Owner Push", vale para todos os apps, sandbox
-  e produção). O arquivo `AuthKey_Z83GAY27W4.p8` está em ~/Downloads; na fase 4 ele vai para o Keychain
-  (shalom-prod) e o servidor assina os avisos com ele. A Apple limita a duas chaves de APNs por time, e as duas
-  vagas estão usadas.
+- Notificações: o time reaproveita uma chave de APNs que já existia (vale para todos os apps, sandbox e
+  produção). Ela fica no Keychain do Mac de publicação (shalom-prod) e o deploy a sobe como segredo; o servidor
+  assina os avisos com ela. A Apple limita a duas chaves de APNs por time, e as duas vagas estão usadas.
 
 ## Avisos de mensagem nova (feito em 30/10/2026)
 
@@ -70,6 +69,4 @@ Decisão do Thomaz em 30/10/2026: nativo, não um site dentro de uma moldura.
   chave por conta em Configurações, Avisos. Em DEBUG o token é do ambiente sandbox da Apple.
 - Teste: `node scripts/run-ts.mjs scripts/smoke-push.ts` (Apple de mentira em 127.0.0.1:4498, chave de teste
   no .dev.vars) e `testNotifications` no Xcode.
-- Para ligar em produção: a chave .p8 no Keychain numa linha só, depois o deploy (APNS_KEY_ID e APNS_TEAM já
-  estão no wrangler.jsonc):
-  `security add-generic-password -U -s shalom-prod -a APNS_KEY -w "$(tr -d '\n' < ~/Downloads/AuthKey_Z83GAY27W4.p8)"`
+- Em produção desde 31/10: a chave no Keychain (APNS_KEY) e o deploy (APNS_KEY_ID e APNS_TEAM no wrangler.jsonc).

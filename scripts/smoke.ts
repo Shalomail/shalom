@@ -47,7 +47,7 @@ async function signup(local: string, password: string) {
   const c = new Client();
   const { secretKey, payload } = await newAccountKeys(password);
   const r = await c.call('POST', '/api/auth/signup', { address: local, name: local.startsWith('ana') ? 'Ana' : 'Bruno Ávila', turnstile: 'XXXX.DUMMY.TOKEN.XXXX', ...payload });
-  return { c, r, secretKey, address: `${local}@${DOMAIN}` };
+  return { c, r, secretKey, authKey: payload.authKey as string, address: `${local}@${DOMAIN}` };
 }
 
 const tag = Date.now().toString(36).slice(-5);
@@ -187,6 +187,10 @@ check((await a.c.call('POST', '/api/send', { to: [{ address: b.address }], sentC
 // Estrela, lido, lixeira, apagar de vez.
 check((await a.c.call('POST', '/api/messages/update', { ids: [row.id], seen: true, starred: true })).status === 200, 'marcar lida e com estrela');
 check((await a.c.call('GET', '/api/messages?folder=starred')).data.messages.length === 1, 'aparece em Com estrela');
+// Apagar de vez pede a pessoa confirmada (senha, e o segundo fator se houver): vale 10 minutos.
+check((await a.c.call('POST', '/api/messages/delete', { ids: [row.id] })).data.error === 'reauth', 'apagar de vez sem confirmar é recusado');
+check((await a.c.call('POST', '/api/profile/confirm', { authKey: a.authKey })).status === 200, 'confirmou que é a pessoa');
+check((await b.c.call('POST', '/api/profile/confirm', { authKey: b.authKey })).status === 200, 'a outra conta também confirmou');
 check((await a.c.call('POST', '/api/messages/delete', { ids: [row.id] })).data.deleted === 0, 'não apaga de vez fora da lixeira');
 await a.c.call('POST', '/api/messages/update', { ids: [row.id], folder: 'trash' });
 check((await a.c.call('POST', '/api/messages/delete', { ids: [row.id] })).data.deleted === 1, 'apaga de vez da lixeira');
@@ -336,15 +340,17 @@ const beforeWipe = (await a.c.call('GET', '/api/storage?sort=date&limit=100')).d
 await new Promise(r => setTimeout(r, 20));
 const lateRaw = ['From: "Tarde" <tarde@exemplo.com.br>', `To: ${a.address}`, 'Subject: Chegou depois', `Message-ID: <tarde-${tag}@exemplo.com.br>`, 'MIME-Version: 1.0', 'Content-Type: text/plain; charset=utf-8', '', 'Oi.'].join('\r\n');
 await fetch(`${BASE}/cdn-cgi/handler/email?from=tarde@exemplo.com.br&to=${a.address}`, { method: 'POST', body: lateRaw });
-const w1 = await a.c.call('POST', '/api/storage/wipe', { before: beforeWipe.at, limit: 1 });
+// Apagar tudo também pede a pessoa confirmada (a sessão já confirmou acima; a senha no pedido também vale).
+const wipeKey = toB64(right.authKey);
+const w1 = await a.c.call('POST', '/api/storage/wipe', { before: beforeWipe.at, limit: 1, authKey: wipeKey });
 check(w1.status === 200 && w1.data.deleted === 1 && w1.data.more === true, `apagar tudo: em lotes (${JSON.stringify(w1.data)})`);
-const w2 = await a.c.call('POST', '/api/storage/wipe', { before: beforeWipe.at });
+const w2 = await a.c.call('POST', '/api/storage/wipe', { before: beforeWipe.at, authKey: wipeKey });
 check(w2.status === 200 && w2.data.deleted === beforeWipe.messages.length - 1 && w2.data.more === false, 'apagar tudo: o resto num pedido só');
 check(w1.data.freed + w2.data.freed === beforeWipe.used, 'apagar tudo: espaço liberado igual ao usado antes');
 const afterWipe = (await a.c.call('GET', '/api/storage?limit=100')).data;
 check(afterWipe.messages.length === 1 && afterWipe.folders.inbox?.count === 1 && afterWipe.used === afterWipe.messages[0].size, 'apagar tudo: a mensagem que chegou depois ficou, e o espaço bate');
 check((await a.c.call('GET', `/api/messages/${beforeWipe.messages[0].id}/raw`)).status === 404, 'apagar tudo: corpos apagados do R2');
-const w3 = await a.c.call('POST', '/api/storage/wipe', { before: Date.now() + 60_000 });
+const w3 = await a.c.call('POST', '/api/storage/wipe', { before: Date.now() + 60_000, authKey: wipeKey });
 check(w3.data.deleted === 1 && (await a.c.call('GET', '/api/usage')).data.used === 0, 'apagar tudo: caixa vazia volta o espaço a zero');
 
 console.log(failures ? `\n${failures} falha(s)` : '\nTudo certo.');

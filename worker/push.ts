@@ -22,8 +22,10 @@ push.post('/register', async c => {
   if (c.get('apiKey')) return fail(c, 403, 'key_scope', 'Só pelo app.');
   const { token, env } = await c.req.json<{ token?: string; env?: string }>().catch(() => ({} as { token?: string; env?: string }));
   if (typeof token !== 'string' || !/^[0-9a-f]{64,200}$/.test(token) || (env !== 'sandbox' && env !== 'production')) return fail(c, 400, 'bad_request', 'Aparelho inválido.');
+  // Um aparelho com várias contas tem uma linha por conta: registrar numa não tira o aparelho de outra
+  // (antes, outra conta que soubesse o token o tomava para si).
   await c.env.DB.prepare(`INSERT INTO push_tokens (token, user_id, session, env, created_at) VALUES (?, ?, ?, ?, ?)
-    ON CONFLICT(token) DO UPDATE SET user_id = excluded.user_id, session = excluded.session, env = excluded.env, created_at = excluded.created_at`)
+    ON CONFLICT(token, user_id) DO UPDATE SET session = excluded.session, env = excluded.env, created_at = excluded.created_at`)
     .bind(token, c.get('user').id, c.get('session'), env, now()).run();
   return c.json({ ok: true });
 });

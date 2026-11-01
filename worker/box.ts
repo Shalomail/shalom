@@ -96,8 +96,20 @@ export class Mailbox extends DurableObject<Env> {
   async fetch(req: Request): Promise<Response> {
     if (req.headers.get('upgrade') !== 'websocket') return new Response('websocket', { status: 426 });
     const pair = new WebSocketPair();
-    this.ctx.acceptWebSocket(pair[1]);
+    // Marcado com a sessão que abriu, para fechar junto quando ela cair (closeSessions).
+    this.ctx.acceptWebSocket(pair[1], [req.headers.get('x-shalom-session') ?? '']);
     return new Response(null, { status: 101, webSocket: pair[0] });
+  }
+
+  // Sessão desconectada, senha trocada ou senha nova: a caixa ao vivo daquelas sessões fecha na hora.
+  // prefix: só as sessões cujo hash começa assim (desconectar um aparelho); keep: a sessão que fica aberta.
+  closeSessions(opts: { prefix?: string; keep?: string } = {}) {
+    for (const ws of this.ctx.getWebSockets()) {
+      const tag = this.ctx.getTags(ws)[0] ?? '';
+      if (opts.keep && tag === opts.keep) continue;
+      if (opts.prefix && !tag.startsWith(opts.prefix)) continue;
+      try { ws.close(4001, 'session'); } catch { /* já fechou */ }
+    }
   }
 
   webSocketClose(ws: WebSocket, code: number) {

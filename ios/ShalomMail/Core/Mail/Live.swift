@@ -37,6 +37,7 @@ final class Live {
         var req = URLRequest(url: comps.url!)
         // O servidor confere a origem (defesa do navegador contra outros sites); o app é o próprio Shalom.
         req.setValue(API.shared.origin, forHTTPHeaderField: "Origin")
+        if let cookie = API.shared.cookies.header { req.setValue(cookie, forHTTPHeaderField: "Cookie") }
         let ws = API.shared.session.webSocketTask(with: req)
         task = ws
         heard = Date()

@@ -11,7 +11,7 @@ import type { Email } from 'postal-mime';
 import { fromB64, newKeyPair, open, toB64 } from '../../shared/seal';
 import type { Person } from '../../shared/head';
 import { ApiError, call, DOMAIN, Mailbox, type Folder } from './client';
-import { addrs, bodyText, htmlToText, messageJson, people, replyDraft, typeOf, when, who } from './message';
+import { addrs, bodyText, htmlToText, messageJson, people, replyDraft, safeJson, safeLine, safeText, typeOf, when, who } from './message';
 import {
   agentPathOf, apiOf, configPath, envToken, exportToken, importToken, listAgentFiles, loadAgentFile, loadConfig, loadPins, removeAgentFile,
   saveAgent, saveConfig, savePins, StoreError, toAgent, type AgentFile,
@@ -58,7 +58,7 @@ const die = (msg: string): never => { throw new CliError(msg); };
 
 let jsonMode = false;
 const out = (human: string, json?: unknown) => {
-  if (jsonMode) { if (json !== undefined) process.stdout.write(JSON.stringify(json, null, 2) + '\n'); }
+  if (jsonMode) { if (json !== undefined) process.stdout.write(safeJson(json, 2) + '\n'); }
   else process.stdout.write(human + '\n');
 };
 
@@ -125,7 +125,9 @@ async function login(args: string[]) {
   const { values } = parseArgs({ args, options: { key: { type: 'string' }, api: { type: 'string' }, json: { type: 'boolean' }, 'no-browser': { type: 'boolean' } } });
   jsonMode = !!values.json;
   const api = apiOf(values.api);
-  const key = (values.key || process.env.SHALOM_API_KEY || await browserLogin(api, !values['no-browser'])).trim();
+  // --key - lê a chave da entrada padrão (fora do histórico do terminal); --key com o valor ainda vale.
+  const typed = values.key === '-' ? readFileSync(0, 'utf8') : values.key;
+  const key = (typed || process.env.SHALOM_API_KEY || await browserLogin(api, !values['no-browser'])).trim();
   if (!key.startsWith('shalom_sk_')) die('That is not an account API key. It starts with shalom_sk_.');
   const me = await call<{ user: { address: string } }>({ api, key }, 'GET', '/auth/me');
   saveConfig({ ...loadConfig(), api, accountKey: key, account: me.user.address });
@@ -297,6 +299,17 @@ function mailbox(asFlag?: string, apiFlag?: string) {
   const box = new Mailbox(toAgent(file!, api), {
     server: cfg.serverKeys?.[api],
     onServer: wire => { const c = loadConfig(); saveConfig({ ...c, serverKeys: { ...c.serverKeys, [api]: wire } }); },
+    // Ao receber: fixa a chave na primeira mensagem de alguém; se mudou, não vale como conferido (e só
+    // muda ao responder com --trust-new-key).
+    contactKey: (address, publicKey) => {
+      const pins = file!.pins ?? {};
+      if (!pins[address]) {
+        file!.pins = { ...pins, [address]: publicKey };
+        if (persist) saveAgent(file!); else savePins(file!.address, file!.pins);
+        return true;
+      }
+      return pins[address] === publicKey;
+    },
   });
   // Chave de cada contato Shalom fixada na primeira vez. Se mudar, o envio para.
   const checkPin = (address: string, publicKey: string, trust = false) => {
@@ -330,7 +343,7 @@ async function inbox(args: string[]) {
   const messages = values.unread ? await box.unread(values.folder as Folder, limit) : (await box.list(values.folder as Folder, limit)).messages;
   if (jsonMode) return out('', messages);
   if (!messages.length) return out(`Nothing in ${values.folder}.`);
-  const rows = messages.map(m => [m.unread ? '•' : ' ', short(m.id), who(values.folder === 'sent' ? m.to[0] ?? null : m.from), m.subject || '(no subject)', when(m.receivedAt)]);
+  const rows = messages.map(m => [m.unread ? '•' : ' ', short(m.id), who(values.folder === 'sent' ? m.to[0] ?? null : m.from), safeLine(m.subject) || '(no subject)', when(m.receivedAt)]);
   out(table(['', 'ID', values.folder === 'sent' ? 'TO' : 'FROM', 'SUBJECT', 'DATE'], rows));
 }
 
@@ -346,7 +359,7 @@ async function read(args: string[]) {
     // Dois anexos com o mesmo nome (comum: image.png) não se sobrescrevem: o segundo vira "image (2).png".
     const used = new Set<string>();
     for (const a of email.attachments) {
-      const name = basename(a.filename || 'attachment').replace(/^\.+/, '_');
+      const name = safeLine(basename(a.filename || 'attachment')).replace(/^\.+/, '_');
       const dot = name.lastIndexOf('.');
       const [stem, ext] = dot > 0 ? [name.slice(0, dot), name.slice(dot)] : [name, ''];
       let unique = name;
@@ -359,17 +372,20 @@ async function read(args: string[]) {
   }
   if (jsonMode) return out('', { ...messageJson(summary, email), saved });
   const lines = [
-    `From:    ${who(summary.from)}${summary.verifiedSender ? '  (Shalom, end-to-end, sender verified)' : summary.auth === 'fail' ? '  (WARNING: sender not authenticated)' : ''}`,
+    `From:    ${who(summary.from)}${summary.verifiedSender && summary.endToEnd ? '  (Shalom, end-to-end, sender verified)'
+      : summary.verifiedSender ? '  (Shalom, sender verified; also sent outside Shalom, so not end-to-end)'
+      : summary.keyChanged ? "  (WARNING: this sender's encryption key changed. Confirm with them another way before trusting; reply with --trust-new-key to accept it)"
+      : summary.auth === 'fail' ? '  (WARNING: sender not authenticated)' : ''}`,
     `To:      ${addrs(email.to).map(who).join(', ')}`,
     ...(email.cc?.length ? [`Cc:      ${addrs(email.cc).map(who).join(', ')}`] : []),
-    `Date:    ${email.date ?? when(summary.receivedAt)}`,
-    `Subject: ${summary.subject || '(no subject)'}`,
+    `Date:    ${email.date ? safeLine(email.date) : when(summary.receivedAt)}`,
+    `Subject: ${safeLine(summary.subject) || '(no subject)'}`,
     `Id:      ${summary.id}`,
     '',
-    bodyText(email) || '(empty)',
+    safeText(bodyText(email)) || '(empty)',
   ];
   if (email.attachments.length) {
-    lines.push('', 'Attachments:', ...email.attachments.map(a => `  ${a.filename ?? 'attachment'} (${a.mimeType}, ${Math.ceil((a.content as ArrayBuffer).byteLength / 1024)} KB)`));
+    lines.push('', 'Attachments:', ...email.attachments.map(a => `  ${safeLine(a.filename ?? 'attachment')} (${safeLine(a.mimeType)}, ${Math.ceil((a.content as ArrayBuffer).byteLength / 1024)} KB)`));
     if (saved.length) lines.push(`Saved to ${values['save-attachments']}.`);
   }
   out(lines.join('\n'));
@@ -484,12 +500,21 @@ async function watch(args: string[]) {
         if (first && resume && !m.unread) { seen.add(m.id); continue; }
         // Só conta como vista depois de lida e entregue: se a rede cair no meio, ela volta na próxima volta.
         if (values.exec || jsonMode) {
-          const { summary, email } = await box.read(m.id);
+          // Mensagem que não abre (corrompida, ou feita para descomprimir em gigabytes): avisa e segue, em vez
+          // de voltar a ela a cada volta.
+          const opened = await box.read(m.id).catch((e: unknown) => {
+            seen.add(m.id);
+            process.stderr.write(`skipped ${short(m.id)}: ${safeLine(e instanceof Error ? e.message : String(e))}\n`);
+            return null;
+          });
+          if (!opened) continue;
+          const { summary, email } = opened;
           const msg = messageJson(summary, email);
-          if (jsonMode) process.stdout.write(JSON.stringify(msg) + '\n');
-          else process.stdout.write(`${when(m.receivedAt)}  ${short(m.id)}  ${who(m.from)}  ${m.subject}\n`);
+          if (jsonMode) process.stdout.write(safeJson(msg) + '\n');
+          else process.stdout.write(`${when(m.receivedAt)}  ${short(m.id)}  ${who(m.from)}  ${safeLine(m.subject)}\n`);
           if (values.exec) {
-            const code = await runExec(values.exec, msg, { SHALOM_MESSAGE_ID: m.id, SHALOM_FROM: m.from?.address ?? '', SHALOM_SUBJECT: m.subject, SHALOM_AGENT: file.address });
+            // Remetente e assunto vêm de quem escreveu: limpos antes de virar variável do programa.
+            const code = await runExec(values.exec, msg, { SHALOM_MESSAGE_ID: m.id, SHALOM_FROM: safeLine(m.from?.address ?? ''), SHALOM_SUBJECT: safeLine(m.subject), SHALOM_AGENT: file.address });
             seen.add(m.id);
             if (code !== 0) process.stderr.write(`exec exited with ${code} for ${short(m.id)}\n`);
             else if (values['mark-read']) await box.update([m.id], { seen: true });
@@ -498,7 +523,7 @@ async function watch(args: string[]) {
             if (values['mark-read']) await box.update([m.id], { seen: true });
           }
         } else {
-          process.stdout.write(`${when(m.receivedAt)}  ${short(m.id)}  ${who(m.from)}  ${m.subject}\n`);
+          process.stdout.write(`${when(m.receivedAt)}  ${short(m.id)}  ${who(m.from)}  ${safeLine(m.subject)}\n`);
           seen.add(m.id);
           if (values['mark-read']) await box.update([m.id], { seen: true });
         }
@@ -541,7 +566,8 @@ main(process.argv.slice(2)).catch(e => {
   // Opção errada estoura antes de o comando ler o --json: quem pediu JSON recebe o erro em JSON mesmo assim.
   if (process.argv.slice(2).includes('--json')) jsonMode = true;
   const msg = e instanceof CliError || e instanceof ApiError || e instanceof StoreError ? e.message : (e as { code?: string })?.code?.startsWith('ERR_PARSE_ARGS') ? (e as Error).message : `Unexpected error: ${(e as Error)?.stack ?? e}`;
-  if (jsonMode) process.stdout.write(JSON.stringify({ error: e instanceof ApiError ? e.code : 'error', message: msg }) + '\n');
-  else process.stderr.write(`shalom: ${msg}\n`);
+  // A mensagem pode repetir um endereço vindo de um e-mail (Reply-To): limpa antes de ir para a tela.
+  if (jsonMode) process.stdout.write(safeJson({ error: e instanceof ApiError ? e.code : 'error', message: safeLine(msg) }) + '\n');
+  else process.stderr.write(`shalom: ${safeLine(msg)}\n`);
   process.exit(1);
 });

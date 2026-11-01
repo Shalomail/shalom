@@ -4,6 +4,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { navigate } from '../lib/router';
+import { proof } from '../lib/security';
 import type { Session } from '../lib/session';
 import {
   countOf, deleteEverything, deleteForeverAnywhere, folderLabel, folderVars, loadEverything, space, STORAGE_FOLDERS, storagePage,
@@ -467,12 +468,13 @@ export function Storage({ session, onBack }: { session: Session; onBack: () => v
           busyTitle={dialog.count === 1 ? tr('storage.busyOne') : tn('storage.busyMany', dialog.count)}
           stoppable
           onClose={() => setDialog(null)}
-          run={async (report, stopped) => {
+          run={async (report, stopped, password) => {
             const { count, bytes: before, at, folder } = dialog;
             let done = 0;
             let broke = '';
             try {
-              done = (await deleteEverything(at, folder, n => report({ done: n, total: count, line: tr('common.progress', { done: n, total: count }) }), stopped)).done;
+              const authKey = password ? await proof(session.user, password) : undefined;
+              done = (await deleteEverything(at, folder, n => report({ done: n, total: count, line: tr('common.progress', { done: n, total: count }) }), stopped, authKey)).done;
             } catch (e) { broke = fail(e, tr('storage.connDropped')); }
             const s = await reloadAfter();
             const left = s ? totalOf(s, folder) : 0;
@@ -497,10 +499,12 @@ type Outcome = { title: string; lines: string[] } | null;
 // Confirmação no jeito de uma folha do sistema: título, uma ou duas frases com o número exato, o aviso
 // e o botão de segurar ocupando a largura. Esc e clique fora cancelam antes de começar; durante o
 // trabalho só o "Parar" interrompe, e no fim aparece o resultado.
-function HoldDialog({ title, text, holdLabel, holdMs = 1200, busyTitle, busyHint, stoppable, run, onClose }: {
-  title: string; text: string; holdLabel: string; holdMs?: number; busyTitle: string; busyHint?: string;
-  stoppable?: boolean; run: (report: (p: Progress) => void, stopped: () => boolean) => Promise<Outcome>; onClose: () => void;
+// password: pede a senha da conta antes de segurar (apagar tudo fora da Lixeira e do Spam).
+function HoldDialog({ title, text, holdLabel, holdMs = 1200, busyTitle, busyHint, stoppable, password: askPassword, run, onClose }: {
+  title: string; text: string; holdLabel: string; holdMs?: number; busyTitle: string; busyHint?: string; stoppable?: boolean; password?: boolean;
+  run: (report: (p: Progress) => void, stopped: () => boolean, password: string) => Promise<Outcome>; onClose: () => void;
 }) {
+  const [password, setPassword] = useState('');
   const [phase, setPhase] = useState<'ask' | 'run' | 'done'>('ask');
   const [progress, setProgress] = useState<Progress | null>(null);
   const [outcome, setOutcome] = useState<NonNullable<Outcome> | null>(null);
@@ -525,7 +529,7 @@ function HoldDialog({ title, text, holdLabel, holdMs = 1200, busyTitle, busyHint
   async function start() {
     setPhase('run');
     try {
-      const r = await run(p => setProgress(p), () => stopRef.current);
+      const r = await run(p => setProgress(p), () => stopRef.current, password);
       if (!r) { onClose(); return; }
       setOutcome(r);
     } catch (e) {
@@ -554,8 +558,12 @@ function HoldDialog({ title, text, holdLabel, holdMs = 1200, busyTitle, busyHint
             <h3 id="sp-sheet-title">{title}</h3>
             <p id="sp-sheet-text">{text}</p>
             <p className="sp-sheet-warn">{tr('storage.noUndo')}</p>
+            {askPassword && (
+              <input className="sp-sheet-input" type="password" value={password} onChange={e => setPassword(e.target.value)}
+                placeholder={tr('settings.accountPassword')} aria-label={tr('settings.accountPassword')} autoComplete="current-password" autoFocus />
+            )}
             <div className="sp-sheet-actions">
-              <HoldButton label={holdLabel} ms={holdMs} onDone={start} />
+              <HoldButton label={holdLabel} ms={holdMs} onDone={start} disabled={askPassword && !password} />
               <button className="sp-sheet-quiet" data-focus onClick={onClose}>{tr('common.cancel')}</button>
             </div>
           </>
@@ -594,7 +602,7 @@ function HoldDialog({ title, text, holdLabel, holdMs = 1200, busyTitle, busyHint
 
 // Botão de segurar, destrutivo: o vermelho enche da esquerda para a direita enquanto o dedo (ou
 // Espaço/Enter) fica apertado. Soltar antes volta ao zero e lembra de segurar; ao encher, confirma.
-function HoldButton({ label, ms, onDone }: { label: string; ms: number; onDone: () => void }) {
+function HoldButton({ label, ms, onDone, disabled }: { label: string; ms: number; onDone: () => void; disabled?: boolean }) {
   const [holding, setHolding] = useState(false);
   const [hint, setHint] = useState(false);
   const timer = useRef(0);
@@ -604,7 +612,7 @@ function HoldButton({ label, ms, onDone }: { label: string; ms: number; onDone: 
   useEffect(() => () => { window.clearTimeout(timer.current); window.clearTimeout(hintTimer.current); }, []);
 
   function press() {
-    if (holding) return;
+    if (holding || disabled) return;
     setHolding(true);
     setHint(false);
     timer.current = window.setTimeout(() => { timer.current = 0; doneRef.current(); }, ms);
@@ -621,7 +629,7 @@ function HoldButton({ label, ms, onDone }: { label: string; ms: number; onDone: 
 
   const text = hint ? tr('storage.keepHolding') : label;
   return (
-    <button type="button" className={`hold${holding ? ' is-holding' : ''}`} style={{ ['--hold' as string]: `${ms}ms` }}
+    <button type="button" className={`hold${holding ? ' is-holding' : ''}`} style={{ ['--hold' as string]: `${ms}ms` }} disabled={disabled}
       onPointerDown={e => { if (e.button === 0) press(); }} onPointerUp={release} onPointerLeave={release} onPointerCancel={release}
       onKeyDown={e => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) { e.preventDefault(); press(); } }}
       onKeyUp={e => { if (e.key === ' ' || e.key === 'Enter') release(); }}

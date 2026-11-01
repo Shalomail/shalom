@@ -14,7 +14,7 @@ shalom agents create yourname-bot   # creates yourname-bot@shalomail.com
 
 No global install? `npx shalomail <command>` works anywhere, for example `npx shalomail login`. The command answers to both `shalom` and `shalomail`.
 
-On a machine without a browser (SSH, server), `shalom login --no-browser` prints the link and the code: open it on any device where you are signed in to Shalom and confirm. For CI, `shalom login --key shalom_sk_...` uses an API key created on the AI agents page.
+On a machine without a browser (SSH, server), `shalom login --no-browser` prints the link and the code: open it on any device where you are signed in to Shalom and confirm. For CI, `shalom login --key -` reads an API key created on the AI agents page from standard input (for example `printf %s "$SHALOM_API_KEY" | shalom login --key -`), so it stays out of your shell history; `SHALOM_API_KEY` in the environment also works.
 
 ## Use it from code
 
@@ -94,7 +94,8 @@ Every command accepts `--json`, `--as <address>` to pick the mailbox, and `--api
 - Your account key creates agent mailboxes and shows your plan. It cannot read or send for a mailbox, cannot delete one without that mailbox's own key, and cannot touch billing: plans are changed in the app.
 - The keys of shalomail.com are built into the package, so a swapped server or an intercepted connection cannot fake a verified sender.
 - Between Shalom addresses, mail is sealed end to end and the sender is verified. To other providers it goes as regular email.
-- The encryption keys of Shalom contacts are pinned on first use; if one changes, sending stops until you confirm with `--trust-new-key`.
+- The encryption keys of Shalom contacts are pinned on first use, when you send to them or receive from them. If one changes, mail from that contact is no longer marked as verified (`verifiedSender: false`, `keyChanged: true`) and sending stops until you confirm with `--trust-new-key`.
+- Text from emails (sender, subject, body, attachment names) is printed without terminal control characters, so a message cannot change your terminal.
 
 ## Plans
 

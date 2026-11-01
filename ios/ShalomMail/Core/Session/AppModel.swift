@@ -26,6 +26,7 @@ final class AppModel: ObservableObject {
     enum Phase { case starting, signedOut, locked(User), open(Session) }
 
     @Published var phase: Phase = .starting
+    var isOpen: Bool { if case .open = phase { return true } else { return false } }
     @Published var notice: String?
     // Conta sem e-mail de recuperação: a pergunta vem antes da caixa, como no web.
     @Published var needsRecovery = false
@@ -42,6 +43,7 @@ final class AppModel: ObservableObject {
     nonisolated static let domain = "shalomail.com"
 
     init() {
+        Reauth.shared.user = { [weak self] in self?.session?.user }
         NotificationCenter.default.addObserver(forName: .signedOut, object: nil, queue: .main) { [weak self] note in
             let message = (note.object as? APIError)?.message
             Task { @MainActor in self?.serverEnded(message) }
@@ -95,16 +97,27 @@ final class AppModel: ObservableObject {
 
     func setIdle(_ minutes: Int) { idleMinutes = minutes }
 
+    // Trava do app (Configurações, "Trancar o app"): fora do app por mais tempo que isso, volta pedindo o Face
+    // ID. 0 = ao sair. Padrão de 5 minutos; antes a trava só vinha com a inatividade da conta (30 dias).
+    static let lockKey = "shalom-lock-minutes"
+    static let lockChoices = [0, 1, 5, 15, 60]
+    private var lockMinutes: Int { UserDefaults.standard.object(forKey: Self.lockKey) as? Int ?? 5 }
+
     // Fora do app por mais tempo que o escolhido em "Sair sozinho depois de": a conta fecha (tranca, se a
-    // chave estiver guardada; senão, sai).
+    // chave estiver guardada; senão, sai). Antes disso, a trava do app tranca (a chave fica, o Face ID abre).
     func wentBackground() { backgroundAt = Date(); covered = true }
     func becameInactive() { covered = true }
     func cameBack() {
         covered = false
         guard let at = backgroundAt else { return }
         backgroundAt = nil
-        guard case .open(let s) = phase, Date().timeIntervalSince(at) > Double(idleMinutes) * 60 else { return }
-        if Vault.has(s.user.id) { lock() } else { Task { await signOut() } }
+        guard case .open(let s) = phase else { return }
+        let away = Date().timeIntervalSince(at)
+        if away > Double(idleMinutes) * 60 {
+            if Vault.has(s.user.id) { lock() } else { Task { await signOut() } }
+        } else if Vault.has(s.user.id), away >= Double(lockMinutes) * 60 {
+            lock()
+        }
     }
 
     // Várias contas: cada uma na sua vaga, com o próprio cookie de sessão.
@@ -158,6 +171,12 @@ final class AppModel: ObservableObject {
     }
 
     func handle(_ url: URL) {
+        #if !DEBUG
+        // Na versão da loja só valem os links https://shalomail.com (ligados ao domínio pelo
+        // apple-app-site-association). O esquema shalommail:// qualquer site ou app consegue chamar; fica só
+        // para os testes.
+        guard url.scheme == "https" else { return }
+        #endif
         guard let l = IncomingLink(url) else { return }
         if case .confirm(let token) = l {
             Task {
@@ -217,7 +236,8 @@ final class AppModel: ObservableObject {
     }
 
     // Senha certa: abre a caixa, ou devolve a segunda etapa (PIN e/ou código).
-    func signIn(address: String, password: String, remember: Bool) async throws -> SecondStep? {
+    // turnstile: depois de 3 senhas erradas num aparelho novo, o servidor pede a verificação contra robôs.
+    func signIn(address: String, password: String, remember: Bool, turnstile: String? = nil) async throws -> SecondStep? {
         let full = Self.fullAddress(address)
         let salted = try await API.shared.call("/auth/salt", ["address": full])
         guard let saltB64 = salted["salt"] as? String, let salt = Data(b64: saltB64), let k = salted["kdf"] as? [String: Any],
@@ -225,7 +245,9 @@ final class AppModel: ObservableObject {
             throw APIError(status: 0, code: "internal", message: t("err.internal"))
         }
         let keys = try await Task.detached(priority: .userInitiated) { try Keys.passwordKeys(password, salt: salt, kdf: kdf) }.value
-        let res = try await API.shared.call("/auth/login", ["address": full, "authKey": keys.authKey.b64])
+        var body: [String: Any] = ["address": full, "authKey": keys.authKey.b64]
+        if let turnstile { body["turnstile"] = turnstile }
+        let res = try await API.shared.call("/auth/login", body)
         if let ticket = res["ticket"] as? String {
             let second = res["second"] as? [String: Any]
             return SecondStep(ticket: ticket, pin: second?["pin"] as? Bool ?? false, totp: second?["totp"] as? Bool ?? false, wrapKey: keys.wrapKey, remember: remember)

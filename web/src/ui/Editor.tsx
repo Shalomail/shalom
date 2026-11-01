@@ -20,8 +20,9 @@ const MARKS = ['#fff3a3', '#d3f9d8', '#d0ebff', '#ffdeeb'];
 const TAGS = new Set(['B', 'STRONG', 'I', 'EM', 'U', 'BR', 'P', 'DIV', 'SPAN', 'UL', 'OL', 'LI', 'A', 'IMG', 'FONT']);
 const STYLES = ['color', 'background-color', 'font-weight', 'font-style', 'text-decoration', 'text-decoration-line'];
 
-// Copia só o que a barra produz. Qualquer outra marca vira o texto dela; atributos somem.
-function clean(root: HTMLElement, cidOf: (url: string) => string | null): string {
+// Copia só o que a barra produz. Qualquer outra marca vira o texto dela; atributos somem. imgSrc diz o
+// endereço que cada imagem leva (ou null, e ela sai).
+function clean(root: HTMLElement, imgSrc: (url: string) => string | null): string {
   const out = document.createElement('div');
   const walk = (from: Node, to: Node) => {
     for (const n of Array.from(from.childNodes)) {
@@ -29,10 +30,10 @@ function clean(root: HTMLElement, cidOf: (url: string) => string | null): string
       if (!(n instanceof HTMLElement)) continue;
       if (!TAGS.has(n.tagName)) { walk(n, to); continue; }
       if (n.tagName === 'IMG') {
-        const cid = cidOf(n.getAttribute('src') ?? '');
-        if (cid) {
+        const src = imgSrc(n.getAttribute('src') ?? '');
+        if (src) {
           const img = document.createElement('img');
-          img.src = `cid:${cid}`;
+          img.src = src;
           img.alt = '';
           img.setAttribute('style', 'max-width:100%;height:auto');
           to.appendChild(img);
@@ -72,11 +73,17 @@ export const Editor = forwardRef<EditorHandle, Props>(function Editor({ placehol
 
   useImperativeHandle(ref, () => ({
     focus: () => box.current?.focus(),
-    html: cidOf => (box.current ? clean(box.current, cidOf) : ''),
+    html: cidOf => (box.current ? clean(box.current, url => { const cid = cidOf(url); return cid ? `cid:${cid}` : null; }) : ''),
     text: () => box.current?.innerText.replace(/\n{3,}/g, '\n\n').trim() ?? '',
     insertImage: url => { box.current?.focus(); document.execCommand('insertImage', false, url); onInput(); },
     empty: () => !box.current?.innerText.trim() && !box.current?.querySelector('img'),
-    setHtml: html => { if (box.current) { box.current.innerHTML = html; onInput(); } },
+    // Rascunho reaberto: o HTML passa pela mesma limpeza (num documento inerte, sem rodar nada) antes de entrar
+    // na página. Só ficam as imagens do próprio rascunho (blob: criado aqui).
+    setHtml: html => {
+      if (!box.current) return;
+      box.current.innerHTML = clean(new DOMParser().parseFromString(html, 'text/html').body, url => (url.startsWith('blob:') ? url : null));
+      onInput();
+    },
   }), [onInput]);
 
   // Estilo em span com CSS (não <font>): é o que os leitores de e-mail entendem melhor.

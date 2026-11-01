@@ -104,6 +104,8 @@ export async function sendMessage({ user, secretKey }: Session, out: Outgoing) {
   const forMe = buildMime(draft, true);
 
   const internal = [...new Set(all.map(p => p.address.toLowerCase()).filter(isShalom))];
+  // Com alguém de fora, o texto também sai aberto: nenhuma cópia vale como fechada de ponta a ponta.
+  const hasExternal = all.some(p => !isShalom(p.address));
   const cert = await myCert();
   const sealedFor: { address: string; head: string; raw: string }[] = [];
   for (const address of internal) {
@@ -113,14 +115,13 @@ export async function sendMessage({ user, secretKey }: Session, out: Outgoing) {
     if (pinned !== pub) {
       throw new KeyChanged(address, await fingerprint(address, fromB64(pinned)), await fingerprint(address, fromB64(pub)), pub);
     }
-    sealedFor.push({ address, ...(await sealedCopy(forThem, fromB64(pub), secretKey, cert)) });
+    sealedFor.push({ address, ...(await sealedCopy(forThem, fromB64(pub), secretKey, cert, !hasExternal)) });
   }
 
   // Primeiro o que pode falhar com mais frequência: os destinatários de fora (com o texto, porque o
   // e-mail comum não vai trancado) e a cópia de Enviados. Se isso falha, ninguém recebeu nada e tentar
   // de novo não duplica. O Message-ID vai junto para a resposta de fora achar esta conversa.
   const outside = (l: Person[]) => l.filter(p => !isShalom(p.address));
-  const hasExternal = all.some(p => !isShalom(p.address));
   const sent = await api<{ ok: true; id: string; external: number }>('/send', {
     body: {
       ...(hasExternal ? {
@@ -153,7 +154,7 @@ export async function saveDraft({ user, secretKey }: Session, out: Outgoing, rep
     messageId: newMessageId(DOMAIN), inReplyTo: out.inReplyTo, references: out.references, date: new Date(),
     attachments: out.attachments,
   };
-  const sealed = await sealedCopy(buildMime(draft, true), ownPublicKey(secretKey), secretKey, await myCert());
+  const sealed = await sealedCopy(buildMime(draft, true), ownPublicKey(secretKey), secretKey, await myCert(), false);
   return (await api<{ id: string }>('/drafts', { body: { ...sealed, replace } })).id;
 }
 

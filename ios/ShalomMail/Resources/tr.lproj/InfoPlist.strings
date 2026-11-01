@@ -1,0 +1,3 @@
+/* Textos dos pedidos de permissão do sistema. */
+"NSFaceIDUsageDescription" = "Face ID, bu iPhone'da e-postalarınızın kilidini açan anahtarı açar.";
+"NSPhotoLibraryAddUsageDescription" = "Bir e-postadan seçtiğiniz görüntüleri Fotoğraflar'a kaydetmek için.";

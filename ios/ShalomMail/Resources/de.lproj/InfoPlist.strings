@@ -1,0 +1,3 @@
+/* Textos dos pedidos de permissão do sistema. */
+"NSFaceIDUsageDescription" = "Face ID öffnet den Schlüssel, der deine E-Mails auf diesem iPhone entsperrt.";
+"NSPhotoLibraryAddUsageDescription" = "Um Bilder, die du aus einer E-Mail auswählst, in Fotos zu sichern.";

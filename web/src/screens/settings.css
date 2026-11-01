@@ -243,6 +243,8 @@
 .st-modal h3 { margin: 0; font-size: 17px; line-height: 24px; font-weight: 600; letter-spacing: -0.015em; }
 .st-modal p { margin-top: 6px; font-size: 14px; line-height: 21px; color: var(--text-2); }
 .st-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 22px; }
+.st-modal .reauth-fields { display: grid; gap: 12px; margin-top: 16px; }
+.st-modal .st-error { margin-top: 12px; }
 @keyframes st-fade { from { opacity: 0; } }
 @keyframes st-pop { from { opacity: 0; transform: translateY(6px) scale(0.98); } }
 

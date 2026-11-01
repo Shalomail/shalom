@@ -191,6 +191,7 @@
             {
               "ul": [
                 "Hesap: adresiniz, seçtiğiniz ad ve eklerseniz profil fotoğrafınız. Diğer e-posta hizmetlerinde olduğu gibi, fotoğraf adresinizi bilen herkese açıktır.",
+                "Kurtarma e-postası: Shalom dışından verdiğiniz adres. Kilitli saklanır ve yalnızca onay bağlantısını ve yeni parola bağlantısını göndermek için açılır. Ekranlarda yalnızca maskelenmiş hâli görünür. Değiştirdiğinizde veya hesabı sildiğinizde kaldırılır.",
                 "Güvenlik: geri okunamayacak biçimde saklanan PIN’iniz ve kurtarma kodlarınız, kilitli olarak saklanan iki adımlı doğrulama sırrınız ve otomatik oturum kapatma için seçtiğiniz hareketsizlik süresi.",
                 "Her mesaj: hangi hesaba ait olduğu, ne zaman geldiği, ne kadar yer kapladığı, hangi klasörde olduğu ve okunup okunmadığı, sabitlenip sabitlenmediği veya yıldızlanıp yıldızlanmadığı.",
                 "Bağlı cihazlar: her oturumun ne zaman başladığı, en son ne zaman kullanıldığı ve tarayıcı türü; böylece onları görebilir ve oturumlarını kapatabilirsiniz.",
@@ -247,6 +248,7 @@
           "h": "8. Haklarınız",
           "p": [
             "Verilerinizi işleyip işlemediğimizin teyidini, verilerinize erişimi, bunların düzeltilmesini, taşınmasını, silinmesini ve kimlerle paylaştığımız hakkında bilgi talep edebilir, verdiğiniz bir onayı geri çekebilirsiniz.",
+            "Hesabın tamamını, saklanan e-postalar, ajan kutuları ve verileriyle birlikte, istediğiniz zaman Ayarlar, Hesabı sil bölümünden sitede veya uygulamada silebilirsiniz.",
             "Adınızı, fotoğrafınızı ve güvenlik ayarlarınızı doğrudan uygulamadan değiştirebilirsiniz. Diğer her şey için privacidade@shalomail.com adresine yazın. Ayrıca Brezilya Ulusal Veri Koruma Kurumu’na (ANPD) veya kendi ülkenizdeki yetkili kuruma şikâyette bulunabilirsiniz."
           ]
         },
@@ -470,7 +472,7 @@
       },
       "delete": {
         "q": "Hesabımı silebilir miyim?",
-        "a": "Evet. contato@shalomail.com adresine yazın; hesap, saklanan e-postaları ve hesap verileriyle birlikte silinir. Altyapı yedeklerinin süresinin dolması birkaç gün sürebilir."
+        "a": "Evet. Sitede veya uygulamada Ayarlar, Hesabı sil bölümünden: saklanan e-postalar, ajan kutuları ve hesap verileri silinir, ücretli plan iptal edilir. Altyapı yedeklerinin süresinin dolması birkaç gün sürebilir."
       },
       "read": {
         "q": "Shalom e-postalarımı okuyabilir mi?",

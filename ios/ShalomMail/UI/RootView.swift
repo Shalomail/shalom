@@ -16,7 +16,12 @@ struct RootView: View {
         }
         .task { await app.start() }
         .onOpenURL { app.handle($0) }
-        .sheet(item: $app.link) { link in
+        // Conectar o terminal só com a caixa aberta: com o app trancado (Face ID, PIN, inatividade) o pedido
+        // espera o desbloqueio. A senha nova abre em qualquer estado (é para quem não consegue entrar).
+        .sheet(item: Binding(get: {
+            if case .connect = app.link, !app.isOpen { return nil }
+            return app.link
+        }, set: { app.link = $0 })) { link in
             switch link {
             case .reset(let token): ResetPasswordView(token: token).environmentObject(app)
             case .connect(let code): ConnectCliView(code: code)

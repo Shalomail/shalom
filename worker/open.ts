@@ -15,7 +15,8 @@ import { bump, clientIp, fail, normalizeAddress, peek, tally } from './util';
 // Entrega anônima não tem como provar quem mandou: o tamanho e o volume diário por caixa são o freio
 // contra encher a caixa de alguém com lixo.
 const MAX_RAW_B64 = Math.ceil((5 * 1024 * 1024 + 2048) / 3) * 4;
-const RECV_BYTES_DAY = 100 * 1024 * 1024;
+// 50 MB por dia por destinatário: alguém não enche a caixa de 1 GB de outra pessoa em poucos dias.
+const RECV_BYTES_DAY = 50 * 1024 * 1024;
 const RECV_COUNT_DAY = 500;
 const MAX_HEAD_B64 = Math.ceil((64 * 1024) / 3) * 4;
 

@@ -83,11 +83,11 @@ const sessionCookie = (env: Env, slot: number) => `${secure(env) ? '__Host-' : '
 const deviceCookie = (env: Env) => (secure(env) ? '__Host-shalom_dev' : 'shalom_dev');
 const cookieOpts = (env: Env, maxAgeMs: number) => ({ httpOnly: true, secure: secure(env), sameSite: 'Strict' as const, path: '/', maxAge: maxAgeMs / 1000 });
 
-async function startSession(c: Context<AppEnv>, userId: string) {
+async function startSession(c: Context<AppEnv>, userId: string, signup = false) {
   const token = randomToken();
   const t = now();
-  await c.env.DB.prepare('INSERT INTO sessions (token_hash, user_id, created_at, expires_at, last_seen, user_agent) VALUES (?, ?, ?, ?, ?, ?)')
-    .bind(await sha256(token), userId, t, t + SESSION_MS, t, (c.req.header('user-agent') || '').slice(0, 200)).run();
+  await c.env.DB.prepare('INSERT INTO sessions (token_hash, user_id, created_at, expires_at, last_seen, user_agent, signup) VALUES (?, ?, ?, ?, ?, ?, ?)')
+    .bind(await sha256(token), userId, t, t + SESSION_MS, t, (c.req.header('user-agent') || '').slice(0, 200), signup ? 1 : 0).run();
   setCookie(c, sessionCookie(c.env, slotOf(c)), token, cookieOpts(c.env, SESSION_MS));
 }
 
@@ -145,9 +145,9 @@ export const requireUser: MiddlewareHandler<AppEnv> = async (c, next) => {
   const hash = await sha256(token);
   const t = now();
   const row = await c.env.DB.prepare(
-    `SELECT u.id, u.address, u.name, u.public_key, u.idle_minutes, u.suspended_at, s.expires_at, s.last_seen FROM sessions s JOIN users u ON u.id = s.user_id
+    `SELECT u.id, u.address, u.name, u.public_key, u.idle_minutes, u.suspended_at, s.expires_at, s.last_seen, s.confirmed_until FROM sessions s JOIN users u ON u.id = s.user_id
      WHERE s.token_hash = ? AND s.expires_at > ?`,
-  ).bind(hash, t).first<User & { idle_minutes: number; suspended_at: number | null; expires_at: number; last_seen: number }>();
+  ).bind(hash, t).first<User & { idle_minutes: number; suspended_at: number | null; expires_at: number; last_seen: number; confirmed_until: number }>();
   if (!row) {
     deleteCookie(c, cookie, { path: '/', secure: secure(c.env) });
     return fail(c, 401, 'no_session', 'Sua sessão acabou. Entre de novo.');
@@ -173,8 +173,28 @@ export const requireUser: MiddlewareHandler<AppEnv> = async (c, next) => {
   }
   c.set('user', { id: row.id, address: row.address, name: row.name, public_key: row.public_key });
   c.set('session', hash);
+  c.set('confirmedUntil', row.confirmed_until);
   await next();
 };
+
+const CONFIRM_MS = 10 * 60 * 1000;
+
+// Ações perigosas (apagar de vez, trocar a senha, apagar a conta, chaves de API, conectar o terminal) pedem a
+// pessoa de novo: a senha e o segundo fator ligado, de uma vez (no corpo do próprio pedido ou em
+// /profile/confirm). Confirmada, a sessão fica liberada por 10 minutos. Só o cookie (roubado de um
+// computador, de um backup) não basta mais. Quem vem por chave de API (agente, terminal) não tem como
+// confirmar e segue as regras da própria chave.
+export async function confirmedOk(c: Context<AppEnv>, body?: { authKey?: unknown; pin?: string; code?: string; recovery?: string }): Promise<Response | null> {
+  if (c.get('apiKey')) return null;
+  if ((c.get('confirmedUntil') ?? 0) > now()) return null;
+  if (body?.authKey === undefined) return fail(c, 403, 'reauth', 'Confirme que é você para continuar.');
+  const denied = (await passwordOk(c, body.authKey)) ?? (await secondOk(c, body));
+  if (denied) return denied;
+  const until = now() + CONFIRM_MS;
+  await c.env.DB.prepare('UPDATE sessions SET confirmed_until = ? WHERE token_hash = ?').bind(until, c.get('session')).run();
+  c.set('confirmedUntil', until);
+  return null;
+}
 
 export const auth = new Hono<AppEnv>();
 
@@ -284,7 +304,7 @@ auth.post('/signup', async c => {
   await tally(c.env.DB, 'signup');
   await boxOf(c.env, id).ensureAlarm(id);
   c.executionCtx.waitUntil(leaveWelcome(c.env, { id, address: full, name, publicKey: body.publicKey }, lang).catch(e => console.error('boas-vindas falhou', String(e))));
-  await startSession(c, id);
+  await startSession(c, id, true);
   await rememberDevice(c, id);
   return c.json({ user: publicUser({ id, address: full, name, public_key: body.publicKey }) });
 });
@@ -360,6 +380,29 @@ async function extraFactors(env: Env, row: FactorRow, body: { pin?: string; code
   return { ok, step, recovery };
 }
 
+// O segundo fator que a conta tiver ligado (PIN, duas etapas ou os dois), para desligar ou trocar essas
+// proteções e o e-mail de recuperação. Só a senha não basta: com um cookie roubado e a senha vazada,
+// dava para desligar tudo e entrar de novo só com a senha. Conta sem PIN nem duas etapas passa direto.
+export async function secondOk(c: Context<AppEnv>, body: { pin?: string; code?: string; recovery?: string }): Promise<Response | null> {
+  const id = c.get('user').id;
+  const limit = `second:${id}`;
+  if ((await peek(c.env.DB, limit)) >= 10) return fail(c, 429, 'too_many', 'Muitas tentativas. Tente de novo em uma hora.');
+  const row = await c.env.DB.prepare('SELECT id, pin_hash, totp_on, totp_secret, totp_step, recovery FROM users WHERE id = ?').bind(id).first<FactorRow>();
+  if (!row || (!row.pin_hash && !row.totp_on)) return null;
+  const { ok, step, recovery } = await extraFactors(c.env, row, body);
+  if (!ok) {
+    await bump(c.env.DB, limit, 3600 * 1000);
+    return fail(c, 401, 'wrong_second', row.pin_hash && row.totp_on ? 'PIN ou código errado.' : row.pin_hash ? 'PIN errado.' : 'Código errado.');
+  }
+  // Passo do código e código de recuperação usados não valem de novo (o D1 não aceita lote vazio).
+  const spent = [
+    ...(step !== null ? [c.env.DB.prepare('UPDATE users SET totp_step = ? WHERE id = ?').bind(step, id)] : []),
+    ...(recovery ? [c.env.DB.prepare('UPDATE users SET recovery = ? WHERE id = ?').bind(JSON.stringify(recovery), id)] : []),
+  ];
+  if (spent.length) await c.env.DB.batch(spent);
+  return null;
+}
+
 // Segunda etapa do login: PIN, código do autenticador (ou um código de recuperação), o que a conta tiver.
 auth.post('/login/second', async c => {
   const body = await c.req.json<{ ticket: string; pin?: string; code?: string; recovery?: string }>();
@@ -402,7 +445,11 @@ auth.post('/login/second', async c => {
 auth.post('/forgot', async c => {
   const { address } = await c.req.json<{ address: string }>();
   const full = normalizeAddress(c.env, address);
-  if (full && (await bump(c.env.DB, `forgot:${full}`, 3600 * 1000)) <= 3) {
+  // Freios: 3 por hora e 5 por dia para cada endereço, e 10 por dia para cada rede (o link sai do teto do
+  // sistema, e pedido em massa não pode gastá-lo).
+  const ip = clientIp(c);
+  if (full && (await bump(c.env.DB, `forgot:${full}`, 3600 * 1000)) <= 3 && (await bump(c.env.DB, `forgot-day:${full}`, 24 * 3600 * 1000)) <= 5
+    && (await bump(c.env.DB, `forgot-ip:${ip}`, 24 * 3600 * 1000)) <= 10) {
     const row = await c.env.DB.prepare('SELECT id, address, recovery_email, recovery_verified, lang FROM users WHERE address = ?').bind(full)
       .first<{ id: string; address: string; recovery_email: string | null; recovery_verified: number; lang: string }>();
     if (row?.recovery_email && row.recovery_verified) {
@@ -448,6 +495,7 @@ auth.post('/reset', async c => {
   }
   await spendEmailToken(c.env, body.token);
   await boxOf(c.env, id).wipe(id);
+  await boxOf(c.env, id).closeSessions();
   await c.env.DB.batch([
     c.env.DB.prepare('UPDATE users SET auth_hash = ?, salt = ?, kdf = ?, public_key = ?, envelope = ? WHERE id = ?')
       .bind(await authHash(c.env, authKey), body.salt, JSON.stringify(body.kdf), body.publicKey, await lockEnvelope(c.env, id, body.envelope), id),
@@ -456,6 +504,10 @@ auth.post('/reset', async c => {
     c.env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(id),
     c.env.DB.prepare('DELETE FROM login_tickets WHERE user_id = ?').bind(id),
     c.env.DB.prepare("DELETE FROM email_tokens WHERE user_id = ? AND kind = 'reset'").bind(id),
+    // Quem tomou a conta pode ter criado chaves de API e caixas de agente: elas caem junto, e o aparelho
+    // dele deixa de ser conhecido (pularia a verificação contra robôs).
+    c.env.DB.prepare('DELETE FROM api_keys WHERE user_id = ?1 OR user_id IN (SELECT id FROM users WHERE owner_id = ?1)').bind(id),
+    c.env.DB.prepare('DELETE FROM known_devices WHERE user_id = ?').bind(id),
   ]);
   await clear(c.env.DB, failKey);
   await startSession(c, id);
@@ -496,6 +548,7 @@ auth.post('/sessions/revoke', requireUser, async c => {
   const { id } = await c.req.json<{ id: string }>();
   if (typeof id !== 'string' || !/^[0-9a-f]{16}$/.test(id)) return fail(c, 400, 'bad_request', 'Aparelho inválido.');
   await c.env.DB.prepare(`DELETE FROM sessions WHERE user_id = ? AND substr(token_hash, 1, 16) = ?`).bind(c.get('user').id, id).run();
+  await boxOf(c.env, c.get('user').id).closeSessions({ prefix: id });
   return c.json({ ok: true });
 });
 

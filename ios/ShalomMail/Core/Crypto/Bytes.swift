@@ -23,7 +23,9 @@ extension Data {
 
     static func random(_ count: Int) -> Data {
         var d = Data(count: count)
-        _ = d.withUnsafeMutableBytes { SecRandomCopyBytes(kSecRandomDefault, count, $0.baseAddress!) }
+        let status = d.withUnsafeMutableBytes { SecRandomCopyBytes(kSecRandomDefault, count, $0.baseAddress!) }
+        // Sal, chaves e ingressos dependem disso: sem aleatoriedade de verdade, melhor parar do que seguir.
+        precondition(status == errSecSuccess, "SecRandomCopyBytes falhou")
         return d
     }
 }

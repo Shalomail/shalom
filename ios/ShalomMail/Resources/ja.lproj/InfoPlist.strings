@@ -1,0 +1,3 @@
+/* Textos dos pedidos de permissão do sistema. */
+"NSFaceIDUsageDescription" = "Face ID で、この iPhone 上のメールのロックを解除する鍵を開きます。";
+"NSPhotoLibraryAddUsageDescription" = "メールから選んだ画像を「写真」に保存するために使います。";

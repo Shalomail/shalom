@@ -34,27 +34,34 @@ enum AccountAPI {
     static func security() async throws -> SecurityState { try await API.shared.decode(SecurityState.self, "/profile/security") }
     static func setIdle(_ minutes: Int) async throws { try await API.shared.call("/profile/idle", ["minutes": minutes]) }
     static func setPin(_ user: User, _ password: String, _ pin: String) async throws { try await API.shared.call("/profile/pin", ["authKey": try await proof(user, password), "pin": pin]) }
-    static func removePin(_ user: User, _ password: String) async throws { try await API.shared.call("/profile/pin/delete", ["authKey": try await proof(user, password)]) }
+    // factors: o segundo fator que a conta tiver ligado (pin, code ou recovery), para desligar ou trocar proteções.
+    static func removePin(_ user: User, _ password: String, factors: [String: String] = [:]) async throws {
+        try await API.shared.call("/profile/pin/delete", factors.merging(["authKey": try await proof(user, password)]) { $1 })
+    }
     static func startTotp(_ user: User, _ password: String) async throws -> (secret: String, uri: String) {
         let r = try await API.shared.call("/profile/totp/start", ["authKey": try await proof(user, password)])
         return (r["secret"] as? String ?? "", r["uri"] as? String ?? "")
     }
     static func enableTotp(_ code: String) async throws -> [String] { (try await API.shared.call("/profile/totp/enable", ["code": code]))["codes"] as? [String] ?? [] }
-    static func disableTotp(_ user: User, _ password: String) async throws { try await API.shared.call("/profile/totp/disable", ["authKey": try await proof(user, password)]) }
-    static func newRecoveryCodes(_ user: User, _ password: String) async throws -> [String] {
-        (try await API.shared.call("/profile/totp/recovery", ["authKey": try await proof(user, password)]))["codes"] as? [String] ?? []
+    static func disableTotp(_ user: User, _ password: String, factors: [String: String] = [:]) async throws {
+        try await API.shared.call("/profile/totp/disable", factors.merging(["authKey": try await proof(user, password)]) { $1 })
+    }
+    static func newRecoveryCodes(_ user: User, _ password: String, factors: [String: String] = [:]) async throws -> [String] {
+        (try await API.shared.call("/profile/totp/recovery", factors.merging(["authKey": try await proof(user, password)]) { $1 }))["codes"] as? [String] ?? []
     }
 
     // Troca de senha: prova a atual e tranca a mesma chave privada com a nova. Nenhum e-mail muda.
-    static func changePassword(_ session: Session, current: String, next: String) async throws {
+    // factors: o segundo fator ligado, que a troca de senha também pede.
+    static func changePassword(_ session: Session, current: String, next: String, factors: [String: String] = [:]) async throws {
         let (salt, kdf) = try kdf(try await API.shared.call("/auth/salt", ["address": session.user.address]))
         let fresh = Data.random(16)
         let (old, new) = try await Task.detached(priority: .userInitiated) {
             (try Keys.passwordKeys(current, salt: salt, kdf: kdf), try Keys.passwordKeys(next, salt: fresh, kdf: Keys.kdf))
         }.value
         let kdfObj: [String: Any] = ["alg": Keys.kdf.alg, "m": Keys.kdf.m, "t": Keys.kdf.t, "p": Keys.kdf.p]
-        try await API.shared.call("/profile/password", ["oldAuthKey": old.authKey.b64, "salt": fresh.b64, "kdf": kdfObj, "authKey": new.authKey.b64,
-                                                       "envelope": try Keys.sealEnvelope(session.secretKey, wrapKey: new.wrapKey)])
+        let body: [String: Any] = ["oldAuthKey": old.authKey.b64, "salt": fresh.b64, "kdf": kdfObj, "authKey": new.authKey.b64,
+                                   "envelope": try Keys.sealEnvelope(session.secretKey, wrapKey: new.wrapKey)]
+        try await API.shared.call("/profile/password", body.merging(factors) { $1 })
     }
 
     static func saveName(_ name: String) async throws -> String { (try await API.shared.call("/profile/name", ["name": name]))["name"] as? String ?? name }
@@ -75,6 +82,7 @@ enum AccountAPI {
         var req = URLRequest(url: API.shared.url("/profile/avatar"))
         req.httpMethod = "POST"
         req.setValue("1", forHTTPHeaderField: "x-shalom"); req.setValue(String(API.shared.slot), forHTTPHeaderField: "x-shalom-slot")
+        if let cookie = API.shared.cookies.header { req.setValue(cookie, forHTTPHeaderField: "Cookie") }
         req.setValue("image/jpeg", forHTTPHeaderField: "content-type")
         req.httpBody = data
         let (body, res) = try await API.shared.session.data(for: req)
@@ -86,9 +94,10 @@ enum AccountAPI {
     static func removeAvatar() async throws { try await API.shared.call("/profile/avatar/delete", [:]) }
 
     static func recovery() async throws -> RecoveryState { try await API.shared.decode(RecoveryState.self, "/profile/recovery") }
-    static func setRecovery(_ email: String, confirm: (User, String)? = nil) async throws -> (hint: String?, sent: Bool) {
+    static func setRecovery(_ email: String, confirm: (User, String)? = nil, factors: [String: String] = [:]) async throws -> (hint: String?, sent: Bool) {
         var body: [String: Any] = ["email": email]
         if let confirm { body["authKey"] = try await proof(confirm.0, confirm.1) }
+        for (k, v) in factors { body[k] = v }
         let r = try await API.shared.call("/profile/recovery", body)
         return (r["hint"] as? String, r["sent"] as? Bool ?? true)
     }
@@ -136,8 +145,13 @@ enum AccountAPI {
         return (summary, rows, r["next"] as? String)
     }
 
-    static func deleteAccount(_ user: User, _ password: String, confirm: String) async throws {
-        try await API.shared.call("/profile/delete", ["authKey": try await proof(user, password), "confirm": confirm])
+    static func deleteAccount(_ user: User, _ password: String, confirm: String, factors: [String: String] = [:]) async throws {
+        try await API.shared.call("/profile/delete", factors.merging(["authKey": try await proof(user, password), "confirm": confirm]) { $1 })
+    }
+
+    // Confirma que é a pessoa (senha e o segundo fator ligado): libera as ações perigosas por 10 minutos.
+    static func confirm(_ user: User, _ password: String, factors: [String: String] = [:]) async throws {
+        try await API.shared.call("/profile/confirm", factors.merging(["authKey": try await proof(user, password)]) { $1 })
     }
 
     static func config() async throws -> [String: Any] { try await API.shared.call("/auth/config") }

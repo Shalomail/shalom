@@ -121,10 +121,10 @@ function MessageCard({ item, expanded, onToggle, secretKey, isLast, onReply }: {
   const innerFrom = email ? people(email.from)[0]?.address?.toLowerCase() : undefined;
   const shown = item.sender && innerFrom && innerFrom !== item.sender ? { ...item, spoofed: true } : item;
   const doc = useMemo(
-    () => (prepared && email ? srcdoc(prepared, { dark: theme === 'dark', rich: !!email.html, noLinks: item.folder === 'spam' || item.spoofed }) : ''),
+    () => (prepared && email ? srcdoc(prepared, { dark: theme === 'dark', rich: !!email.html, noLinks: item.folder === 'spam' || shown.spoofed }) : ''),
     // version muda quando as imagens remotas entram no documento
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [prepared, version, theme],
+    [prepared, version, theme, shown.spoofed],
   );
 
   // Altura do iframe acompanha o conteúdo, medindo o body daqui de fora (sem script dentro dele).

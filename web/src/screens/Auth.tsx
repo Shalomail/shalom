@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { api, ApiError } from '../lib/api';
+import { usePasswordStrength } from '../lib/password';
 import { navigate, usePath } from '../lib/router';
 import { accounts } from '../lib/accounts';
 import { forgotPassword } from '../lib/recovery';
@@ -274,6 +275,7 @@ function SignUpFlow({ config, onSession }: { config: Config; onSession: (s: Sess
 
   const local = localPart(address);
   const mismatch = confirm.length > 0 && confirm !== password;
+  const pw = usePasswordStrength(password, [name, local]);
 
 
   useEffect(() => {
@@ -291,7 +293,7 @@ function SignUpFlow({ config, onSession }: { config: Config; onSession: (s: Sess
   const canNext = [
     name.trim().length > 0,
     avail.state === 'ok',
-    password.length >= 8,
+    !!pw?.ok,
     confirm === password && confirm.length > 0 && !!token,
   ][step];
 
@@ -316,10 +318,10 @@ function SignUpFlow({ config, onSession }: { config: Config; onSession: (s: Sess
     tr('auth.nameHint'),
     { idle: tr('auth.addrIdle'), checking: tr('common.checking'), ok: <><Icon name="check" size={14} />{tr('auth.addrOk')}</>,
       taken: tr('auth.addrTaken'), reserved: tr('auth.addrReserved'), invalid: tr('auth.addrInvalid') }[avail.state],
-    password && password.length < 8 ? tr('pw.min') : tr('pw.hint'),
+    pw ? pw.hint : tr('pw.hint'),
     mismatch ? tr('pw.mismatch') : tr('auth.keyBorn'),
   ];
-  const warn = (step === 1 && ['taken', 'reserved'].includes(avail.state)) || (step === 2 && password.length > 0 && password.length < 8) || (step === 3 && mismatch);
+  const warn = (step === 1 && ['taken', 'reserved'].includes(avail.state)) || (step === 2 && !!pw && !pw.ok) || (step === 3 && mismatch);
 
   if (config.inviteOnly && !invite) {
     return (

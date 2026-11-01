@@ -33,6 +33,7 @@ struct ResetPasswordView: View {
     @State private var needTotp = false
     @State private var gone: String?
     @State private var password = ""
+    @State private var strength: PasswordStrength.Result?
     @State private var repeatPw = ""
     @State private var pin = ""
     @State private var code = ""
@@ -49,7 +50,9 @@ struct ResetPasswordView: View {
                     Section(t("recovery.newPassword")) {
                         SecureField(t("recovery.newPassword"), text: $password).textContentType(.newPassword)
                         SecureField(t("pw.same"), text: $repeatPw).textContentType(.newPassword)
+                        if let strength { Text(t(strength.hint)).font(.system(size: 13)).foregroundStyle(strength.ok ? Palette.text3 : Palette.warn) }
                     }
+                    .task(id: password) { strength = password.isEmpty ? nil : await PasswordStrength.shared.check(password, inputs: [address ?? ""]) }
                     if needPin { Section(t("auth.pinLabel")) { SecureField(t("recovery.yourPin"), text: $pin).keyboardType(.numberPad) } }
                     if needTotp { Section(t("auth.codeLabel")) { TextField(t("recovery.codeOrRecovery"), text: $code).textContentType(.oneTimeCode).textInputAutocapitalization(.never) } }
                     if let error { Section { Note(text: error, tone: .warn).frame(maxWidth: .infinity, alignment: .leading) } }
@@ -68,7 +71,7 @@ struct ResetPasswordView: View {
     }
 
     private var ready: Bool {
-        !busy && address != nil && password.count >= 8 && password == repeatPw && (!needPin || pin.count == 6) && (!needTotp || code.count >= 6)
+        !busy && address != nil && strength?.ok == true && password == repeatPw && (!needPin || pin.count == 6) && (!needTotp || code.count >= 6)
     }
 
     private func info() async {

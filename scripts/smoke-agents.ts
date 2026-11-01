@@ -40,7 +40,7 @@ async function signup(local: string) {
   const { secretKey, payload } = await newAccountKeys('agentes-' + local);
   const r = await c.call('POST', '/api/auth/signup', { address: local, name: local, turnstile: 'XXXX.DUMMY.TOKEN.XXXX', ...payload });
   if (r.status !== 200) throw new Error(`cadastro ${local}: ${JSON.stringify(r.data)}`);
-  return { c, secretKey, user: r.data.user as { id: string; address: string; publicKey: string } };
+  return { c, secretKey, authKey: payload.authKey as string, user: r.data.user as { id: string; address: string; publicKey: string } };
 }
 
 const config = mkdtempSync(join(tmpdir(), 'shalom-cli-'));
@@ -65,6 +65,8 @@ function cli(args: string[], input?: string) {
 const tag = Date.now().toString(36).slice(-5);
 const owner = await signup(`dono${tag}`);
 const friend = await signup(`amiga${tag}`);
+// Chaves de API, conectar o terminal e apagar caixas pela página pedem a pessoa confirmada (10 minutos).
+check((await owner.c.call('POST', '/api/profile/confirm', { authKey: owner.authKey })).status === 200, 'dono confirmou que é ele');
 
 // Chave de API da conta, criada pela sessão do app.
 const created = await owner.c.call<{ key: string }>('POST', '/api/apikeys', { name: 'teste' });
@@ -149,6 +151,32 @@ const fromShop = inbox?.find(m => m.subject === 'Pedido 123');
 check(fromFriend?.verifiedSender === true && fromFriend.subject === 'Oi agente', 'remetente Shalom conferido pelo certificado');
 check(fromShop?.auth === 'pass' && fromShop.verifiedSender === false, 'e-mail de fora com DMARC aprovado');
 check(cli(['inbox', ...as]).out.includes('Pedido 123'), 'saída para gente');
+
+// A chave da amiga fica fixada na primeira mensagem dela. Se a chave do certificado mudar (conta tomada e
+// recuperada com chave nova), a mensagem deixa de valer como conferida.
+const pinnedFile = join(config, 'agents', `${address}.json`);
+const keptFile = readFileSync(pinnedFile, 'utf8');
+const friendPin = JSON.parse(keptFile).pins?.[friend.user.address];
+check(typeof friendPin === 'string' && friendPin.length > 0, 'chave da amiga fixada ao receber');
+writeFileSync(pinnedFile, JSON.stringify({ ...JSON.parse(keptFile), pins: { ...JSON.parse(keptFile).pins, [friend.user.address]: 'A'.repeat(43) + '=' } }));
+const swapped = (cli(['inbox', ...as, '--json']).json as any[]).find(m => m.from?.address === friend.user.address);
+check(swapped?.verifiedSender === false && swapped?.keyChanged === true, 'chave trocada: não vale como conferida');
+check(/key changed/.test(cli(['read', fromFriend.id, ...as, '--keep-unread']).out), 'a leitura avisa que a chave mudou');
+writeFileSync(pinnedFile, keptFile);
+
+// E-mail de fora com sequências de escape no assunto e no corpo: na tela do terminal elas não chegam cruas.
+const esc = '\u001b]52;c;ZXZpbA==\u0007\u001b[2J';
+const escMail = [
+  `From: Ruim <ruim@loja.example>`, `To: ${address}`, `Subject: =?utf-8?b?${Buffer.from(`Fatura${esc} paga`).toString('base64')}?=`,
+  `Date: ${new Date().toUTCString()}`, `Message-ID: <esc-${tag}@loja.example>`, 'MIME-Version: 1.0', 'Content-Type: text/plain; charset=utf-8', '',
+  `Corpo${esc} fim`,
+].join('\r\n');
+await fetch(`${BASE}/cdn-cgi/handler/email?from=ruim@loja.example&to=${address}`, { method: 'POST', body: escMail });
+const escList = cli(['inbox', ...as]).out;
+const evilId = (cli(['inbox', ...as, '--json']).json as any[]).find(m => m.from?.address === 'ruim@loja.example')?.id;
+const escRead = cli(['read', evilId, ...as]).out;
+check(escList.includes('Fatura') && !/[\u001b\u0007]/.test(escList), 'inbox: assunto sem sequência de escape');
+check(escRead.includes('Corpo') && escRead.includes('fim') && !/[\u001b\u0007]/.test(escRead), 'read: assunto e corpo sem sequência de escape');
 
 const opened = cli(['read', fromFriend.id.slice(0, 8), ...as, '--json']).json;
 check(opened?.text?.includes('resumir o relatório') && opened.messageId === draft.messageId, 'shalom read abre o corpo lacrado (id curto)');

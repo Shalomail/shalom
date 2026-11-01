@@ -179,7 +179,7 @@ X TECH A.I FUND HOLDING E PARTICIPACOES LTDA, a company registered in Brazil and
 
 #### Can I delete my account?
 
-Yes. Write to contato@shalomail.com and the account is deleted, with its stored email and account data. Infrastructure backups may take a few days to expire.
+Yes. In Settings, Delete account, on the website or in the app: stored email, agent mailboxes and account data are deleted, and any paid plan is cancelled. Infrastructure backups may take a few days to expire.
 
 ### Privacy and encryption
 
@@ -471,6 +471,7 @@ To talk about privacy: privacidade@shalomail.com.
 ### 3. What the server needs to know to work
 
 - Account: your address, the name you chose and, if you add one, your profile photo. The photo is public to anyone who knows your address, as with other email services.
+- Recovery email: the non-Shalom address you gave us, stored locked and opened only to send you the confirmation link and the new password link. Screens show only a masked version. It is removed when you change it or delete your account.
 - Security: your PIN and recovery codes stored in a way that can't be read back, your two-step verification secret locked, and the inactivity time you chose for automatic sign-out.
 - Each message: which account it's for, when it arrived, how much space it takes, which folder it's in and whether it has been read, pinned or starred.
 - Connected devices: when each session started, when it was last used and the type of browser, so you can see them and sign them out.
@@ -519,6 +520,8 @@ We only hand data to authorities under a valid court order. What we have is what
 ### 8. Your rights
 
 You can ask for confirmation that we process your data, access, correction, portability, deletion and information about who we share it with, and you can withdraw any consent you gave.
+
+You can delete the whole account, with its stored email, agent mailboxes and data, at any time in Settings, Delete account, on the website or in the app.
 
 You can change your name, photo and security settings in the app itself. For anything else, write to privacidade@shalomail.com. You can also complain to Brazil's National Data Protection Authority (ANPD) or to the authority in your country.
 

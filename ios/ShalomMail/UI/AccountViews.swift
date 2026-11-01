@@ -91,7 +91,10 @@ struct AgentsView: View {
                         Text(t("settings.api.ready")).font(.system(size: 14, weight: .semibold))
                         Text(fresh).font(.system(size: 13, design: .monospaced)).textSelection(.enabled)
                         Text(t("settings.api.readyNote")).font(.system(size: 12)).foregroundStyle(Palette.text3)
-                        Button { UIPasteboard.general.string = fresh } label: { Label(t("settings.api.copied"), systemImage: "doc.on.doc") }
+                        Button {
+                            // Só neste aparelho (sem a área de transferência de outros aparelhos) e por 60 segundos.
+                            UIPasteboard.general.setItems([["public.utf8-plain-text": fresh]], options: [.localOnly: true, .expirationDate: Date().addingTimeInterval(60)])
+                        } label: { Label(t("settings.api.copied"), systemImage: "doc.on.doc") }
                     }
                 }
                 ForEach(keys) { k in
@@ -226,6 +229,7 @@ struct SignUpView: View {
     @State private var name = ""
     @State private var local = ""
     @State private var password = ""
+    @State private var strength: PasswordStrength.Result?
     @State private var confirm = ""
     @State private var available: Bool?
     @State private var reason: String?
@@ -247,7 +251,8 @@ struct SignUpView: View {
                     if let error { Note(text: error, tone: .warn) } else { Note(text: hint, tone: step == 1 && available == false ? .warn : .plain) }
                     if step == 3 {
                         if !siteKey.isEmpty && token == nil { TurnstileView(siteKey: siteKey) { token = $0 }.frame(width: 300, height: 70) }
-                        Text(t("auth.legal")).font(.system(size: 12)).foregroundStyle(Palette.text3).multilineTextAlignment(.center).frame(maxWidth: 300)
+                        Text(L10n.shared.linked("auth.legal", ["terms": L10n.shared.site(.terms), "privacy": L10n.shared.site(.privacy)]))
+                            .font(.system(size: 12)).foregroundStyle(Palette.text3).tint(Palette.text2).multilineTextAlignment(.center).frame(maxWidth: 300)
                     }
                     if step > 0 { QuietButton(title: t("common.back")) { step -= 1; error = nil } }
                 }
@@ -265,7 +270,7 @@ struct SignUpView: View {
         switch step {
         case 0: return t("auth.nameHint")
         case 1: return available == false ? t(reason == "reserved" ? "auth.addrReserved" : reason == "invalid" ? "auth.addrInvalid" : "auth.addrTaken") : available == true ? t("auth.addrOk") : t("auth.addrIdle")
-        case 2: return t("settings.pwRule")
+        case 2: return strength.map { t($0.hint) } ?? t("settings.pwRule")
         default: return confirm.isEmpty ? t("auth.keyBorn") : confirm == password ? t("settings.pwMatch") : t("settings.pwNoMatch")
         }
     }
@@ -289,9 +294,10 @@ struct SignUpView: View {
                 }.environment(\.layoutDirection, .leftToRight)
             }
         case 2:
-            ArrowField(icon: "lock", ready: password.count >= 8, busy: false, action: next) {
+            ArrowField(icon: "lock", ready: strength?.ok == true, busy: false, action: next) {
                 SecureField(t("pw.label"), text: $password).textContentType(.newPassword).focused($focused).submitLabel(.next).onSubmit(next).accessibilityIdentifier("signup-password")
             }
+            .task(id: password) { strength = password.isEmpty ? nil : await PasswordStrength.shared.check(password, inputs: [name, local]) }
         default:
             ArrowField(icon: "lock", ready: confirm == password && (token != nil || siteKey.isEmpty), busy: busy, action: create) {
                 SecureField(t("pw.same"), text: $confirm).textContentType(.newPassword).focused($focused).submitLabel(.go).onSubmit(create).accessibilityIdentifier("signup-confirm")
@@ -313,7 +319,7 @@ struct SignUpView: View {
 
     private func next() {
         error = nil
-        if step == 2 && password.count < 8 { error = t("settings.pwMin"); return }
+        if step == 2 && strength?.ok != true { error = t(strength?.hint ?? "pw.min"); return }
         if step < 3 { step += 1; focused = true }
     }
 

@@ -31,6 +31,8 @@ svg.mark path { fill: currentColor; stroke: none; }
 /* Topo */
 .top { display: flex; align-items: center; justify-content: space-between; height: 76px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+/* O logo no azul do ícone do app. */
+.brand .mark { color: #007aff; }
 .top-links { display: flex; gap: 28px; font-size: 15px; color: var(--ink-2); }
 .top-links a { transition: color 150ms; }
 .top-links a:hover { color: var(--ink); }

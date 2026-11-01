@@ -191,6 +191,7 @@
             {
               "ul": [
                 "Konto: deine Adresse, der Name, den du gewählt hast, und, falls du eines hinzufügst, dein Profilbild. Das Bild ist für alle sichtbar, die deine Adresse kennen, wie bei anderen E-Mail-Diensten.",
+                "Wiederherstellungs-E-Mail: die Adresse außerhalb von Shalom, die du angegeben hast, verschlossen gespeichert und nur geöffnet, um dir den Bestätigungslink und den Link für ein neues Passwort zu schicken. Angezeigt wird nur eine maskierte Version. Sie wird gelöscht, wenn du sie änderst oder das Konto löschst.",
                 "Sicherheit: deine PIN und deine Wiederherstellungscodes, so gespeichert, dass sie sich nicht zurücklesen lassen; das Geheimnis der Bestätigung in zwei Schritten, verschlossen; und die Inaktivitätszeit, die du für die automatische Abmeldung gewählt hast.",
                 "Jede Nachricht: für welches Konto sie ist, wann sie ankam, wie viel Platz sie belegt, in welchem Ordner sie liegt und ob sie gelesen, angeheftet oder als Favorit markiert wurde.",
                 "Verbundene Geräte: wann jede Sitzung begann, wann sie zuletzt genutzt wurde und welcher Browsertyp, damit du sie sehen und abmelden kannst.",
@@ -247,6 +248,7 @@
           "h": "8. Deine Rechte",
           "p": [
             "Du kannst eine Bestätigung verlangen, dass wir deine Daten verarbeiten, sowie Auskunft, Berichtigung, Übertragbarkeit, Löschung und Informationen darüber, mit wem wir sie teilen. Außerdem kannst du eine erteilte Einwilligung widerrufen.",
+            "Das ganze Konto mit den gespeicherten E-Mails, den Agenten-Postfächern und seinen Daten löschst du jederzeit unter Einstellungen, Konto löschen, auf der Website oder in der App.",
             "Namen, Bild und Sicherheitseinstellungen änderst du direkt in der App. Für alles andere schreib an privacidade@shalomail.com. Du kannst dich auch bei der brasilianischen Datenschutzbehörde (ANPD) oder bei der Aufsichtsbehörde deines Landes beschweren."
           ]
         },
@@ -470,7 +472,7 @@
       },
       "delete": {
         "q": "Kann ich mein Konto löschen?",
-        "a": "Ja. Schreib an contato@shalomail.com, und das Konto wird gelöscht, mit seinen gespeicherten E-Mails und Kontodaten. Sicherungskopien der Infrastruktur können einige Tage brauchen, bis sie ablaufen."
+        "a": "Ja. Unter Einstellungen, Konto löschen, auf der Website oder in der App: Gespeicherte E-Mails, Agenten-Postfächer und Kontodaten werden gelöscht und ein bezahlter Plan wird gekündigt. Sicherungen der Infrastruktur können einige Tage brauchen, bis sie ablaufen."
       },
       "read": {
         "q": "Kann Shalom meine E-Mails lesen?",

@@ -72,6 +72,10 @@ export const tally = (db: D1Database, metric: string, n = 1) =>
     .bind(new Date().toISOString().slice(0, 10), metric, n).run().then(() => undefined, () => undefined);
 
 export const sendsKey = () => `send:all:${new Date().toISOString().slice(0, 10)}`;
+// Contadores separados de pessoas e do sistema: os e-mails do sistema (que qualquer um provoca, como o link
+// de senha nova) não comem a parte das pessoas, nem o contrário. send:all segue com o total do dia.
+export const peopleSendsKey = () => `send:people:${new Date().toISOString().slice(0, 10)}`;
+export const systemSendsKey = () => `send:system:${new Date().toISOString().slice(0, 10)}`;
 
 // Contador com janela: soma `by` e devolve o total dentro da janela atual.
 export async function bump(db: D1Database, key: string, windowMs: number, by = 1): Promise<number> {
