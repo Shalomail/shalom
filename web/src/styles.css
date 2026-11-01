@@ -904,7 +904,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Conta: foto no canto de cima, com o menu de trocar, adicionar, configurações e sair. */
 .acct { position: fixed; z-index: 30; top: 22px; inset-inline-end: 22px; }
-.acct-btn { display: block; border-radius: 999px; transition: transform 120ms var(--ease-out), box-shadow 160ms var(--ease-out); }
+/* Grade do tamanho da foto: como bloco, a foto ficava na linha do texto e sobrava um vão embaixo, que o
+   contorno do foco incluía (anel mais alto que largo). */
+.acct-btn { display: grid; width: 40px; height: 40px; border-radius: 999px; transition: transform 120ms var(--ease-out), box-shadow 160ms var(--ease-out); }
 .acct-btn:hover { box-shadow: 0 0 0 3px var(--fill-2); }
 .acct-btn:active { transform: scale(0.95); }
 .acct-btn[aria-expanded='true'] { box-shadow: 0 0 0 3px var(--fill-3); }
