@@ -13,7 +13,7 @@ import { ArrowField, PasswordInput } from './Auth';
 
 function Shell({ children, top }: { children: ReactNode; top?: ReactNode }) {
   return (
-    <div className="auth" data-theme="dark">
+    <div className="auth" data-theme="light">
       <PeaceBackdrop />
       <header className="auth-top">
         <a href="/" className="auth-home"><Icon name="back" size={16} />shalomail.com</a>

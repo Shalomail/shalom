@@ -220,15 +220,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 .auth-main { display: grid; place-items: center; padding: 24px 24px 12vh; }
 .auth-stage { width: min(400px, 100%); display: grid; justify-items: center; text-align: center; }
 .auth-mark { display: block; margin-bottom: 36px; color: var(--text); animation: fade-up 400ms var(--ease-out) both; }
-/* Entrar e cadastro ficam sempre no escuro, mesmo com o app no claro. */
-.auth[data-theme='dark'] { background: #000000; color: var(--text); }
+/* Entrar e cadastro ficam sempre no claro, fundo branco, mesmo com o app no escuro. */
+.auth[data-theme='light'] { background: #ffffff; color: var(--text); }
 /* Paz em várias línguas, inclinada, atrás do formulário. */
 .auth { position: relative; isolation: isolate; overflow: hidden; }
 .peace { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; -webkit-user-select: none; user-select: none; }
 .peace-in { position: absolute; left: 50%; top: 50%; width: 260vmax; transform: translate(-50%, -50%) rotate(-14deg); display: grid; gap: 18px; }
 .peace p {
   display: flex; gap: 44px; padding-inline-end: 44px; width: max-content; white-space: nowrap; font-size: clamp(40px, 5vw, 72px); line-height: 1.1;
-  font-weight: 600; letter-spacing: -0.02em; color: #0d0d0f;
+  font-weight: 600; letter-spacing: -0.02em; color: #f3f3f4;
   /* Cada fileira desliza devagar e sem fim (a lista vem repetida duas vezes, então -50% emenda certinho);
      uma vai para um lado, a seguinte para o outro, cada uma num ritmo. */
   animation: peace-drift 260s linear infinite;

@@ -41,6 +41,7 @@
 		80DDCEEAB1909F97E80A90AC /* AccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3269AFB1FFC02F7917370240 /* AccountAPI.swift */; };
 		835B803BC62D4EA5B82E0047 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CAF5AB7F698676B6440808 /* Components.swift */; };
 		839C24C68758755945E04523 /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = F4D91CD577CD17E922FA8AED /* ko.json */; };
+		8683EFDBAF6F82AE144CA650 /* StoreShots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DF4AFC663F9D3090565131 /* StoreShots.swift */; };
 		91F969D4C9F709C61D8DF5C1 /* ShalomMailApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61300C4F9734DD8A3C15F20E /* ShalomMailApp.swift */; };
 		938E1E412C1C4A65358F5E09 /* PasswordStrengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D68DE71613B1DD8CD35525 /* PasswordStrengthTests.swift */; };
 		98A2166445060B0D47047772 /* Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8759F1E17761501280C7593D /* Push.swift */; };
@@ -120,6 +121,7 @@
 		580471378C73C8209F888A2C /* Pack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pack.swift; sourceTree = "<group>"; };
 		58E0D275686E07711C4C703E /* fr.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fr.json; sourceTree = "<group>"; };
 		61300C4F9734DD8A3C15F20E /* ShalomMailApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShalomMailApp.swift; sourceTree = "<group>"; };
+		62DF4AFC663F9D3090565131 /* StoreShots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreShots.swift; sourceTree = "<group>"; };
 		642AE93F38EA7EF9371DCE45 /* FlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowTests.swift; sourceTree = "<group>"; };
 		6BC8AD1219219C398F1FB0FC /* tr.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tr.json; sourceTree = "<group>"; };
 		70D68DE71613B1DD8CD35525 /* PasswordStrengthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStrengthTests.swift; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				642AE93F38EA7EF9371DCE45 /* FlowTests.swift */,
+				62DF4AFC663F9D3090565131 /* StoreShots.swift */,
 			);
 			path = ShalomMailUITests;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C86A13786A8AC9F14DE88D1 /* FlowTests.swift in Sources */,
+				8683EFDBAF6F82AE144CA650 /* StoreShots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

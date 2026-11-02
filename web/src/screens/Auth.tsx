@@ -375,7 +375,7 @@ export function Auth({ onSession }: { onSession: (s: Session, fresh?: boolean) =
   const [note] = useState(notice);
 
   return (
-    <div className="auth" data-theme="dark">
+    <div className="auth" data-theme="light">
       <PeaceBackdrop />
       <header className="auth-top">
         <a href="/" className="auth-home"><Icon name="back" size={16} />shalomail.com</a>

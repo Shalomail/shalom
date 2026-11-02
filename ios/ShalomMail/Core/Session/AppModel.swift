@@ -27,6 +27,8 @@ final class AppModel: ObservableObject {
 
     @Published var phase: Phase = .starting
     var isOpen: Bool { if case .open = phase { return true } else { return false } }
+    // A tela de entrar (e o cadastro que abre dela) é sempre clara; o tema escolhido vale da caixa em diante.
+    var isSignedOut: Bool { if case .signedOut = phase { return true } else { return false } }
     @Published var notice: String?
     // Conta sem e-mail de recuperação: a pergunta vem antes da caixa, como no web.
     @Published var needsRecovery = false

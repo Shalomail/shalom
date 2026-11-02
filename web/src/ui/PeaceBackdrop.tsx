@@ -1,6 +1,6 @@
 // Fundo das telas de entrar e de cadastro: "shalom" (paz) em várias línguas, em fileiras inclinadas,
 // quase da cor do fundo. Só enfeite: fica atrás de tudo e não recebe clique nem leitor de tela. Como toda
-// tela de entrada tem este fundo, é ele que deixa a página no escuro enquanto ela está aberta.
+// tela de entrada tem este fundo, é ele que deixa a página no claro enquanto ela está aberta.
 import { useAuthTheme } from '../lib/theme';
 
 const WORDS = ['שָׁלוֹם', 'Shalom', 'سلام', 'Paz', 'Peace', 'Paix', 'Frieden', 'Мир', 'Pace', '和平', '平和', '평화', 'शांति', 'Barış', 'Ειρήνη', 'Pokój', 'Amani', 'Rauha', 'Мир', 'Vrede'];

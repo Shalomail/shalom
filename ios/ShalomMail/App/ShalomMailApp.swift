@@ -15,10 +15,10 @@ struct ShalomMailApp: App {
                 .environmentObject(l10n)
                 .environment(\.layoutDirection, l10n.isRTL ? .rightToLeft : .leftToRight)
                 .environment(\.locale, l10n.locale)
-                .preferredColorScheme((AppTheme(rawValue: theme) ?? .dark).scheme)
+                .preferredColorScheme(app.isSignedOut ? .light : (AppTheme(rawValue: theme) ?? .dark).scheme)
                 .tint(Palette.accent)
                 // No seletor de apps a miniatura mostra só o logo, nunca um e-mail aberto (UI/Cover.swift).
-                .onChange(of: app.covered) { _, covered in Cover.show(covered) }
+                .onChange(of: app.covered) { _, covered in Cover.show(covered, light: app.isSignedOut) }
                 .onChange(of: scene) { _, phase in
                     switch phase {
                     case .background: app.wentBackground()

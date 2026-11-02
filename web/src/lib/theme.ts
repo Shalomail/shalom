@@ -1,5 +1,5 @@
 // Tema deste aparelho: base escura (padrão) ou clara, e o Espectro por cima de qualquer uma das duas
-// (a barra lateral em arco-íris). As telas de entrar e de cadastro ficam sempre no escuro.
+// (a barra lateral em arco-íris). As telas de entrar e de cadastro ficam sempre no claro.
 import { useEffect } from 'react';
 
 export type Theme = 'dark' | 'light';
@@ -35,11 +35,11 @@ function save(theme: Theme, spectrum: boolean) {
 export const setTheme = (theme: Theme) => save(theme, spectrumOn());
 export const setSpectrum = (on: boolean) => save(currentTheme(), on);
 
-// Telas de entrar, cadastro e recuperação: escuro enquanto estão abertas, sem Espectro; ao sair, volta
+// Telas de entrar, cadastro e recuperação: claro (fundo branco) enquanto estão abertas, sem Espectro; ao sair, volta
 // o tema da pessoa.
 export function useAuthTheme() {
   useEffect(() => {
-    applyTheme('dark', false);
+    applyTheme('light', false);
     return () => applyTheme();
   }, []);
 }

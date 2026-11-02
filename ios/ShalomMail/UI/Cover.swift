@@ -8,11 +8,11 @@ import UIKit
 enum Cover {
     private static var window: UIWindow?
 
-    static func show(_ shown: Bool) {
+    static func show(_ shown: Bool, light: Bool = false) {
         if !shown { window?.isHidden = true; window = nil; return }
         guard window == nil, let scene = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first else { return }
         let w = UIWindow(windowScene: scene)
-        let host = UIHostingController(rootView: ZStack { Palette.bg.ignoresSafeArea(); Logo(size: 56) }.preferredColorScheme(AppTheme.current.scheme))
+        let host = UIHostingController(rootView: ZStack { Palette.bg.ignoresSafeArea(); Logo(size: 56) }.preferredColorScheme(light ? .light : AppTheme.current.scheme))
         host.view.backgroundColor = .clear
         w.rootViewController = host
         w.windowLevel = .alert + 1

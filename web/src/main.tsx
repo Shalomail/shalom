@@ -27,7 +27,7 @@ function Ambient() {
 // passar por uma tela preta antes da próxima pergunta.
 function AuthLoading() {
   return (
-    <div className="auth" data-theme="dark">
+    <div className="auth" data-theme="light">
       <PeaceBackdrop />
       <main className="auth-main"><div className="auth-stage"><span className="auth-mark" aria-hidden="true"><Mark size={64} /></span></div></main>
     </div>
