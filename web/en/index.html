@@ -32,14 +32,14 @@
     <meta property="og:url" content="https://shalomail.com/en/" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Shalom Mail" />
-    <meta property="og:image" content="https://shalomail.com/og.png?v=3" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=4" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Shalom Mail: truly private, encrypted email" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Shalom Mail: truly private, encrypted email" />
     <meta name="twitter:description" content="Your emails are locked with a key that only exists on your device. Free, no phone number, no ID." />
-    <meta name="twitter:image" content="https://shalomail.com/og.png?v=3" />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=4" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
@@ -75,12 +75,36 @@
     </header>
 
     <main>
-      <figure class="shot wrap">
-        <picture>
-          <source media="(max-width: 640px)" srcset="/lp/en/phone-light.webp" width="780" height="1688" />
-          <img src="/lp/en/desktop-light.webp" width="2400" height="1500" alt="The Shalom Mail inbox with an end-to-end encrypted conversation" fetchpriority="high" />
-        </picture>
-      </figure>
+      <!-- O produto em quatro telas que sobem uma sobre a outra conforme a página rola (web/lp/main.ts). Sem
+           JavaScript ou com movimento reduzido, ficam uma embaixo da outra. -->
+      <section class="deck wrap">
+        <div class="deck-stage">
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/en/phone-light.webp" width="780" height="1688" />
+              <img src="/lp/en/desktop-light.webp" width="2400" height="1500" alt="The Shalom Mail inbox with an end-to-end encrypted conversation" fetchpriority="high" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/en/phone-compose.webp" width="780" height="1688" />
+              <img src="/lp/en/desktop-compose.webp" width="2400" height="1500" alt="Writing an email to another Shalom account, end-to-end encrypted" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/en/phone-storage.webp" width="780" height="1688" />
+              <img src="/lp/en/desktop-storage.webp" width="2400" height="1500" alt="The Storage page, showing how much each folder uses" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/en/phone-security.webp" width="780" height="1688" />
+              <img src="/lp/en/desktop-security.webp" width="2400" height="1500" alt="Settings, with the account security options" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+        </div>
+      </section>
 
       <section class="points wrap" aria-label="What comes with the account">
         <div>

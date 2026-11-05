@@ -29,7 +29,10 @@
     "invalid": "3 to 32 letters or numbers, starting and ending with a letter or number."
   },
   "shot": {
-    "alt": "The Shalom Mail inbox with an end-to-end encrypted conversation"
+    "alt": "The Shalom Mail inbox with an end-to-end encrypted conversation",
+    "compose": "Writing an email to another Shalom account, end-to-end encrypted",
+    "storage": "The Storage page, showing how much each folder uses",
+    "security": "Settings, with the account security options"
   },
   "points": {
     "label": "What comes with the account",

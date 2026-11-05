@@ -32,14 +32,14 @@
     <meta property="og:url" content="https://shalomail.com/hi/" />
     <meta property="og:locale" content="hi_IN" />
     <meta property="og:site_name" content="Shalom Mail" />
-    <meta property="og:image" content="https://shalomail.com/og.png?v=3" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=4" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Shalom Mail: एन्क्रिप्टेड और सच में निजी ईमेल" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Shalom Mail: एन्क्रिप्टेड और सच में निजी ईमेल" />
     <meta name="twitter:description" content="आपके ईमेल एक ऐसी चाबी से लॉक रहते हैं जो सिर्फ़ आपके डिवाइस में होती है। मुफ़्त, बिना फ़ोन नंबर और बिना पहचान पत्र के।" />
-    <meta name="twitter:image" content="https://shalomail.com/og.png?v=3" />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=4" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
@@ -75,12 +75,36 @@
     </header>
 
     <main>
-      <figure class="shot wrap">
-        <picture>
-          <source media="(max-width: 640px)" srcset="/lp/hi/phone-light.webp" width="780" height="1688" />
-          <img src="/lp/hi/desktop-light.webp" width="2400" height="1500" alt="Shalom Mail का इनबॉक्स, जिसमें एंड-टू-एंड एन्क्रिप्टेड बातचीत खुली है" fetchpriority="high" />
-        </picture>
-      </figure>
+      <!-- O produto em quatro telas que sobem uma sobre a outra conforme a página rola (web/lp/main.ts). Sem
+           JavaScript ou com movimento reduzido, ficam uma embaixo da outra. -->
+      <section class="deck wrap">
+        <div class="deck-stage">
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/hi/phone-light.webp" width="780" height="1688" />
+              <img src="/lp/hi/desktop-light.webp" width="2400" height="1500" alt="Shalom Mail का इनबॉक्स, जिसमें एंड-टू-एंड एन्क्रिप्टेड बातचीत खुली है" fetchpriority="high" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/hi/phone-compose.webp" width="780" height="1688" />
+              <img src="/lp/hi/desktop-compose.webp" width="2400" height="1500" alt="दूसरे Shalom खाते को ईमेल लिखते हुए, एंड-टू-एंड एन्क्रिप्टेड" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/hi/phone-storage.webp" width="780" height="1688" />
+              <img src="/lp/hi/desktop-storage.webp" width="2400" height="1500" alt="स्टोरेज पेज, जिसमें हर फ़ोल्डर की जगह दिखती है" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/hi/phone-security.webp" width="780" height="1688" />
+              <img src="/lp/hi/desktop-security.webp" width="2400" height="1500" alt="सेटिंग्स, खाते की सुरक्षा के साथ" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+        </div>
+      </section>
 
       <section class="points wrap" aria-label="खाते के साथ क्या मिलता है">
         <div>

@@ -29,7 +29,10 @@
     "invalid": "De 3 a 32 letras ou números, começando e terminando com letra ou número."
   },
   "shot": {
-    "alt": "A caixa de entrada do Shalom Mail com uma conversa criptografada de ponta a ponta"
+    "alt": "A caixa de entrada do Shalom Mail com uma conversa criptografada de ponta a ponta",
+    "compose": "Escrevendo um e-mail para outra conta Shalom, fechado de ponta a ponta",
+    "storage": "A página Espaço, com o quanto cada pasta ocupa",
+    "security": "As Configurações, com a segurança da conta"
   },
   "points": {
     "label": "O que vem com a conta",

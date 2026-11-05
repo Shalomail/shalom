@@ -29,7 +29,10 @@
     "invalid": "De 3 à 32 lettres ou chiffres, avec une lettre ou un chiffre au début et à la fin."
   },
   "shot": {
-    "alt": "La boîte de réception de Shalom Mail avec une conversation chiffrée de bout en bout"
+    "alt": "La boîte de réception de Shalom Mail avec une conversation chiffrée de bout en bout",
+    "compose": "Rédaction d’un e-mail vers un autre compte Shalom, chiffré de bout en bout",
+    "storage": "La page Espace, avec la place prise par chaque dossier",
+    "security": "Les Réglages, avec la sécurité du compte"
   },
   "points": {
     "label": "Ce qui est inclus avec le compte",

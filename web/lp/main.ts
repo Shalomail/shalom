@@ -61,3 +61,23 @@ document.querySelectorAll<HTMLFormElement>('.claim').forEach(form => {
     location.href = '/criar-conta';
   });
 });
+
+// Telas do produto empilhando com a rolagem: só com movimento permitido. A página põe em --p quantas
+// passagens já aconteceram (0 a 3) e o CSS move cada tela a partir disso.
+const deck = document.querySelector<HTMLElement>('.deck');
+if (deck && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  deck.classList.add('is-live');
+  const stage = deck.querySelector<HTMLElement>('.deck-stage')!;
+  const cards = deck.querySelectorAll('.deck-card').length;
+  let frame = 0;
+  const update = () => {
+    frame = 0;
+    const step = (deck.offsetHeight - stage.offsetHeight) / (cards - 1);
+    const stuck = stage.getBoundingClientRect().top - deck.getBoundingClientRect().top;
+    deck.style.setProperty('--p', String(Math.min(Math.max(stuck / step, 0), cards - 1)));
+  };
+  const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
+  addEventListener('scroll', queue, { passive: true });
+  addEventListener('resize', queue);
+  update();
+}

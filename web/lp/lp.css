@@ -79,9 +79,35 @@ svg.mark path { fill: currentColor; stroke: none; }
 .claim-note.is-ok { color: var(--safe); }
 .claim-note.is-warn { color: var(--warn); }
 
-/* O produto, numa imagem só */
-.shot { margin-top: clamp(72px, 11vh, 120px); }
-.shot img { width: 100%; border-radius: 14px; box-shadow: 0 0 0 1px var(--line); }
+/* O produto em quatro telas. Parado (sem JavaScript ou com movimento reduzido): uma embaixo da outra. */
+.deck { margin-top: clamp(72px, 11vh, 120px); }
+.deck-stage { display: grid; gap: 32px; }
+.deck-card { overflow: hidden; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px var(--line); }
+.deck-card img { width: 100%; }
+/* Com movimento: a área fica presa no meio da tela e cada tela nova sobe de baixo e cobre a anterior, que
+   encolhe um pouco e sobe, deixando a borda de cima aparecendo, como folhas empilhadas. --p vai de 0 a 3
+   com a rolagem (main.ts); cada passagem leva --step de rolagem. */
+.deck.is-live {
+  /* Só px e unidades da tela: --h entra em altura e em top, onde % seria da altura da página. */
+  --w: min(1016px, calc(100vw - 64px), calc((100svh - 160px) * 1.6));
+  --h: calc(var(--w) / 1.6);
+  --step: 70svh;
+  height: calc(var(--h) + 3 * var(--step));
+}
+.deck.is-live .deck-stage { position: sticky; top: calc(50svh - var(--h) / 2 + 20px); display: block; width: var(--w); height: var(--h); margin: 0 auto; }
+.deck.is-live .deck-card {
+  /* in: 0 = abaixo da tela, 1 = no lugar. over: quantas telas já estão por cima desta (0 a 3). */
+  --in: clamp(0, calc(var(--p, 0) - var(--i) + 1), 1);
+  --over: clamp(0, calc(var(--p, 0) - var(--i)), 3);
+  position: absolute; inset: 0; transform-origin: 50% 0;
+  transform: translateY(calc((1 - var(--in)) * (50svh + var(--h) / 2 + 24px) - var(--over) * 16px)) scale(calc(1 - var(--over) * 0.045));
+  box-shadow: 0 0 0 1px var(--line), 0 28px 60px -34px rgba(0, 0, 0, 0.32);
+  will-change: transform;
+}
+.deck.is-live .deck-card:nth-child(1) { --i: 0; }
+.deck.is-live .deck-card:nth-child(2) { --i: 1; }
+.deck.is-live .deck-card:nth-child(3) { --i: 2; }
+.deck.is-live .deck-card:nth-child(4) { --i: 3; }
 
 /* Três frases */
 .points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; margin-top: clamp(96px, 14vh, 160px); }
@@ -168,8 +194,12 @@ html[dir='rtl'] :is(h1, h2) { letter-spacing: 0; }
   .top-links { gap: 20px; }
   .hero { padding-top: 56px; }
   .claim-field, .claim-grow input { font-size: 16px; }
-  .shot { margin-top: 64px; }
-  .shot img { width: 78%; margin: 0 auto; border-radius: 30px; }
+  .deck { margin-top: 64px; }
+  .deck-stage { justify-items: center; }
+  .deck-card { width: 78%; border-radius: 30px; }
+  /* Celular: as telas em pé (780x1688), do tamanho que cabe na altura. */
+  .deck.is-live { --h: min(calc(100svh - 150px), 640px); --w: calc(var(--h) * 780 / 1688); --step: 60svh; }
+  .deck.is-live .deck-card { width: auto; }
 }
 
 /* Quebra de linha por idioma: japonês por frase, coreano sem partir sílaba, títulos equilibrados. */

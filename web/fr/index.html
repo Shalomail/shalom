@@ -32,14 +32,14 @@
     <meta property="og:url" content="https://shalomail.com/fr/" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="Shalom Mail" />
-    <meta property="og:image" content="https://shalomail.com/og.png?v=3" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=4" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Shalom Mail : l’e-mail chiffré et vraiment privé" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Shalom Mail : l’e-mail chiffré et vraiment privé" />
     <meta name="twitter:description" content="Vos e-mails sont verrouillés par une clé qui n’existe que sur votre appareil. Gratuit, sans numéro de téléphone ni pièce d’identité." />
-    <meta name="twitter:image" content="https://shalomail.com/og.png?v=3" />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=4" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
@@ -75,12 +75,36 @@
     </header>
 
     <main>
-      <figure class="shot wrap">
-        <picture>
-          <source media="(max-width: 640px)" srcset="/lp/fr/phone-light.webp" width="780" height="1688" />
-          <img src="/lp/fr/desktop-light.webp" width="2400" height="1500" alt="La boîte de réception de Shalom Mail avec une conversation chiffrée de bout en bout" fetchpriority="high" />
-        </picture>
-      </figure>
+      <!-- O produto em quatro telas que sobem uma sobre a outra conforme a página rola (web/lp/main.ts). Sem
+           JavaScript ou com movimento reduzido, ficam uma embaixo da outra. -->
+      <section class="deck wrap">
+        <div class="deck-stage">
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/fr/phone-light.webp" width="780" height="1688" />
+              <img src="/lp/fr/desktop-light.webp" width="2400" height="1500" alt="La boîte de réception de Shalom Mail avec une conversation chiffrée de bout en bout" fetchpriority="high" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/fr/phone-compose.webp" width="780" height="1688" />
+              <img src="/lp/fr/desktop-compose.webp" width="2400" height="1500" alt="Rédaction d’un e-mail vers un autre compte Shalom, chiffré de bout en bout" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/fr/phone-storage.webp" width="780" height="1688" />
+              <img src="/lp/fr/desktop-storage.webp" width="2400" height="1500" alt="La page Espace, avec la place prise par chaque dossier" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/fr/phone-security.webp" width="780" height="1688" />
+              <img src="/lp/fr/desktop-security.webp" width="2400" height="1500" alt="Les Réglages, avec la sécurité du compte" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+        </div>
+      </section>
 
       <section class="points wrap" aria-label="Ce qui est inclus avec le compte">
         <div>

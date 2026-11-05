@@ -32,14 +32,14 @@
     <meta property="og:url" content="https://shalomail.com/ja/" />
     <meta property="og:locale" content="ja_JP" />
     <meta property="og:site_name" content="Shalom Mail" />
-    <meta property="og:image" content="https://shalomail.com/og.png?v=3" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=4" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Shalom Mail：本当にプライベートな暗号化メール" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Shalom Mail：本当にプライベートな暗号化メール" />
     <meta name="twitter:description" content="メールは、あなたの端末にしかない鍵でロックされます。無料。電話番号も身分証もいりません。" />
-    <meta name="twitter:image" content="https://shalomail.com/og.png?v=3" />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=4" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
@@ -75,12 +75,36 @@
     </header>
 
     <main>
-      <figure class="shot wrap">
-        <picture>
-          <source media="(max-width: 640px)" srcset="/lp/ja/phone-light.webp" width="780" height="1688" />
-          <img src="/lp/ja/desktop-light.webp" width="2400" height="1500" alt="エンドツーエンドで暗号化された会話を表示しているShalom Mailの受信トレイ" fetchpriority="high" />
-        </picture>
-      </figure>
+      <!-- O produto em quatro telas que sobem uma sobre a outra conforme a página rola (web/lp/main.ts). Sem
+           JavaScript ou com movimento reduzido, ficam uma embaixo da outra. -->
+      <section class="deck wrap">
+        <div class="deck-stage">
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/ja/phone-light.webp" width="780" height="1688" />
+              <img src="/lp/ja/desktop-light.webp" width="2400" height="1500" alt="エンドツーエンドで暗号化された会話を表示しているShalom Mailの受信トレイ" fetchpriority="high" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/ja/phone-compose.webp" width="780" height="1688" />
+              <img src="/lp/ja/desktop-compose.webp" width="2400" height="1500" alt="別の Shalom アカウントへ、エンドツーエンドで暗号化されたメールを作成中" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/ja/phone-storage.webp" width="780" height="1688" />
+              <img src="/lp/ja/desktop-storage.webp" width="2400" height="1500" alt="各フォルダの使用量がわかる「ストレージ」ページ" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/ja/phone-security.webp" width="780" height="1688" />
+              <img src="/lp/ja/desktop-security.webp" width="2400" height="1500" alt="アカウントのセキュリティを含む設定" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+        </div>
+      </section>
 
       <section class="points wrap" aria-label="アカウントに含まれるもの">
         <div>

@@ -29,7 +29,10 @@
     "invalid": "Da 3 a 32 lettere o numeri, con una lettera o un numero all’inizio e alla fine."
   },
   "shot": {
-    "alt": "La posta in arrivo di Shalom Mail con una conversazione crittografata end-to-end"
+    "alt": "La posta in arrivo di Shalom Mail con una conversazione crittografata end-to-end",
+    "compose": "Scrittura di un’email a un altro account Shalom, crittografata end-to-end",
+    "storage": "La pagina Spazio, con quanto occupa ogni cartella",
+    "security": "Le Impostazioni, con la sicurezza dell’account"
   },
   "points": {
     "label": "Cosa include l’account",

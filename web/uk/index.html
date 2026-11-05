@@ -32,14 +32,14 @@
     <meta property="og:url" content="https://shalomail.com/uk/" />
     <meta property="og:locale" content="uk_UA" />
     <meta property="og:site_name" content="Shalom Mail" />
-    <meta property="og:image" content="https://shalomail.com/og.png?v=3" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=4" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Shalom Mail: зашифрована й справді приватна пошта" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Shalom Mail: зашифрована й справді приватна пошта" />
     <meta name="twitter:description" content="Ваші листи замкнені на ключ, який є лише на вашому пристрої. Безкоштовно, без номера телефону й документів." />
-    <meta name="twitter:image" content="https://shalomail.com/og.png?v=3" />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=4" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
@@ -75,12 +75,36 @@
     </header>
 
     <main>
-      <figure class="shot wrap">
-        <picture>
-          <source media="(max-width: 640px)" srcset="/lp/uk/phone-light.webp" width="780" height="1688" />
-          <img src="/lp/uk/desktop-light.webp" width="2400" height="1500" alt="Вхідні Shalom Mail з листуванням, захищеним наскрізним шифруванням" fetchpriority="high" />
-        </picture>
-      </figure>
+      <!-- O produto em quatro telas que sobem uma sobre a outra conforme a página rola (web/lp/main.ts). Sem
+           JavaScript ou com movimento reduzido, ficam uma embaixo da outra. -->
+      <section class="deck wrap">
+        <div class="deck-stage">
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/uk/phone-light.webp" width="780" height="1688" />
+              <img src="/lp/uk/desktop-light.webp" width="2400" height="1500" alt="Вхідні Shalom Mail з листуванням, захищеним наскрізним шифруванням" fetchpriority="high" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/uk/phone-compose.webp" width="780" height="1688" />
+              <img src="/lp/uk/desktop-compose.webp" width="2400" height="1500" alt="Лист іншому акаунту Shalom із наскрізним шифруванням" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/uk/phone-storage.webp" width="780" height="1688" />
+              <img src="/lp/uk/desktop-storage.webp" width="2400" height="1500" alt="Сторінка «Місце»: скільки місця займає кожна тека" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/uk/phone-security.webp" width="780" height="1688" />
+              <img src="/lp/uk/desktop-security.webp" width="2400" height="1500" alt="Налаштування з безпекою акаунта" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+        </div>
+      </section>
 
       <section class="points wrap" aria-label="Що входить в акаунт">
         <div>

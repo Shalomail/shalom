@@ -32,14 +32,14 @@
     <meta property="og:url" content="https://shalomail.com/ar/" />
     <meta property="og:locale" content="ar_AR" />
     <meta property="og:site_name" content="Shalom Mail" />
-    <meta property="og:image" content="https://shalomail.com/og.png?v=3" />
+    <meta property="og:image" content="https://shalomail.com/og.png?v=4" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Shalom Mail: بريد إلكتروني مشفّر بخصوصية حقيقية" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Shalom Mail: بريد إلكتروني مشفّر بخصوصية حقيقية" />
     <meta name="twitter:description" content="رسائلك مقفلة بمفتاح لا يوجد إلا على جهازك. مجاني، بلا رقم هاتف ولا وثيقة هوية." />
-    <meta name="twitter:image" content="https://shalomail.com/og.png?v=3" />
+    <meta name="twitter:image" content="https://shalomail.com/og.png?v=4" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- O CSS vem no HTML (e não pelo JavaScript) para a página nunca aparecer sem estilo, nem por um instante. -->
@@ -75,12 +75,36 @@
     </header>
 
     <main>
-      <figure class="shot wrap">
-        <picture>
-          <source media="(max-width: 640px)" srcset="/lp/ar/phone-light.webp" width="780" height="1688" />
-          <img src="/lp/ar/desktop-light.webp" width="2400" height="1500" alt="صندوق الوارد في Shalom Mail مع محادثة مشفّرة من طرف إلى طرف" fetchpriority="high" />
-        </picture>
-      </figure>
+      <!-- O produto em quatro telas que sobem uma sobre a outra conforme a página rola (web/lp/main.ts). Sem
+           JavaScript ou com movimento reduzido, ficam uma embaixo da outra. -->
+      <section class="deck wrap">
+        <div class="deck-stage">
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/ar/phone-light.webp" width="780" height="1688" />
+              <img src="/lp/ar/desktop-light.webp" width="2400" height="1500" alt="صندوق الوارد في Shalom Mail مع محادثة مشفّرة من طرف إلى طرف" fetchpriority="high" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/ar/phone-compose.webp" width="780" height="1688" />
+              <img src="/lp/ar/desktop-compose.webp" width="2400" height="1500" alt="كتابة بريد إلى حساب Shalom آخر، مشفّر من الطرف إلى الطرف" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/ar/phone-storage.webp" width="780" height="1688" />
+              <img src="/lp/ar/desktop-storage.webp" width="2400" height="1500" alt="صفحة المساحة، مع ما يشغله كل مجلد" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <figure class="deck-card">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/lp/ar/phone-security.webp" width="780" height="1688" />
+              <img src="/lp/ar/desktop-security.webp" width="2400" height="1500" alt="الإعدادات، مع أمان الحساب" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+        </div>
+      </section>
 
       <section class="points wrap" aria-label="ما تحصل عليه مع الحساب">
         <div>

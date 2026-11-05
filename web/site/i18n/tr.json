@@ -29,7 +29,10 @@
     "invalid": "3 ila 32 harf veya rakam; harf ya da rakamla başlayıp bitmeli."
   },
   "shot": {
-    "alt": "Uçtan uca şifreli bir yazışmanın açık olduğu Shalom Mail gelen kutusu"
+    "alt": "Uçtan uca şifreli bir yazışmanın açık olduğu Shalom Mail gelen kutusu",
+    "compose": "Başka bir Shalom hesabına uçtan uca şifreli e-posta yazılıyor",
+    "storage": "Her klasörün ne kadar yer kapladığını gösteren Alan sayfası",
+    "security": "Hesap güvenliğiyle birlikte Ayarlar"
   },
   "points": {
     "label": "Hesapla birlikte gelenler",

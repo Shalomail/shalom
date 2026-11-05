@@ -29,7 +29,10 @@
     "invalid": "De 3 a 32 letras o números, empezando y terminando con letra o número."
   },
   "shot": {
-    "alt": "La bandeja de entrada de Shalom Mail con una conversación cifrada de extremo a extremo"
+    "alt": "La bandeja de entrada de Shalom Mail con una conversación cifrada de extremo a extremo",
+    "compose": "Escribiendo un correo a otra cuenta Shalom, cifrado de extremo a extremo",
+    "storage": "La página Espacio, con lo que ocupa cada carpeta",
+    "security": "Los Ajustes, con la seguridad de la cuenta"
   },
   "points": {
     "label": "Lo que incluye la cuenta",

@@ -29,7 +29,10 @@
     "invalid": "3 bis 32 Buchstaben oder Ziffern, am Anfang und am Ende ein Buchstabe oder eine Ziffer."
   },
   "shot": {
-    "alt": "Der Posteingang von Shalom Mail mit einer Ende-zu-Ende-verschlüsselten Unterhaltung"
+    "alt": "Der Posteingang von Shalom Mail mit einer Ende-zu-Ende-verschlüsselten Unterhaltung",
+    "compose": "Eine E-Mail an ein anderes Shalom-Konto, Ende-zu-Ende-verschlüsselt",
+    "storage": "Die Seite Speicher mit dem Platz, den jeder Ordner belegt",
+    "security": "Die Einstellungen mit der Sicherheit des Kontos"
   },
   "points": {
     "label": "Das gehört zum Konto",
