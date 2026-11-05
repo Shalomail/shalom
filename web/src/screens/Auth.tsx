@@ -375,44 +375,37 @@ export function Auth({ onSession }: { onSession: (s: Session, fresh?: boolean) =
   const [note] = useState(notice);
 
   return (
-    <div className="auth is-split" data-theme="light">
-      <div className="auth-pane">
-        <PeaceBackdrop />
-        <header className="auth-top">
-          <a href="/" className="auth-home"><Icon name="back" size={16} />shalomail.com</a>
-          {mode === 'signin'
-            ? <a href="/criar-conta" onClick={go('/criar-conta')}>{tr('auth.createAccount')}</a>
-            : <a href="/entrar" onClick={go('/entrar')}>{tr('auth.signIn')}</a>}
-        </header>
-        <main className="auth-main">
-          <div className="auth-stage">
-            <a href="/" className="auth-mark" aria-label="Shalom Mail"><Mark size={64} /></a>
-            {note && <p className="auth-notice" role="status">{note}</p>}
-            {mode === 'signin' ? <SignInForm config={config} onSession={onSession} /> : <SignUpFlow config={config} onSession={onSession} />}
-            {others.length > 0 && (
-              <div className="auth-accounts">
-                <p>{tr(from !== null ? 'auth.orBackTo' : 'auth.accountsHere')}</p>
-                {others.map(a => (
-                  <button key={a.slot} type="button" onClick={() => {
-                    // Veio do `shalom login` ou do link dos agentes: a conta escolhida abre na mesma página.
-                    let next = '/caixa/inbox';
-                    try { sessionStorage.removeItem('shalom-adding'); next = sessionStorage.getItem('shalom-next') || next; sessionStorage.removeItem('shalom-next'); } catch { /* */ }
-                    switchAccount(a.slot, next);
-                  }}>
-                    <Avatar address={a.address} label={initials({ name: a.name, address: a.address })} className="avatar auth-account-avatar" />
-                    <span className="auth-account-text"><strong>{a.name || a.address.split('@')[0]}</strong><span>{a.address}</span></span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </main>
-      </div>
-      {/* Metade da foto: só enfeite, some no celular e em janela estreita. */}
-      <figure className="auth-photo" aria-hidden="true">
-        <img src="/auth/entrar-1200.webp" srcSet="/auth/entrar-800.webp 800w, /auth/entrar-1200.webp 1200w, /auth/entrar-1792.webp 1792w"
-          sizes="50vw" width="1792" height="2240" alt="" decoding="async" />
-      </figure>
+    <div className="auth" data-theme="light">
+      <PeaceBackdrop />
+      <header className="auth-top">
+        <a href="/" className="auth-home"><Icon name="back" size={16} />shalomail.com</a>
+        {mode === 'signin'
+          ? <a href="/criar-conta" onClick={go('/criar-conta')}>{tr('auth.createAccount')}</a>
+          : <a href="/entrar" onClick={go('/entrar')}>{tr('auth.signIn')}</a>}
+      </header>
+      <main className="auth-main">
+        <div className="auth-stage">
+          <a href="/" className="auth-mark" aria-label="Shalom Mail"><Mark size={64} /></a>
+          {note && <p className="auth-notice" role="status">{note}</p>}
+          {mode === 'signin' ? <SignInForm config={config} onSession={onSession} /> : <SignUpFlow config={config} onSession={onSession} />}
+          {others.length > 0 && (
+            <div className="auth-accounts">
+              <p>{tr(from !== null ? 'auth.orBackTo' : 'auth.accountsHere')}</p>
+              {others.map(a => (
+                <button key={a.slot} type="button" onClick={() => {
+                  // Veio do `shalom login` ou do link dos agentes: a conta escolhida abre na mesma página.
+                  let next = '/caixa/inbox';
+                  try { sessionStorage.removeItem('shalom-adding'); next = sessionStorage.getItem('shalom-next') || next; sessionStorage.removeItem('shalom-next'); } catch { /* */ }
+                  switchAccount(a.slot, next);
+                }}>
+                  <Avatar address={a.address} label={initials({ name: a.name, address: a.address })} className="avatar auth-account-avatar" />
+                  <span className="auth-account-text"><strong>{a.name || a.address.split('@')[0]}</strong><span>{a.address}</span></span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 }

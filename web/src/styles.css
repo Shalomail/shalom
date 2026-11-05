@@ -239,16 +239,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 @keyframes peace-drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .peace p { animation: none; } }
 .auth-stage { position: relative; }
-/* Entrar e criar conta divididos ao meio: o formulário (com a paz ao fundo) de um lado e a foto do outro,
-   parada na tela enquanto o formulário rola. Em janela estreita e no celular, só o formulário. */
-.auth.is-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: none; overflow: visible; }
-.auth-pane { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-rows: auto 1fr; min-height: 100dvh; }
-.auth-photo { position: sticky; top: 0; align-self: start; height: 100dvh; margin: 0; overflow: hidden; background: #ece8e1; }
-.auth-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; }
-@media (max-width: 960px) {
-  .auth.is-split { grid-template-columns: minmax(0, 1fr); }
-  .auth-photo { display: none; }
-}
 [data-theme='light'] .auth-mark { filter: none; }
 .auth-form { width: 100%; display: grid; justify-items: center; }
 .auth-form h1 { font-size: 30px; line-height: 1.12; font-weight: 600; letter-spacing: -0.035em; }
