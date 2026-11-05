@@ -35,11 +35,13 @@ function save(theme: Theme, spectrum: boolean) {
 export const setTheme = (theme: Theme) => save(theme, spectrumOn());
 export const setSpectrum = (on: boolean) => save(currentTheme(), on);
 
-// Telas de entrar, cadastro e recuperação: claro (fundo branco) enquanto estão abertas, sem Espectro; ao sair, volta
-// o tema da pessoa.
+// Telas de entrar, cadastro e recuperação: claro por baixo, no azul da marca (também atrás da página, para a
+// rolagem elástica não mostrar branco), sem Espectro; ao sair, volta o tema da pessoa.
 export function useAuthTheme() {
   useEffect(() => {
     applyTheme('light', false);
+    document.documentElement.style.background = '#007aff';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#007aff');
     return () => applyTheme();
   }, []);
 }

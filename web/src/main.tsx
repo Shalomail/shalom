@@ -23,7 +23,7 @@ function Ambient() {
   return <div className="ambient" aria-hidden="true"><i /><i /><i /></div>;
 }
 
-// Carregamento logo depois de entrar ou criar a conta: o mesmo fundo claro das telas de entrar, sem
+// Carregamento logo depois de entrar ou criar a conta: o mesmo fundo azul das telas de entrar, sem
 // passar por uma tela preta antes da próxima pergunta.
 function AuthLoading() {
   return (
