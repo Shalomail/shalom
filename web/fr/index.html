@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#007aff" />
     <meta name="referrer" content="no-referrer" />
     <title>Shalom Mail : l’e-mail chiffré et vraiment privé</title>
     <meta name="description" content="Vos e-mails sont verrouillés par une clé qui n’existe que sur votre appareil. Gratuit, sans numéro de téléphone ni pièce d’identité." />
@@ -47,19 +47,20 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://shalomail.com/#org","name":"Shalom Mail","url":"https://shalomail.com/","logo":{"@type":"ImageObject","url":"https://shalomail.com/icon-512.png","width":512,"height":512},"legalName":"X TECH A.I FUND HOLDING E PARTICIPACOES LTDA","email":"contato@shalomail.com","address":{"@type":"PostalAddress","addressLocality":"Governador Celso Ramos","addressRegion":"SC","addressCountry":"BR"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer support","email":"contato@shalomail.com"},{"@type":"ContactPoint","contactType":"privacy","email":"privacidade@shalomail.com"}]},{"@type":"WebSite","@id":"https://shalomail.com/#website","name":"Shalom Mail","alternateName":["Shalom","shalomail.com"],"url":"https://shalomail.com/","inLanguage":["pt-BR","en","es","fr","de","it","ru","uk","tr","he","ar","hi","zh-Hans","ja","ko"],"publisher":{"@id":"https://shalomail.com/#org"}},{"@type":"WebPage","@id":"https://shalomail.com/fr/#webpage","url":"https://shalomail.com/fr/","name":"Shalom Mail : l’e-mail chiffré et vraiment privé","description":"Vos e-mails sont verrouillés par une clé qui n’existe que sur votre appareil. Gratuit, sans numéro de téléphone ni pièce d’identité.","inLanguage":"fr","isPartOf":{"@id":"https://shalomail.com/#website"},"about":{"@id":"https://shalomail.com/#app"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://shalomail.com/lp/fr/desktop-light.webp","width":2400,"height":1500}},{"@type":"WebApplication","@id":"https://shalomail.com/#app","name":"Shalom Mail","url":"https://shalomail.com/fr/","description":"Vos e-mails sont verrouillés par une clé qui n’existe que sur votre appareil. Gratuit, sans numéro de téléphone ni pièce d’identité.","inLanguage":"fr","applicationCategory":"CommunicationApplication","operatingSystem":"Web","browserRequirements":"Requires JavaScript","featureList":["La clé reste chez vous","Ni publicité ni pistage","Gratuit, avec 1 Go","Compatible avec toutes les messageries","Un chiffrement de niveau militaire","Donnez une boîte mail à vos agents IA"],"screenshot":"https://shalomail.com/lp/fr/desktop-light.webp","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://shalomail.com/#org"}}]}</script>
   </head>
   <body>
-    <header class="top wrap">
-      <a class="brand" href="/fr/" aria-label="Shalom Mail, accueil">
-        <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
-        <span>Shalom</span>
-      </a>
-      <nav class="top-links" aria-label="Compte">
-        <a href="/entrar">Se connecter</a>
-        <a href="/criar-conta">Créer un compte</a>
-      </nav>
-    </header>
+    <!-- Abertura: topo e chamada numa faixa azul só. -->
+    <header class="first">
+      <div class="top wrap">
+        <a class="brand" href="/fr/" aria-label="Shalom Mail, accueil">
+          <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
+          <span>Shalom</span>
+        </a>
+        <nav class="top-links" aria-label="Compte">
+          <a href="/entrar">Se connecter</a>
+          <a href="/criar-conta">Créer un compte</a>
+        </nav>
+      </div>
 
-    <main>
-      <section class="hero wrap">
+      <div class="hero wrap">
         <h1>L’e-mail vraiment privé.</h1>
         <p class="lede">Vos e-mails sont verrouillés par une clé qui n’existe que sur votre appareil.</p>
         <form class="claim" action="/criar-conta" method="get">
@@ -70,8 +71,10 @@
           </div>
           <p class="claim-note" aria-live="polite">Gratuit. Sans numéro de téléphone ni pièce d’identité.</p>
         </form>
-      </section>
+      </div>
+    </header>
 
+    <main>
       <figure class="shot wrap">
         <picture>
           <source media="(max-width: 640px)" srcset="/lp/fr/phone-light.webp" width="780" height="1688" />

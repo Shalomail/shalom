@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#007aff" />
     <meta name="referrer" content="no-referrer" />
     <title>Shalom Mail: truly private, encrypted email</title>
     <meta name="description" content="Your emails are locked with a key that only exists on your device. Free, no phone number, no ID." />
@@ -47,19 +47,20 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://shalomail.com/#org","name":"Shalom Mail","url":"https://shalomail.com/","logo":{"@type":"ImageObject","url":"https://shalomail.com/icon-512.png","width":512,"height":512},"legalName":"X TECH A.I FUND HOLDING E PARTICIPACOES LTDA","email":"contato@shalomail.com","address":{"@type":"PostalAddress","addressLocality":"Governador Celso Ramos","addressRegion":"SC","addressCountry":"BR"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer support","email":"contato@shalomail.com"},{"@type":"ContactPoint","contactType":"privacy","email":"privacidade@shalomail.com"}]},{"@type":"WebSite","@id":"https://shalomail.com/#website","name":"Shalom Mail","alternateName":["Shalom","shalomail.com"],"url":"https://shalomail.com/","inLanguage":["pt-BR","en","es","fr","de","it","ru","uk","tr","he","ar","hi","zh-Hans","ja","ko"],"publisher":{"@id":"https://shalomail.com/#org"}},{"@type":"WebPage","@id":"https://shalomail.com/en/#webpage","url":"https://shalomail.com/en/","name":"Shalom Mail: truly private, encrypted email","description":"Your emails are locked with a key that only exists on your device. Free, no phone number, no ID.","inLanguage":"en","isPartOf":{"@id":"https://shalomail.com/#website"},"about":{"@id":"https://shalomail.com/#app"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://shalomail.com/lp/en/desktop-light.webp","width":2400,"height":1500}},{"@type":"WebApplication","@id":"https://shalomail.com/#app","name":"Shalom Mail","url":"https://shalomail.com/en/","description":"Your emails are locked with a key that only exists on your device. Free, no phone number, no ID.","inLanguage":"en","applicationCategory":"CommunicationApplication","operatingSystem":"Web","browserRequirements":"Requires JavaScript","featureList":["You keep the key","No ads, no tracking","Free, with 1 GB","Works with any email","Military-grade encryption","Give your AI agents a mailbox"],"screenshot":"https://shalomail.com/lp/en/desktop-light.webp","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://shalomail.com/#org"}}]}</script>
   </head>
   <body>
-    <header class="top wrap">
-      <a class="brand" href="/en/" aria-label="Shalom Mail, home">
-        <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
-        <span>Shalom</span>
-      </a>
-      <nav class="top-links" aria-label="Account">
-        <a href="/entrar">Sign in</a>
-        <a href="/criar-conta">Create account</a>
-      </nav>
-    </header>
+    <!-- Abertura: topo e chamada numa faixa azul só. -->
+    <header class="first">
+      <div class="top wrap">
+        <a class="brand" href="/en/" aria-label="Shalom Mail, home">
+          <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
+          <span>Shalom</span>
+        </a>
+        <nav class="top-links" aria-label="Account">
+          <a href="/entrar">Sign in</a>
+          <a href="/criar-conta">Create account</a>
+        </nav>
+      </div>
 
-    <main>
-      <section class="hero wrap">
+      <div class="hero wrap">
         <h1>Truly private email.</h1>
         <p class="lede">Your emails are locked with a key that only exists on your device.</p>
         <form class="claim" action="/criar-conta" method="get">
@@ -70,8 +71,10 @@
           </div>
           <p class="claim-note" aria-live="polite">Free. No phone number, no ID.</p>
         </form>
-      </section>
+      </div>
+    </header>
 
+    <main>
       <figure class="shot wrap">
         <picture>
           <source media="(max-width: 640px)" srcset="/lp/en/phone-light.webp" width="780" height="1688" />

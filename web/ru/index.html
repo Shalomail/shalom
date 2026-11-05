@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#007aff" />
     <meta name="referrer" content="no-referrer" />
     <title>Shalom Mail: зашифрованная и по-настоящему приватная почта</title>
     <meta name="description" content="Ваши письма заперты на ключ, который есть только на вашем устройстве. Бесплатно, без номера телефона и документов." />
@@ -47,19 +47,20 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://shalomail.com/#org","name":"Shalom Mail","url":"https://shalomail.com/","logo":{"@type":"ImageObject","url":"https://shalomail.com/icon-512.png","width":512,"height":512},"legalName":"X TECH A.I FUND HOLDING E PARTICIPACOES LTDA","email":"contato@shalomail.com","address":{"@type":"PostalAddress","addressLocality":"Governador Celso Ramos","addressRegion":"SC","addressCountry":"BR"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer support","email":"contato@shalomail.com"},{"@type":"ContactPoint","contactType":"privacy","email":"privacidade@shalomail.com"}]},{"@type":"WebSite","@id":"https://shalomail.com/#website","name":"Shalom Mail","alternateName":["Shalom","shalomail.com"],"url":"https://shalomail.com/","inLanguage":["pt-BR","en","es","fr","de","it","ru","uk","tr","he","ar","hi","zh-Hans","ja","ko"],"publisher":{"@id":"https://shalomail.com/#org"}},{"@type":"WebPage","@id":"https://shalomail.com/ru/#webpage","url":"https://shalomail.com/ru/","name":"Shalom Mail: зашифрованная и по-настоящему приватная почта","description":"Ваши письма заперты на ключ, который есть только на вашем устройстве. Бесплатно, без номера телефона и документов.","inLanguage":"ru","isPartOf":{"@id":"https://shalomail.com/#website"},"about":{"@id":"https://shalomail.com/#app"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://shalomail.com/lp/ru/desktop-light.webp","width":2400,"height":1500}},{"@type":"WebApplication","@id":"https://shalomail.com/#app","name":"Shalom Mail","url":"https://shalomail.com/ru/","description":"Ваши письма заперты на ключ, который есть только на вашем устройстве. Бесплатно, без номера телефона и документов.","inLanguage":"ru","applicationCategory":"CommunicationApplication","operatingSystem":"Web","browserRequirements":"Requires JavaScript","featureList":["Ключ остаётся у вас","Без рекламы и слежки","Бесплатно, 1 ГБ","Работает с любой почтой","Шифрование военного уровня","Дайте вашим ИИ-агентам почтовый ящик"],"screenshot":"https://shalomail.com/lp/ru/desktop-light.webp","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://shalomail.com/#org"}}]}</script>
   </head>
   <body>
-    <header class="top wrap">
-      <a class="brand" href="/ru/" aria-label="Shalom Mail, главная">
-        <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
-        <span>Shalom</span>
-      </a>
-      <nav class="top-links" aria-label="Аккаунт">
-        <a href="/entrar">Войти</a>
-        <a href="/criar-conta">Создать аккаунт</a>
-      </nav>
-    </header>
+    <!-- Abertura: topo e chamada numa faixa azul só. -->
+    <header class="first">
+      <div class="top wrap">
+        <a class="brand" href="/ru/" aria-label="Shalom Mail, главная">
+          <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
+          <span>Shalom</span>
+        </a>
+        <nav class="top-links" aria-label="Аккаунт">
+          <a href="/entrar">Войти</a>
+          <a href="/criar-conta">Создать аккаунт</a>
+        </nav>
+      </div>
 
-    <main>
-      <section class="hero wrap">
+      <div class="hero wrap">
         <h1>По-настоящему приватная почта.</h1>
         <p class="lede">Ваши письма заперты на ключ, который есть только на вашем устройстве.</p>
         <form class="claim" action="/criar-conta" method="get">
@@ -70,8 +71,10 @@
           </div>
           <p class="claim-note" aria-live="polite">Бесплатно. Без номера телефона и документов.</p>
         </form>
-      </section>
+      </div>
+    </header>
 
+    <main>
       <figure class="shot wrap">
         <picture>
           <source media="(max-width: 640px)" srcset="/lp/ru/phone-light.webp" width="780" height="1688" />

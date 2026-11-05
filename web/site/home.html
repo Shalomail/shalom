@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#007aff" />
     <meta name="referrer" content="no-referrer" />
     <title>{{meta.title}}</title>
     <meta name="description" content="{{meta.description}}" />
@@ -31,19 +31,20 @@
     {{{jsonLd}}}
   </head>
   <body>
-    <header class="top wrap">
-      <a class="brand" href="{{homeHref}}" aria-label="{{nav.home}}">
-        <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
-        <span>Shalom</span>
-      </a>
-      <nav class="top-links" aria-label="{{nav.account}}">
-        <a href="/entrar">{{nav.signin}}</a>
-        <a href="/criar-conta">{{nav.signup}}</a>
-      </nav>
-    </header>
+    <!-- Abertura: topo e chamada numa faixa azul só. -->
+    <header class="first">
+      <div class="top wrap">
+        <a class="brand" href="{{homeHref}}" aria-label="{{nav.home}}">
+          <svg class="mark" viewBox="0 0 414 306" width="22" height="16" aria-hidden="true"><path d="M0 0H414V306H0Z M28 28V263.5L160.5 159.5L168.5 189L54 278H386V57.5L281.5 244L244.5 188L208 234.5L182 142.5L97 93.5L311 28Z M204.5 122.5L214 150L336 54Z" fill-rule="evenodd"/></svg>
+          <span>Shalom</span>
+        </a>
+        <nav class="top-links" aria-label="{{nav.account}}">
+          <a href="/entrar">{{nav.signin}}</a>
+          <a href="/criar-conta">{{nav.signup}}</a>
+        </nav>
+      </div>
 
-    <main>
-      <section class="hero wrap">
+      <div class="hero wrap">
         <h1>{{hero.title}}</h1>
         <p class="lede">{{hero.lede}}</p>
         <form class="claim" action="/criar-conta" method="get">
@@ -54,8 +55,10 @@
           </div>
           <p class="claim-note" aria-live="polite">{{claim.free}}</p>
         </form>
-      </section>
+      </div>
+    </header>
 
+    <main>
       <figure class="shot wrap">
         <picture>
           <source media="(max-width: 640px)" srcset="/lp/{{code}}/phone-light.webp" width="780" height="1688" />

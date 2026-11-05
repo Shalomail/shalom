@@ -42,6 +42,22 @@ svg.mark path { fill: currentColor; stroke: none; }
 .hero h1 { font-size: clamp(40px, 5.6vw, 72px); line-height: 1.04; font-weight: 500; letter-spacing: -0.035em; }
 .lede { margin-top: 24px; max-width: 32ch; font-size: clamp(18px, 1.5vw, 20px); line-height: 1.5; color: var(--ink-2); }
 
+/* Faixa de abertura da página inicial: o azul do ícone do app, logo e texto em branco, chamada centralizada.
+   O campo continua branco, igual ao do cadastro. */
+.first { background: #007aff; color: #fff; padding-bottom: clamp(88px, 13vh, 150px); }
+.first .brand .mark { color: #fff; }
+.first .top-links { color: rgba(255, 255, 255, 0.84); }
+.first .top-links a:hover { color: #fff; }
+.first :focus-visible { outline-color: #fff; }
+.first .hero { display: grid; justify-items: center; text-align: center; }
+.first .lede { color: rgba(255, 255, 255, 0.88); text-wrap: balance; }
+.first .claim { display: grid; justify-items: center; width: 100%; }
+.first .claim-field, .first .claim-field:hover { background: #fff; color: var(--ink); box-shadow: none; }
+.first .claim-field:focus-within { box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.38); }
+.first .claim-note { color: rgba(255, 255, 255, 0.84); }
+.first .claim-note.is-ok { color: #fff; }
+.first .claim-note.is-warn { color: #ffe1a6; }
+
 /* Campo de endereço: o mesmo do cadastro */
 .claim { margin-top: 40px; }
 .claim-field {
