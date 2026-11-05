@@ -232,8 +232,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .auth[data-theme='light'] .arrow-field {
   --text: #0a0a0a; --text-2: #4b4b50; --text-3: #76767c; --fill-1: rgba(0, 0, 0, 0.035); --accent: #007aff; --accent-on: #ffffff;
   color: var(--text);
+  box-shadow: none;
 }
-.auth[data-theme='light'] .arrow-field:focus-within { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(255, 255, 255, 0.38); }
+/* Ao digitar, o campo fica igual: sem traço nem anel em volta (o cursor já mostra onde está). */
+.auth[data-theme='light'] .arrow-field:focus-within { box-shadow: none; }
 .auth[data-theme='light'] .btn-primary { background: #fff; color: #007aff; }
 .auth[data-theme='light'] .btn-primary:hover:not(:disabled) { background: #eaf3ff; }
 .auth[data-theme='light'] .btn-primary:active:not(:disabled) { background: #d6e8ff; }
