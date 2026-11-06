@@ -8,7 +8,7 @@ import { newApiKey } from './apikeys';
 import { boxOf } from './box';
 import type { AppEnv } from './env';
 import { agentCount, CREATES_PER_DAY, planOf } from './plans';
-import { bump, canonicalOf, fail, isReserved, normalizeAddress, now, randomToken, sha256, tally } from './util';
+import { bump, canonicalOf, fail, isReserved, keyInUse, normalizeAddress, now, randomToken, sha256, tally } from './util';
 import { fromB64, seal, toB64 } from '../shared/seal';
 
 const DAY = 24 * 3600 * 1000;
@@ -78,6 +78,9 @@ agents.post('/', async c => {
   if (!full) return fail(c, 400, 'bad_address', 'Esse endereço não pode ser usado.');
   if (isReserved(full)) return fail(c, 400, 'reserved', 'Esse endereço é reservado. Escolha outro nome, por exemplo seunome-bot.');
   if (!validKey(body.publicKey)) return fail(c, 400, 'bad_request', 'Chave pública inválida.');
+  // Sempre na mesma grafia (base64 padrão), para a recusa de chave repetida valer.
+  body.publicKey = toB64(fromB64(String(body.publicKey)));
+  if (await keyInUse(c.env.DB, body.publicKey)) return fail(c, 409, 'key_in_use', 'Essa chave já pertence a outra conta.');
   const plan = await planOf(c.env, owner.id);
   if (plan.limit !== null && (await agentCount(c.env, owner.id)) >= plan.limit) {
     return fail(c, 402, 'agent_limit', `Seu plano permite ${plan.limit} caixas de agente. Apague uma ou mude de plano.`);

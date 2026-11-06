@@ -220,6 +220,21 @@ await fetch(`${BASE}/cdn-cgi/handler/email?from=suporte@golpe.example&to=${a.add
 check((await a.c.call('GET', '/api/messages?folder=spam')).data.messages.length === 1, 'golpe vai direto para o Spam');
 check((await a.c.call('GET', '/api/messages?folder=inbox')).data.messages.every((m: any) => m.folder === 'inbox'), 'Entrada sem o golpe');
 
+// Golpe que passa no DMARC: o servidor não lê o texto, então fica na Entrada marcado para o aparelho conferir
+// (shared/spam.ts). O aparelho grava "conferida"; mover de pasta também conta como conferida.
+const mail = (id: string, subject: string, html: string) => ['From: "Banco Beta" <aviso@bancobeta.com.br>', `To: ${a.address}`, `Subject: ${subject}`, `Message-ID: <${id}-${tag}@bancobeta.com.br>`,
+  'Authentication-Results: mx.cloudflare.net; dkim=pass; spf=pass; dmarc=pass header.from=bancobeta.com.br', 'MIME-Version: 1.0', 'Content-Type: text/html; charset=utf-8', '', html].join('\r\n');
+await fetch(`${BASE}/cdn-cgi/handler/email?from=aviso@bancobeta.com.br&to=${a.address}`, { method: 'POST', body: mail('phish', 'Urgente: confirme seus dados em 24 horas', '<p>Acesso incomum detectado. <a href="http://golpe.example/login">www.bancobeta.com.br</a></p>') });
+await fetch(`${BASE}/cdn-cgi/handler/email?from=aviso@bancobeta.com.br&to=${a.address}`, { method: 'POST', body: mail('fatura', 'Sua fatura fechou', '<p>Valor: R$ 120,00.</p>') });
+const fresh = ((await a.c.call('GET', '/api/messages?folder=inbox')).data.messages as any[]).filter(m => m.checked === 0);
+check(fresh.length === 2, 'e-mail de fora com DMARC aprovado fica na Entrada para o aparelho conferir');
+const [newest, older] = fresh;
+await a.c.call('POST', '/api/messages/update', { ids: [older.id], folder: 'spam' });
+await a.c.call('POST', '/api/messages/update', { ids: [newest.id], checked: true });
+const spamNow = ((await a.c.call('GET', '/api/messages?folder=spam')).data.messages as any[]).find(m => m.id === older.id);
+const inboxNow = ((await a.c.call('GET', '/api/messages?folder=inbox')).data.messages as any[]).find(m => m.id === newest.id);
+check(spamNow?.checked === 1 && inboxNow?.checked === 1, 'aparelho move para o Spam ou marca como conferida, e fica gravado');
+
 // Espaço: todas as pastas juntas, por tamanho e por data, com cursor; e a troca do corpo sem os anexos.
 const fileSubject = `Fotos da obra ${tag}`;
 const pixel = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==', 'base64');

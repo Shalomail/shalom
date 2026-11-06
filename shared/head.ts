@@ -34,12 +34,31 @@ export function people(list: Address[] | Address | undefined): Person[] {
   return out;
 }
 
+// Tira <style>, <script> e <head> com o conteúdo, numa passada só (com [\s\S]*? até o fechamento, um HTML sem
+// fechamento repetido deixaria a conta quadrática). Sem fechamento, o resto fica de fora.
+function dropBlocks(html: string): string {
+  // Só as letras ASCII em minúscula, para as posições valerem também no texto original.
+  const lower = html.replace(/[A-Z]+/g, x => x.toLowerCase());
+  const open = /<(style|script|head)\b/g;
+  let out = '';
+  let i = 0;
+  for (;;) {
+    open.lastIndex = i;
+    const hit = open.exec(lower);
+    if (!hit) return out + html.slice(i);
+    out += html.slice(i, hit.index) + ' ';
+    const end = lower.indexOf(`</${hit[1]}>`, hit.index);
+    if (end < 0) return out;
+    i = end + hit[1].length + 3;
+  }
+}
+
 export function snippetOf(text: string | undefined, html: string | undefined): string {
   let s = text || '';
   if (!s && html) {
-    s = html
-      .replace(/<(style|script|head)[\s\S]*?<\/\1>/gi, ' ')
-      .replace(/<[^>]+>/g, ' ')
+    // Só o começo do HTML e regras lineares: a prévia não pode travar com HTML montado para isso.
+    s = dropBlocks(html.slice(0, 256 * 1024))
+      .replace(/<[^<>]*>/g, ' ')
       .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
   }
   return s.replace(/\s+/g, ' ').trim().slice(0, 110);

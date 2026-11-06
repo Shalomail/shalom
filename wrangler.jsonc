@@ -25,10 +25,15 @@
   "durable_objects": { "bindings": [{ "name": "MAILBOX", "class_name": "Mailbox" }] },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Mailbox"] }],
 
-  // Freios sem gravar no banco: rotas de conta por IP; envio e proxy de imagem por conta.
+  // Freios sem gravar no banco: rotas de conta por IP; envio e proxy de imagem por conta; e os tetos largos
+  // contra inundação: qualquer pedido à API por rede (API_LIMIT), por conta logada (ACCOUNT_LIMIT) e a folga
+  // por rede de quem roda muitos agentes de IA num servidor só (AGENTS_LIMIT).
   "ratelimits": [
     { "name": "IP_LIMIT", "namespace_id": "2001", "simple": { "limit": 60, "period": 60 } },
-    { "name": "USER_LIMIT", "namespace_id": "2002", "simple": { "limit": 120, "period": 60 } }
+    { "name": "USER_LIMIT", "namespace_id": "2002", "simple": { "limit": 120, "period": 60 } },
+    { "name": "API_LIMIT", "namespace_id": "2003", "simple": { "limit": 600, "period": 60 } },
+    { "name": "ACCOUNT_LIMIT", "namespace_id": "2004", "simple": { "limit": 600, "period": 60 } },
+    { "name": "AGENTS_LIMIT", "namespace_id": "2005", "simple": { "limit": 6000, "period": 60 } }
   ],
 
   // Madrugada: apaga contadores vencidos e sessões expiradas.

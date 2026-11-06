@@ -3,16 +3,16 @@
 import { ZxcvbnFactory } from '@zxcvbn-ts/core';
 import * as common from '@zxcvbn-ts/language-common';
 import * as ptbr from '@zxcvbn-ts/language-pt-br';
+import { rate } from '../../shared/password';
 
 const checker = new ZxcvbnFactory({
   translations: ptbr.translations,
   graphs: common.adjacencyGraphs,
   dictionary: { ...common.dictionary, ...ptbr.dictionary },
+  // Só os primeiros 64 caracteres (a repetição além disso é medida em shared/password.ts); recusar por eles erra para o lado
+  // seguro. Acima disso cada conta custava segundos.
+  maxLength: 64,
 });
 
-// Nota de 0 a 4 e se é fácil demais: nota 0, ou nota 1 vinda de palavra, sequência, data ou do próprio nome
-// (a mesma regra de web/src/lib/password.ts). Senha curta só aleatória não é "fácil demais".
-(globalThis as { shalomStrength?: unknown }).shalomStrength = (pw: string, inputs: string[]) => {
-  const r = checker.check(pw, [...inputs.filter(Boolean), 'shalom', 'shalomail']);
-  return { score: r.score, easy: r.score === 0 || (r.score === 1 && r.sequence.some(m => m.pattern !== 'bruteforce')) };
-};
+// Nota de 0 a 4 e se é fácil demais, pela regra de shared/password.ts (a mesma do site).
+(globalThis as { shalomStrength?: unknown }).shalomStrength = (pw: string, inputs: string[]) => rate(checker, pw, inputs);

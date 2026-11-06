@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { api, ApiError } from '../lib/api';
-import { usePasswordStrength } from '../lib/password';
+import { strength, usePasswordStrength } from '../lib/password';
 import { navigate, usePath } from '../lib/router';
 import { accounts } from '../lib/accounts';
 import { forgotPassword } from '../lib/recovery';
@@ -30,12 +30,13 @@ const go = (to: string) => (e: React.MouseEvent) => { e.preventDefault(); naviga
 const legalPage = (page: 'terms' | 'privacy') => (locale() === 'pt' ? (page === 'terms' ? '/termos/' : '/privacidade/') : `/${locale()}/${page}/`);
 
 // Um campo só, com o ícone do que se digita à esquerda e a seta de avançar dentro dele. Enter também avança.
-export function ArrowField({ children, ready, busy, label, icon }: { children: ReactNode; ready: boolean; busy: boolean; label: string; icon?: IconName }) {
+// ready pinta a seta; enabled, quando vem, decide se dá para enviar (o Enter do teclado também depende dele).
+export function ArrowField({ children, ready, enabled, busy, label, icon }: { children: ReactNode; ready: boolean; enabled?: boolean; busy: boolean; label: string; icon?: IconName }) {
   return (
     <div className={`arrow-field${ready ? ' is-ready' : ''}`}>
       {icon && <span className="arrow-icon" aria-hidden="true"><Icon name={icon} size={16} /></span>}
       {children}
-      <button className="arrow-go" disabled={!ready || busy} aria-label={label}>
+      <button className="arrow-go" disabled={!(enabled ?? ready) || busy} aria-label={label}>
         {busy ? <span className="spinner" /> : <Icon name="arrow" size={18} />}
       </button>
     </div>
@@ -55,12 +56,13 @@ function AddressInput({ value, onChange, domain }: { value: string; onChange: (v
   );
 }
 
-export function PasswordInput({ value, onChange, autoComplete, label }: { value: string; onChange: (v: string) => void; autoComplete: string; label: string }) {
+// locked deixa o campo só de leitura (sem perder o foco) enquanto a senha é conferida ou enviada.
+export function PasswordInput({ value, onChange, autoComplete, label, locked }: { value: string; onChange: (v: string) => void; autoComplete: string; label: string; locked?: boolean }) {
   const [show, setShow] = useState(false);
   return (
     <>
       <input type={show ? 'text' : 'password'} value={value} onChange={e => onChange(e.target.value)} placeholder={label} aria-label={label}
-        autoComplete={autoComplete} required spellCheck={false} autoFocus />
+        autoComplete={autoComplete} required spellCheck={false} autoFocus readOnly={locked} />
       <button type="button" className="field-eye" onClick={() => setShow(!show)} aria-label={tr(show ? 'pw.hide' : 'pw.show')}>
         <Icon name={show ? 'eyeOff' : 'eye'} />
       </button>
@@ -276,6 +278,8 @@ function SignUpFlow({ config, onSession }: { config: Config; onSession: (s: Sess
   const local = localPart(address);
   const mismatch = confirm.length > 0 && confirm !== password;
   const pw = usePasswordStrength(password, [name, local]);
+  // A senha que passou no medidor ao sair da etapa 2; o cadastro só envia essa.
+  const checked = useRef<string | null>(null);
 
 
   useEffect(() => {
@@ -299,8 +303,18 @@ function SignUpFlow({ config, onSession }: { config: Config; onSession: (s: Sess
 
   async function next(e?: FormEvent) {
     e?.preventDefault();
-    if (!canNext || busy) return;
+    // Na senha, quem decide é a conta de agora, logo abaixo: o Enter não espera o resultado de enquanto digitava.
+    if ((step === 2 ? !password : !canNext) || busy) return;
+    if (step === 2) {
+      // Decide pela senha de agora, não pelo resultado de enquanto digitava (pode ser de uma senha anterior).
+      setBusy(true);
+      const r = await strength(password, [name, local]).catch(() => null);
+      setBusy(false);
+      if (!r?.ok) { setError(r?.hint ?? tr('auth.signUpFail')); return; }
+      checked.current = password;
+    }
     if (step < STEPS - 1) { setError(''); setStep(step + 1); return; }
+    if (checked.current !== password) { checked.current = null; setStep(2); return; }
     setBusy(true);
     setError('');
     try {
@@ -337,11 +351,11 @@ function SignUpFlow({ config, onSession }: { config: Config; onSession: (s: Sess
     <form onSubmit={next} className="auth-form" key="signup">
       <div className="step" key={step}>
         <h1>{titles[step]}</h1>
-        <ArrowField ready={!!canNext} busy={busy} label={tr(step < STEPS - 1 ? 'common.continue' : 'auth.createMine')} icon={step === 0 ? 'user' : step === 1 ? 'at' : 'lock'}>
+        <ArrowField ready={!!canNext} enabled={step === 2 ? !!password : undefined} busy={busy} label={tr(step < STEPS - 1 ? 'common.continue' : 'auth.createMine')} icon={step === 0 ? 'user' : step === 1 ? 'at' : 'lock'}>
           {step === 0 && <input value={name} onChange={e => setName(e.target.value)} autoComplete="name" placeholder={tr('auth.namePlaceholder')} aria-label={tr('auth.namePlaceholder')} required maxLength={60} autoFocus />}
           {step === 1 && <AddressInput value={address} onChange={setAddress} domain={config.domain} />}
-          {step === 2 && <PasswordInput value={password} onChange={setPassword} autoComplete="new-password" label={tr('pw.label')} />}
-          {step === 3 && <PasswordInput value={confirm} onChange={setConfirm} autoComplete="new-password" label={tr('pw.same')} />}
+          {step === 2 && <PasswordInput value={password} onChange={setPassword} autoComplete="new-password" label={tr('pw.label')} locked={busy} />}
+          {step === 3 && <PasswordInput value={confirm} onChange={setConfirm} autoComplete="new-password" label={tr('pw.same')} locked={busy} />}
         </ArrowField>
         <p className={`auth-note ${warn ? 'is-warn' : ''} ${step === 1 && avail.state === 'ok' ? 'is-ok' : ''}`}>{hints[step]}</p>
         {step === 3 && <Turnstile siteKey={config.turnstileSiteKey} onToken={setToken} resetKey={resetKey} />}
@@ -350,7 +364,7 @@ function SignUpFlow({ config, onSession }: { config: Config; onSession: (s: Sess
           terms: s => <a href={legalPage('terms')} target="_blank" rel="noopener">{s}</a>,
           privacy: s => <a href={legalPage('privacy')} target="_blank" rel="noopener">{s}</a>,
         })}</p>}
-        {step > 0 && <button type="button" className="auth-back" onClick={() => setStep(step - 1)} disabled={busy}>{tr('common.back')}</button>}
+        {step > 0 && <button type="button" className="auth-back" onClick={() => { checked.current = null; setStep(step - 1); }} disabled={busy}>{tr('common.back')}</button>}
       </div>
       {/* Isca para robôs: invisível para pessoas e para leitores de tela. */}
       <input className="hp" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e => setWebsite(e.target.value)} name="website" />

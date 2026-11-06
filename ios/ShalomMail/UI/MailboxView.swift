@@ -127,6 +127,8 @@ final class MailboxModel: ObservableObject {
     // Tira as conversas da lista na hora e avisa o servidor; se falhar, a lista volta pelo servidor.
     func move(_ thread: Thread, to target: String, text: String) {
         let ids = thread.inFolder.map(\.id)
+        // "Não é spam": o remetente passa a ser de confiança neste iPhone (SpamCheck decide quem conta).
+        if target == "inbox" { SpamCheck.trust(thread.inFolder, session: session) }
         items.removeAll { ids.contains($0.id) }
         rebuild()
         show(text)

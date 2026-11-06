@@ -1,7 +1,9 @@
 // Fotos que chegam de fora ficam menores antes de trancar: refeitas em WebP (qualidade 80, lado maior até
 // 2560 px) aqui mesmo no Worker, com os codecs do Squoosh em WebAssembly (jSquash). Nada vai para serviço
 // de fora; os dados escondidos da foto (local, câmera) somem na recodificação. Só troca quando a versão
-// nova sai bem menor; se algo falhar, fica a original. Um limite de tempo segura e-mail com muitas fotos.
+// nova sai bem menor; se algo falhar, fica a original. No máximo 4 fotos por e-mail: o relógio do Worker
+// não anda enquanto o código só calcula, então o limite de tempo sozinho não segurava um e-mail com dezenas
+// de fotos feito para queimar CPU.
 import type { Email } from 'postal-mime';
 import decodeJpeg, { init as initJpeg } from '@jsquash/jpeg/decode';
 import decodePng, { init as initPng } from '@jsquash/png/decode';
@@ -19,10 +21,12 @@ import { people } from '../shared/head';
 
 const MIN_BYTES = 200 * 1024;
 const MAX_BYTES = 20 * 1024 * 1024;
-// O Worker tem 128 MB de memória: decodificar uma foto de 50 MP sozinha passa disso e derruba a entrega.
-const MAX_PIXELS = 20_000_000;
+// O Worker tem 128 MB de memória: uma foto de 20 MP já ocupa 80 MB decodificada, perto de derrubar a
+// entrega. Acima de 12 MP (48 MB) a foto fica como veio.
+const MAX_PIXELS = 12_000_000;
 const SIDE = 2560;
-const BUDGET_MS = 8000;
+const BUDGET_MS = 3000;
+const MAX_SHRINK = 4;
 
 // O Workers não tem ImageData; os codecs só precisam dos três campos.
 if (!('ImageData' in globalThis)) {
@@ -74,7 +78,7 @@ export async function shrinkImages(email: Email, raw: Uint8Array): Promise<Uint8
   const big = email.attachments.filter(a => {
     const n = typeof a.content === 'string' ? a.content.length : a.content.byteLength;
     return n >= MIN_BYTES && n <= MAX_BYTES && /^image\/(jpe?g|png)$/i.test(a.mimeType || '');
-  });
+  }).slice(0, MAX_SHRINK);
   if (!big.length) return raw;
   const started = Date.now();
   try { await boot(); } catch (e) { console.error('codecs de imagem não carregaram', String(e)); return raw; }

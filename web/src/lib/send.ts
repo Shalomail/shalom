@@ -48,13 +48,16 @@ export type Outgoing = {
   attachments?: Attachment[];
 };
 
-// Certificado de remetente (vale 7 dias; renova com um dia de folga).
-let certCache: { signed: SignedCert; until: number } | null = null;
-async function myCert(): Promise<SignedCert> {
-  if (certCache && certCache.until > Date.now() + 24 * 3600 * 1000) return certCache.signed;
+// Certificado de remetente: vale um dia e é reaproveitado até uma hora antes de vencer (pedir um a cada
+// envio deixava o pedido com login colado em cada entrega anônima), só para a mesma chave. A validade conta
+// pelo relógio daqui (a duração somada à hora do pedido): com o relógio atrasado não sai certificado vencido.
+let certCache: { signed: SignedCert; until: number; key: string } | null = null;
+async function myCert(secretKey: Uint8Array): Promise<SignedCert> {
+  const key = toB64(ownPublicKey(secretKey));
+  if (certCache && certCache.key === key && certCache.until > Date.now() + 3600 * 1000) return certCache.signed;
   const { cert } = await api<{ cert: SignedCert }>('/cert', { body: {} });
-  const until = JSON.parse(new TextDecoder().decode(fromB64(cert.c))).e as number;
-  certCache = { signed: cert, until };
+  const c = JSON.parse(new TextDecoder().decode(fromB64(cert.c))) as { k: string; i: number; e: number };
+  certCache = { signed: cert, until: Date.now() + (c.e - c.i), key: c.k };
   return cert;
 }
 
@@ -106,7 +109,7 @@ export async function sendMessage({ user, secretKey }: Session, out: Outgoing) {
   const internal = [...new Set(all.map(p => p.address.toLowerCase()).filter(isShalom))];
   // Com alguém de fora, o texto também sai aberto: nenhuma cópia vale como fechada de ponta a ponta.
   const hasExternal = all.some(p => !isShalom(p.address));
-  const cert = await myCert();
+  const cert = await myCert(secretKey);
   const sealedFor: { address: string; head: string; raw: string }[] = [];
   for (const address of internal) {
     const pub = await publicKeyOf(address);
@@ -154,7 +157,7 @@ export async function saveDraft({ user, secretKey }: Session, out: Outgoing, rep
     messageId: newMessageId(DOMAIN), inReplyTo: out.inReplyTo, references: out.references, date: new Date(),
     attachments: out.attachments,
   };
-  const sealed = await sealedCopy(buildMime(draft, true), ownPublicKey(secretKey), secretKey, await myCert(), false);
+  const sealed = await sealedCopy(buildMime(draft, true), ownPublicKey(secretKey), secretKey, await myCert(secretKey), false);
   return (await api<{ id: string }>('/drafts', { body: { ...sealed, replace } })).id;
 }
 

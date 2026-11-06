@@ -4,7 +4,7 @@
     "name": "Português",
     "dir": "ltr",
     "title": "Shalom Mail: e-mail criptografado e privado de verdade",
-    "description": "Seus e-mails ficam trancados com uma chave que só existe no seu aparelho. Grátis, sem telefone e sem documento."
+    "description": "Seus e-mails ficam trancados, e só a sua senha abre. Grátis, sem telefone e sem documento."
   },
   "nav": {
     "home": "Shalom Mail, início",
@@ -14,7 +14,7 @@
   },
   "hero": {
     "title": "E-mail privado de verdade.",
-    "lede": "Seus e-mails ficam trancados com uma chave que só existe no seu aparelho."
+    "lede": "Seus e-mails ficam trancados, e só a sua senha abre."
   },
   "claim": {
     "placeholder": "name",
@@ -73,10 +73,10 @@
     "developers": "Desenvolvedores",
     "encryption": "Criptografia",
     "faq": "Perguntas frequentes",
-    "about": "O Shalom Mail (shalomail.com) é um serviço de e-mail criptografado que funciona no navegador. Os e-mails guardados ficam trancados com uma chave que só existe no seu aparelho, e entre contas Shalom tudo vai de ponta a ponta."
+    "about": "O Shalom Mail (shalomail.com) é um serviço de e-mail criptografado que funciona no navegador. Os e-mails guardados ficam trancados com uma chave que só a sua senha destrava, e entre contas Shalom tudo vai de ponta a ponta."
   },
   "legal": {
-    "updated": "Última atualização: 30 de outubro de 2026",
+    "updated": "Última atualização: 5 de novembro de 2026",
     "translationNote": "",
     "operator": "O Shalom Mail é operado por {c}, com sede em Governador Celso Ramos, SC, Brasil.",
     "terms": {
@@ -209,7 +209,7 @@
         {
           "h": "4. E-mail de fora e para fora do Shalom",
           "p": [
-            "E-mail que vem de outro serviço chega aberto, como todo e-mail na internet. No instante da chegada, o servidor confere se é spam ou golpe e tranca a mensagem com a sua chave. A versão aberta não fica guardada.",
+            "E-mail que vem de outro serviço chega aberto, como todo e-mail na internet. No instante da chegada, o servidor confere só se o domínio de quem enviou confirma o remetente e tranca a mensagem com a sua chave. Se é golpe ou propaganda, quem confere é o seu aparelho, que abre a mensagem com a sua chave. A versão aberta não fica guardada.",
             "E-mail que você manda para outro serviço sai como e-mail comum e passa aberto pelo serviço de envio até o destino.",
             "Criptografia de ponta a ponta, sem nenhuma etapa aberta, vale entre contas Shalom. Nesse caso nem o nome de quem escreveu fica visível para o servidor."
           ]
@@ -227,6 +227,7 @@
             "A infraestrutura roda na Cloudflare: servidores, banco de dados, armazenamento, recebimento e envio de e-mail e a verificação contra robôs (Turnstile). Ela processa os dados em nosso nome; os e-mails guardados chegam lá já criptografados.",
             "Se você assinar um plano pago, a cobrança é feita pela Stripe, que recebe o seu endereço Shalom e os dados de pagamento para processar a assinatura, conforme a política de privacidade dela.",
             "Se você ligar os avisos no app de iOS, cada aviso passa pelo serviço de notificações da Apple (APNs). A Apple recebe o identificador do aparelho, o horário e o texto \"Mensagem nova\", sem remetente, assunto nem nada da mensagem.",
+            "Cloudflare, Stripe e Apple recebem só o necessário para prestar cada serviço e protegem esses dados em nível igual ou maior que o desta política.",
             "Os servidores da Cloudflare ficam em vários países, então seus dados podem ser processados fora do Brasil, com as garantias previstas na LGPD.",
             "Não vendemos dados, não mostramos anúncios e não usamos seus e-mails para treinar nada.",
             "Só entregamos dados a autoridades diante de ordem judicial válida. O que temos é o que está no item 3: o conteúdo dos e-mails guardados continua criptografado e nós não temos a chave."
@@ -347,7 +348,7 @@
   "enc": {
     "title": "Como funciona a criptografia",
     "description": "Como o Shalom Mail protege seus e-mails: chave criada no seu aparelho, Argon2id na senha, AES-256-GCM em cada mensagem guardada e onde a proteção termina.",
-    "lead": "O Shalom Mail é um serviço de e-mail em shalomail.com. Seus e-mails guardados ficam trancados com uma chave que só existe no seu aparelho, e entre contas Shalom tudo vai de ponta a ponta. Aqui está como isso funciona, em palavras simples, e onde a proteção termina.",
+    "lead": "O Shalom Mail é um serviço de e-mail em shalomail.com. Seus e-mails guardados ficam trancados com uma chave que só a sua senha destrava, e entre contas Shalom tudo vai de ponta a ponta. Aqui está como isso funciona, em palavras simples, e onde a proteção termina.",
     "s": {
       "key": {
         "h": "A sua chave nasce no seu aparelho",
@@ -373,7 +374,7 @@
       "outside": {
         "h": "E-mail com outros provedores",
         "p": [
-          "E-mail do Gmail, do Outlook ou de qualquer outro provedor chega aberto, como todo e-mail na internet. Nesse momento o servidor confere se é spam ou golpe e lacra a mensagem com a sua chave. A versão aberta não é guardada.",
+          "E-mail do Gmail, do Outlook ou de qualquer outro provedor chega aberto, como todo e-mail na internet. Nesse momento o servidor confere só se o domínio de quem enviou confirma o remetente e lacra a mensagem com a sua chave. Se é golpe ou propaganda, quem confere é o seu aparelho, que abre a mensagem com a sua chave. A versão aberta não é guardada.",
           "O e-mail que você manda para outros provedores sai como e-mail comum. O servidor repassa a mensagem aberta, e o provedor de quem recebe consegue ler. Nesse caso o Shalom protege a cópia guardada na sua caixa, não o caminho."
         ]
       },
@@ -421,7 +422,7 @@
           {
             "ul": [
               "E-mail com outros provedores não é de ponta a ponta. Ele viaja como e-mail comum, e o servidor vê a mensagem no momento em que ela passa.",
-              "Se você esquecer a senha, os e-mails guardados não têm como ser recuperados, porque só a sua senha abre a sua chave e o Shalom não tem cópia dela. Com o e-mail de recuperação você cria uma senha nova e mantém o endereço, mas a caixa começa vazia.",
+              "Se você esquecer a senha, os e-mails guardados não têm como ser recuperados, porque só a sua senha destrava a sua chave e o Shalom não tem cópia dela. Com o e-mail de recuperação você cria uma senha nova e mantém o endereço, mas a caixa começa vazia.",
               "O app roda no seu navegador e é carregado de shalomail.com. Como em todo e-mail que funciona na web, você conta com o site entregando o código descrito aqui.",
               "A criptografia não protege um aparelho que já foi invadido. Se você escolher lembrar um aparelho, a sua chave fica naquele navegador, então proteja o aparelho como protege a sua senha.",
               "O remetente lacrado deixa quem enviou fora do que o servidor guarda. Como qualquer site, o servidor ainda vê a conexão de cada pedido, e usa isso só contra abuso, como explica a política de privacidade."
@@ -447,7 +448,7 @@
     "q": {
       "what": {
         "q": "O que é o Shalom Mail?",
-        "a": "O Shalom Mail é um serviço de e-mail criptografado que funciona no navegador, em shalomail.com. A conta é grátis, com 1 GB e um endereço @shalomail.com. Os e-mails guardados ficam trancados com uma chave que só existe no seu aparelho, entre contas Shalom tudo vai de ponta a ponta, e agentes de IA podem ter caixas próprias."
+        "a": "O Shalom Mail é um serviço de e-mail criptografado que funciona no navegador, em shalomail.com. A conta é grátis, com 1 GB e um endereço @shalomail.com. Os e-mails guardados ficam trancados com uma chave que só a sua senha destrava, entre contas Shalom tudo vai de ponta a ponta, e agentes de IA podem ter caixas próprias."
       },
       "free": {
         "q": "O Shalom Mail é grátis?",
@@ -479,7 +480,7 @@
       },
       "read": {
         "q": "O Shalom consegue ler meus e-mails?",
-        "a": "Os guardados, não. Cada mensagem é lacrada com uma chave que só existe no seu aparelho, e o servidor guarda sem conseguir abrir. E-mail de outros provedores pode ser lido pelo servidor no momento em que chega, antes de ser lacrado, e o e-mail que você manda para outros provedores sai como e-mail comum."
+        "a": "Os guardados, não. Cada mensagem é lacrada com uma chave que só a sua senha destrava, e o servidor guarda sem conseguir abrir. E-mail de outros provedores pode ser lido pelo servidor no momento em que chega, antes de ser lacrado, e o e-mail que você manda para outros provedores sai como e-mail comum."
       },
       "e2e": {
         "q": "O Shalom Mail é criptografado de ponta a ponta?",
@@ -487,7 +488,7 @@
       },
       "forgot": {
         "q": "O que acontece se eu esquecer a senha?",
-        "a": "Os e-mails guardados não têm como ser recuperados, porque só a sua senha abre a sua chave e o Shalom não tem cópia dela. Com o e-mail de recuperação você cria uma senha nova e mantém o endereço, mas a caixa começa vazia."
+        "a": "Os e-mails guardados não têm como ser recuperados, porque só a sua senha destrava a sua chave e o Shalom não tem cópia dela. Com o e-mail de recuperação você cria uma senha nova e mantém o endereço, mas a caixa começa vazia."
       },
       "cipher": {
         "q": "Que criptografia o Shalom Mail usa?",

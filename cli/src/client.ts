@@ -7,6 +7,7 @@ import { headOf, type MessageHead, type Person } from '../../shared/head';
 import { bodyHash, pack, unpack } from '../../shared/pack';
 import { fromB64, open, openJson, publicKeyOf, toB64 } from '../../shared/seal';
 import { isSealedSender, openFromSender, sealFromSender, type SignedCert } from '../../shared/sender';
+import { contentScore, SPAM_THRESHOLD } from '../../shared/spam';
 import { buildMime, newMessageId, textToHtml, type Attachment, type Draft } from '../../web/src/lib/mime';
 
 export const DOMAIN = 'shalomail.com';
@@ -66,14 +67,20 @@ export type ServerKeys = { cert: Uint8Array; token: RsaPublic; wire: string };
 // Impressão digital (SHA-256) das chaves públicas do shalomail.com, embutida no pacote: mesmo num contêiner
 // novo, sem nada salvo, um servidor trocado ou uma conexão interceptada não passa por remetente conferido.
 const BUILT_IN: Record<string, string> = {
-  'https://shalomail.com': 'e8088912b446162136659e1674b67e8d4cd9435c1b7a89057492365d715e9004',
+  'shalomail.com': 'e8088912b446162136659e1674b67e8d4cd9435c1b7a89057492365d715e9004',
+  'www.shalomail.com': 'e8088912b446162136659e1674b67e8d4cd9435c1b7a89057492365d715e9004',
 };
 const sha256Hex = async (s: string) => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)))].map(b => b.toString(16).padStart(2, '0')).join('');
 
 export async function serverKeys(api: string, pinned: string | undefined): Promise<ServerKeys> {
   const w = await call<{ certKey: string; tokenKey: { n: string; e: string } }>({ api, key: '' }, 'GET', '/auth/config', undefined, { anonymous: true });
-  const wire = JSON.stringify({ certKey: w.certKey, tokenKey: w.tokenKey });
-  const builtIn = BUILT_IN[api.replace(/\/+$/, '')];
+  // Montado aqui, campo por campo: a impressão não depende da ordem em que o servidor manda os campos.
+  const wire = JSON.stringify({ certKey: w.certKey, tokenKey: { n: w.tokenKey.n, e: w.tokenKey.e } });
+  // Pelo nome do servidor, sem o ponto final: https://shalomail.com:443/, http://shalomail.com e
+  // shalomail.com. caem todos na impressão embutida.
+  let host = '';
+  try { host = new URL(api).hostname.toLowerCase().replace(/\.+$/, ''); } catch { /* endereço estranho: só a fixada */ }
+  const builtIn = BUILT_IN[host];
   if ((builtIn && builtIn !== (await sha256Hex(wire))) || (pinned && pinned !== wire)) {
     throw new ApiError(0, 'server_keys', "The server's signing keys are not the ones this package trusts. Stopping for safety.");
   }
@@ -82,7 +89,8 @@ export async function serverKeys(api: string, pinned: string | undefined): Promi
 
 export type Agent = { address: string; key: string; secretKey: Uint8Array; api: string };
 
-export type Row = { id: string; folder: string; seen: number; starred: number; pinned?: number; received_at: number; size: number; sender: string | null; head: string };
+// checked 0: e-mail de fora na Entrada que nenhum aparelho conferiu ainda (checkSpam).
+export type Row = { id: string; folder: string; seen: number; starred: number; pinned?: number; received_at: number; size: number; sender: string | null; head: string; checked?: number };
 
 export type Summary = {
   id: string;
@@ -137,15 +145,18 @@ export class Mailbox {
       if (isSealedSender(blob)) {
         const { payload, sender } = await openFromSender(this.agent.secretKey, blob, 'head', (await this.server()).cert, r.received_at);
         h = JSON.parse(new TextDecoder().decode(payload)) as MessageHead;
-        // A identidade de quem enviou vem do certificado, não do que está escrito no e-mail.
+        // A identidade de quem enviou vem do certificado, não do que está escrito no e-mail. Se o e-mail diz
+        // outro remetente, alguém trocou o certificado de fora de uma mensagem alheia: não vale como conferida
+        // (o site e o app marcam como falsificada).
+        const claimed = h.from?.address?.toLowerCase();
         h = { ...h, from: { name: h.from?.name ?? '', address: sender.address } };
         // E a chave tem que ser a conhecida: a própria caixa confere com a chave daqui; os outros, com a fixada
         // neste computador. Sem isso, quem tomasse a conta de um contato (e ganhasse chave nova certificada)
         // mandaria ordens ao agente como se fosse ele.
         const known = sender.address === this.agent.address.toLowerCase()
           ? sender.publicKey === toB64(publicKeyOf(this.agent.secretKey))
-          : this.pins.contactKey?.(sender.address, sender.publicKey) ?? true;
-        verified = known;
+          : this.pins.contactKey?.(sender.address, sender.publicKey) ?? false;
+        verified = known && (!claimed || claimed === sender.address);
         keyChanged = !known;
         if (h.b) this.bodyHashes.set(r.id, h.b);
       } else {
@@ -166,7 +177,40 @@ export class Mailbox {
     const q = new URLSearchParams({ folder, limit: String(Math.min(Math.max(limit, 1), 100)) });
     if (before) q.set('before', String(before));
     const { messages, more } = await call<{ messages: Row[]; more: boolean }>(this.creds, 'GET', `/messages?${q}`);
-    return { messages: await Promise.all(messages.map(r => this.summarize(r))), more };
+    const sums = await Promise.all(messages.map(r => this.summarize(r)));
+    const moved = folder === 'inbox' ? await this.checkSpam(messages, sums) : new Set<string>();
+    return { messages: sums.filter(m => !moved.has(m.id)), more };
+  }
+
+  // Filtro de spam neste computador (shared/spam.ts), como no site e no app: o servidor só separa o que não pede
+  // ler o texto. Cada e-mail de fora que chega na Entrada é conferido uma vez, aqui ou em outro aparelho da conta;
+  // o que é spam vai para a pasta Spam e sai da lista. Devolve os ids movidos.
+  private async checkSpam(rows: Row[], sums: Summary[]): Promise<Set<string>> {
+    const spam: string[] = [];
+    const clean: string[] = [];
+    for (const [k, r] of rows.entries()) {
+      const m = sums[k];
+      if (r.checked !== 0 || r.folder !== 'inbox' || m.endToEnd) continue;
+      const from = m.from?.address ?? '';
+      try {
+        let score = contentScore({ subject: m.subject, text: m.snippet, from }).score;
+        // Corpo grande não é baixado só para conferir: vale o assunto e a prévia.
+        if (score < SPAM_THRESHOLD && r.size <= 4 * 1024 * 1024) {
+          const email = await this.body(r, m);
+          score = contentScore({ subject: email.subject ?? m.subject, text: email.text, html: email.html, from }).score;
+        }
+        (score >= SPAM_THRESHOLD ? spam : clean).push(r.id);
+      } catch {
+        clean.push(r.id);
+      }
+    }
+    try {
+      for (let i = 0; i < spam.length; i += 90) await this.update(spam.slice(i, i + 90), { folder: 'spam' });
+      for (let i = 0; i < clean.length; i += 90) await call(this.creds, 'POST', '/messages/update', { ids: clean.slice(i, i + 90), checked: true });
+    } catch {
+      return new Set();
+    }
+    return new Set(spam);
   }
 
   // Acha a linha de uma mensagem: pelo id completo, direto no servidor (qualquer pasta, qualquer idade); pelo
@@ -196,6 +240,10 @@ export class Mailbox {
   async read(id: string): Promise<{ summary: Summary; email: Email }> {
     const row = await this.find(id);
     const summary = await this.summarize(row);
+    return { summary, email: await this.body(row, summary) };
+  }
+
+  private async body(row: Row, summary: Summary): Promise<Email> {
     const blob = await call<Uint8Array>(this.creds, 'GET', `/messages/${row.id}/raw`, undefined, { raw: true });
     let raw: Uint8Array;
     if (isSealedSender(blob)) {
@@ -209,8 +257,7 @@ export class Mailbox {
       if (summary.verifiedSender) throw new ApiError(0, 'tampered', 'The message body is not sealed by its sender.');
       raw = await open(this.agent.secretKey, blob, 'raw');
     }
-    const email = await PostalMime.parse(await unpack(raw), { attachmentEncoding: 'arraybuffer' });
-    return { summary, email };
+    return PostalMime.parse(await unpack(raw), { attachmentEncoding: 'arraybuffer' });
   }
 
   update(ids: string[], change: { seen?: boolean; starred?: boolean; folder?: Exclude<Folder, 'starred' | 'drafts'> }) {
@@ -220,9 +267,14 @@ export class Mailbox {
   // ---- envio ----
 
   private async myCert(): Promise<SignedCert> {
-    if (this.cert && this.cert.until > Date.now() + 24 * 3600 * 1000) return this.cert.signed;
+    // O certificado vale um dia: reaproveita até uma hora antes de vencer (pedir um a cada envio deixava
+    // o pedido com login colado em cada entrega anônima).
+    if (this.cert && this.cert.until > Date.now() + 3600 * 1000) return this.cert.signed;
     const { cert } = await call<{ cert: SignedCert }>(this.creds, 'POST', '/cert', {});
-    this.cert = { signed: cert, until: JSON.parse(new TextDecoder().decode(fromB64(cert.c))).e as number };
+    // Validade pelo relógio daqui (a duração somada à hora do pedido): com o relógio atrasado não sai
+    // certificado vencido.
+    const c = JSON.parse(new TextDecoder().decode(fromB64(cert.c))) as { i: number; e: number };
+    this.cert = { signed: cert, until: Date.now() + (c.e - c.i) };
     return cert;
   }
 

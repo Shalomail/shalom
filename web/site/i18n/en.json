@@ -4,7 +4,7 @@
     "name": "English",
     "dir": "ltr",
     "title": "Shalom Mail: truly private, encrypted email",
-    "description": "Your emails are locked with a key that only exists on your device. Free, no phone number, no ID."
+    "description": "Your emails stay locked, and only your password opens them. Free, no phone number, no ID."
   },
   "nav": {
     "home": "Shalom Mail, home",
@@ -14,7 +14,7 @@
   },
   "hero": {
     "title": "Truly private email.",
-    "lede": "Your emails are locked with a key that only exists on your device."
+    "lede": "Your emails stay locked, and only your password opens them."
   },
   "claim": {
     "placeholder": "name",
@@ -73,10 +73,10 @@
     "developers": "Developers",
     "encryption": "Encryption",
     "faq": "FAQ",
-    "about": "Shalom Mail (shalomail.com) is an encrypted email service that works in the browser. Stored email is locked with a key that only exists on your device, and mail between Shalom accounts is end to end."
+    "about": "Shalom Mail (shalomail.com) is an encrypted email service that works in the browser. Stored email is locked with a key that only your password unlocks, and mail between Shalom accounts is end to end."
   },
   "legal": {
-    "updated": "Last updated: October 30, 2026",
+    "updated": "Last updated: November 5, 2026",
     "translationNote": "This is a translation. If it differs from the Portuguese version, the Portuguese version prevails.",
     "operator": "Shalom Mail is operated by {c}, based in Governador Celso Ramos, SC, Brazil.",
     "terms": {
@@ -209,7 +209,7 @@
         {
           "h": "4. Email to and from outside Shalom",
           "p": [
-            "Email from another service arrives unencrypted, like all email on the internet. The moment it arrives, the server checks it for spam or scams and locks it with your key. The unencrypted version is not stored.",
+            "Email from another service arrives unencrypted, like all email on the internet. The moment it arrives, the server only checks whether the sender's domain vouches for the sender and locks it with your key. Whether it is a scam or junk is checked by your device, which opens it with your key. The unencrypted version is not stored.",
             "Email you send to another service goes out as regular email and passes unencrypted through the sending service to its destination.",
             "End-to-end encryption, with no unencrypted step at all, applies between Shalom accounts. In that case not even the sender's name is visible to the server."
           ]
@@ -227,6 +227,7 @@
             "The infrastructure runs on Cloudflare: servers, database, storage, receiving and sending email, and the anti-bot check (Turnstile). Cloudflare processes data on our behalf; stored emails reach it already encrypted.",
             "If you subscribe to a paid plan, billing is done by Stripe, which receives your Shalom address and payment details to process the subscription, under its own privacy policy.",
             "If you turn on notifications in the iOS app, each one goes through Apple's notification service (APNs). Apple receives the device identifier, the time and the text \"New message\", with no sender, subject or anything from the message.",
+            "Cloudflare, Stripe and Apple receive only what each service needs and protect that data at a level equal to or higher than this policy.",
             "Cloudflare's servers are in many countries, so your data may be processed outside Brazil, with the safeguards required by Brazilian data protection law.",
             "We don't sell data, we don't show ads and we don't use your emails to train anything.",
             "We only hand data to authorities under a valid court order. What we have is what's listed in section 3: the content of stored emails stays encrypted, and we don't have the key."
@@ -347,7 +348,7 @@
   "enc": {
     "title": "How the encryption works",
     "description": "How Shalom Mail protects your email: a key created on your device, Argon2id for the password, AES-256-GCM for every stored message, and where it stops.",
-    "lead": "Shalom Mail is an email service at shalomail.com. Your stored email is locked with a key that only exists on your device, and mail between Shalom accounts is end to end. Here is how it works, in plain words, and where the protection ends.",
+    "lead": "Shalom Mail is an email service at shalomail.com. Your stored email is locked with a key that only your password unlocks, and mail between Shalom accounts is end to end. Here is how it works, in plain words, and where the protection ends.",
     "s": {
       "key": {
         "h": "Your key is created on your device",
@@ -373,7 +374,7 @@
       "outside": {
         "h": "Email with other providers",
         "p": [
-          "Email from Gmail, Outlook or any other provider arrives unencrypted, like all email on the internet. At that moment the server checks it for spam and scams and seals it with your key. The unencrypted version is not stored.",
+          "Email from Gmail, Outlook or any other provider arrives unencrypted, like all email on the internet. At that moment the server only checks whether the sender's domain vouches for the sender and seals it with your key. Whether it is a scam or junk is checked by your device, which opens it with your key. The unencrypted version is not stored.",
           "Email you send to other providers goes out as regular email. The server passes it on unencrypted, and the recipient's provider can read it. Here Shalom protects the copy kept in your mailbox, not the trip."
         ]
       },
@@ -447,7 +448,7 @@
     "q": {
       "what": {
         "q": "What is Shalom Mail?",
-        "a": "Shalom Mail is an encrypted email service that works in the web browser, at shalomail.com. The account is free, with 1 GB and a @shalomail.com address. Stored email is locked with a key that only exists on your device, mail between Shalom accounts is end to end, and AI agents can have mailboxes of their own."
+        "a": "Shalom Mail is an encrypted email service that works in the web browser, at shalomail.com. The account is free, with 1 GB and a @shalomail.com address. Stored email is locked with a key that only your password unlocks, mail between Shalom accounts is end to end, and AI agents can have mailboxes of their own."
       },
       "free": {
         "q": "Is Shalom Mail free?",
@@ -479,7 +480,7 @@
       },
       "read": {
         "q": "Can Shalom read my email?",
-        "a": "Not your stored email. Every message is sealed with a key that only exists on your device, and the server keeps it without being able to open it. Email from other providers can be read by the server at the moment it arrives, before it is sealed, and email you send to other providers goes out as regular email."
+        "a": "Not your stored email. Every message is sealed with a key that only your password unlocks, and the server keeps it without being able to open it. Email from other providers can be read by the server at the moment it arrives, before it is sealed, and email you send to other providers goes out as regular email."
       },
       "e2e": {
         "q": "Is Shalom Mail end-to-end encrypted?",

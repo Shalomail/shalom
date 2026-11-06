@@ -22,7 +22,7 @@ export async function setRecovery(email: string, confirm?: { user: User; passwor
 export const resendRecovery = () => api<{ verified: boolean; sent?: boolean }>('/profile/recovery/resend', { body: {} });
 export const confirmRecovery = (token: string) => api<{ ok: true; hint: string | null }>('/auth/recovery/confirm', { body: { token } });
 export const forgotPassword = (address: string) => api<{ ok: true }>('/auth/forgot', { body: { address } });
-export const resetInfo = (token: string) => api<{ address: string; need: { pin: boolean; totp: boolean } }>('/auth/reset/info', { body: { token } });
+export const resetInfo = (token: string) => api<{ address: string; name?: string; need: { pin: boolean; totp: boolean } }>('/auth/reset/info', { body: { token } });
 
 export async function resetPassword(token: string, password: string, answers: { pin?: string; code?: string; recovery?: string }, address?: string): Promise<Session> {
   // A sessão nova entra na vaga desta conta, se ela já estiver no navegador, ou numa vaga livre: nunca

@@ -4,9 +4,13 @@ export interface Env {
   // Contas, sessões e contadores. As mensagens ficam em uma caixa (Durable Object) por conta.
   DB: D1Database;
   MAILBOX: DurableObjectNamespace<Mailbox>;
-  // Freios por IP e por conta que não gravam nada no banco.
+  // Freios por IP e por conta que não gravam nada no banco. API_LIMIT e ACCOUNT_LIMIT são os tetos largos
+  // contra inundação (todo pedido à API por rede, e todo pedido de uma conta logada).
   IP_LIMIT: RateLimit;
   USER_LIMIT: RateLimit;
+  API_LIMIT: RateLimit;
+  ACCOUNT_LIMIT: RateLimit;
+  AGENTS_LIMIT: RateLimit;
   BLOBS: R2Bucket;
   EMAIL: SendEmail;
   // Arquivos estáticos (landing e app). O app abre pelo app.html nas rotas dele.

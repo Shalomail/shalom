@@ -31,9 +31,9 @@ type LoginRow = { poll_hash: string; code: string; device: string; public_key: s
 
 export const cliLogin = new Hono<AppEnv>();
 
-// O terminal pede um código. Sem conta: o limite é por rede.
+// O terminal pede um código. Sem conta: o limite é por rede, 60 por minuto (cada pedido grava uma linha).
 cliLogin.post('/start', async c => {
-  if (!(await c.env.USER_LIMIT.limit({ key: `cli-start:${clientIp(c)}` })).success) return fail(c, 429, 'slow_down', 'Muitos pedidos seguidos. Espere um minuto.');
+  if (!(await c.env.IP_LIMIT.limit({ key: `cli-start:${clientIp(c)}` })).success) return fail(c, 429, 'slow_down', 'Muitos pedidos seguidos. Espere um minuto.');
   const body = await c.req.json<{ device?: string; publicKey?: string }>().catch(() => ({} as { device?: string; publicKey?: string }));
   let pub: Uint8Array;
   try { pub = fromB64(String(body.publicKey ?? '')); } catch { return fail(c, 400, 'bad_request', 'Chave pública inválida.'); }
@@ -56,6 +56,8 @@ cliLogin.post('/start', async c => {
 
 // O terminal pergunta se já foi aprovado. Aprovado: leva a chave lacrada e o pedido some.
 cliLogin.post('/poll', async c => {
+  // O terminal pergunta a cada poucos segundos; 120 por minuto por rede sobra.
+  if (!(await c.env.USER_LIMIT.limit({ key: `cli-poll:${clientIp(c)}` })).success) return fail(c, 429, 'slow_down', 'Muitos pedidos seguidos. Espere um minuto.');
   const { poll } = await c.req.json<{ poll?: string }>().catch(() => ({ poll: '' }));
   if (typeof poll !== 'string' || poll.length < 20 || poll.length > 100) return fail(c, 400, 'bad_request', 'Pedido inválido.');
   const hash = await sha256(poll);

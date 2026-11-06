@@ -310,11 +310,12 @@ struct PasswordPanel: View {
             }
             Section(header: Text(t("settings.pwChooseNew")), footer: Text(t("settings.pwRule"))) {
                 SecureField(t("settings.pwNew"), text: $next).textContentType(.newPassword)
-                    .task(id: next) { strength = next.isEmpty ? nil : await PasswordStrength.shared.check(next, inputs: [session.user.name, session.user.address]) }
+                    .task(id: next) { if next.isEmpty { strength = nil } else if let r = await PasswordStrength.live(next, inputs: [session.user.name, session.user.address]) { strength = r } }
                 if let strength { Text(t(strength.hint)).font(.system(size: 13)).foregroundStyle(strength.ok ? Palette.text3 : Palette.warn) }
                 SecureField(t("settings.pwRepeat"), text: $repeatPw).textContentType(.newPassword)
                 if !repeatPw.isEmpty { Text(t(repeatPw == next ? "settings.pwMatch" : "settings.pwNoMatch")).font(.system(size: 13)).foregroundStyle(repeatPw == next ? Palette.safe : Palette.warn) }
             }
+            .disabled(busy)
             Section { Text(t("settings.pwOthersOut")).font(.system(size: 13)).foregroundStyle(Palette.text3) }
             if let error { Section { Note(text: error, tone: .warn).frame(maxWidth: .infinity, alignment: .leading) } }
         }
@@ -328,12 +329,18 @@ struct PasswordPanel: View {
     }
 
     private func submit() {
-        guard strength?.ok == true else { error = t(strength?.hint ?? "settings.pwMin"); return }
-        guard next == repeatPw else { error = t("settings.pwMismatch"); return }
+        guard !busy else { return }
         busy = true; error = nil
+        // Confere a senha de agora, não o resultado calculado enquanto digitava (pode ser de uma senha anterior).
+        let pw = next
         Task {
             defer { busy = false }
-            do { try await AccountAPI.changePassword(session, current: current, next: next, factors: need.answers(factorPin, factorCode)); done() } catch { self.error = (error as? APIError)?.message ?? t("settings.pwFail") }
+            let r = await PasswordStrength.shared.check(pw, inputs: [session.user.name, session.user.address])
+            guard pw == next else { return }
+            strength = r
+            guard r.ok else { error = t(r.hint); return }
+            guard pw == repeatPw else { error = t("settings.pwMismatch"); return }
+            do { try await AccountAPI.changePassword(session, current: current, next: pw, factors: need.answers(factorPin, factorCode)); done() } catch { self.error = (error as? APIError)?.message ?? t("settings.pwFail") }
         }
     }
 }

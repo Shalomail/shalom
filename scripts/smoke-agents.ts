@@ -150,6 +150,16 @@ const fromFriend = inbox?.find(m => m.from?.address === friend.user.address);
 const fromShop = inbox?.find(m => m.subject === 'Pedido 123');
 check(fromFriend?.verifiedSender === true && fromFriend.subject === 'Oi agente', 'remetente Shalom conferido pelo certificado');
 check(fromShop?.auth === 'pass' && fromShop.verifiedSender === false, 'e-mail de fora com DMARC aprovado');
+
+// Golpe com DMARC aprovado: o servidor não lê o texto; o CLI confere no computador do agente (shared/spam.ts),
+// move para o Spam e tira da lista.
+const phish = ['From: "Banco Beta" <aviso@bancobeta.example>', `To: ${address}`, 'Subject: Atualize seus dados agora', `Message-ID: <phish-${Date.now()}@bancobeta.example>`,
+  'Authentication-Results: mx.cloudflare.net; dkim=pass; spf=pass; dmarc=pass header.from=bancobeta.example', 'MIME-Version: 1.0', 'Content-Type: text/html; charset=utf-8', '',
+  '<p>Acesso incomum detectado. <a href="http://golpe.example/login">www.bancobeta.example</a></p>'].join('\r\n');
+await fetch(`${BASE}/cdn-cgi/handler/email?from=aviso@bancobeta.example&to=${address}`, { method: 'POST', body: phish });
+const afterPhish = cli(['inbox', ...as, '--json']).json as any[];
+check(afterPhish?.length === 2 && !afterPhish.some(m => /Atualize seus dados/.test(m.subject)), 'golpe com DMARC aprovado sai da Entrada pelo CLI');
+check((cli(['inbox', ...as, '--folder', 'spam', '--json']).json as any[])?.some(m => /Atualize seus dados/.test(m.subject)), 'e vai para o Spam do agente');
 check(cli(['inbox', ...as]).out.includes('Pedido 123'), 'saída para gente');
 
 // A chave da amiga fica fixada na primeira mensagem dela. Se a chave do certificado mudar (conta tomada e

@@ -59,6 +59,8 @@ struct Row: Decodable {
     let size: Int
     let sender: String?
     let head: String
+    // 0: e-mail de fora na Entrada que nenhum aparelho conferiu ainda (SpamCheck). Servidor antigo não manda.
+    let checked: Int?
 }
 
 struct Item: Identifiable, Hashable {
@@ -80,6 +82,8 @@ struct Item: Identifiable, Hashable {
     let senderKey: String?
     // O remetente escrito no e-mail não confere com quem enviou de fato.
     let spoofed: Bool
+    // Spam já conferido por algum aparelho da conta (SpamCheck).
+    var checked = true
 
     static func == (a: Item, b: Item) -> Bool { a.id == b.id && a.seen == b.seen && a.starred == b.starred && a.folder == b.folder && a.pinned == b.pinned }
     func hash(into h: inout Hasher) { h.combine(id) }
@@ -165,9 +169,11 @@ final class Mailbox {
             var h = o.h
             if verified { h.from = Person(name: o.h.from?.name ?? "", address: o.sender!) }
             items.append(Item(id: r.id, folder: r.folder, seen: r.seen != 0, starred: r.starred != 0, pinned: r.pinned != 0, receivedAt: r.received_at, size: r.size,
-                              sender: o.sender, h: h, sealedEnd: sealedEnd, own: own, keyChanged: o.keyChanged, senderKey: o.key, spoofed: spoofed || o.keyChanged))
+                              sender: o.sender, h: h, sealedEnd: sealedEnd, own: own, keyChanged: o.keyChanged, senderKey: o.key, spoofed: spoofed || o.keyChanged,
+                              checked: (r.checked ?? 1) != 0))
         }
         lock.withLock { for i in items { seen[i.id] = i } }
+        if folder == .inbox { let toCheck = items; Task { await SpamCheck.shared.run(toCheck, session: session) } }
         return (items, res.more, res.counts)
     }
 
@@ -201,9 +207,11 @@ final class Mailbox {
         }
     }
 
-    func read(_ item: Item, session: Session) async throws -> ParsedEmail {
+    // keep: false só para a conferência de spam (SpamCheck), que não deve encher a memória com corpos não abertos.
+    func read(_ item: Item, session: Session, keep: Bool = true, onFetched: (() -> Void)? = nil) async throws -> ParsedEmail {
         if let cached = lock.withLock({ bodies[item.id] }) { return cached }
         let blob = try await API.shared.bytes("/messages/\(item.id)/raw")
+        onFetched?()
         let raw: Data
         if Sender.isSealedSender(blob) {
             let cert = try await ServerKeys.shared.get().cert
@@ -219,12 +227,12 @@ final class Mailbox {
             raw = try Seal.open(session.secretKey, blob, .raw)
         }
         let email = MIME.parse(try Pack.unpack(raw))
-        lock.withLock { bodies[item.id] = email }
+        if keep { lock.withLock { bodies[item.id] = email } }
         return email
     }
 
     @discardableResult
-    func update(_ ids: [String], seen: Bool? = nil, starred: Bool? = nil, pinned: Bool? = nil, folder: String? = nil) async throws -> Counts {
+    func update(_ ids: [String], seen: Bool? = nil, starred: Bool? = nil, pinned: Bool? = nil, folder: String? = nil, checked: Bool? = nil) async throws -> Counts {
         var counts: Counts = [:]
         for part in stride(from: 0, to: ids.count, by: 90).map({ Array(ids[$0 ..< min($0 + 90, ids.count)]) }) {
             var body: [String: Any] = ["ids": part]
@@ -232,6 +240,7 @@ final class Mailbox {
             if let starred { body["starred"] = starred }
             if let pinned { body["pinned"] = pinned }
             if let folder { body["folder"] = folder }
+            if let checked { body["checked"] = checked }
             counts = (try await API.shared.call("/messages/update", body))["counts"] as? Counts ?? counts
         }
         return counts

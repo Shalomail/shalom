@@ -4,7 +4,7 @@
     "name": "Türkçe",
     "dir": "ltr",
     "title": "Shalom Mail: şifreli ve gerçekten gizli e-posta",
-    "description": "E-postalarınız, yalnızca cihazınızda bulunan bir anahtarla kilitlenir. Ücretsiz; telefon numarası ve kimlik gerekmez."
+    "description": "E-postalarınız kilitli kalır ve onları yalnızca şifreniz açar. Ücretsiz; telefon numarası ve kimlik gerekmez."
   },
   "nav": {
     "home": "Shalom Mail, ana sayfa",
@@ -14,7 +14,7 @@
   },
   "hero": {
     "title": "Gerçekten gizli e-⁠posta.",
-    "lede": "E-postalarınız, yalnızca cihazınızda bulunan bir anahtarla kilitlenir."
+    "lede": "E-postalarınız kilitli kalır ve onları yalnızca şifreniz açar."
   },
   "claim": {
     "placeholder": "name",
@@ -73,10 +73,10 @@
     "developers": "Geliştiriciler",
     "encryption": "Şifreleme",
     "faq": "Sık sorulan sorular",
-    "about": "Shalom Mail (shalomail.com), tarayıcıda çalışan şifreli bir e-posta hizmetidir. Saklanan e-postalar yalnızca cihazınızda bulunan bir anahtarla kilitlenir ve Shalom hesapları arasında her şey uçtan uca şifrelidir."
+    "about": "Shalom Mail (shalomail.com), tarayıcıda çalışan şifreli bir e-posta hizmetidir. Saklanan e-postalar yalnızca şifrenizin açtığı bir anahtarla kilitlenir ve Shalom hesapları arasında her şey uçtan uca şifrelidir."
   },
   "legal": {
-    "updated": "Son güncelleme: 30 Ekim 2026",
+    "updated": "Son güncelleme: 5 Kasım 2026",
     "translationNote": "Bu bir çeviridir. Portekizce sürümle farklılık olması durumunda Portekizce sürüm geçerlidir.",
     "operator": "Shalom Mail, {c} tarafından işletilmektedir. Merkez: Governador Celso Ramos, SC, Brezilya.",
     "terms": {
@@ -209,7 +209,7 @@
         {
           "h": "4. Shalom dışından gelen ve dışarıya giden e-postalar",
           "p": [
-            "Başka bir hizmetten gelen e-posta, internetteki her e-posta gibi şifresiz ulaşır. Geldiği anda sunucu spam veya dolandırıcılık olup olmadığını kontrol eder ve mesajı sizin anahtarınızla kilitler. Şifresiz hâli saklanmaz.",
+            "Başka bir hizmetten gelen e-posta, internetteki her e-posta gibi şifresiz ulaşır. Geldiği anda sunucu yalnızca gönderenin alan adının onu doğrulayıp doğrulamadığını kontrol eder ve mesajı sizin anahtarınızla kilitler. Dolandırıcılık ya da reklam olup olmadığını, mesajı anahtarınızla açan cihazınız kontrol eder. Şifresiz hâli saklanmaz.",
             "Başka bir hizmete gönderdiğiniz e-posta normal bir e-posta olarak çıkar ve gönderim hizmetinden hedefine kadar şifresiz geçer.",
             "Hiçbir şifresiz aşaması olmayan uçtan uca şifreleme, Shalom hesapları arasında geçerlidir. Bu durumda yazanın adı bile sunucu tarafından görülemez."
           ]
@@ -227,6 +227,7 @@
             "Altyapı Cloudflare üzerinde çalışır: sunucular, veritabanı, depolama, e-posta alma ve gönderme ile bot doğrulaması (Turnstile). Cloudflare verileri bizim adımıza işler; saklanan e-postalar ona zaten şifrelenmiş olarak ulaşır.",
             "Ücretli bir plana abone olursanız tahsilatı Stripe yapar; aboneliği işlemek için Shalom adresinizi ve ödeme bilgilerinizi kendi gizlilik politikasına göre alır.",
             "iOS uygulamasında bildirimleri açarsanız her bildirim Apple’ın bildirim hizmetinden (APNs) geçer. Apple cihaz tanımlayıcısını, saati ve \"Yeni ileti\" metnini alır; gönderen, konu ya da iletiden herhangi bir şey almaz.",
+            "Cloudflare, Stripe ve Apple yalnızca her hizmet için gerekeni alır ve bu verileri en az bu politikadaki düzeyde korur.",
             "Cloudflare’in sunucuları birçok ülkede bulunduğundan verileriniz, LGPD’nin öngördüğü güvencelerle Brezilya dışında işlenebilir.",
             "Veri satmayız, reklam göstermeyiz ve e-postalarınızı hiçbir şeyi eğitmek için kullanmayız.",
             "Verileri yetkililere yalnızca geçerli bir mahkeme kararı üzerine veririz. Elimizdeki bilgiler 3. bölümde listelenenlerdir: saklanan e-postaların içeriği şifreli kalır ve anahtar bizde değildir."
@@ -347,7 +348,7 @@
   "enc": {
     "title": "Şifreleme nasıl çalışır",
     "description": "Shalom Mail e-postalarınızı nasıl korur: cihazınızda oluşan anahtar, parola için Argon2id, saklanan her mesaj için AES-256-GCM ve korumanın bittiği yer.",
-    "lead": "Shalom Mail, shalomail.com adresindeki bir e-posta hizmetidir. Saklanan e-postalarınız yalnızca cihazınızda bulunan bir anahtarla kilitlenir ve Shalom hesapları arasında her şey uçtan uca şifrelidir. Bunun nasıl çalıştığını ve korumanın nerede bittiğini burada sade bir dille anlatıyoruz.",
+    "lead": "Shalom Mail, shalomail.com adresindeki bir e-posta hizmetidir. Saklanan e-postalarınız yalnızca şifrenizin açtığı bir anahtarla kilitlenir ve Shalom hesapları arasında her şey uçtan uca şifrelidir. Bunun nasıl çalıştığını ve korumanın nerede bittiğini burada sade bir dille anlatıyoruz.",
     "s": {
       "key": {
         "h": "Anahtarınız cihazınızda oluşturulur",
@@ -373,7 +374,7 @@
       "outside": {
         "h": "Diğer sağlayıcılarla e-posta",
         "p": [
-          "Gmail, Outlook veya başka herhangi bir sağlayıcıdan gelen e-posta, internetteki her e-posta gibi şifresiz ulaşır. O anda sunucu spam ve dolandırıcılık kontrolü yapar ve mesajı anahtarınızla mühürler. Şifresiz hâli saklanmaz.",
+          "Gmail, Outlook veya başka herhangi bir sağlayıcıdan gelen e-posta, internetteki her e-posta gibi şifresiz ulaşır. O anda sunucu yalnızca gönderenin alan adının onu doğrulayıp doğrulamadığını kontrol eder ve mesajı anahtarınızla mühürler. Dolandırıcılık ya da reklam olup olmadığını, mesajı anahtarınızla açan cihazınız kontrol eder. Şifresiz hâli saklanmaz.",
           "Diğer sağlayıcılara gönderdiğiniz e-posta normal e-posta olarak çıkar. Sunucu onu şifresiz iletir ve alıcının sağlayıcısı okuyabilir. Bu durumda Shalom yolu değil, kutunuzda saklanan kopyayı korur."
         ]
       },
@@ -447,7 +448,7 @@
     "q": {
       "what": {
         "q": "Shalom Mail nedir?",
-        "a": "Shalom Mail, shalomail.com adresinde, tarayıcıda çalışan şifreli bir e-posta hizmetidir. Hesap ücretsizdir; 1 GB alan ve bir @shalomail.com adresiyle gelir. Saklanan e-postalar yalnızca cihazınızda bulunan bir anahtarla kilitlenir, Shalom hesapları arasındaki e-postalar uçtan uca şifrelidir ve yapay zekâ ajanlarının kendi kutuları olabilir."
+        "a": "Shalom Mail, shalomail.com adresinde, tarayıcıda çalışan şifreli bir e-posta hizmetidir. Hesap ücretsizdir; 1 GB alan ve bir @shalomail.com adresiyle gelir. Saklanan e-postalar yalnızca şifrenizin açtığı bir anahtarla kilitlenir, Shalom hesapları arasındaki e-postalar uçtan uca şifrelidir ve yapay zekâ ajanlarının kendi kutuları olabilir."
       },
       "free": {
         "q": "Shalom Mail ücretsiz mi?",
@@ -479,7 +480,7 @@
       },
       "read": {
         "q": "Shalom e-postalarımı okuyabilir mi?",
-        "a": "Saklanan e-postalarınızı okuyamaz. Her mesaj yalnızca cihazınızda bulunan bir anahtarla mühürlenir ve sunucu onu açamadan saklar. Diğer sağlayıcılardan gelen e-postayı sunucu, mühürlenmeden önce geldiği anda okuyabilir; diğer sağlayıcılara gönderdiğiniz e-posta da normal e-posta olarak çıkar."
+        "a": "Saklanan e-postalarınızı okuyamaz. Her mesaj yalnızca şifrenizin açtığı bir anahtarla mühürlenir ve sunucu onu açamadan saklar. Diğer sağlayıcılardan gelen e-postayı sunucu, mühürlenmeden önce geldiği anda okuyabilir; diğer sağlayıcılara gönderdiğiniz e-posta da normal e-posta olarak çıkar."
       },
       "e2e": {
         "q": "Shalom Mail uçtan uca şifreli mi?",

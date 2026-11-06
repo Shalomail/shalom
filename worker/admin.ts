@@ -8,7 +8,7 @@ import { boxOf, FOLDERS, type MigrationRow } from './box';
 import type { AppEnv } from './env';
 import { planOf } from './plans';
 import { fromB64, toB64 } from '../shared/seal';
-import { bump, clientIp, fail, normalizeAddress, now, peek, sameBytes, sendCaps, sendsKey, sha256 } from './util';
+import { bodyCap, bump, clientIp, fail, MB, normalizeAddress, now, peek, sameBytes, sendCaps, sendsKey, sha256 } from './util';
 
 export const admin = new Hono<AppEnv>();
 
@@ -27,6 +27,10 @@ admin.use('*', async (c, next) => {
   }
   await next();
 });
+
+// Importação da migração: corpo grande só depois da chave conferida (o teto pequeno do resto fica em index.ts).
+admin.use('/import/blob', bodyCap(32 * MB));
+admin.use('/import/box', bodyCap(32 * MB));
 
 type Row = { id: string; address: string; name: string; created_at: number; owner_id: string | null; suspended_at: number | null; suspended_reason: string | null };
 

@@ -60,12 +60,12 @@
 
     <main class="doc wrap">
       <h1>加密是如何工作的</h1>
-      <p class="doc-lead">Shalom Mail 是 shalomail.com 上的邮箱服务。你存储的邮件用只存在于你设备上的密钥锁住，Shalom 账户之间的邮件全程端到端加密。下面用简单的话说明它是如何工作的，以及保护到哪里为止。</p>
+      <p class="doc-lead">Shalom Mail 是 shalomail.com 上的邮箱服务。你存储的邮件用只有你的密码能解开的密钥锁住，Shalom 账户之间的邮件全程端到端加密。下面用简单的话说明它是如何工作的，以及保护到哪里为止。</p>
 
       <section class="doc-sec" aria-labelledby="key"><h2 id="key">你的密钥在你的设备上生成</h2><p>创建账户时，你的浏览器会生成你的私钥：256 位随机数，用于 X25519。它从不以任何人能读懂的形式到达服务器。</p><p>服务器只把它保存在一个由你的密码锁住的信封里，你登录时信封在你的设备上打开。服务器还会给这个信封加上自己的第二道锁，所用的密钥保存在数据库之外。</p></section>
       <section class="doc-sec" aria-labelledby="password"><h2 id="password">你的密码留在你的设备上</h2><p>你的设备用 Argon2id 处理密码，使用 128 MB 内存、3 轮计算，并从结果推导出两把密钥。一把向服务器证明你知道密码，另一把打开装有你密钥的信封。密码本身从不发送。</p><p>服务器只存储由这个证明生成的一段代码，并使用一个不在数据库中的密钥。应用还会检查服务器发来的 Argon2id 参数并拒绝过弱的参数，这样被篡改的服务器也无法让你的密码更容易被猜到。</p></section>
       <section class="doc-sec" aria-labelledby="stored"><h2 id="stored">每封存储的邮件都已密封</h2><p>每封邮件分成两个密封的部分保存：一个小的邮件头，包含发件人、收件人、主题、日期、简短预览和所属对话；以及带附件的完整邮件。</p><p>两个部分都用 X25519、HKDF-SHA256 和 AES-256-GCM 按你的公钥密封。只有你的私钥能打开它们，所以服务器保存的是它无法读取的数据。</p></section>
-      <section class="doc-sec" aria-labelledby="outside"><h2 id="outside">与其他邮箱服务之间的邮件</h2><p>来自 Gmail、Outlook 或其他任何服务的邮件，和互联网上的所有邮件一样，以未加密的形式送达。到达的那一刻，服务器会检查它是否为垃圾邮件或诈骗邮件，并用你的密钥密封。未加密的版本不会被保存。</p><p>你发往其他服务的邮件以普通邮件形式发出。服务器以未加密的形式转发，收件人的邮箱服务可以读取。这种情况下，Shalom 保护的是你邮箱里保存的副本，而不是传输过程。</p></section>
+      <section class="doc-sec" aria-labelledby="outside"><h2 id="outside">与其他邮箱服务之间的邮件</h2><p>来自 Gmail、Outlook 或其他任何服务的邮件，和互联网上的所有邮件一样，以未加密的形式送达。到达的那一刻，服务器只检查发件人的域名是否确认了发件人，并用你的密钥密封。是否为诈骗或广告，由用你的密钥打开邮件的设备检查。未加密的版本不会被保存。</p><p>你发往其他服务的邮件以普通邮件形式发出。服务器以未加密的形式转发，收件人的邮箱服务可以读取。这种情况下，Shalom 保护的是你邮箱里保存的副本，而不是传输过程。</p></section>
       <section class="doc-sec" aria-labelledby="between"><h2 id="between">Shalom 账户之间：端到端</h2><p>当你写信给另一个 Shalom 地址时，你的设备会在邮件发出前按收件人的公钥把它密封。它只能在收件人的设备上读取，在传输途中和服务器上都无法读取。</p><p>邮件还会用你自己的密钥进行认证，所以服务器无法以你的名义伪造邮件。</p><p>发件人也被密封，方式类似 Signal 的 sealed sender。服务器为每个账户签发一份用 Ed25519 签名的简短证书。你的设备把它放进封印里，收件人进行验证，服务器则在不知道发件人是谁的情况下保存并投递邮件。</p><p>为了在不知道谁发了什么的情况下限制滥用，每次投递都要消耗一张由服务器盲签的票据，使用 RSA 盲签名。服务器会验证票据，但无法把它和申请票据的账户联系起来。</p></section>
       <section class="doc-sec" aria-labelledby="contacts"><h2 id="contacts">核对联系人的密钥</h2><p>应用会在第一次看到每个 Shalom 联系人的密钥时把它记住。如果服务器哪天为同一个地址给出了不同的密钥，发送会停止，应用会显示两组指纹，每组 30 位数字，方便你和联系人核对。联系人的密钥变化时，shalom CLI 也会停下，直到你确认。</p></section>
       <section class="doc-sec" aria-labelledby="agents"><h2 id="agents">面向 AI 智能体的邮箱</h2><p>每个智能体邮箱都有自己的密钥对，在你运行 shalom CLI 或 Node SDK 的机器上生成。私钥保存在 <code dir="ltr">~/.config/shalom</code> 或你导出的 <code dir="ltr">SHALOM_AGENT_TOKEN</code> 中，所以请像保管秘密一样保管这个令牌。</p><p>你的账户密钥可以创建和删除智能体邮箱，但不能打开其中任何一个。每个邮箱的密钥只能通过该邮箱阅读和发送。</p></section>
@@ -82,7 +82,7 @@
     </main>
 
     <footer class="foot wrap">
-      <p>Shalom Mail（shalomail.com）是一个在浏览器中使用的加密邮箱服务。存储的邮件用只存在于你设备上的密钥锁住，Shalom 账户之间的邮件全程端到端加密。</p>
+      <p>Shalom Mail（shalomail.com）是一个在浏览器中使用的加密邮箱服务。存储的邮件用只有你的密码能解开的密钥锁住，Shalom 账户之间的邮件全程端到端加密。</p>
       <div class="foot-row">
         <span>© 2026 Shalom Mail</span>
         <nav aria-label="链接">

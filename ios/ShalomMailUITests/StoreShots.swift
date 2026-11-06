@@ -26,6 +26,8 @@ final class StoreShots: XCTestCase {
 
     var copy: Copy!
     var password = ""
+    // TEST_RUNNER_SHALOM_STORE_THEMES=light tira só o claro.
+    var themes = ["light", "dark"]
 
     override func setUpWithError() throws {
         let env = ProcessInfo.processInfo.environment
@@ -34,6 +36,7 @@ final class StoreShots: XCTestCase {
         }
         copy = lang == "pt" ? Self.pt : Self.en
         password = p
+        if let t = env["SHALOM_STORE_THEMES"] { themes = t.split(separator: ",").map(String.init) }
         continueAfterFailure = false
     }
 
@@ -65,7 +68,7 @@ final class StoreShots: XCTestCase {
 
     func testStoreShots() throws {
         // Listas, nos dois temas.
-        for theme in ["light", "dark"] {
+        for theme in themes {
             let app = try launch(theme)
             shot("1-inbox-\(theme)")
             app.buttons["Spam"].tap()
@@ -75,7 +78,7 @@ final class StoreShots: XCTestCase {
         }
 
         // Leitura, escrita, aviso de golpe e segurança.
-        for theme in ["light", "dark"] {
+        for theme in themes {
             let app = try launch(theme)
             app.staticTexts[copy.thread].firstMatch.tap()
             sleep(4)

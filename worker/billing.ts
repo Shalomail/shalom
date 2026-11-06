@@ -5,7 +5,7 @@ import { Hono, type Context } from 'hono';
 import { requireUser } from './auth';
 import type { AppEnv, Env } from './env';
 import { agentCount, lookupKey, PAID, planOf, PRICE_USD, type Plan } from './plans';
-import { fail, hex, hmac, now, sameBytes } from './util';
+import { bump, fail, hex, hmac, now, sameBytes } from './util';
 
 const STRIPE_VERSION = '2025-09-30.clover';
 
@@ -113,6 +113,13 @@ billing.use('*', requireUser);
 // Ver o plano vale pela chave da conta (CLI); assinar, trocar de plano e abrir o portal (cartão e
 // faturas), só pela sessão do app: uma chave vazada não cobra nada nem mostra dados de pagamento.
 billing.use('*', async (c, next) => (c.get('apiKey') && c.req.method !== 'GET' ? fail(c, 403, 'key_scope', 'Assine ou troque de plano pela página Agentes de IA.') : next()));
+// Cada POST aqui chama o Stripe (conta dividida com outros produtos da X Tech): 5 por minuto por conta.
+billing.use('*', async (c, next) => {
+  if (c.req.method !== 'GET' && (await bump(c.env.DB, `billing:${c.get('user').id}`, 60 * 1000)) > 5) {
+    return fail(c, 429, 'slow_down', 'Muitos pedidos seguidos. Espere um minuto.');
+  }
+  await next();
+});
 
 billing.get('/', async c => {
   const user = c.get('user');

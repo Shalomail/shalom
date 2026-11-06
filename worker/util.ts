@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import { bodyLimit } from 'hono/body-limit';
 import { fromB64, toB64 } from '../shared/seal';
 import type { AppEnv, Env } from './env';
 
@@ -93,6 +94,17 @@ export async function bump(db: D1Database, key: string, windowMs: number, by = 1
 export async function peek(db: D1Database, key: string): Promise<number> {
   const row = await db.prepare('SELECT count, reset_at FROM counters WHERE key = ?').bind(key).first<{ count: number; reset_at: number }>();
   return row && row.reset_at > now() ? row.count : 0;
+}
+
+// Teto de corpo lido em fluxo (vale também sem content-length). As rotas com arquivo grande usam depois do
+// login; o teto pequeno de todo o resto fica em index.ts.
+export const MB = 1024 * 1024;
+export const bodyCap = (maxSize: number) => bodyLimit({ maxSize, onError: c => fail(c, 413, 'too_big', 'Pedido grande demais.') });
+
+// Chave pública que já é de outra conta (ou de outra caixa de agente): recusada, para ninguém se passar pela
+// autoria de mensagens de outra pessoa reaproveitando a chave dela.
+export async function keyInUse(db: D1Database, publicKey: string): Promise<boolean> {
+  return !!(await db.prepare('SELECT 1 AS x FROM users WHERE public_key = ? LIMIT 1').bind(publicKey).first());
 }
 
 export async function clear(db: D1Database, key: string) {

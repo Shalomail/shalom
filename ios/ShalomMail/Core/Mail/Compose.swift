@@ -125,7 +125,7 @@ enum MIMEBuilder {
 
 actor Outbox {
     static let shared = Outbox()
-    private var cert: (signed: SignedCert, until: Double)?
+    private var cert: (signed: SignedCert, until: Double, key: String)?
     private var tickets: [(token: Data, sig: String)] = []
     private var keyCache: [String: String?] = [:]
 
@@ -144,16 +144,20 @@ actor Outbox {
         return key
     }
 
-    // Certificado de remetente (vale 7 dias; renova com um dia de folga).
-    private func myCert() async throws -> SignedCert {
-        if let cert, cert.until > Date().timeIntervalSince1970 * 1000 + 86_400_000 { return cert.signed }
+    // Certificado de remetente: vale um dia e é reaproveitado até uma hora antes de vencer, em vez de pedir um
+    // a cada envio, e só para a mesma chave (outra conta ou chave nova pede outro). A validade conta pelo relógio
+    // daqui (a duração somada à hora do pedido): com o relógio atrasado não sai certificado vencido.
+    private func myCert(_ session: Session) async throws -> SignedCert {
+        let mine = try Seal.publicKey(of: session.secretKey).b64
+        if let cert, cert.key == mine, cert.until > Date().timeIntervalSince1970 * 1000 + 3_600_000 { return cert.signed }
         let r = try await API.shared.call("/cert", [:])
         guard let c = r["cert"] as? [String: String], let cc = c["c"], let s = c["s"], let raw = Data(b64: cc),
-              let obj = try? JSONSerialization.jsonObject(with: raw) as? [String: Any], let until = obj["e"] as? Double else {
+              let obj = try? JSONSerialization.jsonObject(with: raw) as? [String: Any],
+              let issued = obj["i"] as? Double, let expires = obj["e"] as? Double, let key = obj["k"] as? String else {
             throw APIError(status: 0, code: "internal", message: t("err.internal"))
         }
         let signed = SignedCert(c: cc, s: s)
-        cert = (signed, until)
+        cert = (signed, Date().timeIntervalSince1970 * 1000 + (expires - issued), key)
         return signed
     }
 
@@ -193,7 +197,7 @@ actor Outbox {
         let date = Date()
         let forThem = MIMEBuilder.build(from: me, out, text: text, html: html, messageId: messageId, date: date, includeBcc: false)
         let forMe = MIMEBuilder.build(from: me, out, text: text, html: html, messageId: messageId, date: date, includeBcc: true)
-        let cert = try await myCert()
+        let cert = try await myCert(session)
 
         // Com alguém de fora, o texto também sai aberto: nenhuma cópia vale como fechada de ponta a ponta.
         let hasExternal = all.contains { !Self.isShalom($0.address) }
@@ -235,7 +239,7 @@ actor Outbox {
     func saveDraft(_ out: Outgoing, replace: String?, session: Session) async throws -> String {
         let me = Person(name: session.user.name, address: session.user.address)
         let mime = MIMEBuilder.build(from: me, out, text: out.text, html: MIMEBuilder.textToHtml(out.text, quoted: nil), messageId: "<\(UUID().uuidString.lowercased())@\(AppModel.domain)>", date: Date(), includeBcc: true)
-        var body: [String: Any] = try sealedCopy(mime, to: try Seal.publicKey(of: session.secretKey), session: session, cert: try await myCert(), e2e: false)
+        var body: [String: Any] = try sealedCopy(mime, to: try Seal.publicKey(of: session.secretKey), session: session, cert: try await myCert(session), e2e: false)
         if let replace { body["replace"] = replace }
         return (try await API.shared.call("/drafts", body))["id"] as? String ?? ""
     }

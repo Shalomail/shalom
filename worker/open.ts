@@ -10,14 +10,17 @@ import { boxOf } from './box';
 import type { AppEnv } from './env';
 import { loadKeys } from './keys';
 import { notifyNewMail } from './push';
-import { bump, clientIp, fail, normalizeAddress, peek, tally } from './util';
+import { bodyCap, bump, clientIp, fail, MB, normalizeAddress, peek, tally } from './util';
 
 // Entrega anônima não tem como provar quem mandou: o tamanho e o volume diário por caixa são o freio
 // contra encher a caixa de alguém com lixo.
 const MAX_RAW_B64 = Math.ceil((5 * 1024 * 1024 + 2048) / 3) * 4;
-// 50 MB por dia por destinatário: alguém não enche a caixa de 1 GB de outra pessoa em poucos dias.
+// 50 MB por dia por destinatário: alguém não enche a caixa de 1 GB de outra pessoa em poucos dias. Mensagem
+// pequena (só texto) passa mesmo depois desse teto, até o limite de quantidade: quem manda anexos grandes
+// para travar uma caixa não consegue calar as conversas dela.
 const RECV_BYTES_DAY = 50 * 1024 * 1024;
 const RECV_COUNT_DAY = 500;
+const SMALL = 256 * 1024;
 const MAX_HEAD_B64 = Math.ceil((64 * 1024) / 3) * 4;
 
 export const open = new Hono<AppEnv>();
@@ -30,24 +33,36 @@ open.post('/keys', async c => {
   return c.json({ publicKey: row?.public_key ?? null });
 });
 
-open.post('/deliver', async c => {
+// Freio por rede antes de ler o corpo (até 8 MB), e só então o teto de corpo.
+open.use('/deliver', async (c, next) => {
   if (!(await c.env.USER_LIMIT.limit({ key: `deliver:${clientIp(c)}` })).success) return fail(c, 429, 'slow_down', 'Muitas entregas seguidas.');
+  await next();
+});
+open.use('/deliver', bodyCap(8 * MB));
+
+open.post('/deliver', async c => {
   const body = await c.req.json<{ to: string; head: string; raw: string; token: string; sig: string }>();
   const to = normalizeAddress(c.env, body.to || '');
   if (!to) return fail(c, 400, 'bad_recipient', 'Destino inválido.');
   if (typeof body.head !== 'string' || typeof body.raw !== 'string' || body.head.length > MAX_HEAD_B64 || body.raw.length > MAX_RAW_B64) {
     return fail(c, 413, 'too_big', 'Mensagem grande demais.');
   }
-  const head = fromB64(body.head);
-  const raw = fromB64(body.raw);
-  if (!isSealedSender(head) || !isSealedSender(raw)) return fail(c, 400, 'bad_request', 'Mensagem sem o lacre do remetente.');
 
-  // Ingresso: assinatura válida, semana atual ou anterior, nunca usado.
+  // Ingresso antes de abrir a mensagem: conferir a assinatura é barato e poupa decodificar megabytes de
+  // quem não tem direito de entregar. Semana anterior, atual ou a próxima (relógio do aparelho adiantado).
+  // A semana vai dentro do ingresso e quem a escolhe é o aparelho (a assinatura é cega), então esta janela
+  // não impede juntar ingressos para depois: isso pede uma chave de ingresso por semana.
   let token: Uint8Array;
   try { token = fromB64(body.token); } catch { return fail(c, 403, 'bad_token', 'Ingresso de entrega inválido.'); }
   const week = token.length === 36 ? tokenWeek(token) : -1;
   if (week < currentWeek() - 1 || week > currentWeek() + 1) return fail(c, 403, 'bad_token', 'Ingresso de entrega vencido.');
-  if (!(await verifyToken(loadKeys(c.env).token, token, b64ToBig(String(body.sig || ''))))) return fail(c, 403, 'bad_token', 'Ingresso de entrega inválido.');
+  let sig: bigint;
+  try { sig = b64ToBig(String(body.sig || '')); } catch { return fail(c, 403, 'bad_token', 'Ingresso de entrega inválido.'); }
+  if (!(await verifyToken(loadKeys(c.env).token, token, sig))) return fail(c, 403, 'bad_token', 'Ingresso de entrega inválido.');
+
+  let head: Uint8Array, raw: Uint8Array;
+  try { head = fromB64(body.head); raw = fromB64(body.raw); } catch { return fail(c, 400, 'bad_request', 'Mensagem inválida.'); }
+  if (!isSealedSender(head) || !isSealedSender(raw)) return fail(c, 400, 'bad_request', 'Mensagem sem o lacre do remetente.');
   const hash = toB64(new Uint8Array(await crypto.subtle.digest('SHA-256', token)));
   const spent = await c.env.DB.prepare('INSERT INTO spent_tokens (hash, week) VALUES (?, ?) ON CONFLICT(hash) DO NOTHING RETURNING hash')
     .bind(hash, week).first();
@@ -58,7 +73,7 @@ open.post('/deliver', async c => {
   const day = new Date().toISOString().slice(0, 10);
   const bytesKey = `recv-bytes:${user.id}:${day}`;
   const countKey = `recv-count:${user.id}:${day}`;
-  if ((await peek(c.env.DB, bytesKey)) + raw.length > RECV_BYTES_DAY || (await peek(c.env.DB, countKey)) >= RECV_COUNT_DAY) {
+  if ((await peek(c.env.DB, countKey)) >= RECV_COUNT_DAY || (raw.length > SMALL && (await peek(c.env.DB, bytesKey)) + raw.length > RECV_BYTES_DAY)) {
     return fail(c, 429, 'recipient_busy', `A caixa de ${to} não está aceitando mais mensagens hoje.`);
   }
   await bump(c.env.DB, bytesKey, 24 * 3600 * 1000, raw.length);
@@ -67,9 +82,10 @@ open.post('/deliver', async c => {
   await c.env.BLOBS.put(`m/${user.id}/${id}`, raw);
   // sender fica vazio: quem enviou só aparece dentro do lacre.
   const ok = await boxOf(c.env, user.id).add({ id, folder: 'inbox', seen: false, size: raw.length, sender: null, head });
+  // Cheia responde igual a "não aceita mais hoje": quem entrega não fica sabendo do estado da caixa alheia.
   if (!ok) {
     await c.env.BLOBS.delete(`m/${user.id}/${id}`);
-    return fail(c, 413, 'full', `A caixa de ${to} está cheia.`);
+    return fail(c, 429, 'recipient_busy', `A caixa de ${to} não está aceitando mais mensagens hoje.`);
   }
   await tally(c.env.DB, 'delivered');
   c.executionCtx.waitUntil(notifyNewMail(c.env, user.id).catch(e => console.error('aviso falhou', String(e))));

@@ -1,10 +1,15 @@
-// Filtro de spam na chegada. É o único momento em que o servidor vê o e-mail aberto (antes de
-// criptografar), então a decisão acontece aqui e só a pasta fica guardada. Pontuação simples e
-// explicável; passou de SPAM_THRESHOLD, vai para Spam. A pessoa corrige com "Não é spam".
-import type { Email } from 'postal-mime';
+// Spam em duas partes. O servidor separa na chegada só o que não pede ler o texto: o remetente reprovado na
+// verificação do domínio (DMARC) e quem é de fora fingindo ser do Shalom. O resto (frases de golpe, link que mostra
+// um site e leva a outro, assunto gritado) é conferido no aparelho, onde o texto já está aberto: no site
+// (web/src/lib/spamcheck.ts), no iPhone (ios/ShalomMail/Core/Mail/SpamCheck.swift, com esta regra empacotada
+// em Resources/spam.js) e no CLI. Passou de SPAM_THRESHOLD, vai para Spam. A pessoa corrige com "Não é spam".
 import type { MessageHead } from './head';
 
 export const SPAM_THRESHOLD = 5;
+
+export function serverSpam(head: MessageHead, mailDomain: string): boolean {
+  return head.auth === 'fail' || (head.from?.address ?? '').endsWith(`@${mailDomain}`);
+}
 
 const PHRASES = [
   /confirme (seus|os seus) dados/i, /atualize (seus|os seus) dados/i, /sua conta (foi|será) (bloqueada|suspensa|encerrada)/i,
@@ -14,27 +19,57 @@ const PHRASES = [
   /sem consulta ao spc|empr[eé]stimo aprovado/i, /viagra|cialis/i, /herança|heranca|inheritance/i,
 ];
 
-export function spamScore(email: Email, head: MessageHead, mailDomain: string): { score: number; reasons: string[] } {
+export type Readable = { subject?: string; text?: string; html?: string; from?: string };
+
+// Só o começo do texto e do HTML entra na conta, e as regras são lineares: o aparelho confere o que chega de fora
+// sem clique de ninguém, então um HTML montado para isso não pode travá-lo.
+const CAP = 256 * 1024;
+const tags = (s: string) => s.replace(/<[^<>]*>/g, ' ');
+
+// O href de verdade: atributos lidos um a um, valendo o primeiro chamado href (como no navegador), sem confundir com
+// data-href nem com "href=" escrito dentro de outro atributo. Tab e quebra de linha saem, como o navegador faz.
+function hrefOf(attrs: string): string | undefined {
+  for (const a of attrs.matchAll(/([^\s"'>\/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g)) {
+    if (a[1].toLowerCase() !== 'href') continue;
+    const v = (a[2] ?? a[3] ?? a[4] ?? '').replace(/[\t\n\r]/g, '').trim();
+    return /^https?:\/\//i.test(v) ? v : undefined;
+  }
+}
+
+export function contentScore(email: Readable): { score: number; reasons: string[] } {
   const reasons: string[] = [];
   let score = 0;
   const add = (n: number, why: string) => { score += n; reasons.push(why); };
 
-  if (head.auth === 'fail') add(5, 'remetente não passou na verificação (DMARC)');
-  const from = head.from?.address ?? '';
-  if (from.endsWith(`@${mailDomain}`)) add(6, 'de fora fingindo ser do Shalom');
-  if (!from) add(2, 'sem remetente');
+  if (!email.from) add(2, 'sem remetente');
 
-  const text = `${email.subject || ''}\n${email.text || ''}\n${(email.html || '').replace(/<[^>]+>/g, ' ')}`;
+  const html = (email.html || '').slice(0, CAP);
+  const text = `${email.subject || ''}\n${(email.text || '').slice(0, CAP)}\n${tags(html)}`;
   const hits = PHRASES.filter(r => r.test(text)).length;
   if (hits) add(Math.min(hits * 2, 6), `${hits} frase(s) típica(s) de golpe ou propaganda`);
 
-  // Link cujo texto mostra um endereço e o destino é outro domínio.
-  const html = email.html || '';
+  // Link cujo texto mostra um endereço e o destino é outro domínio. A tag de abertura é lida sozinha, o href sai
+  // dela com uma regra sem ambiguidade e o </a> é achado por posição: nenhuma regra disputa os mesmos caracteres.
   let mismatch = 0;
-  for (const m of html.matchAll(/<a\b[^>]*href=["']?(https?:\/\/[^"' >]+)[^>]*>([\s\S]*?)<\/a>/gi)) {
-    const shown = m[2].replace(/<[^>]+>/g, '').trim().match(/([a-z0-9-]+\.)+[a-z]{2,}/i)?.[0]?.toLowerCase();
-    const real = (() => { try { return new URL(m[1]).hostname.toLowerCase(); } catch { return ''; } })();
-    if (shown && real && !real.endsWith(shown.replace(/^www\./, ''))) mismatch++;
+  const lower = html.replace(/[A-Z]+/g, x => x.toLowerCase());
+  const closes: number[] = [];
+  for (let k = lower.indexOf('</a>'); k >= 0; k = lower.indexOf('</a>', k + 4)) closes.push(k);
+  let c = 0;
+  for (const m of html.matchAll(/<a\b([^<>]*)>/gi)) {
+    const start = m.index! + m[0].length;
+    while (c < closes.length && closes[c] < start) c++;
+    if (c === closes.length) break;
+    const end = closes[c];
+    if (end - start > 6300) continue;
+    c++;
+    const href = hrefOf(m[1]);
+    if (!href) continue;
+    const shown = tags(html.slice(start, end)).trim().slice(0, 300).match(/([a-z0-9-]+\.)+[a-z]{2,}/i)?.[0]?.toLowerCase();
+    // Sem URL(), que o JavaScriptCore do app não tem: o host fica depois de "//" e de um "usuário@" opcional.
+    const real = /^https?:\/\/(?:[^\/\\?#@]*@)?([^\/\\?#:]+)/i.exec(href)?.[1]?.toLowerCase() ?? '';
+    // O mesmo domínio ou um subdomínio dele; "xbanco.com.br" não é "banco.com.br".
+    const host = shown?.replace(/^www\./, '');
+    if (host && real && real !== host && !real.endsWith(`.${host}`)) mismatch++;
   }
   if (mismatch) add(4, 'link que mostra um site e leva para outro');
 

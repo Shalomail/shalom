@@ -230,6 +230,10 @@ struct SignUpView: View {
     @State private var local = ""
     @State private var password = ""
     @State private var strength: PasswordStrength.Result?
+    // A senha que passou no medidor, com o nome e o endereço daquela hora; create() só envia essa.
+    @State private var checked: String?
+    @State private var checking = false
+    @State private var attempt = 0
     @State private var confirm = ""
     @State private var available: Bool?
     @State private var reason: String?
@@ -254,7 +258,7 @@ struct SignUpView: View {
                         Text(L10n.shared.linked("auth.legal", ["terms": L10n.shared.site(.terms), "privacy": L10n.shared.site(.privacy)]))
                             .font(.system(size: 12)).foregroundStyle(Palette.text3).tint(Palette.text2).multilineTextAlignment(.center).frame(maxWidth: 300)
                     }
-                    if step > 0 { QuietButton(title: t("common.back")) { step -= 1; error = nil } }
+                    if step > 0 { QuietButton(title: t("common.back")) { attempt += 1; checked = nil; step -= 1; error = nil } }
                 }
                 .padding(.top, 14)
             }
@@ -294,10 +298,10 @@ struct SignUpView: View {
                 }.environment(\.layoutDirection, .leftToRight)
             }
         case 2:
-            ArrowField(icon: "lock", ready: strength?.ok == true, busy: false, action: next) {
+            ArrowField(icon: "lock", ready: strength?.ok == true, busy: checking, action: next) {
                 SecureField(t("pw.label"), text: $password).textContentType(.newPassword).focused($focused).submitLabel(.next).onSubmit(next).accessibilityIdentifier("signup-password")
             }
-            .task(id: password) { strength = password.isEmpty ? nil : await PasswordStrength.shared.check(password, inputs: [name, local]) }
+            .task(id: password) { if password.isEmpty { strength = nil } else if let r = await PasswordStrength.live(password, inputs: [name, local]) { strength = r } }
         default:
             ArrowField(icon: "lock", ready: confirm == password && (token != nil || siteKey.isEmpty), busy: busy, action: create) {
                 SecureField(t("pw.same"), text: $confirm).textContentType(.newPassword).focused($focused).submitLabel(.go).onSubmit(create).accessibilityIdentifier("signup-confirm")
@@ -319,16 +323,30 @@ struct SignUpView: View {
 
     private func next() {
         error = nil
-        if step == 2 && strength?.ok != true { error = t(strength?.hint ?? "pw.min"); return }
-        if step < 3 { step += 1; focused = true }
+        guard step == 2 else { if step < 3 { step += 1; focused = true }; return }
+        // A força é calculada enquanto digita; a decisão confere a senha de agora, para um Return rápido não ver
+        // "senha curta" antes do resultado nem passar com o resultado de uma senha anterior. Se a pessoa voltar de
+        // etapa ou mudar o nome, o endereço ou a senha durante a conta, o resultado é descartado.
+        guard !checking else { return }
+        checking = true
+        attempt += 1
+        let mine = attempt, pw = password, inputs = [name, local]
+        Task {
+            defer { checking = false }
+            let r = await PasswordStrength.shared.check(pw, inputs: inputs)
+            guard mine == attempt, pw == password, inputs == [name, local], step == 2 else { return }
+            strength = r
+            if r.ok { checked = pw; step = 3; focused = true } else { error = t(r.hint) }
+        }
     }
 
     private func create() {
-        guard confirm == password else { error = t("settings.pwNoMatch"); return }
+        guard let pw = checked, pw == password else { checked = nil; step = 2; return }
+        guard confirm == pw else { error = t("settings.pwNoMatch"); return }
         busy = true; error = nil
         Task {
             defer { busy = false }
-            do { try await app.signUp(local: local.trimmingCharacters(in: .whitespaces).lowercased(), name: name.trimmingCharacters(in: .whitespaces), password: password, turnstile: token ?? "", invite: nil) }
+            do { try await app.signUp(local: local.trimmingCharacters(in: .whitespaces).lowercased(), name: name.trimmingCharacters(in: .whitespaces), password: pw, turnstile: token ?? "", invite: nil) }
             catch { self.error = (error as? APIError)?.message ?? t("auth.signUpFail"); token = nil }
         }
     }

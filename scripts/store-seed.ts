@@ -5,6 +5,9 @@
 //   2. com o Worker local DESLIGADO: node scripts/run-ts.mjs scripts/store-seed.ts fix en
 // A segunda acerta, direto no SQLite local das caixas, a hora (manhã de hoje, relógio em 9:41), o lido
 // e o favorito de cada mensagem. Depois: ligar o Worker de novo e rodar StoreShots no simulador.
+// A etapa 1 precisa rodar de madrugada: mensagem de outra conta Shalom só abre se a chegada ficar depois da emissão
+// do certificado de quem enviou (a hora da etapa 1). Rodando depois das 6h, mova essas mensagens no .tmp/store-plan
+// para depois da etapa 1 antes da etapa 2, e acerte a hora da barra do simulador para depois delas.
 import { randomBytes } from 'node:crypto';
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';

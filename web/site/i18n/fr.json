@@ -4,7 +4,7 @@
     "name": "Français",
     "dir": "ltr",
     "title": "Shalom Mail : l’e-mail chiffré et vraiment privé",
-    "description": "Vos e-mails sont verrouillés par une clé qui n’existe que sur votre appareil. Gratuit, sans numéro de téléphone ni pièce d’identité."
+    "description": "Vos e-mails restent verrouillés, et seul votre mot de passe les ouvre. Gratuit, sans numéro de téléphone ni pièce d’identité."
   },
   "nav": {
     "home": "Shalom Mail, accueil",
@@ -14,7 +14,7 @@
   },
   "hero": {
     "title": "L’e-mail vraiment privé.",
-    "lede": "Vos e-mails sont verrouillés par une clé qui n’existe que sur votre appareil."
+    "lede": "Vos e-mails restent verrouillés, et seul votre mot de passe les ouvre."
   },
   "claim": {
     "placeholder": "name",
@@ -73,10 +73,10 @@
     "developers": "Développeurs",
     "encryption": "Chiffrement",
     "faq": "Questions fréquentes",
-    "about": "Shalom Mail (shalomail.com) est un service d’e-mail chiffré qui fonctionne dans le navigateur. Les e-mails stockés sont verrouillés par une clé qui n’existe que sur votre appareil, et entre comptes Shalom tout est chiffré de bout en bout."
+    "about": "Shalom Mail (shalomail.com) est un service d’e-mail chiffré qui fonctionne dans le navigateur. Les e-mails stockés sont verrouillés par une clé que seul votre mot de passe déverrouille, et entre comptes Shalom tout est chiffré de bout en bout."
   },
   "legal": {
-    "updated": "Dernière mise à jour : 30 octobre 2026",
+    "updated": "Dernière mise à jour : 5 novembre 2026",
     "translationNote": "Ceci est une traduction. En cas de divergence avec la version portugaise, la version portugaise prévaut.",
     "operator": "Shalom Mail est exploité par {c}, dont le siège est à Governador Celso Ramos, SC, Brésil.",
     "terms": {
@@ -209,7 +209,7 @@
         {
           "h": "4. E-mails échangés avec l’extérieur de Shalom",
           "p": [
-            "Un e-mail venant d’un autre service arrive en clair, comme tous les e-mails sur Internet. Dès son arrivée, le serveur vérifie s’il s’agit de spam ou d’une escroquerie et le verrouille avec votre clé. La version en clair n’est pas conservée.",
+            "Un e-mail venant d’un autre service arrive en clair, comme tous les e-mails sur Internet. Dès son arrivée, le serveur vérifie seulement que le domaine de l’expéditeur le confirme et le verrouille avec votre clé. S’il s’agit d’une escroquerie ou de publicité, c’est votre appareil qui le vérifie, en l’ouvrant avec votre clé. La version en clair n’est pas conservée.",
             "Un e-mail que vous envoyez à un autre service part comme un e-mail ordinaire et passe en clair par le service d’envoi jusqu’à sa destination.",
             "Le chiffrement de bout en bout, sans aucune étape en clair, s’applique entre comptes Shalom. Dans ce cas, même le nom de l’expéditeur n’est pas visible pour le serveur."
           ]
@@ -227,6 +227,7 @@
             "L’infrastructure fonctionne sur Cloudflare : serveurs, base de données, stockage, réception et envoi des e-mails, et la vérification anti-robot (Turnstile). Cloudflare traite les données pour notre compte ; les e-mails stockés lui parviennent déjà chiffrés.",
             "Si vous souscrivez une offre payante, la facturation est assurée par Stripe, qui reçoit votre adresse Shalom et vos données de paiement pour traiter l'abonnement, selon sa propre politique de confidentialité.",
             "Si vous activez les notifications dans l’app iOS, chacune passe par le service de notifications d’Apple (APNs). Apple reçoit l’identifiant de l’appareil, l’heure et le texte « Nouveau message », sans expéditeur, objet ni rien du message.",
+            "Cloudflare, Stripe et Apple ne reçoivent que ce dont chaque service a besoin et protègent ces données à un niveau égal ou supérieur à celui de cette politique.",
             "Les serveurs de Cloudflare se trouvent dans de nombreux pays, vos données peuvent donc être traitées hors du Brésil, avec les garanties prévues par la LGPD.",
             "Nous ne vendons pas de données, nous n’affichons pas de publicité et nous n’utilisons pas vos e-mails pour entraîner quoi que ce soit.",
             "Nous ne remettons des données aux autorités que sur décision de justice valide. Ce dont nous disposons est listé à la section 3 : le contenu des e-mails stockés reste chiffré et nous n’avons pas la clé."
@@ -347,7 +348,7 @@
   "enc": {
     "title": "Comment fonctionne le chiffrement",
     "description": "Comment Shalom Mail protège vos e-mails : clé créée sur votre appareil, Argon2id pour le mot de passe, AES-256-GCM pour chaque message, et ses limites.",
-    "lead": "Shalom Mail est un service d’e-mail sur shalomail.com. Vos e-mails stockés sont verrouillés par une clé qui n’existe que sur votre appareil, et entre comptes Shalom tout est chiffré de bout en bout. Voici comment cela fonctionne, en mots simples, et où s’arrête la protection.",
+    "lead": "Shalom Mail est un service d’e-mail sur shalomail.com. Vos e-mails stockés sont verrouillés par une clé que seul votre mot de passe déverrouille, et entre comptes Shalom tout est chiffré de bout en bout. Voici comment cela fonctionne, en mots simples, et où s’arrête la protection.",
     "s": {
       "key": {
         "h": "Votre clé est créée sur votre appareil",
@@ -373,7 +374,7 @@
       "outside": {
         "h": "Les e-mails avec les autres fournisseurs",
         "p": [
-          "Un e-mail venant de Gmail, d’Outlook ou de tout autre fournisseur arrive en clair, comme tous les e-mails sur Internet. À ce moment, le serveur vérifie s’il s’agit de spam ou d’une escroquerie et le scelle avec votre clé. La version en clair n’est pas conservée.",
+          "Un e-mail venant de Gmail, d’Outlook ou de tout autre fournisseur arrive en clair, comme tous les e-mails sur Internet. À ce moment, le serveur vérifie seulement que le domaine de l’expéditeur le confirme et le scelle avec votre clé. S’il s’agit d’une escroquerie ou de publicité, c’est votre appareil qui le vérifie, en l’ouvrant avec votre clé. La version en clair n’est pas conservée.",
           "Un e-mail que vous envoyez à un autre fournisseur part comme un e-mail ordinaire. Le serveur le transmet en clair, et le fournisseur du destinataire peut le lire. Dans ce cas, Shalom protège la copie conservée dans votre boîte, pas le trajet."
         ]
       },
@@ -447,7 +448,7 @@
     "q": {
       "what": {
         "q": "Qu’est-ce que Shalom Mail ?",
-        "a": "Shalom Mail est un service d’e-mail chiffré qui fonctionne dans le navigateur, sur shalomail.com. Le compte est gratuit, avec 1 Go et une adresse @shalomail.com. Les e-mails stockés sont verrouillés par une clé qui n’existe que sur votre appareil, les e-mails entre comptes Shalom sont chiffrés de bout en bout, et les agents IA peuvent avoir leurs propres boîtes."
+        "a": "Shalom Mail est un service d’e-mail chiffré qui fonctionne dans le navigateur, sur shalomail.com. Le compte est gratuit, avec 1 Go et une adresse @shalomail.com. Les e-mails stockés sont verrouillés par une clé que seul votre mot de passe déverrouille, les e-mails entre comptes Shalom sont chiffrés de bout en bout, et les agents IA peuvent avoir leurs propres boîtes."
       },
       "free": {
         "q": "Shalom Mail est-il gratuit ?",
@@ -479,7 +480,7 @@
       },
       "read": {
         "q": "Shalom peut-il lire mes e-mails ?",
-        "a": "Pas vos e-mails stockés. Chaque message est scellé par une clé qui n’existe que sur votre appareil, et le serveur le conserve sans pouvoir l’ouvrir. Les e-mails venant d’autres fournisseurs sont lisibles par le serveur au moment où ils arrivent, avant d’être scellés, et les e-mails que vous envoyez à d’autres fournisseurs partent comme des e-mails ordinaires."
+        "a": "Pas vos e-mails stockés. Chaque message est scellé par une clé que seul votre mot de passe déverrouille, et le serveur le conserve sans pouvoir l’ouvrir. Les e-mails venant d’autres fournisseurs sont lisibles par le serveur au moment où ils arrivent, avant d’être scellés, et les e-mails que vous envoyez à d’autres fournisseurs partent comme des e-mails ordinaires."
       },
       "e2e": {
         "q": "Shalom Mail est-il chiffré de bout en bout ?",

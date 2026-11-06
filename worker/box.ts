@@ -14,15 +14,16 @@ export const MAX_IDS = 90;
 
 export const boxOf = (env: Env, userId: string) => env.MAILBOX.get(env.MAILBOX.idFromName(userId));
 
-export type NewMessage = { id: string; folder: Folder; seen: boolean; size: number; sender: string | null; head: Uint8Array };
-export type Row = { id: string; folder: Folder; seen: number; starred: number; pinned: number; received_at: number; size: number; sender: string | null; head: ArrayBuffer };
+// checked: false só no e-mail de fora que chega na Entrada; o aparelho confere o spam e marca (shared/spam.ts).
+export type NewMessage = { id: string; folder: Folder; seen: boolean; size: number; sender: string | null; head: Uint8Array; checked?: boolean };
+export type Row = { id: string; folder: Folder; seen: number; starred: number; pinned: number; received_at: number; size: number; sender: string | null; head: ArrayBuffer; checked: number };
 export type Counts = Partial<Record<Folder, number>>;
-export type Change = { seen?: boolean; starred?: boolean; pinned?: boolean; folder?: Folder };
+export type Change = { seen?: boolean; starred?: boolean; pinned?: boolean; folder?: Folder; checked?: boolean };
 // Tela de espaço: quanto cada pasta ocupa e a ordem da lista que junta todas.
 export type FolderTotals = Partial<Record<Folder, { count: number; bytes: number }>>;
 export type StorageSort = 'size' | 'date';
 export type WipeResult = { deleted: number; freed: number; more: boolean };
-export type MigrationRow = { id: string; folder: Folder; seen: number; starred: number; pinned: number; received_at: number; size: number; sender: string | null; head: ArrayBuffer; trashed_at: number | null };
+export type MigrationRow = { id: string; folder: Folder; seen: number; starred: number; pinned: number; received_at: number; size: number; sender: string | null; head: ArrayBuffer; trashed_at: number | null; checked?: number };
 export type SwapResult = { ok: true; freed: number } | { ok: false; why: 'not_found' | 'sealed_sender' | 'not_smaller' };
 
 export class Mailbox extends DurableObject<Env> {
@@ -55,6 +56,8 @@ export class Mailbox extends DurableObject<Env> {
       if (!cols.includes('pinned')) this.sql.exec('ALTER TABLE messages ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0');
       // Quando foi para a Lixeira ou o Spam: os 30 dias contam daí, não da chegada.
       if (!cols.includes('trashed_at')) this.sql.exec('ALTER TABLE messages ADD COLUMN trashed_at INTEGER');
+      // Spam já conferido pelo aparelho (o que existia antes foi conferido pelo servidor na chegada).
+      if (!cols.includes('checked')) this.sql.exec('ALTER TABLE messages ADD COLUMN checked INTEGER NOT NULL DEFAULT 1');
       // Tela de espaço: todas as pastas juntas ou uma só, por tamanho ou por data, sem ler a caixa inteira
       // a cada página.
       this.sql.exec(`
@@ -126,8 +129,8 @@ export class Mailbox extends DurableObject<Env> {
   add(m: NewMessage): boolean {
     if (!this.fits(m.size)) return false;
     this.sql.exec(
-      'INSERT INTO messages (id, folder, seen, starred, received_at, size, sender, head) VALUES (?, ?, ?, 0, ?, ?, ?, ?)',
-      m.id, m.folder, m.seen ? 1 : 0, Date.now(), m.size, m.sender, m.head,
+      'INSERT INTO messages (id, folder, seen, starred, received_at, size, sender, head, checked) VALUES (?, ?, ?, 0, ?, ?, ?, ?, ?)',
+      m.id, m.folder, m.seen ? 1 : 0, Date.now(), m.size, m.sender, m.head, m.checked === false ? 0 : 1,
     );
     this.addUsed(m.size);
     this.tell('new', m.folder);
@@ -135,7 +138,7 @@ export class Mailbox extends DurableObject<Env> {
   }
 
   list(folder: Folder | 'starred', before: number, limit: number) {
-    const cols = 'id, folder, seen, starred, pinned, received_at, size, sender, head';
+    const cols = 'id, folder, seen, starred, pinned, received_at, size, sender, head, checked';
     const rows = folder === 'starred'
       ? this.sql.exec<Row>(`SELECT ${cols} FROM messages WHERE starred = 1 AND folder NOT IN ('trash', 'spam') AND received_at < ? ORDER BY received_at DESC LIMIT ?`, before, limit + 1).toArray()
       : this.sql.exec<Row>(`SELECT ${cols} FROM messages WHERE folder = ? AND received_at < ? ORDER BY received_at DESC LIMIT ?`, folder, before, limit + 1).toArray();
@@ -143,7 +146,7 @@ export class Mailbox extends DurableObject<Env> {
   }
 
   one(id: string): Row | null {
-    return this.sql.exec<Row>('SELECT id, folder, seen, starred, pinned, received_at, size, sender, head FROM messages WHERE id = ?', id).toArray()[0] ?? null;
+    return this.sql.exec<Row>('SELECT id, folder, seen, starred, pinned, received_at, size, sender, head, checked FROM messages WHERE id = ?', id).toArray()[0] ?? null;
   }
 
   update(ids: string[], change: Change): Counts {
@@ -152,6 +155,8 @@ export class Mailbox extends DurableObject<Env> {
     if (change.seen !== undefined) { sets.push('seen = ?'); args.push(change.seen ? 1 : 0); }
     if (change.starred !== undefined) { sets.push('starred = ?'); args.push(change.starred ? 1 : 0); }
     if (change.pinned !== undefined) { sets.push('pinned = ?'); args.push(change.pinned ? 1 : 0); }
+    // Mudar de pasta à mão também encerra a conferência: "Não é spam" não volta para o Spam.
+    if (change.checked !== undefined || change.folder !== undefined) { sets.push('checked = ?'); args.push(change.checked === false ? 0 : 1); }
     if (change.folder !== undefined) {
       sets.push('folder = ?'); args.push(change.folder);
       // Entrando na Lixeira ou no Spam, o relógio dos 30 dias começa agora; saindo, para.
@@ -278,7 +283,7 @@ export class Mailbox extends DurableObject<Env> {
   // ordem do id, com o cabeçalho lacrado como veio. Os corpos vão à parte, direto do R2.
   exportRows(after: string, limit: number): MigrationRow[] {
     return this.sql.exec<MigrationRow>(
-      'SELECT id, folder, seen, starred, pinned, received_at, size, sender, head, trashed_at FROM messages WHERE id > ? ORDER BY id LIMIT ?', after, limit,
+      'SELECT id, folder, seen, starred, pinned, received_at, size, sender, head, trashed_at, checked FROM messages WHERE id > ? ORDER BY id LIMIT ?', after, limit,
     ).toArray();
   }
 
@@ -290,8 +295,8 @@ export class Mailbox extends DurableObject<Env> {
     this.ctx.storage.transactionSync(() => {
       if (first && mode === 'replace') this.sql.exec('DELETE FROM messages');
       for (const r of rows) {
-        this.sql.exec(`${verb} INTO messages (id, folder, seen, starred, pinned, received_at, size, sender, head, trashed_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          r.id, r.folder, r.seen, r.starred, r.pinned, r.received_at, r.size, r.sender, r.head, r.trashed_at);
+        this.sql.exec(`${verb} INTO messages (id, folder, seen, starred, pinned, received_at, size, sender, head, trashed_at, checked) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          r.id, r.folder, r.seen, r.starred, r.pinned, r.received_at, r.size, r.sender, r.head, r.trashed_at, r.checked === 0 ? 0 : 1);
       }
       const total = this.sql.exec<{ n: number }>('SELECT COALESCE(SUM(size), 0) AS n FROM messages').toArray()[0].n;
       this.sql.exec(`INSERT INTO meta (key, value) VALUES ('bytes', ?1) ON CONFLICT(key) DO UPDATE SET value = ?1`, total);

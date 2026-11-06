@@ -4,7 +4,7 @@
     "name": "Italiano",
     "dir": "ltr",
     "title": "Shalom Mail: email crittografata e davvero privata",
-    "description": "Le tue email restano sotto chiave, e quella chiave esiste solo sul tuo dispositivo. Gratis, senza numero di telefono né documento."
+    "description": "Le tue email restano sotto chiave, e solo la tua password le apre. Gratis, senza numero di telefono né documento."
   },
   "nav": {
     "home": "Shalom Mail, pagina iniziale",
@@ -14,7 +14,7 @@
   },
   "hero": {
     "title": "Email davvero privata.",
-    "lede": "Le tue email restano sotto chiave, e quella chiave esiste solo sul tuo dispositivo."
+    "lede": "Le tue email restano sotto chiave, e solo la tua password le apre."
   },
   "claim": {
     "placeholder": "name",
@@ -73,10 +73,10 @@
     "developers": "Sviluppatori",
     "encryption": "Crittografia",
     "faq": "Domande frequenti",
-    "about": "Shalom Mail (shalomail.com) è un servizio di email crittografata che funziona nel browser. Le email archiviate sono chiuse con una chiave che esiste solo sul tuo dispositivo, e tra account Shalom tutto è end-to-end."
+    "about": "Shalom Mail (shalomail.com) è un servizio di email crittografata che funziona nel browser. Le email archiviate sono chiuse con una chiave che solo la tua password sblocca, e tra account Shalom tutto è end-to-end."
   },
   "legal": {
-    "updated": "Ultimo aggiornamento: 30 ottobre 2026",
+    "updated": "Ultimo aggiornamento: 5 novembre 2026",
     "translationNote": "Questa è una traduzione. In caso di differenze rispetto alla versione portoghese, prevale la versione portoghese.",
     "operator": "Shalom Mail è gestito da {c}, con sede a Governador Celso Ramos, SC, Brasile.",
     "terms": {
@@ -209,7 +209,7 @@
         {
           "h": "4. Email da e verso servizi esterni a Shalom",
           "p": [
-            "Le email da un altro servizio arrivano in chiaro, come tutte le email su internet. Appena arrivano, il server controlla se sono spam o truffe e le chiude con la tua chiave. La versione in chiaro non viene conservata.",
+            "Le email da un altro servizio arrivano in chiaro, come tutte le email su internet. Appena arrivano, il server controlla solo che il dominio del mittente lo confermi e le chiude con la tua chiave. Se sono truffe o pubblicità lo controlla il tuo dispositivo, che le apre con la tua chiave. La versione in chiaro non viene conservata.",
             "Le email che invii a un altro servizio partono come normali email e passano in chiaro attraverso il servizio di invio fino alla destinazione.",
             "La crittografia end-to-end, senza alcun passaggio in chiaro, vale tra account Shalom. In questo caso il server non vede nemmeno il nome di chi scrive."
           ]
@@ -227,6 +227,7 @@
             "L’infrastruttura funziona su Cloudflare: server, database, archiviazione, ricezione e invio di email e la verifica anti-bot (Turnstile). Cloudflare tratta i dati per nostro conto; le email archiviate vi arrivano già crittografate.",
             "Se ti abboni a un piano a pagamento, l'addebito è gestito da Stripe, che riceve il tuo indirizzo Shalom e i dati di pagamento per gestire l'abbonamento, secondo la propria informativa privacy.",
             "Se attivi le notifiche nell’app iOS, ognuna passa dal servizio di notifiche di Apple (APNs). Apple riceve l’identificativo del dispositivo, l’orario e il testo \"Nuovo messaggio\", senza mittente, oggetto né nulla del messaggio.",
+            "Cloudflare, Stripe e Apple ricevono solo ciò che serve a ciascun servizio e proteggono questi dati a un livello pari o superiore a quello di questa informativa.",
             "I server di Cloudflare si trovano in molti paesi, quindi i tuoi dati possono essere trattati fuori dal Brasile, con le garanzie previste dalla LGPD.",
             "Non vendiamo dati, non mostriamo pubblicità e non usiamo le tue email per addestrare nulla.",
             "Consegniamo dati alle autorità solo in presenza di un ordine giudiziario valido. Ciò che abbiamo è quanto indicato al punto 3: il contenuto delle email archiviate resta crittografato e noi non abbiamo la chiave."
@@ -347,7 +348,7 @@
   "enc": {
     "title": "Come funziona la crittografia",
     "description": "Come Shalom Mail protegge le tue email: chiave creata sul tuo dispositivo, Argon2id per la password, AES-256-GCM per ogni messaggio e i limiti.",
-    "lead": "Shalom Mail è un servizio di email su shalomail.com. Le tue email archiviate sono chiuse con una chiave che esiste solo sul tuo dispositivo, e tra account Shalom tutto è end-to-end. Ecco come funziona, in parole semplici, e dove finisce la protezione.",
+    "lead": "Shalom Mail è un servizio di email su shalomail.com. Le tue email archiviate sono chiuse con una chiave che solo la tua password sblocca, e tra account Shalom tutto è end-to-end. Ecco come funziona, in parole semplici, e dove finisce la protezione.",
     "s": {
       "key": {
         "h": "La tua chiave nasce sul tuo dispositivo",
@@ -373,7 +374,7 @@
       "outside": {
         "h": "Email con altri provider",
         "p": [
-          "Le email da Gmail, Outlook o qualsiasi altro provider arrivano in chiaro, come tutte le email su internet. In quel momento il server controlla se sono spam o truffe e le sigilla con la tua chiave. La versione in chiaro non viene conservata.",
+          "Le email da Gmail, Outlook o qualsiasi altro provider arrivano in chiaro, come tutte le email su internet. In quel momento il server controlla solo che il dominio del mittente lo confermi e le sigilla con la tua chiave. Se sono truffe o pubblicità lo controlla il tuo dispositivo, che le apre con la tua chiave. La versione in chiaro non viene conservata.",
           "Le email che invii ad altri provider partono come normali email. Il server le inoltra in chiaro, e il provider di chi le riceve può leggerle. In questo caso Shalom protegge la copia conservata nella tua casella, non il percorso."
         ]
       },
@@ -447,7 +448,7 @@
     "q": {
       "what": {
         "q": "Che cos’è Shalom Mail?",
-        "a": "Shalom Mail è un servizio di email crittografata che funziona nel browser, su shalomail.com. L’account è gratis, con 1 GB e un indirizzo @shalomail.com. Le email archiviate sono chiuse con una chiave che esiste solo sul tuo dispositivo, le email tra account Shalom sono end-to-end, e gli agenti IA possono avere caselle proprie."
+        "a": "Shalom Mail è un servizio di email crittografata che funziona nel browser, su shalomail.com. L’account è gratis, con 1 GB e un indirizzo @shalomail.com. Le email archiviate sono chiuse con una chiave che solo la tua password sblocca, le email tra account Shalom sono end-to-end, e gli agenti IA possono avere caselle proprie."
       },
       "free": {
         "q": "Shalom Mail è gratis?",
@@ -479,7 +480,7 @@
       },
       "read": {
         "q": "Shalom può leggere le mie email?",
-        "a": "Non le tue email archiviate. Ogni messaggio è sigillato con una chiave che esiste solo sul tuo dispositivo, e il server lo conserva senza poterlo aprire. Le email da altri provider possono essere lette dal server nel momento in cui arrivano, prima di essere sigillate, e le email che invii ad altri provider partono come normali email."
+        "a": "Non le tue email archiviate. Ogni messaggio è sigillato con una chiave che solo la tua password sblocca, e il server lo conserva senza poterlo aprire. Le email da altri provider possono essere lette dal server nel momento in cui arrivano, prima di essere sigillate, e le email che invii ad altri provider partono come normali email."
       },
       "e2e": {
         "q": "Shalom Mail è crittografato end-to-end?",

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent, type InputHTMLAttributes, type KeyboardEvent, type ReactNode, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import { api } from '../lib/api';
-import { usePasswordStrength } from '../lib/password';
+import { strength, usePasswordStrength } from '../lib/password';
 import { fingerprint } from '../../../shared/fingerprint';
 import { fromB64 } from '../../../shared/seal';
 import { dayMonth, dayMonthYear, durationLabel, initials, shortDateTime, timeOf } from '../lib/format';
@@ -379,13 +379,13 @@ export function Labeled({ label, children }: { label: string; children: ReactNod
 }
 
 // Senha com o olho para conferir o que foi digitado.
-export function Secret({ value, onChange, autoComplete, autoFocus, placeholder }: {
-  value: string; onChange: (v: string) => void; autoComplete: string; autoFocus?: boolean; placeholder?: string;
+export function Secret({ value, onChange, autoComplete, autoFocus, placeholder, locked }: {
+  value: string; onChange: (v: string) => void; autoComplete: string; autoFocus?: boolean; placeholder?: string; locked?: boolean;
 }) {
   const [shown, setShown] = useState(false);
   return (
     <span className="st-secret-field">
-      <Field type={shown ? 'text' : 'password'} value={value} onChange={e => onChange(e.target.value)} autoComplete={autoComplete} autoFocus={autoFocus} placeholder={placeholder} />
+      <Field type={shown ? 'text' : 'password'} value={value} onChange={e => onChange(e.target.value)} autoComplete={autoComplete} autoFocus={autoFocus} placeholder={placeholder} readOnly={locked} />
       <button type="button" className="st-eye" onClick={() => setShown(s => !s)} aria-label={tr(shown ? 'common.hide' : 'common.show')} aria-pressed={shown}>
         <Icon name={shown ? 'eyeOff' : 'eye'} size={17} />
       </button>
@@ -574,15 +574,17 @@ function PasswordPanel({ user, secretKey, need, onDone, onCancel }: { user: User
   async function submit(e: FormEvent) {
     e.preventDefault();
     if (busy) return;
-    if (!pw?.ok) { setError(pw?.hint ?? tr('settings.pwMin')); return; }
-    if (next !== repeat) { setError(tr('settings.pwMismatch')); return; }
     setBusy(true);
     setError('');
+    // Decide pela senha de agora, não pelo resultado de enquanto digitava (pode ser de uma senha anterior).
+    const r = await strength(next, [user.name, user.address]).catch(() => null);
+    if (!r?.ok) { setError(r?.hint ?? tr('settings.pwFail')); setBusy(false); return; }
+    if (next !== repeat) { setError(tr('settings.pwMismatch')); setBusy(false); return; }
     try { await changePassword(user, secretKey, current, next, factorAnswers(need, factorPin, factorCode)); onDone(); }
     catch (err) { setError(fail(err, tr('settings.pwFail'))); setBusy(false); }
   }
 
-  const match = !!pw?.ok && repeat === next;
+  const match = !!next && repeat === next;
   const mismatch = repeat.length > 0 && repeat.length >= next.length && repeat !== next;
   return (
     <Panel onSubmit={submit} onCancel={onCancel}
@@ -596,8 +598,8 @@ function PasswordPanel({ user, secretKey, need, onDone, onCancel }: { user: User
         <FactorFields need={need} pin={factorPin} setPin={setFactorPin} code={factorCode} setCode={setFactorCode} />
       </Step>
       <Step mark={2} title={tr('settings.pwChooseNew')}>
-        <Labeled label={tr('settings.pwNew')}><Secret value={next} onChange={setNext} autoComplete="new-password" /></Labeled>
-        <Labeled label={tr('settings.pwRepeat')}><Secret value={repeat} onChange={setRepeat} autoComplete="new-password" /></Labeled>
+        <Labeled label={tr('settings.pwNew')}><Secret value={next} onChange={setNext} autoComplete="new-password" locked={busy} /></Labeled>
+        <Labeled label={tr('settings.pwRepeat')}><Secret value={repeat} onChange={setRepeat} autoComplete="new-password" locked={busy} /></Labeled>
         {pw && !pw.ok ? <Status tone="bad">{pw.hint}</Status>
           : mismatch ? <Status tone="bad">{tr('settings.pwNoMatch')}</Status>
           : match ? <Status tone="ok">{tr('settings.pwMatch')}</Status>

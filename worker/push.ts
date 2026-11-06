@@ -78,7 +78,7 @@ export async function notifyNewMail(env: Env, userId: string): Promise<void> {
       if (res.status === 410 || res.status === 400) {
         const why = await res.json<{ reason?: string }>().catch(() => ({} as { reason?: string }));
         if (res.status === 410 || why.reason === 'BadDeviceToken' || why.reason === 'DeviceTokenNotForTopic') {
-          await env.DB.prepare('DELETE FROM push_tokens WHERE token = ?').bind(r.token).run();
+          await env.DB.prepare('DELETE FROM push_tokens WHERE token = ? AND user_id = ?').bind(r.token, userId).run();
         }
       } else if (!res.ok) console.error('apns', res.status, await res.text().catch(() => ''));
     } catch (e) { console.error('apns', String(e)); }

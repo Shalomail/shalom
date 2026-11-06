@@ -2,7 +2,7 @@
 // chegou nele e criar senha nova. Mesmo visual das telas de entrar (claro, paz ao fundo, logo em espectro).
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { ApiError } from '../lib/api';
-import { usePasswordStrength } from '../lib/password';
+import { strength, usePasswordStrength } from '../lib/password';
 import { confirmRecovery, resetInfo, resetPassword, setRecovery, tokenFromUrl } from '../lib/recovery';
 import { t } from '../i18n';
 import { navigate } from '../lib/router';
@@ -120,7 +120,7 @@ export function ConfirmRecovery() {
 // Senha nova pelo link de recuperação. Gera chave nova no aparelho; a caixa antiga é esvaziada.
 export function ResetPassword({ onSession }: { onSession: (s: Session) => void }) {
   const [token] = useState(tokenFromUrl);
-  const [info, setInfo] = useState<{ address: string; need: { pin: boolean; totp: boolean } } | null>(null);
+  const [info, setInfo] = useState<{ address: string; name?: string; need: { pin: boolean; totp: boolean } } | null>(null);
   const [gone, setGone] = useState('');
   const [password, setPassword] = useState('');
   const [repeat, setRepeat] = useState('');
@@ -134,8 +134,8 @@ export function ResetPassword({ onSession }: { onSession: (s: Session) => void }
     resetInfo(token).then(setInfo).catch(e => setGone(e instanceof Error ? e.message : t('recovery.linkGone')));
   }, [token]);
 
-  const pw = usePasswordStrength(password, [info?.address ?? '']);
-  const ready = !!pw?.ok && password === repeat
+  const pw = usePasswordStrength(password, [info?.address ?? '', info?.name ?? '']);
+  const ready = !!password && password === repeat
     && (!info?.need.pin || /^\d{6}$/.test(pin))
     && (!info?.need.totp || /^\d{6}$/.test(code) || code.replace(/[^a-z0-9]/gi, '').length === 8);
 
@@ -144,6 +144,9 @@ export function ResetPassword({ onSession }: { onSession: (s: Session) => void }
     if (!ready || busy || !info) return;
     setBusy(true);
     setError('');
+    // Decide pela senha de agora, não pelo resultado de enquanto digitava (pode ser de uma senha anterior).
+    const r = await strength(password, [info.address, info.name ?? '']).catch(() => null);
+    if (!r?.ok) { setError(r?.hint ?? t('recovery.resetFail')); setBusy(false); return; }
     try {
       const isRecovery = info.need.totp && !/^\d{6}$/.test(code);
       onSession(await resetPassword(token, password, {
@@ -178,8 +181,8 @@ export function ResetPassword({ onSession }: { onSession: (s: Session) => void }
         <p className="reset-for">{info.address}</p>
         <p className="reset-warn"><Icon name="alert" size={16} />{t('recovery.warning')}</p>
         <div className="reset-fields">
-          <div className="arrow-field"><PasswordInput value={password} onChange={setPassword} autoComplete="new-password" label={t('recovery.newPassword')} /></div>
-          <div className="arrow-field"><PasswordInput value={repeat} onChange={setRepeat} autoComplete="new-password" label={t('pw.same')} /></div>
+          <div className="arrow-field"><PasswordInput value={password} onChange={setPassword} autoComplete="new-password" label={t('recovery.newPassword')} locked={busy} /></div>
+          <div className="arrow-field"><PasswordInput value={repeat} onChange={setRepeat} autoComplete="new-password" label={t('pw.same')} locked={busy} /></div>
           {info.need.pin && (
             <div className="arrow-field"><input type="password" value={pin} onChange={e => setPin(e.target.value.replace(/\D/g, '').slice(0, 6))} inputMode="numeric" placeholder={t('recovery.yourPin')} aria-label={t('auth.pinLabel')} autoComplete="off" /></div>
           )}

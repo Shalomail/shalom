@@ -4,7 +4,7 @@
     "name": "Español",
     "dir": "ltr",
     "title": "Shalom Mail: correo cifrado y privado de verdad",
-    "description": "Tus correos quedan bajo llave, y esa llave solo existe en tu dispositivo. Gratis, sin teléfono ni documento de identidad."
+    "description": "Tus correos quedan bajo llave, y solo tu contraseña los abre. Gratis, sin teléfono ni documento de identidad."
   },
   "nav": {
     "home": "Shalom Mail, inicio",
@@ -14,7 +14,7 @@
   },
   "hero": {
     "title": "Correo privado de verdad.",
-    "lede": "Tus correos quedan bajo llave, y esa llave solo existe en tu dispositivo."
+    "lede": "Tus correos quedan bajo llave, y solo tu contraseña los abre."
   },
   "claim": {
     "placeholder": "name",
@@ -73,10 +73,10 @@
     "developers": "Desarrolladores",
     "encryption": "Cifrado",
     "faq": "Preguntas frecuentes",
-    "about": "Shalom Mail (shalomail.com) es un servicio de correo cifrado que funciona en el navegador. Los correos guardados quedan cerrados con una clave que solo existe en tu dispositivo, y entre cuentas Shalom todo va de extremo a extremo."
+    "about": "Shalom Mail (shalomail.com) es un servicio de correo cifrado que funciona en el navegador. Los correos guardados quedan cerrados con una clave que solo tu contraseña desbloquea, y entre cuentas Shalom todo va de extremo a extremo."
   },
   "legal": {
-    "updated": "Última actualización: 30 de octubre de 2026",
+    "updated": "Última actualización: 5 de noviembre de 2026",
     "translationNote": "Esta es una traducción. Si difiere de la versión en portugués, prevalece la versión en portugués.",
     "operator": "Shalom Mail es operado por {c}, con sede en Governador Celso Ramos, SC, Brasil.",
     "terms": {
@@ -209,7 +209,7 @@
         {
           "h": "4. Correo desde fuera y hacia fuera de Shalom",
           "p": [
-            "El correo de otro servicio llega sin cifrar, como todo correo en internet. En cuanto llega, el servidor comprueba si es spam o una estafa y lo cierra con tu llave. La versión sin cifrar no se guarda.",
+            "El correo de otro servicio llega sin cifrar, como todo correo en internet. En cuanto llega, el servidor solo comprueba si el dominio del remitente lo confirma y lo cierra con tu llave. Si es una estafa o publicidad, lo comprueba tu dispositivo, que lo abre con tu clave. La versión sin cifrar no se guarda.",
             "El correo que envías a otro servicio sale como un correo normal y pasa sin cifrar por el servicio de envío hasta su destino.",
             "El cifrado de extremo a extremo, sin ninguna etapa sin cifrar, se aplica entre cuentas Shalom. En ese caso, ni siquiera el nombre de quien escribe es visible para el servidor."
           ]
@@ -227,6 +227,7 @@
             "La infraestructura funciona en Cloudflare: servidores, base de datos, almacenamiento, recepción y envío de correo, y la verificación contra bots (Turnstile). Cloudflare trata los datos en nuestro nombre; los correos guardados le llegan ya cifrados.",
             "Si te suscribes a un plan de pago, el cobro lo hace Stripe, que recibe tu dirección Shalom y los datos de pago para procesar la suscripción, según su propia política de privacidad.",
             "Si activas los avisos en la app de iOS, cada aviso pasa por el servicio de notificaciones de Apple (APNs). Apple recibe el identificador del dispositivo, la hora y el texto \"Mensaje nuevo\", sin remitente, asunto ni nada del mensaje.",
+            "Cloudflare, Stripe y Apple reciben solo lo necesario para prestar cada servicio y protegen esos datos con un nivel igual o superior al de esta política.",
             "Los servidores de Cloudflare están en varios países, por lo que tus datos pueden tratarse fuera de Brasil, con las garantías previstas en la LGPD.",
             "No vendemos datos, no mostramos anuncios y no usamos tus correos para entrenar nada.",
             "Solo entregamos datos a las autoridades ante una orden judicial válida. Lo que tenemos es lo que figura en el apartado 3: el contenido de los correos guardados sigue cifrado y no tenemos la llave."
@@ -347,7 +348,7 @@
   "enc": {
     "title": "Cómo funciona el cifrado",
     "description": "Cómo protege Shalom Mail tu correo: clave creada en tu dispositivo, Argon2id para la contraseña, AES-256-GCM para cada mensaje guardado y dónde termina.",
-    "lead": "Shalom Mail es un servicio de correo en shalomail.com. Tus correos guardados quedan cerrados con una clave que solo existe en tu dispositivo, y entre cuentas Shalom todo va de extremo a extremo. Aquí explicamos cómo funciona, con palabras simples, y dónde termina la protección.",
+    "lead": "Shalom Mail es un servicio de correo en shalomail.com. Tus correos guardados quedan cerrados con una clave que solo tu contraseña desbloquea, y entre cuentas Shalom todo va de extremo a extremo. Aquí explicamos cómo funciona, con palabras simples, y dónde termina la protección.",
     "s": {
       "key": {
         "h": "Tu clave se crea en tu dispositivo",
@@ -373,7 +374,7 @@
       "outside": {
         "h": "Correo con otros proveedores",
         "p": [
-          "El correo de Gmail, Outlook o cualquier otro proveedor llega sin cifrar, como todo correo en internet. En ese momento el servidor comprueba si es spam o una estafa y lo sella con tu clave. La versión sin cifrar no se guarda.",
+          "El correo de Gmail, Outlook o cualquier otro proveedor llega sin cifrar, como todo correo en internet. En ese momento el servidor solo comprueba si el dominio del remitente lo confirma y lo sella con tu clave. Si es una estafa o publicidad, lo comprueba tu dispositivo, que lo abre con tu clave. La versión sin cifrar no se guarda.",
           "El correo que envías a otros proveedores sale como correo normal. El servidor lo entrega sin cifrar, y el proveedor de quien lo recibe puede leerlo. En este caso Shalom protege la copia guardada en tu buzón, no el trayecto."
         ]
       },
@@ -421,7 +422,7 @@
           {
             "ul": [
               "El correo con otros proveedores no es de extremo a extremo. Viaja como correo normal, y el servidor lo ve en el momento en que pasa.",
-              "Si olvidas tu contraseña, tus correos guardados no se pueden recuperar, porque solo tu contraseña abre tu clave y Shalom no tiene una copia. Con tu correo de recuperación puedes crear una contraseña nueva y conservar tu dirección, pero el buzón empieza vacío.",
+              "Si olvidas tu contraseña, tus correos guardados no se pueden recuperar, porque solo tu contraseña desbloquea tu clave y Shalom no tiene una copia. Con tu correo de recuperación puedes crear una contraseña nueva y conservar tu dirección, pero el buzón empieza vacío.",
               "La app funciona en tu navegador y se carga desde shalomail.com. Como en todo correo que funciona en la web, confías en que el sitio entregue el código que se describe aquí.",
               "El cifrado no protege un dispositivo que ya está comprometido. Si eliges recordar un dispositivo, tu clave se queda en ese navegador, así que protégelo como protegerías tu contraseña.",
               "El remitente sellado deja a quien envía fuera de lo que guarda el servidor. Como cualquier sitio web, el servidor sigue viendo la conexión de cada solicitud, y solo la usa contra el abuso, como explica la política de privacidad."
@@ -447,7 +448,7 @@
     "q": {
       "what": {
         "q": "¿Qué es Shalom Mail?",
-        "a": "Shalom Mail es un servicio de correo cifrado que funciona en el navegador, en shalomail.com. La cuenta es gratis, con 1 GB y una dirección @shalomail.com. Los correos guardados quedan cerrados con una clave que solo existe en tu dispositivo, entre cuentas Shalom todo va de extremo a extremo, y los agentes de IA pueden tener buzones propios."
+        "a": "Shalom Mail es un servicio de correo cifrado que funciona en el navegador, en shalomail.com. La cuenta es gratis, con 1 GB y una dirección @shalomail.com. Los correos guardados quedan cerrados con una clave que solo tu contraseña desbloquea, entre cuentas Shalom todo va de extremo a extremo, y los agentes de IA pueden tener buzones propios."
       },
       "free": {
         "q": "¿Shalom Mail es gratis?",
@@ -479,7 +480,7 @@
       },
       "read": {
         "q": "¿Shalom puede leer mi correo?",
-        "a": "Tus correos guardados, no. Cada mensaje está sellado con una clave que solo existe en tu dispositivo, y el servidor lo guarda sin poder abrirlo. El correo de otros proveedores lo puede leer el servidor en el momento en que llega, antes de sellarlo, y el correo que envías a otros proveedores sale como correo normal."
+        "a": "Tus correos guardados, no. Cada mensaje está sellado con una clave que solo tu contraseña desbloquea, y el servidor lo guarda sin poder abrirlo. El correo de otros proveedores lo puede leer el servidor en el momento en que llega, antes de sellarlo, y el correo que envías a otros proveedores sale como correo normal."
       },
       "e2e": {
         "q": "¿Shalom Mail tiene cifrado de extremo a extremo?",
@@ -487,7 +488,7 @@
       },
       "forgot": {
         "q": "¿Qué pasa si olvido mi contraseña?",
-        "a": "Tus correos guardados no se pueden recuperar, porque solo tu contraseña abre tu clave y Shalom no tiene una copia. Con tu correo de recuperación puedes crear una contraseña nueva y conservar tu dirección, pero el buzón empieza vacío."
+        "a": "Tus correos guardados no se pueden recuperar, porque solo tu contraseña desbloquea tu clave y Shalom no tiene una copia. Con tu correo de recuperación puedes crear una contraseña nueva y conservar tu dirección, pero el buzón empieza vacío."
       },
       "cipher": {
         "q": "¿Qué cifrado usa Shalom Mail?",

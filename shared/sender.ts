@@ -34,6 +34,9 @@ export function verifyCert(signed: SignedCert, serverPub: Uint8Array): Cert {
   if (!ed25519.verify(fromB64(signed.s), bytes, serverPub)) throw new Error('certificado do remetente com assinatura inválida');
   const cert = JSON.parse(dec.decode(bytes)) as Cert;
   if (typeof cert.a !== 'string' || typeof cert.k !== 'string' || typeof cert.i !== 'number' || typeof cert.e !== 'number') throw new Error('certificado do remetente malformado');
+  // A chave tem uma grafia só (base64 padrão de 32 bytes): a mesma chave escrita de outro jeito seria outra
+  // "identidade" para quem compara texto.
+  if (toB64(fromB64(cert.k)) !== cert.k || fromB64(cert.k).length !== 32) throw new Error('certificado do remetente malformado');
   return cert;
 }
 

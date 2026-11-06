@@ -29,6 +29,7 @@ struct ResetPasswordView: View {
     @Environment(\.dismiss) private var dismiss
     let token: String
     @State private var address: String?
+    @State private var name = ""
     @State private var needPin = false
     @State private var needTotp = false
     @State private var gone: String?
@@ -52,7 +53,8 @@ struct ResetPasswordView: View {
                         SecureField(t("pw.same"), text: $repeatPw).textContentType(.newPassword)
                         if let strength { Text(t(strength.hint)).font(.system(size: 13)).foregroundStyle(strength.ok ? Palette.text3 : Palette.warn) }
                     }
-                    .task(id: password) { strength = password.isEmpty ? nil : await PasswordStrength.shared.check(password, inputs: [address ?? ""]) }
+                    .disabled(busy)
+                    .task(id: password) { if password.isEmpty { strength = nil } else if let r = await PasswordStrength.live(password, inputs: [address ?? "", name]) { strength = r } }
                     if needPin { Section(t("auth.pinLabel")) { SecureField(t("recovery.yourPin"), text: $pin).keyboardType(.numberPad) } }
                     if needTotp { Section(t("auth.codeLabel")) { TextField(t("recovery.codeOrRecovery"), text: $code).textContentType(.oneTimeCode).textInputAutocapitalization(.never) } }
                     if let error { Section { Note(text: error, tone: .warn).frame(maxWidth: .infinity, alignment: .leading) } }
@@ -71,24 +73,33 @@ struct ResetPasswordView: View {
     }
 
     private var ready: Bool {
-        !busy && address != nil && strength?.ok == true && password == repeatPw && (!needPin || pin.count == 6) && (!needTotp || code.count >= 6)
+        !busy && address != nil && !password.isEmpty && password == repeatPw && (!needPin || pin.count == 6) && (!needTotp || code.count >= 6)
     }
 
     private func info() async {
         do {
             let r = try await API.shared.call("/auth/reset/info", ["token": token])
             address = r["address"] as? String
+            name = r["name"] as? String ?? ""
             let need = r["need"] as? [String: Bool]
             needPin = need?["pin"] ?? false; needTotp = need?["totp"] ?? false
         } catch { gone = (error as? APIError)?.message ?? t("recovery.linkGone") }
     }
 
     private func submit() {
+        guard !busy else { return }
         busy = true; error = nil
+        // Confere a senha de agora, não o resultado calculado enquanto digitava (pode ser de uma senha anterior).
+        let pw = password
         Task {
             defer { busy = false }
+            let r = await PasswordStrength.shared.check(pw, inputs: [address ?? "", name])
+            guard pw == password else { return }
+            strength = r
+            guard r.ok else { error = t(r.hint); return }
+            guard pw == repeatPw else { error = t("settings.pwNoMatch"); return }
             do {
-                try await app.resetPassword(token: token, address: address ?? "", password: password, pin: needPin ? pin : nil,
+                try await app.resetPassword(token: token, address: address ?? "", password: pw, pin: needPin ? pin : nil,
                                             code: needTotp && code.filter(\.isNumber).count == 6 && code.count == 6 ? code : nil,
                                             recovery: needTotp && !(code.count == 6 && code.allSatisfy(\.isNumber)) ? code : nil)
                 dismiss()

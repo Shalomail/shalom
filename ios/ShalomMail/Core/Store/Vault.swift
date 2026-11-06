@@ -30,6 +30,12 @@ enum Vault {
 
     static func save(_ secret: Data, for userId: String) throws {
         delete(userId)
+        // iPhone sem código: a chave ficaria no Keychain sem Face ID nem código na frente. Não guarda; a conta
+        // fica aberta só enquanto o app estiver em uso e pede a senha de novo depois. (No simulador, que não tem
+        // código, guarda como antes para os testes de fluxo.)
+        #if !targetEnvironment(simulator)
+        guard canProtect else { return }
+        #endif
         var query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service, kSecAttrAccount as String: userId,
             kSecValueData as String: secret, kSecAttrSynchronizable as String: false,
@@ -37,7 +43,12 @@ enum Vault {
         if canProtect, let access = SecAccessControlCreateWithFlags(nil, kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly, .userPresence, nil) {
             query[kSecAttrAccessControl as String] = access
         } else {
+            // Sem a trava do sistema, só no simulador. No aparelho, melhor não guardar do que guardar aberta.
+            #if targetEnvironment(simulator)
             query[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+            #else
+            return
+            #endif
         }
         let status = SecItemAdd(query as CFDictionary, nil)
         guard status == errSecSuccess else { throw VaultError.failed(status) }
@@ -69,6 +80,17 @@ enum Vault {
             default: throw VaultError.failed(status)
             }
         }.value
+    }
+
+    // Chave guardada sem controle de acesso (só "desbloqueado, este aparelho"): a versão anterior gravava assim
+    // num iPhone sem código. Sai na abertura do app; a conta volta a pedir a senha. (No simulador fica, como
+    // no save.)
+    static func dropUnprotected() {
+        #if !targetEnvironment(simulator)
+        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service,
+                                    kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly]
+        SecItemDelete(query as CFDictionary)
+        #endif
     }
 
     static func delete(_ userId: String) {

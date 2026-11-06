@@ -219,19 +219,27 @@ struct AttachmentsView: View {
                 }
             }
         }
+        .onDisappear { for a in files { try? FileManager.default.removeItem(at: AttachmentTemp.root.appendingPathComponent(a.id.uuidString, isDirectory: true)) } }
     }
 
     private func icon(_ a: Attachment) -> String {
         a.mimeType.hasPrefix("image/") ? "photo" : a.mimeType == "application/pdf" ? "doc.richtext" : "doc"
     }
 
-    // O anexo vai para um arquivo temporário só na hora de compartilhar (o iOS apaga a pasta tmp).
+    // O anexo aberto vai para um arquivo temporário para o botão de compartilhar, numa pasta que some ao sair
+    // da conversa, ao trancar e ao sair da conta (o iOS só limpa a tmp quando quer).
     private func temp(_ a: Attachment) -> URL? {
         let safe = a.filename.replacingOccurrences(of: "/", with: "_")
-        let dir = FileManager.default.temporaryDirectory.appendingPathComponent(a.id.uuidString, isDirectory: true)
+        let dir = AttachmentTemp.root.appendingPathComponent(a.id.uuidString, isDirectory: true)
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         let url = dir.appendingPathComponent(safe.isEmpty ? "attachment" : safe)
         if !FileManager.default.fileExists(atPath: url.path) { try? a.data.write(to: url, options: .completeFileProtection) }
         return url
     }
+}
+
+// Pasta dos anexos abertos para compartilhar.
+enum AttachmentTemp {
+    static var root: URL { FileManager.default.temporaryDirectory.appendingPathComponent("anexos", isDirectory: true) }
+    static func clear() { try? FileManager.default.removeItem(at: root) }
 }

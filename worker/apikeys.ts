@@ -19,7 +19,7 @@ export async function newApiKey(env: Env, userId: string, kind: KeyKind, name: s
 // O que cada chave alcança. A da pessoa cuida só das caixas de agente e do plano: não abre a caixa da
 // própria pessoa nem as Configurações. A de um agente lê e envia só pela caixa dele.
 const ACCOUNT_PATHS = /^\/api\/(agents|billing)(\/|$)|^\/api\/auth\/me$/;
-const AGENT_PATHS = /^\/api\/(messages|send|cert|tokens|usage)(\/|$)|^\/api\/auth\/me$/;
+export const AGENT_PATHS = /^\/api\/(messages|send|cert|tokens|usage)(\/|$)|^\/api\/auth\/me$/;
 const SENDING = /^\/api\/(send|cert|tokens)$/;
 
 type KeyRow = { kind: KeyKind; last_used: number | null; id: string; address: string; name: string; public_key: string; owner_id: string | null; created_at: number; suspended_at: number | null };

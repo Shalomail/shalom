@@ -18,7 +18,7 @@ import { pickLocale } from '../shared/locale';
 import { LOCALES } from '../shared/locales.gen';
 import { keyAuth } from './apikeys';
 import type { AppEnv, Env, User } from './env';
-import { bump, canonicalOf, clear, clientIp, fail, hex, hmac, isReserved, lockEnvelope, normalizeAddress, now, peek, randomToken, sameBytes, sha256, suspended, tally, unlockEnvelope } from './util';
+import { bump, canonicalOf, clear, clientIp, fail, hex, hmac, isReserved, keyInUse, lockEnvelope, normalizeAddress, now, peek, randomToken, sameBytes, sha256, suspended, tally, unlockEnvelope } from './util';
 
 const DAY = 24 * 3600 * 1000;
 const SESSION_MS = 30 * DAY;
@@ -28,6 +28,13 @@ const FAIL_WINDOW = 15 * 60 * 1000;
 const MAX_SIGNUPS_IP_DAY = 20;
 // Teto de cadastros por hora no sistema todo. Passou disso, o cadastro pausa sozinho (ataque em massa).
 const MAX_SIGNUPS_HOUR = 500;
+// Por operadora ou provedor (ASN) a cada hora: um ataque de um provedor só para nele, antes de chegar no teto
+// geral e pausar o cadastro de todo mundo. 50 para qualquer rede (nuvem e servidores alugados inclusive); 40%
+// do geral só para as grandes operadoras do Brasil (Vivo, Claro, TIM, Oi) e os relays que juntam muita gente
+// de verdade (Private Relay da Apple, WARP da Cloudflare).
+const MAX_SIGNUPS_ASN_HOUR = 50;
+const BIG_ASN_HOUR = Math.floor(MAX_SIGNUPS_HOUR * 0.4);
+const BIG_ASNS = new Set([26599, 27699, 18881, 28573, 26615, 7738, 8167, 36183, 13335, 54113]);
 // A partir desta falha no mesmo endereço, o login pede o Turnstile (menos em aparelho conhecido).
 const CAPTCHA_AFTER = 3;
 // Travas duras nunca são só por endereço: isso deixaria qualquer um trancar a conta de outra pessoa.
@@ -84,6 +91,10 @@ const deviceCookie = (env: Env) => (secure(env) ? '__Host-shalom_dev' : 'shalom_
 const cookieOpts = (env: Env, maxAgeMs: number) => ({ httpOnly: true, secure: secure(env), sameSite: 'Strict' as const, path: '/', maxAge: maxAgeMs / 1000 });
 
 async function startSession(c: Context<AppEnv>, userId: string, signup = false) {
+  // Entrar numa vaga que já tinha sessão troca o cookie: a sessão de antes acaba aqui, em vez de continuar
+  // valendo 30 dias sem ninguém usar.
+  const previous = getCookie(c, sessionCookie(c.env, slotOf(c)));
+  if (previous) await c.env.DB.prepare('DELETE FROM sessions WHERE token_hash = ?').bind(await sha256(previous)).run();
   const token = randomToken();
   const t = now();
   await c.env.DB.prepare('INSERT INTO sessions (token_hash, user_id, created_at, expires_at, last_seen, user_agent, signup) VALUES (?, ?, ?, ?, ?, ?, ?)')
@@ -134,7 +145,7 @@ export const requireUser: MiddlewareHandler<AppEnv> = async (c, next) => {
   // CLI e agentes entram pela chave de API, não pelo cookie.
   const bearer = /^Bearer\s+(\S+)$/.exec(c.req.header('authorization') ?? '')?.[1];
   if (bearer) {
-    const refused = await keyAuth(c, bearer);
+    const refused = await keyAuth(c, bearer) ?? await accountLimit(c);
     if (refused) return refused;
     await next();
     return;
@@ -174,8 +185,17 @@ export const requireUser: MiddlewareHandler<AppEnv> = async (c, next) => {
   c.set('user', { id: row.id, address: row.address, name: row.name, public_key: row.public_key });
   c.set('session', hash);
   c.set('confirmedUntil', row.confirmed_until);
+  const refused = await accountLimit(c);
+  if (refused) return refused;
   await next();
 };
+
+// Teto por conta logada (cookie ou chave de API), 600 pedidos por minuto: uma conta não martela a própria
+// caixa, o R2 e o banco, mesmo espalhando os pedidos por várias redes.
+async function accountLimit(c: Context<AppEnv>): Promise<Response | null> {
+  if ((await c.env.ACCOUNT_LIMIT.limit({ key: c.get('user').id })).success) return null;
+  return fail(c, 429, 'slow_down', 'Muitos pedidos seguidos. Espere um minuto.');
+}
 
 const CONFIRM_MS = 10 * 60 * 1000;
 
@@ -247,7 +267,7 @@ const inviteOnly = (env: Env) => !!env.SIGNUP_INVITE && env.SIGNUP !== 'open';
 auth.post('/signup', async c => {
   const body = await c.req.json<{ address: string; name: string; authKey: string; salt: string; kdf: unknown; publicKey: string; envelope: string; turnstile?: string; website?: string; invite?: string; lang?: string }>();
   // Robô que preencheu a isca recebe a mesma resposta de quem errou o desafio.
-  if (honeypotFilled(body.website) || !(await turnstileOk(c.env, body.turnstile, clientIp(c)))) {
+  if (honeypotFilled(body.website) || !(await turnstileOk(c.env, body.turnstile, c.req.header('cf-connecting-ip') ?? ''))) {
     return fail(c, 403, 'captcha', 'Confirme que você não é um robô e tente de novo.');
   }
   // Fase de teste: só entra quem tem convite, o do dono (SIGNUP_INVITE) ou um que alguém criou nas
@@ -264,7 +284,11 @@ auth.post('/signup', async c => {
   const authKey = b64Len(body.authKey, 32);
   const salt = b64Len(body.salt, 16);
   const publicKey = b64Len(body.publicKey, 32);
+  // A chave fica gravada sempre na mesma grafia (base64 padrão dos 32 bytes): sem isso, a mesma chave escrita
+  // de outro jeito (sem o "=", com espaço) passaria pela recusa de chave repetida.
+  if (publicKey) body.publicKey = toB64(publicKey);
   if (!authKey || !salt || !publicKey || !validKdf(body.kdf)) return fail(c, 400, 'bad_request', 'Dados de cadastro incompletos.');
+  if (await keyInUse(c.env.DB, body.publicKey)) return fail(c, 409, 'key_in_use', 'Essa chave já pertence a outra conta.');
   // Envelope: nonce (12) + chave privada cifrada (32 + 16 de tag), em base64.
   if (!b64Len(body.envelope, 60)) return fail(c, 400, 'bad_request', 'Envelope da chave em formato inválido.');
   // Igual ao perfil: sem quebra de linha nem sinais que mexam em cabeçalho de e-mail.
@@ -272,7 +296,10 @@ auth.post('/signup', async c => {
 
   const ipKey = `signup-day:${clientIp(c)}`;
   const hourKey = `signup-all:${new Date().toISOString().slice(0, 13)}`;
+  const asn = (c.req.raw as Request & { cf?: { asn?: number } }).cf?.asn;
+  const asnKey = asn ? `signup-asn:${asn}:${new Date().toISOString().slice(0, 13)}` : null;
   if ((await peek(c.env.DB, ipKey)) >= MAX_SIGNUPS_IP_DAY) return fail(c, 429, 'too_many', 'Muitas contas criadas desta rede hoje. Tente de novo amanhã.');
+  if (asnKey && (await peek(c.env.DB, asnKey)) >= (BIG_ASNS.has(asn!) ? BIG_ASN_HOUR : MAX_SIGNUPS_ASN_HOUR)) return fail(c, 429, 'too_many', 'Muitas contas criadas desta rede agora. Tente de novo daqui a uma hora.');
   if ((await peek(c.env.DB, hourKey)) >= MAX_SIGNUPS_HOUR) {
     console.error('cadastro pausado: teto por hora atingido');
     return fail(c, 429, 'paused', 'Os cadastros estão pausados por alguns minutos. Tente de novo daqui a pouco.');
@@ -301,6 +328,7 @@ auth.post('/signup', async c => {
   }
   await bump(c.env.DB, ipKey, DAY);
   await bump(c.env.DB, hourKey, 3600 * 1000);
+  if (asnKey) await bump(c.env.DB, asnKey, 3600 * 1000);
   await tally(c.env.DB, 'signup');
   await boxOf(c.env, id).ensureAlarm(id);
   c.executionCtx.waitUntil(leaveWelcome(c.env, { id, address: full, name, publicKey: body.publicKey }, lang).catch(e => console.error('boas-vindas falhou', String(e))));
@@ -329,7 +357,7 @@ auth.post('/login', async c => {
     : (await peek(c.env.DB, pairKey)) >= MAX_FAILS_ADDRESS_IP || (await peek(c.env.DB, ipKey)) >= MAX_FAILS_IP;
   if (locked) return fail(c, 429, 'locked', 'Muitas tentativas erradas. Espere 15 minutos e tente de novo.');
   // Endereço sob ataque pede o Turnstile; aparelho onde a pessoa já entrou não precisa.
-  if (!device && (await peek(c.env.DB, addrKey)) >= CAPTCHA_AFTER && !(await turnstileOk(c.env, body.turnstile, ip))) {
+  if (!device && (await peek(c.env.DB, addrKey)) >= CAPTCHA_AFTER && !(await turnstileOk(c.env, body.turnstile, c.req.header('cf-connecting-ip') ?? ''))) {
     return fail(c, 403, 'captcha', 'Confirme que você não é um robô para continuar.');
   }
 
@@ -452,7 +480,10 @@ auth.post('/forgot', async c => {
     && (await bump(c.env.DB, `forgot-ip:${ip}`, 24 * 3600 * 1000)) <= 10) {
     const row = await c.env.DB.prepare('SELECT id, address, recovery_email, recovery_verified, lang FROM users WHERE address = ?').bind(full)
       .first<{ id: string; address: string; recovery_email: string | null; recovery_verified: number; lang: string }>();
-    if (row?.recovery_email && row.recovery_verified) {
+    // Link de menos de 15 minutos ainda vale: não manda outro (pedir de novo apagava o anterior, e quem
+    // repetisse o pedido deixava a pessoa sem link que funcione, gastando o teto de e-mail do sistema).
+    const recent = row ? await c.env.DB.prepare("SELECT 1 AS x FROM email_tokens WHERE user_id = ? AND kind = 'reset' AND created_at > ?").bind(row.id, now() - 15 * 60 * 1000).first() : null;
+    if (row?.recovery_email && row.recovery_verified && !recent) {
       const token = await newEmailToken(c.env, row.id, 'reset');
       const to = await unlockEnvelope(c.env, `rec-email:${row.id}`, row.recovery_email);
       c.executionCtx.waitUntil(sendReset(c.env, to, row.address, token, row.lang).catch(e => console.error('link de senha nova falhou', String(e))));
@@ -466,9 +497,10 @@ const linkGone = (c: Context<AppEnv>) => fail(c, 401, 'link', 'Este link venceu 
 // Tela de senha nova: para qual conta é o link e o que mais a conta pede (PIN, duas etapas).
 auth.post('/reset/info', async c => {
   const id = await peekEmailToken(c.env, (await c.req.json<{ token: string }>()).token, 'reset');
-  const row = id ? await c.env.DB.prepare('SELECT address, pin_hash, totp_on FROM users WHERE id = ?').bind(id).first<{ address: string; pin_hash: string | null; totp_on: number }>() : null;
+  const row = id ? await c.env.DB.prepare('SELECT address, name, pin_hash, totp_on FROM users WHERE id = ?').bind(id).first<{ address: string; name: string; pin_hash: string | null; totp_on: number }>() : null;
   if (!row) return linkGone(c);
-  return c.json({ address: row.address, need: { pin: !!row.pin_hash, totp: !!row.totp_on } });
+  // O nome vai para o medidor de força recusar "sobrenome + ano" também na senha nova.
+  return c.json({ address: row.address, name: row.name, need: { pin: !!row.pin_hash, totp: !!row.totp_on } });
 });
 
 // Senha nova pelo link: o aparelho já gerou chave e envelope novos. A caixa antiga é esvaziada (o que
@@ -479,9 +511,12 @@ auth.post('/reset', async c => {
   const id = await peekEmailToken(c.env, body.token, 'reset');
   if (!id) return linkGone(c);
   const authKey = b64Len(body.authKey, 32);
-  if (!authKey || !b64Len(body.salt, 16) || !b64Len(body.publicKey, 32) || !validKdf(body.kdf) || !b64Len(body.envelope, 60)) {
+  const newKey = b64Len(body.publicKey, 32);
+  if (!authKey || !b64Len(body.salt, 16) || !newKey || !validKdf(body.kdf) || !b64Len(body.envelope, 60)) {
     return fail(c, 400, 'bad_request', 'Dados da senha nova incompletos.');
   }
+  body.publicKey = toB64(newKey);
+  if (await keyInUse(c.env.DB, body.publicKey)) return fail(c, 409, 'key_in_use', 'Essa chave já pertence a outra conta.');
   const row = await c.env.DB.prepare('SELECT id, address, name, pin_hash, totp_on, totp_secret, totp_step, recovery, suspended_at FROM users WHERE id = ?').bind(id)
     .first<FactorRow & { address: string; name: string; suspended_at: number | null }>();
   if (!row) return linkGone(c);

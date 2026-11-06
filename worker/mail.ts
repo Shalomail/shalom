@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import PostalMime from 'postal-mime';
 import { headOf } from '../shared/head';
-import { SPAM_THRESHOLD, spamScore } from '../shared/spam';
+import { serverSpam } from '../shared/spam';
 import { pack } from '../shared/pack';
 import { fromB64, seal, sealJson, toB64 } from '../shared/seal';
 import { confirmedOk, requireUser } from './auth';
@@ -12,7 +12,7 @@ import { b64ToBig, bigToB64, modLen, signBlinded } from '../shared/blind';
 import { signCert } from '../shared/sender';
 import { loadKeys } from './keys';
 import { notifyNewMail } from './push';
-import { bump, fail, isEmail, now, peek, peopleSendsKey, sendCaps, sendsKey, tally } from './util';
+import { bodyCap, bump, fail, isEmail, MB, now, peek, peopleSendsKey, sendCaps, sendsKey, tally } from './util';
 
 const MAX_RAW = 15 * 1024 * 1024;
 const MAX_SEND_BODY = 12 * 1024 * 1024;
@@ -33,12 +33,19 @@ const INTERNAL_PER_DAY = 500;
 const INTERNAL_PER_DAY_NEW = 100;
 
 const blobKey = (userId: string, id: string) => `m/${userId}/${id}`;
+// E-mail de fora por caixa e por dia: ninguém enche 1 GB de outra pessoa em poucas horas nem queima CPU
+// do Worker sem fim mandando e-mail para o mesmo endereço. Folgado para uso normal (newsletters, anexos).
+// Mensagem pequena (até 128 KB) não conta no teto de bytes, só no de quantidade: quem manda anexos grandes
+// para travar a caixa não impede os códigos e links de outros serviços de chegarem.
+const RECV_EXT_BYTES_DAY = 100 * 1024 * 1024;
+const RECV_EXT_COUNT_DAY = 1000;
+const RECV_EXT_SMALL = 128 * 1024;
 
 // Grava o corpo no R2 e a linha na caixa. Se a caixa estiver cheia, desfaz o R2.
-async function store(env: Env, userId: string, folder: Folder, raw: Uint8Array, head: Uint8Array, opts: { seen?: boolean; sender?: string | null } = {}) {
+async function store(env: Env, userId: string, folder: Folder, raw: Uint8Array, head: Uint8Array, opts: { seen?: boolean; sender?: string | null; checked?: boolean } = {}) {
   const id = crypto.randomUUID();
   await env.BLOBS.put(blobKey(userId, id), raw);
-  const ok = await boxOf(env, userId).add({ id, folder, seen: !!opts.seen, size: raw.length, sender: opts.sender ?? null, head });
+  const ok = await boxOf(env, userId).add({ id, folder, seen: !!opts.seen, size: raw.length, sender: opts.sender ?? null, head, checked: opts.checked });
   if (!ok) {
     await env.BLOBS.delete(blobKey(userId, id));
     return null;
@@ -71,25 +78,34 @@ export async function receiveEmail(message: ForwardableEmailMessage, env: Env, c
     : null;
   if (!user) return message.setReject('Endereço não existe');
   if (message.rawSize > MAX_RAW) return message.setReject('Mensagem maior que 15 MB');
+  // Conta antes de ler a mensagem (soma e compara de uma vez, sem janela entre ler e somar).
+  const day = new Date().toISOString().slice(0, 10);
+  const count = await bump(env.DB, `recv-ext-count:${user.id}:${day}`, DAY);
+  const bytes = message.rawSize > RECV_EXT_SMALL ? await bump(env.DB, `recv-ext-bytes:${user.id}:${day}`, DAY, message.rawSize) : 0;
+  if (count > RECV_EXT_COUNT_DAY || bytes > RECV_EXT_BYTES_DAY) return message.setReject('Esta caixa não está recebendo mais mensagens hoje');
   if (!(await boxOf(env, user.id).fits(message.rawSize))) return message.setReject('Caixa de entrada cheia');
 
   const raw = new Uint8Array(await new Response(message.raw).arrayBuffer());
   const email = await PostalMime.parse(raw);
   const pub = fromB64(user.public_key);
   const plainHead = headOf(email, false, new Date());
-  // Spam decidido agora, com o texto aberto em memória; só a pasta fica registrada.
-  const folder = spamScore(email, plainHead, env.MAIL_DOMAIN).score >= SPAM_THRESHOLD ? 'spam' : 'inbox';
+  // Aqui só os sinais que não leem o texto (shared/spam.ts). O que chega na Entrada fica para o aparelho conferir.
+  const folder = serverSpam(plainHead, env.MAIL_DOMAIN) ? 'spam' : 'inbox';
   const head = await sealJson(pub, plainHead);
   // Fotos grandes ficam menores (images.ts) antes de trancar.
   const stored = await shrinkImages(email, raw);
   const sealedRaw = await seal(pub, await pack(stored), 'raw');
-  if (!(await store(env, user.id, folder, sealedRaw, head))) return message.setReject('Caixa de entrada cheia');
+  if (!(await store(env, user.id, folder, sealedRaw, head, { checked: folder !== 'inbox' }))) return message.setReject('Caixa de entrada cheia');
   await tally(env.DB, folder === 'spam' ? 'received_spam' : 'received');
   if (folder === 'inbox') ctx?.waitUntil(notifyNewMail(env, user.id).catch(e => console.error('aviso falhou', String(e))));
 }
 
 export const mail = new Hono<AppEnv>();
 mail.use('*', requireUser);
+// Teto de corpo das rotas com arquivo, já depois do login (o teto pequeno do resto fica em index.ts).
+mail.use('/drafts', bodyCap(21 * MB));
+mail.use('/storage/replace', bodyCap(21 * MB));
+mail.use('/send', bodyCap(12 * MB));
 
 // Caixa ao vivo (box.ts). Só abre vindo do próprio app: o navegador sempre manda a origem num
 // WebSocket, e outro site não pode abrir esta conexão com o cookie de quem visita.
@@ -148,6 +164,7 @@ mail.post('/messages/update', async c => {
   if (typeof body.seen === 'boolean') change.seen = body.seen;
   if (typeof body.starred === 'boolean') change.starred = body.starred;
   if (typeof body.pinned === 'boolean') change.pinned = body.pinned;
+  if (typeof body.checked === 'boolean') change.checked = body.checked;
   if (body.folder !== undefined) {
     // Rascunho só nasce pelo /drafts (lacrado no aparelho); nada é movido para lá.
     if (!FOLDERS.has(body.folder) || body.folder === 'drafts') return fail(c, 400, 'bad_folder', 'Pasta desconhecida.');
@@ -174,6 +191,8 @@ mail.post('/messages/delete', async c => {
 // cada pausa da escrita. A versão nova entra e a anterior (replace) sai, então só existe uma por e-mail.
 mail.post('/drafts', async c => {
   const user = c.get('user');
+  // Cada rascunho salvo grava no R2: o salvamento automático fica bem abaixo disso.
+  if (!(await c.env.USER_LIMIT.limit({ key: `drafts:${user.id}` })).success) return fail(c, 429, 'slow_down', 'Muitos rascunhos seguidos. Espere um minuto.');
   const body = await c.req.json<{ replace?: string; head: string; raw: string }>();
   if (!sealedOk(body)) return fail(c, 400, 'bad_request', 'Rascunho grande demais.');
   const id = await store(c.env, user.id, 'drafts', fromB64(body.raw), fromB64(body.head), { seen: true });
@@ -197,6 +216,8 @@ mail.post('/drafts/delete', async c => {
 // Espaço: todas as pastas juntas (ou só uma, com folder), por tamanho ou por data, com o cabeçalho ainda
 // lacrado (assunto e remetente só aparecem no aparelho). A primeira página traz também quanto cada pasta ocupa.
 mail.get('/storage', async c => {
+  // Esta consulta percorre a caixa inteira: freio próprio, além do teto geral da conta.
+  if (!(await c.env.USER_LIMIT.limit({ key: `storage:${c.get('user').id}` })).success) return fail(c, 429, 'slow_down', 'Muitas consultas seguidas.');
   const sort: StorageSort = c.req.query('sort') === 'date' ? 'date' : 'size';
   const dir = c.req.query('dir') === 'asc' ? 'asc' : 'desc';
   const limit = Math.min(Math.max(Number(c.req.query('limit')) || 50, 1), 100);
@@ -321,14 +342,18 @@ mail.post('/send', async c => {
     const share = Math.max(5, Math.floor(sendCaps(c.env).people / 5));
     const cap = Math.min(now() - (created ?? 0) < 7 * DAY ? EXTERNAL_PER_DAY_NEW : EXTERNAL_PER_DAY, share);
     const day = new Date().toISOString().slice(0, 10);
-    if ((await peek(c.env.DB, peopleSendsKey())) + all.length > sendCaps(c.env).people) {
+    // Soma e compara de uma vez (dois envios ao mesmo tempo não passam juntos pelo teto); quem passou do
+    // teto devolve o que somou.
+    if ((await bump(c.env.DB, peopleSendsKey(), DAY, all.length)) > sendCaps(c.env).people) {
+      await bump(c.env.DB, peopleSendsKey(), DAY, -all.length);
       console.error('envio para fora: teto geral do dia atingido');
       return fail(c, 429, 'send_limit_all', 'O envio para fora do Shalom chegou no limite de hoje. Para contas Shalom, continua normal.');
     }
     if ((await bump(c.env.DB, `send:${user.id}:${day}`, DAY, all.length)) > cap) {
+      await bump(c.env.DB, peopleSendsKey(), DAY, -all.length);
+      await bump(c.env.DB, `send:${user.id}:${day}`, DAY, -all.length);
       return fail(c, 429, 'send_limit', `Você chegou no limite de ${cap} destinatários fora do Shalom por dia.`);
     }
-    await bump(c.env.DB, peopleSendsKey(), DAY, all.length);
     await bump(c.env.DB, sendsKey(), DAY, all.length);
     const headers: Record<string, string> = {};
     if (body.inReplyTo) headers['In-Reply-To'] = oneLine(body.inReplyTo);
@@ -399,12 +424,39 @@ function publicHttpUrl(raw: string, env: Env): URL | null {
   return url;
 }
 
+// Faixas que não são internet: loopback, rede interna, link-local, CGNAT, documentação, multicast e
+// reservadas, em IPv4 e IPv6 (inclusive IPv4 embutido em IPv6).
+function privateIp(ip: string): boolean {
+  const v = ip.toLowerCase();
+  if (v.includes(':')) {
+    const mapped = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(v);
+    if (mapped) return privateIp(mapped[1]);
+    return v.startsWith('::') || /^(fc|fd|fe[89a-f]|ff)/.test(v) || /^2001:(0+)?:/.test(v) || v.startsWith('64:ff9b:') || v.startsWith('2001:db8:') || v.startsWith('100::') || v.startsWith('2002:');
+  }
+  const [a, b] = v.split('.').map(Number);
+  return a === 0 || a === 10 || a === 127 || a >= 224 || (a === 100 && b >= 64 && b <= 127) || (a === 169 && b === 254)
+    || (a === 172 && b >= 16 && b <= 31) || (a === 192 && (b === 168 || b === 0)) || (a === 198 && (b === 18 || b === 19));
+}
+
+// O filtro de texto do endereço não basta: um nome público pode apontar para 127.0.0.1 ou para a rede
+// interna. Antes de cada busca (e de cada redirecionamento), o nome é resolvido e só segue se todos os
+// endereços forem de internet.
+async function resolvesPublic(host: string): Promise<boolean> {
+  const ask = (type: 'A' | 'AAAA') => fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(host)}&type=${type}`, {
+    headers: { accept: 'application/dns-json' }, signal: AbortSignal.timeout(3000),
+  }).then(r => (r.ok ? r.json<{ Answer?: { type: number; data: string }[] }>() : null)).catch(() => null);
+  const answers = (await Promise.all([ask('A'), ask('AAAA')])).flatMap(r => r?.Answer ?? []);
+  const ips = answers.filter(x => x.type === 1 || x.type === 28).map(x => x.data);
+  return ips.length > 0 && !ips.some(privateIp);
+}
+
 mail.post('/img', async c => {
   if (!(await c.env.USER_LIMIT.limit({ key: `img:${c.get('user').id}` })).success) return fail(c, 429, 'slow_down', 'Muitas imagens seguidas.');
   const { u } = await c.req.json<{ u: string }>();
   let url = publicHttpUrl(String(u || ''), c.env);
   let res: Response | null = null;
   for (let hop = 0; url && hop <= 3; hop++) {
+    if (!(await resolvesPublic(url.hostname))) break;
     res = await fetch(url.toString(), {
       headers: { 'user-agent': 'Mozilla/5.0 (compatible; ShalomImageProxy/1.0)', accept: 'image/avif,image/webp,image/png,image/jpeg,image/gif' },
       redirect: 'manual',

@@ -18,6 +18,8 @@ enum Sender {
         guard let bytes = Data(b64: signed.c), let sig = Data(b64: signed.s) else { throw SenderError.malformed }
         guard try Curve25519.Signing.PublicKey(rawRepresentation: serverPublic).isValidSignature(sig, for: bytes) else { throw SenderError.badSignature }
         guard let cert = try? JSONDecoder().decode(Cert.self, from: bytes) else { throw SenderError.malformed }
+        // A chave tem uma grafia só (base64 padrão de 32 bytes), como no site e no CLI.
+        guard let key = Data(b64: cert.k), key.count == 32, key.b64 == cert.k else { throw SenderError.malformed }
         return cert
     }
 

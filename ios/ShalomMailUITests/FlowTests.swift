@@ -461,8 +461,22 @@ final class FlowTests: XCTestCase {
         local.typeText("\n")
         let pw = app.secureTextFields["signup-password"]
         XCTAssertTrue(pw.waitForExistence(timeout: 10))
-        pw.tap(); pw.typeText("uma frase longa de teste 2026\n")
         let again = app.secureTextFields["signup-confirm"]
+        let erase = { (n: Int) in String(repeating: XCUIKeyboardKey.delete.rawValue, count: n) }
+        // Senha fácil com Return logo em seguida: fica na mesma tela.
+        pw.tap(); pw.typeText("senha123\n")
+        sleep(2)
+        XCTAssertTrue(app.staticTexts["Fácil demais de adivinhar. Juntar 3 ou 4 palavras deixa bem mais forte."].exists, "senha fácil recusada")
+        XCTAssertFalse(again.exists, "senha fácil passou")
+        // Frase longa e boa, trocada às pressas por uma fácil: vale a que ficou, não a nota da anterior.
+        let long = "uma frase bem longa para encher a fila do medidor enquanto a pessoa digita depressa 2026"
+        pw.tap(); pw.typeText(erase(30) + long)
+        pw.typeText(erase(long.count + 5) + "senha123\n")
+        sleep(3)
+        XCTAssertTrue(app.staticTexts["Fácil demais de adivinhar. Juntar 3 ou 4 palavras deixa bem mais forte."].exists, "senha fácil recusada")
+        XCTAssertFalse(again.exists, "senha fácil passou com a nota da anterior")
+        // A boa, com Return antes de a força terminar de calcular: passa de primeira.
+        pw.tap(); pw.typeText(erase(30) + "uma frase longa de teste 2026\n")
         XCTAssertTrue(again.waitForExistence(timeout: 10))
         again.tap(); again.typeText("uma frase longa de teste 2026")
         sleep(6)

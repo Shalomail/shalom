@@ -9,12 +9,15 @@ import { isSealedSender, openFromSender } from '../../../shared/sender';
 import { serverKeys } from './server-keys';
 import { api, apiBytes } from './api';
 import { t } from '../i18n';
+import { checkSpam, trustSenders } from './spamcheck';
 
 export type Folder = 'inbox' | 'starred' | 'sent' | 'drafts' | 'archive' | 'spam' | 'trash';
 
 export type Row = {
   id: string; folder: Exclude<Folder, 'starred'>; seen: number; starred: number; pinned: number;
   received_at: number; size: number; sender: string | null; head: string;
+  // 0: e-mail de fora na Entrada que nenhum aparelho conferiu ainda (spamcheck.ts).
+  checked?: number;
 };
 
 export type Item = Row & {
@@ -37,6 +40,8 @@ type Opened = { h: MessageHead; sender: string | null; verified: boolean; keyCha
 // Dono das chaves fixadas de contato (as fixações são separadas por conta). O Mailbox informa ao abrir.
 let pinOwner = '';
 let ownAddress = '';
+// Chave da conta da última lista aberta: a impressão dos remetentes de confiança sai dela (spamcheck.ts).
+let listKey: Uint8Array | null = null;
 // Chave pública da conta aberta, calculada uma vez a partir da privada.
 let ownKey: { secret: Uint8Array; pub: string } | null = null;
 const ownKeyOf = (secret: Uint8Array) => {
@@ -100,6 +105,7 @@ async function headFor(row: Row, key: Uint8Array): Promise<Opened> {
 }
 
 export async function listFolder(folder: Folder, key: Uint8Array, before?: number) {
+  listKey = key;
   const q = new URLSearchParams({ folder, limit: '50' });
   if (before) q.set('before', String(before));
   const { messages, more, counts } = await api<{ messages: Row[]; more: boolean; counts: Counts }>(`/messages?${q}`);
@@ -121,6 +127,7 @@ export async function listFolder(folder: Folder, key: Uint8Array, before?: numbe
     return { ...r, sender, h: shown, sealedEnd, own, spoofed: spoofed || !!keyChanged, keyChanged, senderKey };
   }));
   for (const i of items) openedRows.set(i.id, i);
+  if (folder === 'inbox') void checkSpam(items, key, ownAddress);
   return { items, more, counts };
 }
 
@@ -129,10 +136,12 @@ export const unreadCounts = () => api<Counts>('/messages/counts');
 
 const bodies = new Map<string, Email>();
 
-export async function readMessage(id: string, key: Uint8Array, item?: Pick<Item, 'received_at' | 'sender'> & { h?: Pick<MessageHead, 'b'> }): Promise<Email> {
+// keep: false só para a conferência de spam (spamcheck.ts), que não deve encher a memória com corpos não abertos.
+export async function readMessage(id: string, key: Uint8Array, item?: Pick<Item, 'received_at' | 'sender'> & { h?: Pick<MessageHead, 'b'> }, keep = true, onFetched?: () => void): Promise<Email> {
   const cached = bodies.get(id);
   if (cached) return cached;
   const blob = await apiBytes(`/messages/${id}/raw`);
+  onFetched?.();
   let raw: Uint8Array;
   if (isSealedSender(blob)) {
     const { cert } = await serverKeys();
@@ -150,7 +159,7 @@ export async function readMessage(id: string, key: Uint8Array, item?: Pick<Item,
     raw = await open(key, blob, 'raw');
   }
   const email = await PostalMime.parse(await unpack(raw), { attachmentEncoding: 'arraybuffer' });
-  bodies.set(id, email);
+  if (keep) bodies.set(id, email);
   return email;
 }
 
@@ -160,7 +169,9 @@ const BATCH = 90;
 const batches = (ids: string[]) => Array.from({ length: Math.ceil(ids.length / BATCH) }, (_, i) => ids.slice(i * BATCH, (i + 1) * BATCH));
 
 // Devolve as não lidas já atualizadas, sem outra ida ao servidor.
-export async function updateMessages(ids: string[], change: { seen?: boolean; starred?: boolean; pinned?: boolean; folder?: Exclude<Folder, 'starred'> }) {
+export async function updateMessages(ids: string[], change: { seen?: boolean; starred?: boolean; pinned?: boolean; folder?: Exclude<Folder, 'starred'>; checked?: boolean }) {
+  // "Não é spam": o remetente passa a ser de confiança neste navegador (spamcheck.ts decide quem conta).
+  if (change.folder === 'inbox') void trustSenders(ownAddress, listKey, ids.map(id => openedRows.get(id)).filter((i): i is Item => !!i));
   let counts: Counts = {};
   for (const part of batches(ids)) counts = (await api<{ counts: Counts }>('/messages/update', { body: { ids: part, ...change } })).counts;
   return counts;

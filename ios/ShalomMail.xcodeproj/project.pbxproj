@@ -35,6 +35,7 @@
 		7458664518C3E6B3BDB5E84A /* Blind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBB5E4A449A5335F48A34D3 /* Blind.swift */; };
 		76D0CD7FB34FC9EB65E9DEBB /* Reauth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AEDEC6C8F9172B1EF0A4EE /* Reauth.swift */; };
 		7BF13CF8B09A6AF86E81AD99 /* tr.json in Resources */ = {isa = PBXBuildFile; fileRef = 6BC8AD1219219C398F1FB0FC /* tr.json */; };
+		7D1E79A7C9CA2A1F9736A704 /* SpamCheckRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE11517EFC92EDAC638D5A28 /* SpamCheckRun.swift */; };
 		7E5DDC69E5B644176A62A355 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4696D9680B01E6FA22B0AAA3 /* PrivacyInfo.xcprivacy */; };
 		7EEEC5FD0E04C03AEC05F4A2 /* MIME.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AB9DBFD4E6FC26F2747FD0 /* MIME.swift */; };
 		7FD36203988A6EB9F7DFD3C3 /* ja.json in Resources */ = {isa = PBXBuildFile; fileRef = FA9287FE95D5D72A1DA9ED84 /* ja.json */; };
@@ -48,6 +49,7 @@
 		9BF296298C7B138A8C48199B /* fr.json in Resources */ = {isa = PBXBuildFile; fileRef = 58E0D275686E07711C4C703E /* fr.json */; };
 		9CBC6D09A80B589658B374EB /* ServerKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7660E801905BDEBA91DDC8F7 /* ServerKeys.swift */; };
 		A10CBA1892B524048362C69F /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32185CAF0492A0EB3BD1D6A /* Vault.swift */; };
+		A1FA1CCECDB3342E1F61BBA3 /* spam.js in Resources */ = {isa = PBXBuildFile; fileRef = F17969B006FAEA92A2DDD47D /* spam.js */; };
 		AC0B4A6C24DAE86F3816D4EB /* Mailbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1373CED0814368C1A5715A /* Mailbox.swift */; };
 		B18BD61A4381E6C410CC8880 /* hi.json in Resources */ = {isa = PBXBuildFile; fileRef = E77E5C4BDE7C23D0C48E9C71 /* hi.json */; };
 		B3C46C6065A6E7923B2A7003 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C092E016F16F074CDA1CFAF /* SettingsView.swift */; };
@@ -56,6 +58,7 @@
 		B8EC03615DF422E6A88F905C /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254868C6EB6B3DB976F6DD47 /* L10n.swift */; };
 		B96C673AE15AAF12F907C619 /* it.json in Resources */ = {isa = PBXBuildFile; fileRef = B8D9728FA107246AB20533E6 /* it.json */; };
 		BF71C575C4F98000662EFD9F /* Seal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3AEDAF2CEE3218B033681A /* Seal.swift */; };
+		C8D52C3DF366089D588F0DF8 /* SpamCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EABFADA7A0B81817FD6A3 /* SpamCheck.swift */; };
 		CFD2348FEB14CC82DBCF9494 /* vectors.json in Resources */ = {isa = PBXBuildFile; fileRef = AFDC3C6B2BCFECFCD2FCBAE2 /* vectors.json */; };
 		D08558753531FC62FC377704 /* zxcvbn.js in Resources */ = {isa = PBXBuildFile; fileRef = F6005305F103AC0AB773CB0C /* zxcvbn.js */; };
 		D4B21CF34EC658E9168FFBC0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FC90E57BA4E15E755644B3 /* Theme.swift */; };
@@ -71,6 +74,7 @@
 		F70283B47263EC246EEF9778 /* Head.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8ABF680501170CA07BAA22 /* Head.swift */; };
 		FB20BB18B7B81871BD2D8B86 /* LinkViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9355FA9035DB10B74BEF46 /* LinkViews.swift */; };
 		FD5A049D9233258463BC47A3 /* ComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5073D440C653D83171208CB /* ComposerView.swift */; };
+		FE5BE5A80B77F3369E27B3A5 /* SpamRuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5964269EC369ABFA71BC96 /* SpamRuleTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,8 +150,10 @@
 		B8D9728FA107246AB20533E6 /* it.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = it.json; sourceTree = "<group>"; };
 		B9AEDEC6C8F9172B1EF0A4EE /* Reauth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reauth.swift; sourceTree = "<group>"; };
 		BA1373CED0814368C1A5715A /* Mailbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mailbox.swift; sourceTree = "<group>"; };
+		BB5964269EC369ABFA71BC96 /* SpamRuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpamRuleTests.swift; sourceTree = "<group>"; };
 		BC9355FA9035DB10B74BEF46 /* LinkViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViews.swift; sourceTree = "<group>"; };
 		BCCA9343043116C2A39C7F0A /* Bytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bytes.swift; sourceTree = "<group>"; };
+		BF9EABFADA7A0B81817FD6A3 /* SpamCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpamCheck.swift; sourceTree = "<group>"; };
 		C29157205B713872C4F4A73B /* Compose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compose.swift; sourceTree = "<group>"; };
 		C4CAF5AB7F698676B6440808 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		CB3AEDAF2CEE3218B033681A /* Seal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seal.swift; sourceTree = "<group>"; };
@@ -156,12 +162,14 @@
 		D5FC90E57BA4E15E755644B3 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		D9B35A1BBF2ECD7A8C037AFD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DE0CA90E61669167B82045A4 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DE11517EFC92EDAC638D5A28 /* SpamCheckRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpamCheckRun.swift; sourceTree = "<group>"; };
 		E1AB9DBFD4E6FC26F2747FD0 /* MIME.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIME.swift; sourceTree = "<group>"; };
 		E2FA521AC2164679432EB40C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		E56169601D2C6401137F2D9A /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		E62415673389293D29EED9C9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E77E5C4BDE7C23D0C48E9C71 /* hi.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hi.json; sourceTree = "<group>"; };
 		E8805BAC8AD35E29F343C90B /* ShalomMailUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ShalomMailUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F17969B006FAEA92A2DDD47D /* spam.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = spam.js; sourceTree = "<group>"; };
 		F1A2D82059A950715B9DA4CC /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F2F8D3DE199D78BA79A1C0BB /* pt.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pt.json; sourceTree = "<group>"; };
 		F37ABFDB34AF68CB630283BC /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -191,6 +199,7 @@
 			children = (
 				47EF7033DB3A839E04B1CB89 /* Assets.xcassets */,
 				A119A4AF08467363F2A16A57 /* InfoPlist.strings */,
+				F17969B006FAEA92A2DDD47D /* spam.js */,
 				F6005305F103AC0AB773CB0C /* zxcvbn.js */,
 				96E5C6C98A464478CD31F098 /* Strings */,
 			);
@@ -267,6 +276,7 @@
 			children = (
 				295E98C9D68AA3821D08028E /* CryptoVectorTests.swift */,
 				70D68DE71613B1DD8CD35525 /* PasswordStrengthTests.swift */,
+				BB5964269EC369ABFA71BC96 /* SpamRuleTests.swift */,
 				19F5AE709E76A87A3C6F09BC /* Fixtures */,
 			);
 			path = ShalomMailTests;
@@ -321,6 +331,7 @@
 				1AB57D7E69494461FD2221CE /* Live.swift */,
 				BA1373CED0814368C1A5715A /* Mailbox.swift */,
 				E1AB9DBFD4E6FC26F2747FD0 /* MIME.swift */,
+				BF9EABFADA7A0B81817FD6A3 /* SpamCheck.swift */,
 			);
 			path = Mail;
 			sourceTree = "<group>";
@@ -373,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				642AE93F38EA7EF9371DCE45 /* FlowTests.swift */,
+				DE11517EFC92EDAC638D5A28 /* SpamCheckRun.swift */,
 				62DF4AFC663F9D3090565131 /* StoreShots.swift */,
 			);
 			path = ShalomMailUITests;
@@ -530,6 +542,7 @@
 				839C24C68758755945E04523 /* ko.json in Resources */,
 				6E2078A2E251EAB376F35BDB /* pt.json in Resources */,
 				F389F58E3838D9C3A9A900D6 /* ru.json in Resources */,
+				A1FA1CCECDB3342E1F61BBA3 /* spam.js in Resources */,
 				7BF13CF8B09A6AF86E81AD99 /* tr.json in Resources */,
 				676A2817CEBECF455021A0EC /* uk.json in Resources */,
 				6E33E02811C0BE1C4DC5337E /* zh.json in Resources */,
@@ -578,6 +591,7 @@
 				B3C46C6065A6E7923B2A7003 /* SettingsView.swift in Sources */,
 				91F969D4C9F709C61D8DF5C1 /* ShalomMailApp.swift in Sources */,
 				3CBB6B760FF1E7C492A935EF /* SignInView.swift in Sources */,
+				C8D52C3DF366089D588F0DF8 /* SpamCheck.swift in Sources */,
 				D4B21CF34EC658E9168FFBC0 /* Theme.swift in Sources */,
 				DA71744C61A18F49E276977F /* ThreadView.swift in Sources */,
 				57E5085B9F2B38C115FDB4AC /* UnlockView.swift in Sources */,
@@ -591,6 +605,7 @@
 			files = (
 				DA80018AE2B40022928B348D /* CryptoVectorTests.swift in Sources */,
 				938E1E412C1C4A65358F5E09 /* PasswordStrengthTests.swift in Sources */,
+				FE5BE5A80B77F3369E27B3A5 /* SpamRuleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +614,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C86A13786A8AC9F14DE88D1 /* FlowTests.swift in Sources */,
+				7D1E79A7C9CA2A1F9736A704 /* SpamCheckRun.swift in Sources */,
 				8683EFDBAF6F82AE144CA650 /* StoreShots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,7 +669,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Support/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Shalom Mail";
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = YES;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "O Face ID abre a chave que destranca os seus e-mails neste iPhone.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Para salvar na Fototeca as imagens que você escolher de um e-mail.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
@@ -806,7 +822,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Support/Info-Debug.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Shalom Mail";
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = YES;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "O Face ID abre a chave que destranca os seus e-mails neste iPhone.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Para salvar na Fototeca as imagens que você escolher de um e-mail.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;

@@ -45,6 +45,10 @@ final class AppModel: ObservableObject {
     nonisolated static let domain = "shalomail.com"
 
     init() {
+        // Anexos abertos que ficaram de uma vez anterior (o app fechou com a conversa aberta) e chave guardada
+        // sem Face ID nem código por uma versão anterior num iPhone sem código: nada disso fica.
+        AttachmentTemp.clear()
+        Vault.dropUnprotected()
         Reauth.shared.user = { [weak self] in self?.session?.user }
         NotificationCenter.default.addObserver(forName: .signedOut, object: nil, queue: .main) { [weak self] note in
             let message = (note.object as? APIError)?.message
@@ -91,6 +95,8 @@ final class AppModel: ObservableObject {
         phase = .open(session)
         addingFrom = nil
         Task {
+            // Certificado, ingressos e chaves de contatos de outra sessão não passam para esta.
+            await Outbox.shared.forget()
             await Push.shared.accountOpened(session.user)
             if let sec = try? await AccountAPI.security() { idleMinutes = sec.idle }
             if let rec = try? await AccountAPI.recovery() { needsRecovery = rec.hint == nil }
@@ -115,10 +121,10 @@ final class AppModel: ObservableObject {
         backgroundAt = nil
         guard case .open(let s) = phase else { return }
         let away = Date().timeIntervalSince(at)
-        if away > Double(idleMinutes) * 60 {
+        // Sem a chave guardada (não pediu para lembrar, ou iPhone sem código) não há como trancar com o Face
+        // ID: no tempo da trava a conta sai, em vez de deixar a chave na memória até a inatividade da conta.
+        if away > Double(idleMinutes) * 60 || away >= Double(lockMinutes) * 60 {
             if Vault.has(s.user.id) { lock() } else { Task { await signOut() } }
-        } else if Vault.has(s.user.id), away >= Double(lockMinutes) * 60 {
-            lock()
         }
     }
 
@@ -129,6 +135,7 @@ final class AppModel: ObservableObject {
         guard slot != Accounts.currentSlot, let acc = Accounts.all.first(where: { $0.slot == slot }) else { return }
         Live.shared.stop()
         Mailbox.shared.forget()
+        AttachmentTemp.clear()
         Task { await Outbox.shared.forget() }
         self.slot = slot
         phase = .locked(acc.user)
@@ -138,6 +145,7 @@ final class AppModel: ObservableObject {
         guard let free = Accounts.freeSlot() else { return }
         Live.shared.stop()
         Mailbox.shared.forget()
+        AttachmentTemp.clear()
         Task { await Outbox.shared.forget() }
         addingFrom = Accounts.currentSlot
         slot = free
@@ -278,6 +286,7 @@ final class AppModel: ObservableObject {
     }
 
     func signOut() async {
+        AttachmentTemp.clear()
         Live.shared.stop()
         await Push.shared.remove()
         _ = try? await API.shared.call("/auth/logout", [:])
@@ -296,11 +305,13 @@ final class AppModel: ObservableObject {
     private func serverEnded(_ message: String?) {
         guard session != nil else { return }
         dropCurrent()
+        AttachmentTemp.clear()
+        Task { await Outbox.shared.forget() }
         notice = message
         phase = .signedOut
     }
 
     func lock() {
-        if case .open(let s) = phase, Vault.has(s.user.id) { Mailbox.shared.forget(); phase = .locked(s.user) }
+        if case .open(let s) = phase, Vault.has(s.user.id) { Mailbox.shared.forget(); AttachmentTemp.clear(); phase = .locked(s.user) }
     }
 }

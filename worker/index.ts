@@ -11,7 +11,9 @@ import { mail, receiveEmail } from './mail';
 import { open } from './open';
 import { dailyReport } from './report';
 import { avatarOf, profile } from './profile';
+import { AGENT_PATHS } from './apikeys';
 import { push } from './push';
+import { bodyCap, clientIp, fail, MB } from './util';
 
 export { Mailbox } from './box';
 
@@ -32,6 +34,33 @@ app.use('*', async (c, next) => {
   h.set('x-content-type-options', 'nosniff');
   h.set('cross-origin-resource-policy', 'same-origin');
   h.set('referrer-policy', 'no-referrer');
+});
+
+// Teto largo por rede para qualquer pedido à API (600 por minuto): uma rede sozinha não inunda o Worker,
+// o banco nem as caixas. Ataque grande e espalhado a borda da Cloudflare segura antes de chegar aqui.
+app.use('*', async (c, next) => {
+  if (!(await c.env.API_LIMIT.limit({ key: clientIp(c) })).success) {
+    // Muitos agentes de IA num servidor só (plano Unlimited) passam do teto da rede: pedido com chave de
+    // agente ganha uma folga própria por rede (6000 por minuto). A chave é conferida adiante e o teto por conta
+    // vale para cada caixa.
+    // Só nas rotas que a chave de agente alcança (lá a chave é conferida antes de qualquer trabalho) e só com
+    // a chave no formato certo: um cabeçalho inventado não compra folga na entrega anônima nem no admin.
+    const agent = AGENT_PATHS.test(c.req.path) && /^Bearer\s+shalom_ak_[A-Za-z0-9_-]{43}$/.test(c.req.header('authorization') ?? '');
+    if (!agent || !(await c.env.AGENTS_LIMIT.limit({ key: clientIp(c) })).success) return fail(c, 429, 'slow_down', 'Muitos pedidos seguidos. Espere um minuto.');
+  }
+  await next();
+});
+
+// Tamanho máximo do corpo, lido em fluxo (vale também sem content-length): quase tudo é JSON pequeno. As rotas
+// com arquivo grande (mensagem, rascunho, troca de corpo, importação da migração) têm o teto delas depois do
+// login (mail.ts, admin.ts): um corpo mandado em pedaços não é lido para a memória por quem nem se identificou.
+// Aqui ficam o teto pequeno e o da foto de perfil.
+const BODY_MAX: [RegExp, number][] = [[/^\/api\/profile\/avatar$/, 320 * 1024]];
+// Estas têm o teto no próprio roteador: depois do login, da chave do admin ou, na entrega anônima, do freio por rede.
+const AFTER_LOGIN = /^\/api\/(drafts|storage\/replace|send|deliver|admin\/import\/(blob|box))$/;
+app.use('*', async (c, next) => {
+  if (c.req.method === 'GET' || c.req.method === 'HEAD' || AFTER_LOGIN.test(c.req.path)) return next();
+  return bodyCap(BODY_MAX.find(([re]) => re.test(c.req.path))?.[1] ?? 256 * 1024)(c, next);
 });
 
 // Janela da migração de conta (docs/migracao.md): só a administração e a configuração respondem.
@@ -59,6 +88,11 @@ app.route('/push', push);
 app.route('/', mail);
 
 app.onError((err, c) => {
+  // JSON ou base64 quebrado é erro de quem pediu, não nosso: 400, e no log só a rota (sem o corpo).
+  if (err instanceof SyntaxError || (err as Error)?.name === 'InvalidCharacterError') {
+    console.warn('pedido inválido', c.req.method, c.req.path);
+    return fail(c, 400, 'bad_request', 'Pedido inválido.');
+  }
   console.error(err);
   return c.json({ error: 'internal', message: 'Algo deu errado do nosso lado. Tente de novo.' }, 500);
 });

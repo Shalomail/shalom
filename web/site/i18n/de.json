@@ -4,7 +4,7 @@
     "name": "Deutsch",
     "dir": "ltr",
     "title": "Shalom Mail: verschlüsselte E-Mail, wirklich privat",
-    "description": "Deine E-Mails sind mit einem Schlüssel verschlossen, den es nur auf deinem Gerät gibt. Kostenlos, ohne Telefonnummer und ohne Ausweis."
+    "description": "Deine E-Mails bleiben verschlossen, und nur dein Passwort öffnet sie. Kostenlos, ohne Telefonnummer und ohne Ausweis."
   },
   "nav": {
     "home": "Shalom Mail, Startseite",
@@ -14,7 +14,7 @@
   },
   "hero": {
     "title": "E-Mail, die wirklich privat bleibt.",
-    "lede": "Deine E-Mails sind mit einem Schlüssel verschlossen, den es nur auf deinem Gerät gibt."
+    "lede": "Deine E-Mails bleiben verschlossen, und nur dein Passwort öffnet sie."
   },
   "claim": {
     "placeholder": "name",
@@ -73,10 +73,10 @@
     "developers": "Entwickler",
     "encryption": "Verschlüsselung",
     "faq": "Häufige Fragen",
-    "about": "Shalom Mail (shalomail.com) ist ein verschlüsselter E-Mail-Dienst, der im Browser läuft. Gespeicherte E-Mails sind mit einem Schlüssel verschlossen, den es nur auf deinem Gerät gibt, und zwischen Shalom-Konten ist alles Ende-zu-Ende verschlüsselt."
+    "about": "Shalom Mail (shalomail.com) ist ein verschlüsselter E-Mail-Dienst, der im Browser läuft. Gespeicherte E-Mails sind mit einem Schlüssel verschlossen, den nur dein Passwort entsperrt, und zwischen Shalom-Konten ist alles Ende-zu-Ende verschlüsselt."
   },
   "legal": {
-    "updated": "Zuletzt aktualisiert: 30. Oktober 2026",
+    "updated": "Zuletzt aktualisiert: 5. November 2026",
     "translationNote": "Dies ist eine Übersetzung. Bei Abweichungen von der portugiesischen Fassung ist die portugiesische Fassung maßgeblich.",
     "operator": "Shalom Mail wird von {c} mit Sitz in Governador Celso Ramos, SC, Brasilien, betrieben.",
     "terms": {
@@ -209,7 +209,7 @@
         {
           "h": "4. E-Mails von und an Dienste außerhalb von Shalom",
           "p": [
-            "E-Mails von einem anderen Dienst kommen unverschlüsselt an, wie jede E-Mail im Internet. Im Moment der Ankunft prüft der Server, ob es sich um Spam oder Betrug handelt, und verschließt die Nachricht mit deinem Schlüssel. Die unverschlüsselte Fassung wird nicht gespeichert.",
+            "E-Mails von einem anderen Dienst kommen unverschlüsselt an, wie jede E-Mail im Internet. Im Moment der Ankunft prüft der Server nur, ob die Domain des Absenders ihn bestätigt, und verschließt die Nachricht mit deinem Schlüssel. Ob es Betrug oder Werbung ist, prüft dein Gerät, das sie mit deinem Schlüssel öffnet. Die unverschlüsselte Fassung wird nicht gespeichert.",
             "E-Mails, die du an einen anderen Dienst sendest, werden als normale E-Mail verschickt und laufen unverschlüsselt über den Versanddienst bis zum Ziel.",
             "Ende-zu-Ende-Verschlüsselung ohne jeden unverschlüsselten Schritt gilt zwischen Shalom-Konten. In diesem Fall sieht der Server nicht einmal den Namen des Absenders."
           ]
@@ -227,6 +227,7 @@
             "Die Infrastruktur läuft bei Cloudflare: Server, Datenbank, Speicher, Empfang und Versand von E-Mails und die Bot-Prüfung (Turnstile). Cloudflare verarbeitet die Daten in unserem Auftrag; gespeicherte E-Mails kommen dort bereits verschlüsselt an.",
             "Wenn du einen bezahlten Tarif abschließt, übernimmt Stripe die Abrechnung und erhält deine Shalom-Adresse und Zahlungsdaten, um das Abo abzuwickeln, gemäß der eigenen Datenschutzerklärung.",
             "Wenn du Mitteilungen in der iOS-App einschaltest, läuft jede über den Mitteilungsdienst von Apple (APNs). Apple erhält die Gerätekennung, die Uhrzeit und den Text „Neue Nachricht“, ohne Absender, Betreff oder sonst etwas aus der Nachricht.",
+            "Cloudflare, Stripe und Apple erhalten nur, was der jeweilige Dienst braucht, und schützen diese Daten mindestens so gut wie diese Datenschutzerklärung.",
             "Die Server von Cloudflare stehen in vielen Ländern, daher können deine Daten außerhalb Brasiliens verarbeitet werden, mit den Garantien, die die LGPD vorsieht.",
             "Wir verkaufen keine Daten, zeigen keine Werbung und nutzen deine E-Mails nicht, um irgendetwas zu trainieren.",
             "Wir geben Daten nur auf gültige gerichtliche Anordnung an Behörden heraus. Was wir haben, steht in Abschnitt 3: Der Inhalt gespeicherter E-Mails bleibt verschlüsselt, und wir haben den Schlüssel nicht."
@@ -347,7 +348,7 @@
   "enc": {
     "title": "So funktioniert die Verschlüsselung",
     "description": "Wie Shalom Mail deine E-Mails schützt: Schlüssel auf deinem Gerät, Argon2id für das Passwort, AES-256-GCM für jede Nachricht und wo der Schutz endet.",
-    "lead": "Shalom Mail ist ein E-Mail-Dienst unter shalomail.com. Deine gespeicherten E-Mails sind mit einem Schlüssel verschlossen, den es nur auf deinem Gerät gibt, und zwischen Shalom-Konten ist alles Ende-zu-Ende verschlüsselt. Hier steht, wie das funktioniert, in einfachen Worten, und wo der Schutz endet.",
+    "lead": "Shalom Mail ist ein E-Mail-Dienst unter shalomail.com. Deine gespeicherten E-Mails sind mit einem Schlüssel verschlossen, den nur dein Passwort entsperrt, und zwischen Shalom-Konten ist alles Ende-zu-Ende verschlüsselt. Hier steht, wie das funktioniert, in einfachen Worten, und wo der Schutz endet.",
     "s": {
       "key": {
         "h": "Dein Schlüssel entsteht auf deinem Gerät",
@@ -373,7 +374,7 @@
       "outside": {
         "h": "E-Mails mit anderen Anbietern",
         "p": [
-          "E-Mails von Gmail, Outlook oder jedem anderen Anbieter kommen unverschlüsselt an, wie jede E-Mail im Internet. In diesem Moment prüft der Server sie auf Spam und Betrug und versiegelt sie mit deinem Schlüssel. Die unverschlüsselte Fassung wird nicht gespeichert.",
+          "E-Mails von Gmail, Outlook oder jedem anderen Anbieter kommen unverschlüsselt an, wie jede E-Mail im Internet. In diesem Moment prüft der Server nur, ob die Domain des Absenders ihn bestätigt, und versiegelt sie mit deinem Schlüssel. Ob es Betrug oder Werbung ist, prüft dein Gerät, das sie mit deinem Schlüssel öffnet. Die unverschlüsselte Fassung wird nicht gespeichert.",
           "E-Mails, die du an andere Anbieter schickst, gehen als normale E-Mail hinaus. Der Server leitet sie unverschlüsselt weiter, und der Anbieter des Empfängers kann sie lesen. Hier schützt Shalom die Kopie in deinem Postfach, nicht den Weg."
         ]
       },
@@ -447,7 +448,7 @@
     "q": {
       "what": {
         "q": "Was ist Shalom Mail?",
-        "a": "Shalom Mail ist ein verschlüsselter E-Mail-Dienst, der im Browser läuft, unter shalomail.com. Das Konto ist kostenlos, mit 1 GB und einer @shalomail.com-Adresse. Gespeicherte E-Mails sind mit einem Schlüssel verschlossen, den es nur auf deinem Gerät gibt, E-Mails zwischen Shalom-Konten sind Ende-zu-Ende verschlüsselt, und KI-Agenten können eigene Postfächer bekommen."
+        "a": "Shalom Mail ist ein verschlüsselter E-Mail-Dienst, der im Browser läuft, unter shalomail.com. Das Konto ist kostenlos, mit 1 GB und einer @shalomail.com-Adresse. Gespeicherte E-Mails sind mit einem Schlüssel verschlossen, den nur dein Passwort entsperrt, E-Mails zwischen Shalom-Konten sind Ende-zu-Ende verschlüsselt, und KI-Agenten können eigene Postfächer bekommen."
       },
       "free": {
         "q": "Ist Shalom Mail kostenlos?",
@@ -479,7 +480,7 @@
       },
       "read": {
         "q": "Kann Shalom meine E-Mails lesen?",
-        "a": "Deine gespeicherten E-Mails nicht. Jede Nachricht ist mit einem Schlüssel versiegelt, den es nur auf deinem Gerät gibt, und der Server bewahrt sie auf, ohne sie öffnen zu können. E-Mails von anderen Anbietern kann der Server in dem Moment lesen, in dem sie ankommen, bevor sie versiegelt werden, und E-Mails, die du an andere Anbieter schickst, gehen als normale E-Mail hinaus."
+        "a": "Deine gespeicherten E-Mails nicht. Jede Nachricht ist mit einem Schlüssel versiegelt, den nur dein Passwort entsperrt, und der Server bewahrt sie auf, ohne sie öffnen zu können. E-Mails von anderen Anbietern kann der Server in dem Moment lesen, in dem sie ankommen, bevor sie versiegelt werden, und E-Mails, die du an andere Anbieter schickst, gehen als normale E-Mail hinaus."
       },
       "e2e": {
         "q": "Ist Shalom Mail Ende-zu-Ende verschlüsselt?",
